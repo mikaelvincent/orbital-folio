@@ -168,6 +168,28 @@ test('lighting preserves authored shadow casters and receivers, including cabin 
   assert.ok(casters > 0);
 });
 
+test('shadow invalidation uses the same material membership as the light shader', () => {
+  const receivers = linked.shadowReceivers();
+  for (const mesh of meshes) {
+    for (const light of lights) {
+      const expected =
+        mesh.receiveShadow &&
+        [mesh.material].flat().some((material) => {
+          if (!material.isMeshStandardMaterial) return false;
+          const positions =
+            compile(material).uniforms.cabinEmitterPositions?.value ?? [];
+          const world = light
+            .getWorldPosition(new THREE.Vector3())
+            .applyMatrix4(camera.matrixWorldInverse);
+          return positions.some(
+            (position) => position.distanceTo(world) < 1e-8,
+          );
+        });
+      assert.equal(receivers.get(light).has(mesh), expected, mesh.name);
+    }
+  }
+});
+
 test('light linking preserves authored shader hooks and separates programs by membership count', () => {
   const root = new THREE.Group();
   const light = new THREE.SpotLight();

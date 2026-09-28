@@ -16,18 +16,18 @@ const desktop = {
 };
 const phone = { ...desktop, width: 390, height: 844, nativePixelRatio: 3 };
 
-test('automatic lighting uses medium soft shadows and retains device density/contact profiles', () => {
+test('site defaults use low detail and 4× softness while retaining device density/contact profiles', () => {
   assert.deepEqual(resolveRenderingSettings(defaults, desktop), {
     pixelDensity: 2,
-    shadowSize: 1024,
-    shadowSoftness: 2,
+    shadowSize: 512,
+    shadowSoftness: 4,
     contactShading: true,
     cacheAvailable: true,
   });
   assert.deepEqual(resolveRenderingSettings(defaults, phone), {
     pixelDensity: 1.75,
-    shadowSize: 1024,
-    shadowSoftness: 2,
+    shadowSize: 512,
+    shadowSoftness: 4,
     contactShading: false,
     cacheAvailable: false,
   });
@@ -86,7 +86,7 @@ test('explicit density exceeds a low native density for comparison but keeps all
   );
 });
 
-test('explicit shadow detail survives a breakpoint while automatic detail adapts', () => {
+test('explicit shadow detail survives a breakpoint while automatic detail remains selectable', () => {
   assert.equal(
     resolveRenderingSettings({ ...defaults, shadowSize: 2048 }, phone)
       .shadowSize,
@@ -98,8 +98,10 @@ test('explicit shadow detail survives a breakpoint while automatic detail adapts
     512,
   );
   assert.equal(
-    resolveRenderingSettings(defaults, { ...desktop, maxTextureSize: 1024 })
-      .shadowSize,
+    resolveRenderingSettings(
+      { ...defaults, shadowSize: 'auto' },
+      { ...desktop, maxTextureSize: 1024 },
+    ).shadowSize,
     1024,
   );
 });
@@ -152,8 +154,8 @@ test('shadow softness is independent of resolution and bounded for cache filter 
     [0.25, 0.25],
     [4, 4],
     [10, 4],
-    [NaN, 2],
-    [Infinity, 2],
+    [NaN, 4],
+    [Infinity, 4],
   ]) {
     assert.equal(
       resolveRenderingSettings({ ...defaults, shadowSoftness }, desktop)
@@ -166,7 +168,7 @@ test('shadow softness is independent of resolution and bounded for cache filter 
 test('each independent override is identified and reset without changing shared defaults', () => {
   const overrides = {
     shadows: false,
-    shadowSize: 512,
+    shadowSize: 1024,
     shadowSoftness: 1,
     pixelDensity: 1,
     contactShading: 'off',

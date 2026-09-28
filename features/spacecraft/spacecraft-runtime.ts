@@ -59,6 +59,7 @@ import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
+import { createShadowUpdates } from './shadow-updates';
 import {
   applyCabinLighting,
   createExteriorLight,
@@ -224,6 +225,7 @@ export function mountSpacecraftScene({
         const invalidateShadow = (reason: string) => {
           shadowReasons.add(reason);
           renderer.shadowMap.needsUpdate = true;
+          shadowUpdates.invalidate();
         };
         let restoreShadowDiagnostics = () => {};
         let frozenBackgroundTime: number | undefined;
@@ -412,7 +414,6 @@ export function mountSpacecraftScene({
           (light) => light.castShadow,
         );
         rendering = resolveRendering();
-        let shadowGeometryRevision = -1;
         audit?.modelReady?.(
           model,
           modelOptions,
@@ -438,6 +439,13 @@ export function mountSpacecraftScene({
           light.shadow.radius = rendering.shadowSoftness;
         }
         lightRig.add(key);
+        const shadowUpdates = createShadowUpdates({
+          three: THREE,
+          renderer,
+          root: model.group,
+          lights: shadowLights,
+          receivers: cabinLighting.shadowReceivers,
+        });
         // Tight contact shading grounds fittings between the pools of fixture light.
         // It multiplies only the WebGL scene; HTML stays sharp and native.
         const ao = new GTAOPass(scene, camera, 512, 512);
@@ -1759,7 +1767,6 @@ export function mountSpacecraftScene({
             const waitingForDoors =
               exitBlocked && currentTarget.distanceTo(doorHoldTarget) < 0.01;
             el.dataset.waitingForDoors = String(waitingForDoors);
-            const beforeRoll = roll;
             if (immediate) {
               overviewFlight = null;
               if (itinerary.length) {
@@ -1838,7 +1845,6 @@ export function mountSpacecraftScene({
               .normalize();
             distance = distanceMotion.value;
             roll = rollMotion.value;
-            if (Math.abs(beforeRoll - roll) > 0.00001) invalidateShadow('roll');
             const settled =
               !overviewFlight &&
               currentTarget.distanceTo(nextTarget) < 0.003 &&
@@ -2094,14 +2100,9 @@ export function mountSpacecraftScene({
             },
             true,
           );
-          if (
-            shadowGeometryRevision !== model.group.userData.geometryRevision
-          ) {
-            invalidateShadow('geometry');
-            shadowGeometryRevision = model.group.userData.geometryRevision;
-          }
           diagnostics?.mark('model-update');
           updateRenderSceneMatrices(scene);
+          if (shadowUpdates.update()) shadowReasons.add('geometry');
           cabinLighting.update(camera);
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
@@ -2770,7 +2771,6 @@ export function mountSpacecraftScene({
             backgroundReference,
             !initializedCamera || stop,
           );
-          invalidateShadow('viewport');
           resetDiagnostics('viewport changed');
           if (!initializedCamera) {
             // Deep links start at precisely the responsive overview pose,
@@ -3655,7 +3655,7 @@ export function mountSpacecraftScene({
                 height = renderer.domElement.height;
               const render = (fresh = true) => {
                 if (fresh && usesContactShading()) refreshOcclusion(0, false);
-                if (fresh) renderer.shadowMap.needsUpdate = true;
+                if (fresh) invalidateShadow('audit-geometry');
                 renderer.setRenderTarget(null);
                 renderer.clear();
                 if (usesBackground())
@@ -3749,6 +3749,9 @@ export function mountSpacecraftScene({
                 );
                 refreshOcclusion(0, false);
               }
+              // Compare against freshly generated maps for every source, even
+              // when normal frames reuse the unchanged cabin shadows.
+              invalidateShadow('audit-reference');
               renderer.setRenderTarget(null);
               renderer.clear();
               if (usesBackground())

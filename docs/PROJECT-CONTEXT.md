@@ -69,11 +69,18 @@ work surfaces; restrained reflected fill and contact shading preserve readabilit
 Each lamp casts furniture shadows. Material light linking admits its own cabin's
 lamp, or both neighbors on shared hatch faces, while the faint sun reaches all
 surfaces. Preserve authored caster/receiver exceptions, especially shader-masked
-iris leaves, and refresh shadow maps on geometry revisions, including immediate
-changes under reduced motion. The Shadows control must visibly change interiors;
-detail and softness apply to the sun and all four lamps. The stationary pixel
-cache's single-shadow-source repair is incompatible with this rig: keep its safe
-fallback and show the control as unavailable. This design trades more shadow work
+iris leaves. Reuse each light's shadow map while its relevant geometry is unchanged;
+camera movement alone does not alter light-space depth. Dish-only movement
+refreshes the sun and any lamp whose padded receiver-ray volume intersects the
+dish's previous or current bounds. Other geometry changes, including immediate
+reduced-motion changes, and quality/filter changes refresh all maps. This keeps
+receiver movement and previously hidden surfaces correct.
+
+The Shadows control must visibly change interiors. Default to **Low (512)**
+detail and **4×** softness; both controls apply to the sun and all four lamps.
+Per-light shadow reuse is separate from the stationary pixel cache, whose
+single-shadow-source repair is incompatible with this rig: keep that cache's safe
+fallback and show its control as unavailable. This design trades more shadow work
 for stronger room styling; historical area-light timings do not apply. Room
 hover/selection changes material brightness without a second light dimmer. Keep
 labels and interactive objects readable, including on the phone's AO-free path.

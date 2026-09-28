@@ -7,8 +7,8 @@ deferred proposals still need explicit authorization.
 
 For an unmeasured visual comparison, use **Tools → Rendering**. Its controls apply
 immediately without opening diagnostics or collecting samples. Choices persist
-when the panel closes; use **Reset defaults** to restore the automatic device
-profile before a comparison that calls for the site defaults. Diagnostic exports
+when the panel closes; use **Reset defaults** to restore the site defaults
+before a comparison. Diagnostic exports
 record these choices; diagnostic experiments temporarily layer over them.
 
 ## Decide with the available evidence

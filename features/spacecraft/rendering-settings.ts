@@ -10,8 +10,8 @@ export type RenderingSettings = {
 
 export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   shadows: true,
-  shadowSize: 'auto',
-  shadowSoftness: 2,
+  shadowSize: 512,
+  shadowSoftness: 4,
   pixelDensity: 'auto',
   contactShading: 'auto',
   background: true,

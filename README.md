@@ -44,7 +44,7 @@ Visitors can enter through rooms, doorways or navigation, or use `?view=reading`
 The bottom-right **Tools** menu opens **Rendering**, **Scene diagnostics**,
 **Earth playback** and **Content studio**. Rendering changes shadows, pixel density,
 contact shading, background and spacecraft caching immediately, without a recording.
-Choices last for the visit; Reset defaults or reload restores the automatic profile. Opening the menu alone starts no instrumentation or polling.
+Choices last for the visit; Reset defaults or reload restores the site defaults. Opening the menu alone starts no instrumentation or polling.
 
 ## Validate
 

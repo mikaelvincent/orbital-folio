@@ -93,7 +93,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         position: new T.Vector3(),
       });
   });
-  const applied = new Set<Three.Material>();
+  const applied = new Map<Three.Material, Three.SpotLight[]>();
   // Preserve authored caster/receiver flags, including iris masks and glass.
   root.traverse((object) => {
     const mesh = object as Three.Mesh;
@@ -101,14 +101,18 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
     for (const material of [mesh.material].flat()) {
       const standard = material as Three.MeshPhysicalMaterial;
       if (!standard.isMeshStandardMaterial || applied.has(material)) continue;
-      applied.add(material);
       const section = material.userData.section ?? object.userData.section;
       const linked = (material.userData.linkedRooms ?? [section]) as string[];
-      const emitters = material.userData.exterior
+      const admitted = material.userData.exterior
         ? []
         : [...new Set(linked)].flatMap((room) =>
-            lamps.has(room) ? [lamps.get(room)!.position] : [],
+            lamps.has(room) ? [lamps.get(room)!] : [],
           );
+      applied.set(
+        material,
+        admitted.map(({ light }) => light),
+      );
+      const emitters = admitted.map(({ position }) => position);
       const exterior = !!material.userData.exterior || !emitters.length;
       const source = T.ShaderChunk.lights_fragment_begin;
       const chunk = cabinLightingChunk(
@@ -136,6 +140,26 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
   });
   return {
     lights: [...lamps.values()].map(({ light }) => light),
+    shadowReceivers(this: void) {
+      const receivers = new Map(
+        [...lamps.values()].map(({ light }) => [light, new Set<Three.Mesh>()]),
+      );
+      // Use the exact material membership compiled above, including shared
+      // materials and hatch faces. Include hidden/offscreen receivers so camera
+      // movement never reveals a region excluded from shadow invalidation.
+      root.traverse((object) => {
+        const mesh = object as Three.Mesh;
+        if (!mesh.isMesh || !mesh.receiveShadow) return;
+        for (const material of [mesh.material].flat()) {
+          if (!(material as Three.MeshStandardMaterial).isMeshStandardMaterial)
+            continue;
+          // New, unlinked standard materials still use Three's full light loop.
+          for (const light of applied.get(material) ?? receivers.keys())
+            receivers.get(light)!.add(mesh);
+        }
+      });
+      return receivers;
+    },
     update(camera: Three.Camera) {
       for (const { light, position } of lamps.values())
         position
