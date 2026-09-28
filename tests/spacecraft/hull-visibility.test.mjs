@@ -35,6 +35,7 @@ for (const [layout, scale] of [
     assert.ok(hulls.length > 0, 'Inspect the actual batched pressure skin');
     const count = { upper: 0, lower: 0 };
     const probeCount = { upper: 0, lower: 0 };
+    const probes = { upper: [], lower: [] };
     for (const hull of hulls) {
       assert.equal(
         hull.material.side,
@@ -96,9 +97,18 @@ for (const [layout, scale] of [
           );
         }
         count[side]++;
-        if (count[side] % 64 !== 0) continue;
-        // Raycast rendered faces at normal incidence and steep tilts in both
-        // depth directions. This catches disappearing faces after batching.
+        probes[side].push({ center, normal });
+      }
+    }
+    for (const side of ['upper', 'lower']) {
+      assert.ok(count[side] > 100, `Cover the complete ${side} curve`);
+      // Spread probes over each shoulder, independent of redundant straight
+      // depth subdivisions. A fixed triangle stride loses coverage when those
+      // subdivisions are removed, even though the curved silhouette survives.
+      for (let i = 0; i < 12; i++) {
+        const { center, normal } =
+          probes[side][Math.floor(((i + 0.5) * probes[side].length) / 12)];
+        // Raycast at normal incidence and steep tilts in both depth directions.
         for (const degrees of [-75, -40, 0, 40, 75]) {
           const radians = THREE.MathUtils.degToRad(degrees);
           const direction = normal
@@ -119,9 +129,6 @@ for (const [layout, scale] of [
           probeCount[side]++;
         }
       }
-    }
-    for (const side of ['upper', 'lower']) {
-      assert.ok(count[side] > 100, `Cover the complete ${side} curve`);
       assert.ok(
         probeCount[side] >= 50,
         `Probe multiple points on the ${side} curve`,

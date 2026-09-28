@@ -4,7 +4,39 @@ Consolidates former ledger entries **01–02** and the current geometry budget.
 Each comparison has its own source baseline. Do not add their gains or compare
 them across resolutions; subsequent authored geometry changes workload counts.
 
-## Current bevel and hardware budget
+## Hull sampling and sibling hardware
+
+Against `0f053751da98817027ebe8312962d8ad3b94225f`, the exterior crown spans
+straight sections directly. Shared depth sampling removes points only when both
+the crown and rear-return profiles are collinear, retaining curved breakpoints.
+Small compatible sibling instance batches can also share a new ordinary draw
+when no existing ordinary target is available. Parent, material, picking and
+shadow boundaries remain intact; a new draw's combined expansion is capped at
+2,048 triangles.
+
+The wide inventory changes **860,804 → 820,236 triangles (−4.7%)** and
+**496 → 482 meshes**, with unchanged bounds. Unique geometry arrays change
+**37,965,408 → 36,827,040 bytes**. Compact construction retains its bounds too.
+These are deterministic model counts, including hidden-material meshes, not
+frustum-aware draw counts or measured GPU memory. Reproduce with
+`node scripts/measure-hardware-geometry.mjs <baseline-checkout>`.
+
+Five matched finite Chromium 154 view pairs (1280×720, DPR 1, time 0) cover
+roof/underside access, rear quarter, Projects and About. They remove **10–16 draws
+and 81,120–81,136 submitted triangles**, including the fixture's shadow work.
+Curved silhouettes and equipment remain visually consistent; re-triangulation
+introduces small smooth-shading differences. Live default rendering, room/reader
+interaction and portrait overview are checked separately. The finite fixture
+omits GTAO, Earth/sky, live screen interfaces and navigation. No frame-time,
+FPS, native Safari, thermal or energy improvement is established; cached static
+pixels already avoid this work during eligible holds.
+
+[Source identities and separate inventory/render counts](../evidence/performance/geometry-budget/hull-sampling.json)
+retain this cohort without adding its gains to earlier baselines. Regression
+tests cover shared curvature samples, closed crowns, transformed sibling inputs,
+combined expansion limits and the existing exclusions and interaction behavior.
+
+## Bevel and existing-target hardware budget
 
 Against `33c29fa3bc92907cb72d96b4b1d70bdce98fe5ab`, rounded cuboids use their
 bevel radius to select 5/7/9 segments, preserving the dense broad curves and

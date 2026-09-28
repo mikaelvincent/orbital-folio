@@ -38,12 +38,20 @@ contact shading even though the spacecraft stays still.
 Rounded cuboids choose bevel detail by radius as well as overall size: long,
 thin hardware must not inherit the subdivision budget of broad rounded forms.
 Keep their bounds, smooth normals and physical face UVs when changing detail.
+The exterior crown spans straight sections directly. Its shared depth grid drops
+only samples collinear in both the crown and rear-return profiles; keep curved
+breakpoints shared by the roof, keel, bow and docking return. Re-tessellation can
+change interpolated normals, so inspect grazing highlights as well as joins.
+
 After ordinary batching, small immutable hardware instances can join an existing
 opaque sibling draw with the same material, section, picking and shadow state.
-The 2,048-triangle expansion limit keeps large repetitions instanced; animated,
-reader, custom-render and per-instance-color paths remain separate. Source names
-survive in `userData.parts`. Construction tests needing individual solids must
-capture removed instance sources as well as ordinary meshes.
+Without an ordinary target, two or more compatible sibling batches can form one
+draw, with a combined 2,048-triangle expansion limit. The same per-source limit
+applies when joining an existing draw. Large repetitions stay instanced; animated,
+reader, custom-render and per-instance-color paths remain separate. Do not cross
+parent boundaries. Source names survive in `userData.parts`. Construction tests
+needing individual solids must capture removed instance sources as well as
+ordinary meshes.
 
 ## Interaction and accessibility
 

@@ -1,7 +1,7 @@
 import type * as Three from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
-/** Fold small immutable instance batches into an existing sibling draw. Run
+/** Fold small immutable instance batches into a compatible sibling draw. Run
  * only during construction, before targets, caches or GPU uploads exist.
  * Large repetitions retain instancing to bound the extra vertex storage. */
 export function mergeStaticHardware(THREE: typeof Three, root: Three.Object3D) {
@@ -103,23 +103,50 @@ export function mergeStaticHardware(THREE: typeof Three, root: Three.Object3D) {
   });
   const targets = new Map<Mesh, Instances[]>();
   for (const batch of batches) {
-    const target = batch.parent?.children.find((object) => {
+    let target = batch.parent?.children.find((object) => {
       const mesh = object as Instances;
       return !mesh.isInstancedMesh && supported(mesh) && sameState(mesh, batch);
     }) as Mesh | undefined;
-    if (!target) continue;
+    // Different small geometries (e.g. screw heads and slots) may have no
+    // ordinary sibling. Keep their parent/feedback boundary and share a new
+    // draw only when at least two compatible instance batches can join it.
+    target ??= [...targets.keys()].find(
+      (mesh) =>
+        (mesh as Instances).isInstancedMesh &&
+        mesh.parent === batch.parent &&
+        sameState(mesh, batch),
+    );
+    if (!target) {
+      targets.set(batch, []);
+      continue;
+    }
     const siblings = targets.get(target) ?? [];
     siblings.push(batch);
     targets.set(target, siblings);
   }
   let drawsRemoved = 0;
   for (const [target, siblings] of targets) {
+    const newDraw = !!(target as Instances).isInstancedMesh;
+    const sources = newDraw ? [target as Instances, ...siblings] : siblings;
+    if (
+      newDraw &&
+      (sources.length < 2 ||
+        sources.reduce(
+          (sum, mesh) =>
+            sum +
+            (mesh.geometry.index?.count ??
+              mesh.geometry.attributes.position.count) *
+              mesh.count,
+          0,
+        ) > 6144)
+    )
+      continue;
     if (target.matrix.determinant() <= 0) continue;
-    const geometries = [indexedClone(target.geometry)];
-    const mergedParts = [...parts(target)];
+    const geometries = newDraw ? [] : [indexedClone(target.geometry)];
+    const mergedParts = newDraw ? [] : [...parts(target)];
     const consumed: Instances[] = [];
     const inverse = target.matrix.clone().invert();
-    for (const batch of siblings) {
+    for (const batch of sources) {
       const transforms: Three.Matrix4[] = [];
       for (let i = 0; i < batch.count; i++) {
         const instance = new THREE.Matrix4();
@@ -146,15 +173,20 @@ export function mergeStaticHardware(THREE: typeof Three, root: Three.Object3D) {
       mergedParts.push(...parts(batch));
       consumed.push(batch);
     }
-    const merged = consumed.length ? mergeGeometries(geometries) : null;
+    const usable = newDraw
+      ? consumed.length > 1 && consumed.includes(target as Instances)
+      : consumed.length > 0;
+    const merged = usable ? mergeGeometries(geometries) : null;
     for (const geometry of geometries) geometry.dispose();
     if (!merged) continue;
     merged.computeBoundingBox();
     merged.computeBoundingSphere();
-    target.geometry = merged;
-    target.userData.parts = mergedParts;
+    const result = newDraw ? new THREE.Mesh().copy(target, false) : target;
+    result.geometry = merged;
+    result.userData.parts = mergedParts;
+    if (newDraw) target.parent!.add(result);
     for (const batch of consumed) batch.removeFromParent();
-    drawsRemoved += consumed.length;
+    drawsRemoved += consumed.length - (newDraw ? 1 : 0);
   }
   return { drawsRemoved };
 }

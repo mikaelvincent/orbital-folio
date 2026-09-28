@@ -106,21 +106,39 @@ export function buildContinuousExteriorSkin(
   }
   for (let i = 1; i < 16; i++) depthFractions.push(i / 16);
   depthFractions.sort((a, b) => a - b);
-  const depth = depthFractions.filter(
+  const sampledDepth = depthFractions.filter(
     (value, i) => !i || value - depthFractions[i - 1] > 1e-8,
   );
-  const columns: number[] = [];
-  for (let i = 0; i <= 8; i++)
-    columns.push(tangentX + ((startX - tangentX) * i) / 8);
-  for (let i = 1; i <= 24; i++) {
-    const u = i / 24;
-    columns.push(
-      startX + (endX - startX) * (1.2 * u - 0.6 * u * u + 0.4 * u * u * u),
-    );
+  // Roof, bow and side returns all depend on these two depth profiles. Remove
+  // only collinear samples in BOTH; every curved breakpoint and rear join stays
+  // shared. Interior-profile samples and the old uniform grid added many rows
+  // to straight exterior spans without changing their shape.
+  const profile = (f: number) => {
+    const z = frontZ + (cabinRearZ - frontZ) * f;
+    return [envelopeAtZ(z, true), rearReturn(z).inset];
+  };
+  const depth: number[] = [];
+  for (const f of sampledDepth) {
+    while (depth.length > 1) {
+      const a = depth[depth.length - 2];
+      const b = depth[depth.length - 1];
+      const fraction = (b - a) / (f - a);
+      const pa = profile(a),
+        pb = profile(b),
+        pc = profile(f);
+      if (
+        pb.some(
+          (v, i) => Math.abs(v - (pa[i] + (pc[i] - pa[i]) * fraction)) > 1e-10,
+        )
+      )
+        break;
+      depth.pop();
+    }
+    depth.push(f);
   }
-  // Flat roof spans have no per-room tessellation or material boundary.
-  for (let i = 1; i <= 8; i++)
-    columns.push(endX + ((cornerStartX - endX) * i) / 8);
+  // Keep attachment/closure boundaries, but span the flat crown directly.
+  // The rounded outboard corner retains its complete authored sampling.
+  const columns = [tangentX, startX, endX, cornerStartX];
   for (let i = 1; i <= 64; i++) {
     const u = i / 64;
     columns.push(rightX - radiusX * (1 - u) * (1 - u));

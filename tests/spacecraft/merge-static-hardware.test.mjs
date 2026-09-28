@@ -117,6 +117,63 @@ test('Small hardware retains transformed triangle inputs, material, shadows, pic
   assert.equal(mergeStaticHardware(THREE, root).drawsRemoved, 0);
 });
 
+test('Different small sibling instance geometries share a draw without an ordinary target', () => {
+  const { root, target, batch } = fixture();
+  root.remove(target);
+  const second = batch.clone();
+  second.geometry = new THREE.BoxGeometry(0.08, 0.01, 0.03);
+  second.name = 'slots';
+  second.position.z += 0.15;
+  root.add(second);
+  root.updateMatrixWorld(true);
+  const expected = [...triangleInputs(batch), ...triangleInputs(second)];
+  assert.equal(mergeStaticHardware(THREE, root).drawsRemoved, 1);
+  root.updateMatrixWorld(true);
+  assert.equal(root.children.length, 1);
+  const merged = root.children[0];
+  assert.ok(!merged.isInstancedMesh);
+  nearInputs(triangleInputs(merged), expected);
+  assert.equal(merged.material, batch.material);
+  assert.equal(merged.castShadow, batch.castShadow);
+  assert.equal(merged.receiveShadow, batch.receiveShadow);
+  assert.deepEqual(merged.userData.parts, ['fasteners', 'slots']);
+  assert.equal(merged.userData.section, 'projects');
+  assert.equal(mergeStaticHardware(THREE, root).drawsRemoved, 0);
+});
+
+test('New hardware draws require multiple compatible siblings within the combined expansion budget', () => {
+  for (const change of [
+    (_root, second) => second.removeFromParent(),
+    (root, second) => {
+      const child = new THREE.Group();
+      root.add(child);
+      child.add(second);
+    },
+    (_root, second) => {
+      second.receiveShadow = false;
+    },
+    (_root, second) => {
+      second.userData.excludePick = true;
+    },
+    (_root, second) => {
+      second.setMatrixAt(0, new THREE.Matrix4().makeScale(-1, 1, 1));
+    },
+    (_root, second, batch) => {
+      // Each source fits individually; their combined expansion does not.
+      batch.geometry = second.geometry = new THREE.SphereGeometry(0.1, 16, 16);
+    },
+  ]) {
+    const { root, target, batch } = fixture();
+    root.remove(target);
+    const second = batch.clone();
+    second.geometry = new THREE.BoxGeometry(0.08, 0.01, 0.03);
+    root.add(second);
+    change(root, second, batch);
+    assert.equal(mergeStaticHardware(THREE, root).drawsRemoved, 0);
+    assert.equal(batch.parent, root);
+  }
+});
+
 test('Incompatible rendering, picking, animation and large repetitions retain separate draws', () => {
   const mutations = [
     ({ batch }) => (batch.castShadow = false),
@@ -179,10 +236,16 @@ test('Real spacecraft hardware keeps every triangle and parent/material boundary
     const result = mergeStaticHardware(THREE, model.group);
     assert.ok(result.drawsRemoved >= 30);
     const removed = meshes.filter((m) => !m.object.parent);
-    assert.equal(removed.length, result.drawsRemoved);
-    for (const entry of meshes.filter(
-      (m) => m.object.geometry !== m.geometry,
-    )) {
+    const added = [];
+    model.group.traverse((object) => {
+      if (object.isMesh && !meshes.some((m) => m.object === object))
+        added.push({ object, geometry: null, parent: object.parent });
+    });
+    assert.equal(removed.length - added.length, result.drawsRemoved);
+    for (const entry of [
+      ...added,
+      ...meshes.filter((m) => m.object.geometry !== m.geometry),
+    ]) {
       const consumed = removed.filter(
         (m) =>
           m.parent === entry.parent &&
@@ -191,7 +254,9 @@ test('Real spacecraft hardware keeps every triangle and parent/material boundary
             !!entry.object.userData.excludePick,
       );
       const expected = [
-        triangleInputs(entry.object, entry.geometry),
+        ...(entry.geometry
+          ? [triangleInputs(entry.object, entry.geometry)]
+          : []),
         ...consumed.map((m) => triangleInputs(m.object)),
       ].flat();
       nearInputs(triangleInputs(entry.object), expected);
