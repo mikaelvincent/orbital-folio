@@ -98,7 +98,11 @@ export function createStationaryPixelCache({
   ) {
     const full = () =>
       originalShadowRender.call(this, shadowLights, shadowScene, shadowCamera);
-    if (!repairShadow || shadowScene !== scene || shadowCamera !== camera) {
+    if (
+      shadowScene !== scene ||
+      shadowCamera !== camera ||
+      (!renderer.shadowMap.autoUpdate && !renderer.shadowMap.needsUpdate)
+    ) {
       full();
       return;
     }
@@ -107,7 +111,7 @@ export function createStationaryPixelCache({
       object.layers.mask = mask;
     });
     try {
-      if (!influence!.shadow(full)) full();
+      if (!repairShadow || !influence!.shadow(full)) full();
     } finally {
       colorExclusions.forEach(({ object }, i) => {
         object.layers.mask = masks[i];
@@ -185,6 +189,8 @@ export function createStationaryPixelCache({
     projection = new T.Matrix4();
   let previous: unknown[] = [];
   const values: unknown[] = [];
+  let previousColors: unknown[] = [];
+  const colors: unknown[] = [];
   const textureSlots = [
     'map',
     'alphaMap',
@@ -201,6 +207,7 @@ export function createStationaryPixelCache({
     valid = false;
     equalFrames = 0;
     previous = [];
+    previousColors = [];
     partialAo = false;
     aoNeedsFull = true;
     repairShadow = false;
@@ -212,6 +219,7 @@ export function createStationaryPixelCache({
   }
   function changed() {
     values.length = 0;
+    colors.length = 0;
     values.push(
       model.group.userData.geometryRevision -
         (model.group.userData.dishGeometryRevision || 0),
@@ -235,12 +243,9 @@ export function createStationaryPixelCache({
         return null;
       values.push(node.object.visible, node.object.layers.mask);
     }
-    for (const light of lights)
+    for (const light of lights) {
+      colors.push(light.intensity, light.color.r, light.color.g, light.color.b);
       values.push(
-        light.intensity,
-        light.color.r,
-        light.color.g,
-        light.color.b,
         light.groundColor?.r,
         light.groundColor?.g,
         light.groundColor?.b,
@@ -254,13 +259,16 @@ export function createStationaryPixelCache({
         light.shadow?.intensity,
         light.shadow?.bias,
         light.shadow?.normalBias,
+        light.shadow?.radius,
+        light.shadow?.mapSize.x,
+        light.shadow?.mapSize.y,
+        ...(light.shadow?.camera.projectionMatrix.elements || []),
         ...light.matrixWorld.elements,
         ...(light.target?.matrixWorld.elements || []),
       );
+    }
     for (const m of materials) {
-      values.push(
-        m.version,
-        m.visible,
+      colors.push(
         m.color?.r,
         m.color?.g,
         m.color?.b,
@@ -268,6 +276,10 @@ export function createStationaryPixelCache({
         m.emissive?.g,
         m.emissive?.b,
         m.emissiveIntensity,
+      );
+      values.push(
+        m.version,
+        m.visible,
         m.roughness,
         m.metalness,
         m.opacity,
@@ -325,13 +337,16 @@ export function createStationaryPixelCache({
       for (const attribute of Object.values(mesh.geometry.attributes) as any[])
         values.push(attribute, attribute.version, attribute.count);
     }
-    if (
-      values.length === previous.length &&
-      values.every((v, i) => v === previous[i])
-    )
-      return false;
+    const geometryChanged =
+      values.length !== previous.length ||
+      values.some((v, i) => v !== previous[i]);
+    const colorChanged =
+      colors.length !== previousColors.length ||
+      colors.some((v, i) => v !== previousColors[i]);
+    if (!geometryChanged && !colorChanged) return false;
     previous = values.slice();
-    return true;
+    previousColors = colors.slice();
+    return geometryChanged ? 'geometry' : 'color';
   }
   function exclude(objects: any[], fn: () => void) {
     // Layers exclude only the mesh; hiding a parent mesh also hides live children.
@@ -383,7 +398,19 @@ export function createStationaryPixelCache({
       scene.overrideMaterial ||
       (influence &&
         (!influence.supported() ||
-          lights.some((l) => l !== key && l.castShadow)))
+          // Only the sun has a regional receiver/caster bound. Other lights can
+          // coexist while their maps are reused by the per-light controller.
+          // If one needs new shadows, render the complete scene before caching
+          // again: the sun's layer mask must never remove its static casters.
+          lights.some(
+            (l) =>
+              l !== key &&
+              l.castShadow &&
+              (!l.shadow ||
+                l.shadow.autoUpdate !== false ||
+                l.shadow.needsUpdate ||
+                !l.shadow.map),
+          )))
     ) {
       cameraMatrix.copy(camera.matrixWorld);
       projection.copy(camera.projectionMatrix);
@@ -407,14 +434,18 @@ export function createStationaryPixelCache({
     if (change) {
       valid = false;
       equalFrames = 0;
-      aoNeedsFull = true;
-      if (influence) renderer.shadowMap.needsUpdate = true;
-      influence?.prepare();
-      cached.length = 0;
-      live.length = 0;
-      live.push(...alwaysLive);
-      for (const mesh of candidates)
-        (influence?.contains(mesh) ? live : cached).push(mesh);
+      // Brightness and hover colors change the captured pixels, not depth/AO
+      // or the dish influence bounds. Simultaneous geometry changes still take
+      // the full reconstruction path.
+      if (change === 'geometry') {
+        aoNeedsFull = true;
+        influence?.prepare();
+        cached.length = 0;
+        live.length = 0;
+        live.push(...alwaysLive);
+        for (const mesh of candidates)
+          (influence?.contains(mesh) ? live : cached).push(mesh);
+      }
     } else equalFrames++;
     // Avoid paying for a capture when the next frame cannot reuse it.
     if (equalFrames < 2) {

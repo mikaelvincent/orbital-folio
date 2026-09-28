@@ -408,12 +408,6 @@ export function mountSpacecraftScene({
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
         const cabinLighting = applyCabinLighting(THREE, model.group);
-        // The stationary receiver repair currently supports one shadow source.
-        // Keep the existing conservative fallback visible in the rendering UI.
-        cacheLightingSupported = !cabinLighting.lights.some(
-          (light) => light.castShadow,
-        );
-        rendering = resolveRendering();
         audit?.modelReady?.(
           model,
           modelOptions,
@@ -452,6 +446,12 @@ export function mountSpacecraftScene({
           lights: shadowLights,
           receivers: cabinLighting.shadowReceivers,
         });
+        // Regional sun repairs can reuse the independently cached lamp maps.
+        // A dirty lamp makes the pixel cache fall back to a complete scene draw.
+        cacheLightingSupported = cabinLighting.lights.every(
+          (light) => light.shadow.autoUpdate === false,
+        );
+        rendering = resolveRendering();
         // Tight contact shading grounds fittings between the pools of fixture light.
         // It multiplies only the WebGL scene; HTML stays sharp and native.
         const ao = new GTAOPass(scene, camera, 512, 512);
@@ -2752,14 +2752,15 @@ export function mountSpacecraftScene({
           }
           // Brightness changes color, but not light-space depth or contact AO.
           // Quality changes still rebuild effects from the current pose.
-          pixelCache.release();
           if (qualityChanged) {
+            pixelCache.release();
             setDrawingSize();
             invalidateShadow('rendering-settings');
             invalidateAo('rendering-settings');
           } else notifyRendering();
           resetDiagnostics('rendering settings changed');
-          kick();
+          // The cache detects color changes without discarding valid AO.
+          renderLoop.wake();
         }
         const identity = document.querySelector('.orbital-identity');
         let initializedCamera = false;

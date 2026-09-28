@@ -83,10 +83,12 @@ receiver movement and previously hidden surfaces correct.
 
 The Shadows control must visibly change interiors. Default to **Low (512)**
 detail and **4×** softness; both controls apply to the sun and all interior lamps.
-Per-light shadow reuse is separate from the stationary pixel cache, whose
-single-shadow-source repair is incompatible with this rig: keep that cache's safe
-fallback and show its control as unavailable. This design trades more shadow work
-for stronger room styling; historical area-light timings do not apply. Room
+Per-light shadow reuse works alongside the stationary pixel cache. Repair the
+sun's dish region while all interior maps are allocated, clean and independently
+cached. A dirty or automatically updating interior map requires a complete,
+unmasked scene draw and color-cache reconstruction before reuse resumes. Keep
+the existing phone/AO-disabled fallback. Historical area-light timings do not
+apply to this rig. Room
 hover/selection changes material brightness without a second light dimmer. Keep
 labels and interactive objects readable, including on the phone's AO-free path.
 
@@ -320,7 +322,11 @@ During eligible active holds, cache the stationary spacecraft's color/depth whil
 keeping Earth, sky, the scanning dish, its affected receiving surfaces and Contact
 effects live. Preserve moving shadows and contact shading. Camera, viewport,
 lighting, material, geometry, hover and room changes reconstruct affected caches;
-hiding releases the extra attachments. The phone/AO-disabled quality paths
+brightness/color-only changes recapture color without discarding valid shadow
+maps, contact shading or the dish's influence bounds. Regional shadow repair
+must retain overlapping static casters as well as the dish; color-pass exclusions
+must be restored before any shadow generation.
+Hiding releases the extra attachments. The phone/AO-disabled quality paths
 use normal rendering, as do unsupported dish transforms. Small edge-coverage
 differences are accepted; [candidate 10](performance-ledger.md) records the
 measured scope, memory cost and appearance comparisons.

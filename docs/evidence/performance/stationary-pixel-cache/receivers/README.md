@@ -1,24 +1,75 @@
-# Live dish and receiving surfaces: Option B
+# Stationary spacecraft pixels with live dish shading
 
-**Historical evidence for the single-shadow-source AO-enabled desktop path.**
-The implementation remains available, but the current [cabin-lamp art direction](../../../../PROJECT-CONTEXT.md#spacecraft-design) uses multiple shadow sources and
-falls back to normal rendering. The timings below do not describe that rig.
-Keeping the dish and affected receiving surfaces live preserves their motion,
-shadows and contact shading while reusing the rest of the spacecraft. Six new
-opposing-order desktop blocks favor B. The decision weighs that evidence against
-memory, edge coverage and maintenance costs; it does not require the old strict
-qualification gates to pass or establish a universal percentage gain.
+The current seven-light rig supports regional caching. The sun repairs its padded
+full-sweep dish region while six independently cached cabin/ladder shadow maps
+remain untouched. Any dirty, unallocated or automatically updating interior map
+forces a complete unmasked render and color reconstruction before reuse resumes.
+Brightness/color changes recapture color without discarding valid AO or shadow
+maps. Camera, other geometry and quality changes retain conservative invalidation.
 
-This extends candidate **10**. The [first fallback prototype](../README.md),
-original B trial and current retest have separate sources and measurements.
-Historical exclusions remain intact. No energy or battery-life gain is claimed.
+This is candidate **10**. It preserves continuous visible motion and introduces no
+pose quantization. Phone/AO-disabled paths still render normally; hiding releases
+attachments. The [first fallback prototype](../README.md) and historical
+single-source results below have separate sources and measurements.
 
-Current scheduling now keeps visible scenes moving continuously by owner choice;
-hidden/offscreen suspension still releases the cache. The retest below predates
-that scheduling decision: its active-frame comparisons still describe the cache,
-while its automatic-rest checks describe the earlier source only.
+## Current seven-light comparison
 
-## Restoration and decision retest
+Frozen snapshot `2e1b6c2f-5ae8-4e12-9758-e27e0861bd29` records source/asset hashes
+for this integration in the [raw timing report](receivers-decision-1790634001980.json.gz).
+Hidden built-in Chromium 154 used ANGLE Metal on Apple M4, 1280×720 CSS,
+2560×1440 drawing pixels, Low 512-square shadows, 4× softness and all brightness
+multipliers at 100%. Earth/sky time was fixed at zero; the authored dish replayed
+complete 18-second cycles. No builds, test suites or other agent rendering ran
+within the timing captures. Other user-app load and power/thermal state are unknown.
+
+The bounded Overview comparison completed two A controls and ABBA/BAAB, with
+1,080 frames per capture, a 30-second initial rest and 51 seconds of total inserted
+waits, without retries. A disables the cache in the same warmed runtime; attachments
+and compiled programs remain resident. This does not measure cold-start memory.
+
+| Order | CPU callback mean, A → B | Sampled whole-frame GPU mean, A → B |
+| --- | --- | --- |
+| ABBA | 25.601 → 14.686 ms (42.6% lower) | 11.330 → 7.255 ms (36.0% lower) |
+| BAAB | 25.990 → 14.681 ms (43.5% lower) | 11.378 → 7.186 ms (36.8% lower) |
+
+All captures had complete 72-query phase coverage, no pending/discarded/skipped
+GPU queries and no GL errors. Every B cycle had 1,077 hits, one capture and two
+fallback frames. Mean spacecraft draws, including shadows, fell from 712.4 to
+173.1; AO refresh draws fell from 462.9 to 43.7. B retains one extra initial AO
+refresh. Periodic GPU sampling misses the color-capture frame; CPU includes it.
+
+The initial A controls changed sharply: CPU 9.171 → 25.600 ms, GPU 9.806 →
+11.201 ms and frame interval 16.756 → 27.061 ms. Stability warnings are retained,
+not relabeled as passes. Both later orders favor B, but these observations do not
+establish a stable cross-device percentage, integrated GPU/energy savings or FPS
+improvement. Retain the implementation based on that directional evidence,
+substantial removed work and the appearance checks, accepting its memory cost.
+
+[Desktop](receivers-verify-1790633577891.json.gz) and
+[900×1200 portrait](receivers-verify-1790633797276.json.gz) each completed 54 paired
+comparisons plus a release/wake record: all rooms, six dish checkpoints per room,
+hover, opening/closing doors, navigation and arrival. All recorded zero GL errors.
+The selected Overview pairs show the retained edge-coverage differences:
+[desktop cached](receivers-verify-1790633577891-verify-3-before.png) /
+[fresh](receivers-verify-1790633577891-verify-3-after.png),
+[portrait cached](receivers-verify-1790633797276-verify-3-before.png) /
+[fresh](receivers-verify-1790633797276-verify-3-after.png).
+Desktop Overview's mean absolute RGB difference is 0.03674/255, with 0.1432% of
+pixels differing by more than 8 in a channel. These averages do not erase localized
+edge differences. Other generated image pairs are omitted; raw reports retain
+comparison metadata and original filenames.
+
+The tested partition cached 437 meshes and kept 149 live. Nominal color/depth
+attachments cost 140.625 MiB at the desktop resolution and 41.199 MiB in portrait;
+physical GPU/process memory was not measured. The implementation passed 623 tests
+in a disposable checkout with fresh D1/R2 and test secrets, plus typecheck,
+affected lint, production build and independent code review. No Safari or physical
+phone performance claim is made. An ordinary-app Chromium check confirmed the
+390×844 phone fallback, brightness and shadow-quality changes, shadows off/on,
+and Reset defaults, without console errors. The default desktop cache control is
+available; Low detail, 4× softness and all three 100% lighting baselines remain.
+
+## Historical restoration and decision retest
 
 The implementation decision follows the revised diagnostics guide: valid statistics,
 reference variation, removed work and product costs are assessed together. The

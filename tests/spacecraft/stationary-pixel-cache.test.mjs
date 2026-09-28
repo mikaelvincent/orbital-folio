@@ -5,7 +5,12 @@ import * as THREE from 'three';
 import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { createStationaryPixelCache } from '../../features/spacecraft/stationary-pixel-cache.ts';
 
-function fixture(withDish = false, eligible = () => true, areaLight = false) {
+function fixture(
+  withDish = false,
+  eligible = () => true,
+  areaLight = false,
+  lampCount = 0,
+) {
   const scene = new THREE.Scene(),
     camera = new THREE.PerspectiveCamera();
   const group = new THREE.Group();
@@ -37,6 +42,7 @@ function fixture(withDish = false, eligible = () => true, areaLight = false) {
       new THREE.MeshStandardMaterial(),
     );
     dish.name = 'service-mounted-communications-dish';
+    hull.castShadow = dish.castShadow = true;
     group.add(dish);
     dish.position.x = -2;
     hull.position.x = 2;
@@ -44,23 +50,51 @@ function fixture(withDish = false, eligible = () => true, areaLight = false) {
     camera.position.z = 8;
     camera.updateMatrixWorld();
     light.castShadow = true;
+    light.shadow.autoUpdate = false;
+    light.shadow.needsUpdate = true;
     light.position.z = 10;
     light.shadow.map = new THREE.WebGLRenderTarget(512, 512);
     ao = new GTAOPass(scene, camera, 100, 100);
     ao.updateGtaoMaterial({ radius: 0.32, thickness: 0.18 });
   }
+  const lamps = Array.from({ length: lampCount }, () => {
+    const lamp = new THREE.SpotLight();
+    lamp.castShadow = true;
+    lamp.shadow.autoUpdate = false;
+    lamp.shadow.needsUpdate = true;
+    scene.add(lamp, lamp.target);
+    return lamp;
+  });
   camera.updateMatrixWorld();
   scene.updateMatrixWorld(true);
   let target = null,
     alpha = 1;
   const color = new THREE.Color(0x123456);
   const passes = [];
+  const shadowPasses = [];
   const renderer = {
     shadowMap: {
       needsUpdate: true,
       enabled: true,
       type: THREE.PCFShadowMap,
-      render() {
+      render(lights, root, view) {
+        for (const source of lights) {
+          if (!source.castShadow) continue;
+          const shadow = source.shadow;
+          if (!shadow.autoUpdate && !shadow.needsUpdate) continue;
+          shadow.map ??= new THREE.WebGLRenderTarget(512, 512);
+          const casters = [];
+          root.traverseVisible((o) => {
+            if (o.isMesh && o.castShadow && o.layers.test(view.layers))
+              casters.push(o);
+          });
+          shadowPasses.push({
+            source,
+            casters,
+            scissor: shadow.map.scissorTest,
+          });
+          shadow.needsUpdate = false;
+        }
         this.needsUpdate = false;
       },
     },
@@ -82,7 +116,7 @@ function fixture(withDish = false, eligible = () => true, areaLight = false) {
     render(root) {
       const shadows = this.shadowMap.needsUpdate;
       if (root === scene && this.shadowMap.needsUpdate)
-        this.shadowMap.render([light], scene, camera);
+        this.shadowMap.render([light, ...lamps], scene, camera);
       const meshes = [];
       root.traverseVisible((o) => {
         if (o.isMesh && o.layers.test(camera.layers)) meshes.push(o);
@@ -120,13 +154,151 @@ function fixture(withDish = false, eligible = () => true, areaLight = false) {
     meter,
     ink,
     light,
+    lamps,
     renderer,
     original,
     passes,
+    shadowPasses,
     cache,
     frames,
   };
 }
+
+function disposeDishFixture(f) {
+  f.cache.dispose();
+  f.ao.dispose();
+  for (const light of [f.light, ...f.lamps]) light.shadow.map?.dispose();
+}
+
+function moveDish(f) {
+  f.dish.rotation.y += 0.1;
+  f.scene.updateMatrixWorld(true);
+  f.group.userData.geometryRevision++;
+  f.group.userData.dishGeometryRevision++;
+  f.group.userData.shadowCasterChanged = true;
+  f.light.shadow.needsUpdate = true;
+  f.renderer.shadowMap.needsUpdate = true;
+  f.frames(1);
+}
+
+test('six cached interior maps coexist with regional sun, color and AO reuse', () => {
+  const f = fixture(true, undefined, false, 6);
+  f.frames();
+  f.cache.occlusion(() => {}, true);
+  const before = f.cache.stats();
+  assert.equal(before.valid, true);
+  for (const lamp of f.lamps) {
+    const passes = f.shadowPasses.filter((p) => p.source === lamp);
+    assert.equal(passes.length, 1);
+    assert.ok(passes[0].casters.includes(f.hull));
+  }
+  const shadowStart = f.shadowPasses.length;
+  moveDish(f);
+  f.cache.occlusion(() => {}, true);
+  const after = f.cache.stats();
+  assert.equal(after.builds, before.builds);
+  assert.equal(after.hits, before.hits + 1);
+  assert.equal(after.influence.aoRepairs, 1);
+  const repairs = f.shadowPasses.slice(shadowStart);
+  assert.equal(repairs.length, 1);
+  assert.equal(repairs[0].source, f.light);
+  assert.equal(repairs[0].scissor, true);
+  assert.ok(repairs[0].casters.includes(f.dish));
+  assert.ok(!repairs[0].casters.includes(f.hull));
+  disposeDishFixture(f);
+});
+
+test('a dirty interior map restores all casters and rebuilds color and AO before reuse', () => {
+  const f = fixture(true, undefined, false, 6);
+  f.frames();
+  f.cache.occlusion(() => {}, true);
+  const before = f.cache.stats();
+  f.lamps[4].shadow.needsUpdate = true;
+  const shadowStart = f.shadowPasses.length;
+  moveDish(f);
+  assert.equal(f.cache.stats().valid, false);
+  assert.equal(f.cache.requiresOcclusion(), true);
+  assert.equal(f.cache.stats().influence.shadowRepairs, 0);
+  for (const pass of f.shadowPasses.slice(shadowStart)) {
+    assert.ok(pass.casters.includes(f.hull));
+    assert.ok(pass.casters.includes(f.dish));
+    assert.equal(pass.scissor, false);
+  }
+  assert.deepEqual(
+    f.shadowPasses.slice(shadowStart).map((p) => p.source),
+    [f.light, f.lamps[4]],
+  );
+  f.cache.occlusion(() => {}, true);
+  assert.equal(f.cache.stats().influence.aoRepairs, 0);
+  f.frames();
+  assert.equal(f.cache.stats().builds, before.builds + 1);
+  disposeDishFixture(f);
+});
+
+test('automatic or missing interior shadow maps fall back instead of freezing their receivers', () => {
+  for (const mutate of [
+    (f) => {
+      f.lamps[0].shadow.autoUpdate = true;
+    },
+    (f) => {
+      f.lamps[0].shadow.map.dispose();
+      f.lamps[0].shadow.map = null;
+    },
+  ]) {
+    const f = fixture(true, undefined, false, 1);
+    f.frames();
+    mutate(f);
+    moveDish(f);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.passes.at(-1).target, null);
+    assert.ok(f.passes.at(-1).meshes.includes(f.hull));
+    disposeDishFixture(f);
+  }
+});
+
+test('interior shadow filtering and projection changes invalidate cached pixels', () => {
+  for (const mutate of [
+    (light) => {
+      light.shadow.radius = 4;
+    },
+    (light) => {
+      light.shadow.mapSize.set(1024, 1024);
+    },
+    (light) => {
+      light.shadow.camera.fov += 5;
+      light.shadow.camera.updateProjectionMatrix();
+    },
+  ]) {
+    const f = fixture(true, undefined, false, 1);
+    f.frames();
+    mutate(f.lamps[0]);
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.cache.requiresOcclusion(), true);
+    disposeDishFixture(f);
+  }
+});
+
+test('brightness-only edits preserve AO and shadows; simultaneous geometry edits still refresh AO', () => {
+  for (const geometryChanged of [false, true]) {
+    const f = fixture(true, undefined, false, 6);
+    f.frames();
+    f.cache.occlusion(() => {}, true);
+    const shadowCount = f.shadowPasses.length;
+    const builds = f.cache.stats().builds;
+    f.lamps[0].intensity *= 2;
+    f.hull.material.color.multiplyScalar(0.8);
+    f.hull.material.emissiveIntensity = 2;
+    if (geometryChanged) f.group.userData.geometryRevision++;
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.cache.requiresOcclusion(), geometryChanged);
+    assert.equal(f.shadowPasses.length, shadowCount);
+    f.frames();
+    assert.equal(f.cache.stats().builds, builds + 1);
+    disposeDishFixture(f);
+  }
+});
 
 test('capture preserves complete shadow casters and live children of cached meshes', () => {
   const f = fixture();
@@ -294,6 +466,7 @@ test('dish-only movement repairs shading while simultaneous hull changes invalid
   f.group.userData.geometryRevision++;
   f.group.userData.dishGeometryRevision++;
   f.group.userData.shadowCasterChanged = true;
+  f.light.shadow.needsUpdate = true;
   f.renderer.shadowMap.needsUpdate = true;
   f.frames(1);
   assert.equal(f.cache.stats().builds, builds);
@@ -303,6 +476,7 @@ test('dish-only movement repairs shading while simultaneous hull changes invalid
   assert.equal(f.cache.stats().influence.aoRepairs, 1);
   f.group.userData.geometryRevision += 2;
   f.group.userData.dishGeometryRevision++;
+  f.light.shadow.needsUpdate = true;
   f.renderer.shadowMap.needsUpdate = true;
   f.frames(1);
   assert.equal(f.cache.stats().valid, false);
