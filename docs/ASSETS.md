@@ -10,6 +10,7 @@ break when changing the procedural TypeScript asset.
 | --- | --- |
 | Scene assembly, metadata, update and reader anchors | `features/spacecraft/spacecraft-model.ts` |
 | Renderer, picking, lighting and resource disposal | `features/spacecraft/spacecraft-runtime.ts` |
+| Exterior sun, cabin emitters and material light linking | `features/spacecraft/lighting.ts` |
 | Room furniture and equipment | `features/spacecraft/rooms/`, `features/spacecraft/equipment/` |
 | Pressure surfaces, primitives and wall datums | `features/spacecraft/geometry/` |
 | Camera, door sequencing and feedback | `features/spacecraft/navigation/` |

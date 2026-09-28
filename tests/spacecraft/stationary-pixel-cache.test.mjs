@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { createStationaryPixelCache } from '../../features/spacecraft/stationary-pixel-cache.ts';
 
-function fixture(withDish = false, eligible = () => true) {
+function fixture(withDish = false, eligible = () => true, areaLight = false) {
   const scene = new THREE.Scene(),
     camera = new THREE.PerspectiveCamera();
   const group = new THREE.Group();
@@ -26,7 +26,9 @@ function fixture(withDish = false, eligible = () => true) {
   );
   hull.add(ink);
   group.add(hull, meter);
-  const light = new THREE.DirectionalLight();
+  const light = areaLight
+    ? new THREE.RectAreaLight()
+    : new THREE.DirectionalLight();
   scene.add(light);
   let dish, ao;
   if (withDish) {
@@ -207,6 +209,19 @@ test('camera, material, geometry, texture replacement and light changes invalida
     f.frames(1);
     assert.equal(f.cache.stats().valid, false);
     assert.equal(f.passes.length - start, 1, 'immediate full-render fallback');
+    assert.equal(f.passes.at(-1).target, null);
+    f.cache.dispose();
+  }
+});
+
+test('changing a ceiling emitter footprint invalidates cached illumination immediately', () => {
+  for (const dimension of ['width', 'height']) {
+    const f = fixture(false, undefined, true);
+    f.frames();
+    assert.ok(f.cache.stats().hits > 0);
+    f.light[dimension] *= 2;
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
     assert.equal(f.passes.at(-1).target, null);
     f.cache.dispose();
   }

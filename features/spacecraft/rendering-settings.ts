@@ -11,7 +11,7 @@ export type RenderingSettings = {
 export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   shadows: true,
   shadowSize: 'auto',
-  shadowSoftness: 1,
+  shadowSoftness: 2,
   pixelDensity: 'auto',
   contactShading: 'auto',
   background: true,
@@ -64,11 +64,7 @@ export function resolveRenderingSettings(
     ),
     shadowSize: Math.min(
       maxTextureSize,
-      settings.shadowSize === 'auto'
-        ? small
-          ? 1024
-          : 2048
-        : settings.shadowSize,
+      settings.shadowSize === 'auto' ? 1024 : settings.shadowSize,
     ),
     shadowSoftness: Number.isFinite(settings.shadowSoftness)
       ? Math.min(4, Math.max(0, settings.shadowSoftness))

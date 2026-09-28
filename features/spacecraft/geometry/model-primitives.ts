@@ -143,27 +143,13 @@ export function createModelPrimitives(
       original.uuid + ':' + section + ':' + exterior + ':' + surfaceOnly;
     if (!materials.has(key)) {
       const clone = original.clone();
+      clone.userData.section = section;
       clone.userData.exterior = exterior;
       clone.userData.surfaceOnly = surfaceOnly;
       clone.userData.baseEmissive = original.emissive.clone();
       clone.userData.baseColor = original.color.clone();
       clone.userData.baseIntensity = original.emissiveIntensity;
       clone.userData.highlightScale = original.userData.highlightScale ?? 0.035;
-      if (original.name === m.wall.name || original.userData.neutralPaint) {
-        // Keep diffuse shading and shadows, but suppress the blue rim / amber
-        // key's color cast on cabin paint. Opposite faces should read as the
-        // same ivory wall or white shutter, rather than different finishes.
-        clone.onBeforeCompile = (shader: any) => {
-          shader.fragmentShader = shader.fragmentShader.replace(
-            'vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;',
-            `vec3 paintIrradiance = totalDiffuse / max(diffuseColor.rgb, vec3(0.0001));
-             float paintLuminance = dot(paintIrradiance, vec3(0.2126, 0.7152, 0.0722));
-             totalDiffuse = mix(totalDiffuse, diffuseColor.rgb * paintLuminance, 0.9);
-             vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;`,
-          );
-        };
-        clone.customProgramCacheKey = () => 'neutral-cabin-paint-v1';
-      }
       roomMaterials[section].push(clone);
       materials.set(key, clone);
     }

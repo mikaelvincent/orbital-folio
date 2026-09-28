@@ -16,18 +16,18 @@ const desktop = {
 };
 const phone = { ...desktop, width: 390, height: 844, nativePixelRatio: 3 };
 
-test('automatic controls preserve the existing wide and small-screen profiles', () => {
+test('automatic lighting uses medium soft shadows and retains device density/contact profiles', () => {
   assert.deepEqual(resolveRenderingSettings(defaults, desktop), {
     pixelDensity: 2,
-    shadowSize: 2048,
-    shadowSoftness: 1,
+    shadowSize: 1024,
+    shadowSoftness: 2,
     contactShading: true,
     cacheAvailable: true,
   });
   assert.deepEqual(resolveRenderingSettings(defaults, phone), {
     pixelDensity: 1.75,
     shadowSize: 1024,
-    shadowSoftness: 1,
+    shadowSoftness: 2,
     contactShading: false,
     cacheAvailable: false,
   });
@@ -143,8 +143,8 @@ test('shadow softness is independent of resolution and bounded for cache filter 
     [0.25, 0.25],
     [4, 4],
     [10, 4],
-    [NaN, 1],
-    [Infinity, 1],
+    [NaN, 2],
+    [Infinity, 2],
   ]) {
     assert.equal(
       resolveRenderingSettings({ ...defaults, shadowSoftness }, desktop)
@@ -158,7 +158,7 @@ test('each independent override is identified and reset without changing shared 
   const overrides = {
     shadows: false,
     shadowSize: 512,
-    shadowSoftness: 2,
+    shadowSoftness: 1,
     pixelDensity: 1,
     contactShading: 'off',
     background: false,

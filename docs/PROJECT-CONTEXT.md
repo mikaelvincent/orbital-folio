@@ -56,6 +56,18 @@ matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
 retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
+Lighting separates the exterior from the occupied cabins. One warm-neutral sun
+casts live shadows on the hull, service equipment and open ladder bay. Each cabin
+uses one broad downward area source at its paired ceiling diffusers; material
+light linking admits only that cabin's source, with both neighboring sources on
+shared hatch faces. Cabin geometry does not participate in the exterior sun-shadow
+pass. A restrained environment supplies reflected fill and metal highlights;
+tight screen-space contact shading grounds fittings. Area sources do not cast
+furniture shadows: this is an intentional soft-light approximation, not full
+indirect illumination. Room hover/selection still changes material brightness,
+without multiplying it by a second light-intensity dimmer. Keep visible fixtures,
+the moving dish, readable doors and the phone's AO-free path convincing.
+
 Overview destination tabs must remain distinct from utility controls. Preserve
 readable room labels at compact widths, accessible full names when ellipsized,
 and leader endpoints at each opening's top/bottom midpoint. Portrait return
@@ -65,8 +77,9 @@ callouts stay hidden/inert until arrival. Identity uses published content.
 
 The camera moves around a stationary ship, including portrait roll, hover and
 drag. The orbital environment shares the same physical viewpoint throughout
-travel. Light/reflection transforms compensate for the former vessel roll: fixed
-geometry does not imply all illumination is static or bakeable.
+travel. Sunlight and the reflection environment stay fixed in world space while
+the camera rolls; ceiling emitters remain attached to the vessel. Camera travel
+must not rotate the illumination across cabin walls.
 
 Portrait overview is nearly frontal with a gentle ceiling view, showing ceilings
 rather than floors. The physical roof is screen-left and underside screen-right.
@@ -335,8 +348,10 @@ must work; preserve the pointerdown/click intent guard against accidental reopen
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
 Expose shadows, shadow detail, shadow softness, pixel density, contact shading,
 Earth/sky and stationary spacecraft caching. Shadow softness adjusts the existing
-shadow filter independently of map resolution, from 0–4× in 0.25 steps; 1× retains
-the authored default. Changes apply without recording or a baseline,
+shadow filter independently of map resolution, from 0–4× in 0.25 steps. The authored
+default is 2×, with Automatic using a 1024-square exterior shadow map at all widths
+(bounded by device support). Manual Low/Medium/High remain 512/1024/2048.
+Changes apply without recording or a baseline,
 keep the current camera, and persist across panel dismissal, room navigation and
 Reading view within the visit. Reset defaults or reload restores the automatic
 profile; do not save to storage or publish these preferences. Manual contact

@@ -85,7 +85,7 @@ export function RenderingControls({
         <label className="rendering-toggle">
           <span>
             <strong>Shadows</strong>
-            <small>Shadows cast by the spacecraft and its fittings.</small>
+            <small>Sun shadows on the hull and exterior fittings.</small>
           </span>
           <input
             type="checkbox"
@@ -148,7 +148,7 @@ export function RenderingControls({
           </span>
           <small id={`${softnessId}-hint`}>
             {settings.shadows
-              ? 'Higher values soften shadow edges. 1× is the default.'
+              ? `Higher values soften shadow edges. ${DEFAULT_RENDERING_SETTINGS.shadowSoftness}× is the default.`
               : 'Turn shadows on to adjust their softness.'}
           </small>
         </label>

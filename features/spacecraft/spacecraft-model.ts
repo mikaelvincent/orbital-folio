@@ -1,4 +1,5 @@
 import { PALETTE } from '../../lib/palette.ts';
+import { createCabinLight, VESSEL_LIGHTING } from './lighting.ts';
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
 import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
@@ -647,12 +648,10 @@ export function createSpacecraft(
         );
       }
     }
-    roomLights[section] = [-0.66, 0.66].map((dx) => {
-      const light = new THREE.PointLight(0xffc792, 0.35, 3.1, 2);
-      light.position.set(x + dx, 0.8, 0.48);
-      room.add(light);
-      return light;
-    });
+    const ceilingLight = createCabinLight(THREE, section);
+    ceilingLight.position.set(x, cabinCeiling - 0.095, 0.548);
+    room.add(ceilingLight);
+    roomLights[section] = [ceilingLight];
     for (const sign of [-1, 1]) {
       if (sign > 0 || section === 'projects' || section === 'about') {
         const post = new THREE.Group();
@@ -911,7 +910,6 @@ export function createSpacecraft(
   );
   thresholdLiner.userData.surfaceOnly = true;
   thresholdLiner.userData.roomSurface = true;
-  thresholdLiner.userData.neutralPaint = true;
   for (const section of Object.keys(roomCenters)) {
     const origin = legacyCenters[section];
     for (const sign of [-1, 1]) {
@@ -1924,7 +1922,6 @@ export function createSpacecraft(
       bladeSource.color.set(PALETTE.ivory);
       bladeSource.roughness = 0.72;
       bladeSource.metalness = 0;
-      bladeSource.userData.neutralPaint = true;
       bladeSource.userData.linkedRooms = viaWalkway
         ? [from, 'walkway']
         : [from, to];
@@ -1932,7 +1929,6 @@ export function createSpacecraft(
       const rimSource = m.gasket.clone();
       rimSource.roughness = 0.82;
       rimSource.metalness = 0;
-      rimSource.userData.neutralPaint = true;
       rimSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
       bladeSource.name = 'iris-enamel-' + id;
       rimSource.name = 'iris-guide-' + id;
@@ -2993,6 +2989,8 @@ export function createSpacecraft(
       rooms[section].position.set(x - origin, y, 0);
       structures[section].scale.set(layoutScale, 1, 1);
       structures[section].position.x = origin * (1 - layoutScale);
+      // Three applies rotation/translation to area lights, but not parent scale.
+      for (const light of roomLights[section]) light.width = 2.15 * layoutScale;
       contents[section].scale.setScalar(propScale);
       // Scale furnishings about the floor datum, not the room origin.
       contents[section].position.y =
@@ -3716,7 +3714,8 @@ export function createSpacecraft(
           );
         material.emissiveIntensity = 1;
       }
-      for (const light of roomLights[section] || []) light.intensity = 0.35;
+      for (const light of roomLights[section] || [])
+        light.intensity = VESSEL_LIGHTING.cabinIntensity;
       group.userData.lightingState ||= {};
       group.userData.lightingState[section] = {
         targetLevel: targetLevels[section],
@@ -3739,11 +3738,11 @@ export function createSpacecraft(
           !!currentState.hoveredWalkway &&
           !!rooms[currentState.activeRoom || ''] &&
           !currentState.travelling,
-        pointIntensities: (roomLights[section] || []).map(
+        areaIntensities: (roomLights[section] || []).map(
           (light: any) => light.intensity,
         ),
         emitterPolicy:
-          'constant room emitters; medium default, high hover/selected/transit; no pathway emitters',
+          'one ceiling area per cabin; room-linked light, material hover/selected/transit feedback; no pathway emitters',
       };
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);

@@ -59,7 +59,11 @@ import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
-import { avoidZeroContributionLighting } from './materials/direct-light-work';
+import {
+  applyCabinLighting,
+  createExteriorLight,
+  VESSEL_LIGHTING,
+} from './lighting';
 import {
   planCabinItinerary,
   type CabinRouteNode,
@@ -188,6 +192,7 @@ export function mountSpacecraftScene({
         import('three/addons/postprocessing/GTAOPass.js'),
         import('three/addons/postprocessing/Pass.js'),
         import('./stationary-pixel-cache'),
+        import('three/addons/lights/RectAreaLightUniformsLib.js'),
       ]),
     )
     .then(
@@ -200,6 +205,7 @@ export function mountSpacecraftScene({
         { GTAOPass },
         { FullScreenQuad },
         { createStationaryPixelCache },
+        { RectAreaLightUniformsLib },
       ]) => {
         if (destroyed || !host.current) return;
         let renderer: Three.WebGLRenderer;
@@ -337,7 +343,11 @@ export function mountSpacecraftScene({
           roomEnvironment = new RoomEnvironment();
         const environment = pmrem.fromScene(roomEnvironment, 0.035);
         scene.environment = environment.texture;
-        scene.environmentIntensity = 0.24;
+        scene.environmentIntensity = VESSEL_LIGHTING.environmentIntensity;
+        // Three's lookup textures are shared. Reuse them after Reading view or
+        // a scene remount instead of allocating a new set each time.
+        if (!('LTC_FLOAT_1' in THREE.UniformsLib))
+          RectAreaLightUniformsLib.init();
         roomEnvironment.dispose();
         pmrem.dispose();
         let vesselName = String(s.name || '');
@@ -399,7 +409,7 @@ export function mountSpacecraftScene({
         };
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
-        avoidZeroContributionLighting(THREE, model.group);
+        const cabinLighting = applyCabinLighting(THREE, model.group);
         audit?.modelReady?.(
           model,
           modelOptions,
@@ -418,35 +428,16 @@ export function mountSpacecraftScene({
         const lightRig = new THREE.Group();
         lightRig.name = 'vessel-lighting-frame';
         scene.add(lightRig);
-        lightRig.add(new THREE.HemisphereLight(0xe0eaff, 0x394553, 0.28));
-        const key = new THREE.DirectionalLight(0xffe3c1, 2.2);
-        key.position.set(-7, 10, 12);
-        key.castShadow = true;
+        const key = createExteriorLight(THREE);
         key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
         key.shadow.radius = rendering.shadowSoftness;
-        Object.assign(key.shadow.camera, {
-          left: -10,
-          right: 10,
-          top: 7,
-          bottom: -7,
-          near: 0.5,
-          far: 36,
-        });
-        key.shadow.normalBias = 0.035;
-        key.shadow.bias = -0.00008;
         lightRig.add(key);
-        const rim = new THREE.DirectionalLight(0x91b8ff, 1.2);
-        rim.position.set(4, 3, -7);
-        lightRig.add(rim);
-        const bounce = new THREE.DirectionalLight(0xffd7a4, 0.45);
-        bounce.position.set(-2, -1, 6);
-        lightRig.add(bounce);
-        // Half-resolution, denoised contact shading gives the toy-like fittings weight.
+        // Tight contact shading grounds fittings under the broad ceiling sources.
         // It multiplies only the WebGL scene; HTML stays sharp and native.
         const ao = new GTAOPass(scene, camera, 512, 512);
         ao.updateGtaoMaterial({
-          radius: 0.32,
-          thickness: 0.18,
+          radius: 0.22,
+          thickness: 0.12,
           distanceExponent: 1.2,
           scale: 1,
           samples: 32,
@@ -454,11 +445,14 @@ export function mountSpacecraftScene({
         ao.updatePdMaterial({ radius: 9, samples: 32 });
         ao.output = GTAOPass.OUTPUT.Off;
         const aoMaterial = new THREE.ShaderMaterial({
-          uniforms: { map: { value: ao.pdRenderTarget.texture } },
+          uniforms: {
+            map: { value: ao.pdRenderTarget.texture },
+            strength: { value: VESSEL_LIGHTING.contactStrength },
+          },
           vertexShader:
             'varying vec2 vUv; void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
           fragmentShader:
-            'uniform sampler2D map; varying vec2 vUv; void main(){float ao=texture2D(map,vUv).r;gl_FragColor=vec4(vec3(mix(1.,ao,.40)),1.);}',
+            'uniform sampler2D map; uniform float strength; varying vec2 vUv; void main(){float ao=texture2D(map,vUv).r;gl_FragColor=vec4(vec3(mix(1.,ao,strength)),1.);}',
           transparent: true,
           blending: THREE.CustomBlending,
           blendSrc: THREE.DstColorFactor,
@@ -2035,13 +2029,8 @@ export function mountSpacecraftScene({
             distance * (1 - 0.025 * dollyMotion.value),
             roll,
           );
-          // Preserve the authored illumination while transferring the former
-          // hull rotation to the viewpoint. The hull and CSS anchors stay fixed.
-          lightRig.quaternion.copy(cameraFrame.inverseRoll);
-          key.shadow.camera.up
-            .set(0, 1, 0)
-            .applyQuaternion(cameraFrame.inverseRoll);
-          scene.environmentRotation.z = -roll;
+          // Illumination stays in the vessel/world frame while the camera rolls.
+          // Cabin emitters remain attached to their physical ceiling fixtures.
           // The camera's current focus selects the cabin being crossed, rather
           // than lighting the eventual destination for the whole journey.
           const localFocus = currentTarget.clone().applyAxisAngle(zAxis, -roll);
@@ -2103,6 +2092,7 @@ export function mountSpacecraftScene({
             invalidateShadow('dish-trim');
           diagnostics?.mark('model-update');
           updateRenderSceneMatrices(scene);
+          cabinLighting.update(camera);
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
           const near =

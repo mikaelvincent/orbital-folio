@@ -248,6 +248,8 @@ export function createStationaryPixelCache({
         light.decay,
         light.angle,
         light.penumbra,
+        light.width,
+        light.height,
         light.castShadow,
         light.shadow?.intensity,
         light.shadow?.bias,
