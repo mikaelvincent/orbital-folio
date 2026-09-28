@@ -204,6 +204,7 @@ export function createSpacecraft(
   const interactionTargets: Array<{ object: any; section: string }> = [];
   const roomMaterials: Record<string, any[]> = {};
   const roomLights: Record<string, any> = {};
+  const cabinFixtures: Record<string, any> = {};
   const strengths: Record<string, number> = {};
   const roomDimmers: Record<string, number> = {};
   const roomCenters: Record<string, [number, number]> = {
@@ -569,89 +570,111 @@ export function createSpacecraft(
     );
     deck.position.set(x, 0, 0);
 
-    // Two sealed light cassettes attach directly to the flat ceiling. A
-    // graphite seal and captive alloy end shoes explain their construction;
-    // the diffuser is seated into the carrier rather than suspended below it.
-    for (const dx of [-0.66, 0.66]) {
-      box(
-        1.1,
-        0.018,
-        0.23,
-        m.gasket,
-        x + dx,
-        cabinCeiling - 0.009,
-        0.548,
-        room,
-        0.008,
-        'ceiling-light-seal',
-      );
-      box(
-        1.075,
-        0.065,
-        0.212,
-        m.chalk,
-        x + dx,
-        cabinCeiling - 0.0395,
-        0.548,
-        room,
-        0.027,
-        'ceiling-light-bezel',
-      );
-      box(
-        0.88,
-        0.027,
-        0.139,
-        m.gasket,
-        x + dx,
-        cabinCeiling - 0.066,
-        0.548,
-        room,
-        0.012,
-        'ceiling-light-diffuser-seat',
-      );
-      box(
-        0.854,
-        0.025,
-        0.116,
-        m.light,
-        x + dx,
-        cabinCeiling - 0.074,
-        0.548,
-        room,
-        0.011,
-        'warm-ceiling-light',
-      );
-      for (const end of [-1, 1]) {
-        box(
-          0.048,
-          0.021,
-          0.164,
-          m.metal,
-          x + dx + end * 0.494,
-          cabinCeiling - 0.071,
-          0.548,
-          room,
-          0.009,
-          'ceiling-light-captive-end-shoe',
-        );
-        box(
-          0.018,
-          0.002,
-          0.003,
-          m.gasket,
-          x + dx + end * 0.494,
-          cabinCeiling - 0.082,
-          0.548,
-          room,
-          0.0008,
-          'ceiling-light-quarter-turn-slot',
-        );
-      }
-    }
+    // An offset swivel lamp directs light across the furnishings. Its ceiling
+    // shoe, stem and angled housing explain the source instead of a broad fill.
+    const lampSide = section === 'about' || section === 'experience' ? 1 : -1;
+    const mount = new THREE.Group();
+    mount.name = `${section}-lamp-mount`;
+    mount.userData = { section, batchRoot: true };
+    // Mount outside the nonuniformly scaled lining: the swivel remains rigid.
+    rooms[section].add(mount);
+    mount.position.set(x + lampSide * 0.92, 0, 0.67);
+    box(
+      0.45,
+      0.035,
+      0.3,
+      m.gasket,
+      0,
+      cabinCeiling - 0.0175,
+      0,
+      mount,
+      0.012,
+      'cabin-lamp-ceiling-seal',
+    );
+    box(
+      0.42,
+      0.045,
+      0.27,
+      m.chalk,
+      0,
+      cabinCeiling - 0.04,
+      0,
+      mount,
+      0.018,
+      'cabin-lamp-ceiling-shoe',
+    );
+    box(
+      0.085,
+      0.2,
+      0.085,
+      m.metal,
+      0,
+      cabinCeiling - 0.14,
+      0,
+      mount,
+      0.018,
+      'cabin-lamp-swivel-stem',
+    );
+    const lamp = new THREE.Group();
+    lamp.name = `${section}-aimed-lamp-fixture`;
+    lamp.userData = { section, batchRoot: true };
+    lamp.position.set(0, cabinCeiling - 0.25, 0);
+    const aim = new THREE.Vector3(-lampSide * 1.27, -0.4, -1.42);
+    lamp.quaternion.setFromUnitVectors(
+      new THREE.Vector3(0, -1, 0),
+      aim.clone().sub(lamp.position).normalize(),
+    );
+    mount.add(lamp);
+    box(
+      0.4,
+      0.12,
+      0.27,
+      m.chalk,
+      0,
+      0,
+      0,
+      lamp,
+      0.035,
+      'cabin-lamp-aimed-housing',
+    );
+    box(
+      0.35,
+      0.025,
+      0.22,
+      m.navy,
+      0,
+      -0.071,
+      0,
+      lamp,
+      0.012,
+      'cabin-lamp-diffuser-bezel',
+    );
+    box(
+      0.31,
+      0.012,
+      0.18,
+      m.light,
+      0,
+      -0.086,
+      0,
+      lamp,
+      0.009,
+      'cabin-lamp-warm-diffuser',
+    );
     const ceilingLight = createCabinLight(THREE, section);
-    ceilingLight.position.set(x, cabinCeiling - 0.095, 0.548);
-    room.add(ceilingLight);
+    // Put the source just outside the luminous face, so its own housing cannot
+    // block the beam. Its target lives in the same rigid mount as the fixture.
+    ceilingLight.position.set(0, -0.103, 0);
+    lamp.add(ceilingLight);
+    ceilingLight.target.position.copy(aim);
+    mount.add(ceilingLight.target);
     roomLights[section] = [ceilingLight];
+    cabinFixtures[section] = {
+      mount,
+      lamp,
+      light: ceilingLight,
+      side: lampSide,
+    };
     for (const sign of [-1, 1]) {
       if (sign > 0 || section === 'projects' || section === 'about') {
         const post = new THREE.Group();
@@ -2126,6 +2149,7 @@ export function createSpacecraft(
       if (
         child === structures[section] ||
         child === contents[section] ||
+        child === cabinFixtures[section].mount ||
         child.userData.physicalLabel ||
         child.userData.portal ||
         (child.userData.isInteractionProxy && child.userData.isPortal)
@@ -2989,8 +3013,16 @@ export function createSpacecraft(
       rooms[section].position.set(x - origin, y, 0);
       structures[section].scale.set(layoutScale, 1, 1);
       structures[section].position.x = origin * (1 - layoutScale);
-      // Three applies rotation/translation to area lights, but not parent scale.
-      for (const light of roomLights[section]) light.width = 2.15 * layoutScale;
+      const fixture = cabinFixtures[section];
+      fixture.mount.position.x = origin + fixture.side * 0.92 * layoutScale;
+      fixture.light.target.position.x = -fixture.side * 1.27 * layoutScale;
+      fixture.lamp.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, -1, 0),
+        fixture.light.target.position
+          .clone()
+          .sub(fixture.lamp.position)
+          .normalize(),
+      );
       contents[section].scale.setScalar(propScale);
       // Scale furnishings about the floor datum, not the room origin.
       contents[section].position.y =
@@ -3738,11 +3770,11 @@ export function createSpacecraft(
           !!currentState.hoveredWalkway &&
           !!rooms[currentState.activeRoom || ''] &&
           !currentState.travelling,
-        areaIntensities: (roomLights[section] || []).map(
+        spotIntensities: (roomLights[section] || []).map(
           (light: any) => light.intensity,
         ),
         emitterPolicy:
-          'one ceiling area per cabin; room-linked light, material hover/selected/transit feedback; no pathway emitters',
+          'one aimed shadow-casting lamp per cabin; room-linked light, material hover/selected/transit feedback; no pathway emitters',
       };
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);

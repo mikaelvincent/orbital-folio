@@ -122,6 +122,15 @@ test('receiver caching is unavailable when its shading prerequisites are absent'
   );
 });
 
+test('additional cabin shadow lights make stationary caching unavailable without changing shading quality', () => {
+  const supported = resolveRenderingSettings(defaults, desktop);
+  const actual = resolveRenderingSettings(defaults, {
+    ...desktop,
+    stationaryCacheSupported: false,
+  });
+  assert.deepEqual(actual, { ...supported, cacheAvailable: false });
+});
+
 test('shadow softness is independent of resolution and bounded for cache filter padding', () => {
   for (const environment of [desktop, phone]) {
     for (const shadowSize of ['auto', 512, 1024, 2048]) {

@@ -181,61 +181,58 @@ for (const [layout, scale] of [
     }
   });
 
-  test(`${layout}: ceiling light cases seat to the ceiling and capture their diffusers`, () => {
+  test(`${layout}: aimed lamp shoes meet the ceiling and housings capture their diffusers`, () => {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
     for (const section of sections) {
-      const cases = sourceBounds(section, 'ceiling-light-bezel');
-      const seals = sourceBounds(section, 'ceiling-light-seal');
-      const diffusers = sourceBounds(section, 'warm-ceiling-light');
-      assert.ok(cases.length > 0, `${section}: ceiling light cases exist`);
-      assert.equal(
-        diffusers.length,
-        cases.length,
-        `${section}: every case has a diffuser`,
-      );
       const ceiling =
         model.group.userData.roomAnchors[section][1] + CABIN_CEILING;
-      for (const diffuser of diffusers) {
-        const center = diffuser.getCenter(new THREE.Vector3());
-        const body = cases.find(
-          (bounds) =>
-            bounds.min.x < center.x &&
-            bounds.max.x > center.x &&
-            bounds.min.z < center.z &&
-            bounds.max.z > center.z,
+      const [seal] = sourceBounds(section, 'cabin-lamp-ceiling-seal');
+      const [shoe] = sourceBounds(section, 'cabin-lamp-ceiling-shoe');
+      const [stem] = sourceBounds(section, 'cabin-lamp-swivel-stem');
+      assert.ok(seal && shoe && stem, `${section}: mounting hardware exists`);
+      near(seal.max.y, ceiling, `${section}: seal meets actual ceiling`);
+      assert.ok(
+        seal.intersectsBox(shoe) && shoe.intersectsBox(stem),
+        'attachment has no gaps',
+      );
+      const fixture = model.group.getObjectByName(
+        `${section}-aimed-lamp-fixture`,
+      );
+      const localBounds = (name) => {
+        const part = [...sourceParts.values()].find(
+          ({ mesh }) => mesh.userData.section === section && mesh.name === name,
         );
-        assert.ok(body, `${section}: the diffuser belongs to a physical case`);
-        const seal = seals.find(
-          (bounds) =>
-            bounds.min.x < center.x &&
-            bounds.max.x > center.x &&
-            bounds.min.z < center.z &&
-            bounds.max.z > center.z,
-        );
-        assert.ok(seal, `${section}: the case has a ceiling attachment`);
-        near(seal.max.y, ceiling, `${section}: seal meets the actual ceiling`);
-        assert.ok(
-          body.max.y >= seal.min.y - 2e-6 && body.min.y < seal.min.y,
-          `${section}: case seats into its ceiling seal without a gap`,
-        );
-        assert.ok(
-          diffuser.max.y >= body.min.y - 2e-6 && diffuser.min.y < body.min.y,
-          `${section}: diffuser seats into the case without the old air gap`,
-        );
-        for (const axis of ['x', 'z']) {
-          assert.ok(
-            diffuser.min[axis] > body.min[axis] &&
-              diffuser.max[axis] < body.max[axis],
-            `${section}: the diffuser is captured within both ${axis} edges`,
+        assert.ok(part, `${section}: ${name} exists`);
+        part.mesh.geometry.computeBoundingBox();
+        return part.mesh.geometry.boundingBox
+          .clone()
+          .applyMatrix4(
+            fixture.matrixWorld
+              .clone()
+              .invert()
+              .multiply(part.parent.matrixWorld)
+              .multiply(part.matrix),
           );
-          near(
-            center[axis],
-            body.getCenter(new THREE.Vector3())[axis],
-            `${section}: diffuser centers on its case in ${axis}`,
-          );
-        }
+      };
+      const housing = localBounds('cabin-lamp-aimed-housing');
+      const bezel = localBounds('cabin-lamp-diffuser-bezel');
+      const diffuser = localBounds('cabin-lamp-warm-diffuser');
+      assert.ok(housing.intersectsBox(bezel), 'bezel seats into housing');
+      assert.ok(bezel.intersectsBox(diffuser), 'diffuser seats into bezel');
+      for (const axis of ['x', 'z']) {
+        assert.ok(
+          diffuser.min[axis] > bezel.min[axis] &&
+            diffuser.max[axis] < bezel.max[axis],
+          'diffuser is captured on every edge',
+        );
       }
+      const body = housing.clone().applyMatrix4(fixture.matrixWorld);
+      assert.ok(
+        body.intersectsBox(stem),
+        'swivel stem reaches its angled housing',
+      );
+      assert.ok(body.max.y < ceiling, 'angled housing stays inside the cabin');
     }
   });
 }

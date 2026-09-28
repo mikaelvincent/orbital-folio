@@ -1,8 +1,9 @@
 # Cabin lighting: authored sources and rendering cost
 
 This is historical evidence for the former cabin-only area-light design. Current
-[art direction](../../../PROJECT-CONTEXT.md#spacecraft-design) restores sunlight
-and cast shadows inside cabins, with much lower ceiling and environment fill.
+[art direction](../../../PROJECT-CONTEXT.md#spacecraft-design) uses shadow-casting
+cabin lamps, faint exterior sunlight and restrained environment fill. Its multiple
+shadow sources also disable the single-source stationary pixel cache.
 The timings below do not describe that current lighting. This authored comparison
 is also separate from candidate 8's earlier exact shader specialization; their
 gains must not be combined.

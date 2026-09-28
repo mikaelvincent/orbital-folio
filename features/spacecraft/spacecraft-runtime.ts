@@ -192,7 +192,6 @@ export function mountSpacecraftScene({
         import('three/addons/postprocessing/GTAOPass.js'),
         import('three/addons/postprocessing/Pass.js'),
         import('./stationary-pixel-cache'),
-        import('three/addons/lights/RectAreaLightUniformsLib.js'),
       ]),
     )
     .then(
@@ -205,7 +204,6 @@ export function mountSpacecraftScene({
         { GTAOPass },
         { FullScreenQuad },
         { createStationaryPixelCache },
-        { RectAreaLightUniformsLib },
       ]) => {
         if (destroyed || !host.current) return;
         let renderer: Three.WebGLRenderer;
@@ -264,6 +262,7 @@ export function mountSpacecraftScene({
         let renderingSettings =
           latest.current.renderingSettings || DEFAULT_RENDERING_SETTINGS;
         const renderingListeners = new Set<() => void>();
+        let cacheLightingSupported = true;
         const resolveRendering = () =>
           resolveRenderingSettings(renderingSettings, {
             width: el.clientWidth,
@@ -271,6 +270,7 @@ export function mountSpacecraftScene({
             nativePixelRatio: devicePixelRatio,
             capableShading,
             contactShadingSupported,
+            stationaryCacheSupported: cacheLightingSupported,
             maxTextureSize: renderer.capabilities.maxTextureSize,
           });
         let rendering = resolveRendering();
@@ -344,10 +344,6 @@ export function mountSpacecraftScene({
         const environment = pmrem.fromScene(roomEnvironment, 0.035);
         scene.environment = environment.texture;
         scene.environmentIntensity = VESSEL_LIGHTING.environmentIntensity;
-        // Three's lookup textures are shared. Reuse them after Reading view or
-        // a scene remount instead of allocating a new set each time.
-        if (!('LTC_FLOAT_1' in THREE.UniformsLib))
-          RectAreaLightUniformsLib.init();
         roomEnvironment.dispose();
         pmrem.dispose();
         let vesselName = String(s.name || '');
@@ -410,6 +406,13 @@ export function mountSpacecraftScene({
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
         const cabinLighting = applyCabinLighting(THREE, model.group);
+        // The stationary receiver repair currently supports one shadow source.
+        // Keep the existing conservative fallback visible in the rendering UI.
+        cacheLightingSupported = !cabinLighting.lights.some(
+          (light) => light.castShadow,
+        );
+        rendering = resolveRendering();
+        let shadowGeometryRevision = -1;
         audit?.modelReady?.(
           model,
           modelOptions,
@@ -429,10 +432,13 @@ export function mountSpacecraftScene({
         lightRig.name = 'vessel-lighting-frame';
         scene.add(lightRig);
         const key = createExteriorLight(THREE);
-        key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
-        key.shadow.radius = rendering.shadowSoftness;
+        const shadowLights = [key, ...cabinLighting.lights];
+        for (const light of shadowLights) {
+          light.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
+          light.shadow.radius = rendering.shadowSoftness;
+        }
         lightRig.add(key);
-        // Tight contact shading grounds fittings under the broad ceiling sources.
+        // Tight contact shading grounds fittings between the pools of fixture light.
         // It multiplies only the WebGL scene; HTML stays sharp and native.
         const ao = new GTAOPass(scene, camera, 512, 512);
         ao.updateGtaoMaterial({
@@ -2088,8 +2094,12 @@ export function mountSpacecraftScene({
             },
             true,
           );
-          if (model.group.userData.shadowCasterChanged)
-            invalidateShadow('dish-trim');
+          if (
+            shadowGeometryRevision !== model.group.userData.geometryRevision
+          ) {
+            invalidateShadow('geometry');
+            shadowGeometryRevision = model.group.userData.geometryRevision;
+          }
           diagnostics?.mark('model-update');
           updateRenderSceneMatrices(scene);
           cabinLighting.update(camera);
@@ -2673,7 +2683,8 @@ export function mountSpacecraftScene({
           const w = Math.max(1, el.clientWidth),
             h = Math.max(1, el.clientHeight);
           rendering = resolveRendering();
-          key.shadow.radius = rendering.shadowSoftness;
+          for (const light of shadowLights)
+            light.shadow.radius = rendering.shadowSoftness;
           // Bound retina fill cost without changing cloud detail or HTML sharpness.
           // Only viewport/quality changes resize buffers; navigation never does.
           renderer.setPixelRatio(
@@ -2686,14 +2697,17 @@ export function mountSpacecraftScene({
           ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
           invalidateAo('drawing-size');
           background.resize(w, h, renderer.getPixelRatio(), camera.fov);
-          if (key.shadow.mapSize.x !== rendering.shadowSize) {
-            key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
-            // Three allocates a shadow target when map is null; changing only
-            // mapSize leaves the old allocation in place in the current renderer.
-            key.shadow.map?.dispose();
-            key.shadow.map = null;
-            key.shadow.mapPass?.dispose();
-            key.shadow.mapPass = null;
+          for (const light of shadowLights) {
+            if (light.shadow.mapSize.x === rendering.shadowSize) continue;
+            light.shadow.mapSize.set(
+              rendering.shadowSize,
+              rendering.shadowSize,
+            );
+            // Resize the allocation as well as its requested dimensions.
+            light.shadow.map?.dispose();
+            light.shadow.map = null;
+            light.shadow.mapPass?.dispose();
+            light.shadow.mapPass = null;
             invalidateShadow('shadow-size');
           }
           notifyRendering();
@@ -3361,6 +3375,7 @@ export function mountSpacecraftScene({
             contactShading: usesContactShading(),
             contactShadingSupported,
             cacheAvailable: rendering.cacheAvailable && experiment === 'normal',
+            cacheLightingSupported,
           }),
           subscribe(listener) {
             renderingListeners.add(listener);
@@ -3866,7 +3881,7 @@ export function mountSpacecraftScene({
           environment.dispose();
           disposeShadowAudit?.();
           auditBackup?.dispose();
-          key.shadow.dispose();
+          for (const light of shadowLights) light.shadow.dispose();
           renderer.dispose();
           renderer.domElement.remove();
           cssRenderer.domElement.remove();

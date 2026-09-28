@@ -56,19 +56,27 @@ matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
 retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
-Lighting prioritizes an expressive cutaway style over physical realism. A strong
-warm-neutral sun from above-left and in front reaches both the hull and open
-cabins, casting prominent shadows from door surrounds, furniture and fittings.
-Preserve the model's authored shadow casters/receivers, including moving iris
-masks and the dish; the Shadows control must visibly change cabin interiors.
-Each cabin's paired ceiling diffusers share one broad downward area source used
-only as low fill. Material light linking admits that cabin's fill, or both neighbors
-on shared hatch faces, without excluding sunlight. Keep reflected environment
-fill restrained so lit faces contrast with dark recesses; contact shading adds
-local depth without replacing cast shadows. Ceiling sources do not cast shadows;
-the shared directional key keeps one shadow map. Room hover/selection changes
-material brightness without a second light-intensity dimmer. Keep labels and
-interactive objects readable, including on the phone's AO-free path.
+Lighting prioritizes an expressive, fixture-led cutaway style over physical
+realism. Keep exterior sunlight weak but visible: the cool directional source
+above-left and in front shapes the hull without flooding the cabins. Each cabin
+has one warm, offset swivel lamp aimed down and across its furnishings, replacing
+the paired ceiling strips. Its ceiling shoe, stem, housing and luminous face must
+stay connected; preserve the assembly's proportions when changing room width and
+re-aim the actual light with its fixture. Opposite lamp placement gives the rooms
+different shadow directions. Keep ceilings, floors and recesses darker than the
+work surfaces; restrained reflected fill and contact shading preserve readability.
+
+Each lamp casts furniture shadows. Material light linking admits its own cabin's
+lamp, or both neighbors on shared hatch faces, while the faint sun reaches all
+surfaces. Preserve authored caster/receiver exceptions, especially shader-masked
+iris leaves, and refresh shadow maps on geometry revisions, including immediate
+changes under reduced motion. The Shadows control must visibly change interiors;
+detail and softness apply to the sun and all four lamps. The stationary pixel
+cache's single-shadow-source repair is incompatible with this rig: keep its safe
+fallback and show the control as unavailable. This design trades more shadow work
+for stronger room styling; historical area-light timings do not apply. Room
+hover/selection changes material brightness without a second light dimmer. Keep
+labels and interactive objects readable, including on the phone's AO-free path.
 
 Overview destination tabs must remain distinct from utility controls. Preserve
 readable room labels at compact widths, accessible full names when ellipsized,
@@ -80,7 +88,7 @@ callouts stay hidden/inert until arrival. Identity uses published content.
 The camera moves around a stationary ship, including portrait roll, hover and
 drag. The orbital environment shares the same physical viewpoint throughout
 travel. Sunlight and the reflection environment stay fixed in world space while
-the camera rolls; ceiling emitters remain attached to the vessel. Camera travel
+the camera rolls; cabin emitters remain attached to the vessel. Camera travel
 must not rotate the illumination across cabin walls.
 
 Portrait overview is nearly frontal with a gentle ceiling view, showing ceilings

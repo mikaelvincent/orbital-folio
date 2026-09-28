@@ -1,31 +1,37 @@
 import type * as Three from 'three';
 import { directLightWorkChunk } from './materials/direct-light-work.ts';
 
-// Art-directed cutaway: a dominant angled sun draws broad cast shadows;
-// ceiling and reflected fill keep their dark sides readable without flattening them.
+// Cabin fixtures supply the key light. A faint cool exterior wash and restrained
+// reflected fill keep the hull and unlit sides legible without flattening the rooms.
 export const VESSEL_LIGHTING = {
-  sunIntensity: 3.2,
-  cabinIntensity: 3,
-  environmentIntensity: 0.14,
+  sunIntensity: 0.32,
+  cabinIntensity: 11,
+  environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
 
-/** One broad source represents the paired ceiling diffusers. */
+/** One aimed, warm lamp per cabin: a single shadow view, with a feathered beam. */
 export function createCabinLight(T: typeof Three, section: string) {
-  const light = new T.RectAreaLight(
-    0xfff1e2,
+  const light = new T.SpotLight(
+    0xffe6c6,
     VESSEL_LIGHTING.cabinIntensity,
-    2.15,
-    0.32,
+    7,
+    Math.PI * 0.3,
+    0.48,
+    2,
   );
-  light.name = `${section}-ceiling-light`;
+  light.name = `${section}-cabin-lamp`;
   light.userData.section = section;
-  light.rotation.x = -Math.PI / 2;
+  light.castShadow = true;
+  light.shadow.camera.near = 0.05;
+  light.shadow.camera.far = 7;
+  light.shadow.normalBias = 0.012;
+  light.shadow.bias = -0.00015;
   return light;
 }
 
 export function createExteriorLight(T: typeof Three) {
-  const light = new T.DirectionalLight(0xfff2df, VESSEL_LIGHTING.sunIntensity);
+  const light = new T.DirectionalLight(0xddeaff, VESSEL_LIGHTING.sunIntensity);
   light.name = 'exterior-sun';
   light.position.set(-7, 9, 12);
   light.castShadow = VESSEL_LIGHTING.sunIntensity > 0;
@@ -42,52 +48,48 @@ export function createExteriorLight(T: typeof Three) {
   return light;
 }
 
-/** Link only the ceiling fill. The sun and its shadows reach all surfaces.
- * Match emitter positions, not renderer array indices: hiding or reordering a
- * light must never illuminate a different cabin. Shared doors admit both sides. */
+/** Link fixture illumination and its shadow together. Match positions rather than
+ * renderer indices, which change when lights are reordered or hidden. Keep the
+ * installed Three spot/shadow code intact inside the membership branch. */
 export function cabinLightingChunk(source: string, emitterCount: number) {
-  const areaStart = source.indexOf('#if ( NUM_RECT_AREA_LIGHTS > 0 )');
-  const areaEnd = source.indexOf(
-    '#if defined( RE_IndirectDiffuse )',
-    areaStart,
-  );
-  if (areaStart < 0 || areaEnd < 0)
+  const spotStart = source.indexOf('#if ( NUM_SPOT_LIGHTS > 0 )');
+  const spotEnd = source.indexOf('#if ( NUM_DIR_LIGHTS > 0 )', spotStart);
+  const assignment = 'spotLight = spotLights[ i ];';
+  const direct =
+    'RE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+  const spot = source.slice(spotStart, spotEnd);
+  if (
+    spotStart < 0 ||
+    spotEnd < 0 ||
+    !spot.includes(assignment) ||
+    !spot.includes(direct)
+  )
     throw new Error('Review cabin lighting for this Three shader version');
   const membership = Array.from(
     { length: emitterCount },
     (_, i) =>
-      `distance(rectAreaLight.position, cabinEmitterPositions[${i}]) < 0.001`,
+      `distance(spotLight.position, cabinEmitterPositions[${i}]) < 0.001`,
   ).join(' || ');
-  const chunk =
-    source.slice(0, areaStart) +
-    (!emitterCount
-      ? ''
-      : `
-#if ( NUM_RECT_AREA_LIGHTS > 0 ) && defined( RE_Direct_RectArea )
-  RectAreaLight rectAreaLight;
-  #pragma unroll_loop_start
-  for ( int i = 0; i < NUM_RECT_AREA_LIGHTS; i ++ ) {
-    rectAreaLight = rectAreaLights[ i ];
-    if (${membership}) {
-      RE_Direct_RectArea( rectAreaLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );
-    }
-  }
-  #pragma unroll_loop_end
-#endif
-`) +
-    source.slice(areaEnd);
-  return chunk;
+  return (
+    source.slice(0, spotStart) +
+    (emitterCount
+      ? spot
+          .replace(assignment, `${assignment}\nif (${membership}) {`)
+          .replace(direct, `${direct}\n}`)
+      : '') +
+    source.slice(spotEnd)
+  );
 }
 
 export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
-  const areas = new Map<
+  const lamps = new Map<
     string,
-    { light: Three.RectAreaLight; position: Three.Vector3 }
+    { light: Three.SpotLight; position: Three.Vector3 }
   >();
   root.traverse((object) => {
-    if ((object as Three.RectAreaLight).isRectAreaLight)
-      areas.set(object.userData.section, {
-        light: object as Three.RectAreaLight,
+    if ((object as Three.SpotLight).isSpotLight)
+      lamps.set(object.userData.section, {
+        light: object as Three.SpotLight,
         position: new T.Vector3(),
       });
   });
@@ -105,7 +107,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       const emitters = material.userData.exterior
         ? []
         : [...new Set(linked)].flatMap((room) =>
-            areas.has(room) ? [areas.get(room)!.position] : [],
+            lamps.has(room) ? [lamps.get(room)!.position] : [],
           );
       const exterior = !!material.userData.exterior || !emitters.length;
       const source = T.ShaderChunk.lights_fragment_begin;
@@ -129,12 +131,13 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         );
       };
       material.customProgramCacheKey = () =>
-        `${cacheKey}|cabin-lighting-v2:${exterior ? 'exterior' : emitters.length}`;
+        `${cacheKey}|cabin-lighting-v3:${exterior ? 'exterior' : emitters.length}`;
     }
   });
   return {
+    lights: [...lamps.values()].map(({ light }) => light),
     update(camera: Three.Camera) {
-      for (const { light, position } of areas.values())
+      for (const { light, position } of lamps.values())
         position
           .setFromMatrixPosition(light.matrixWorld)
           .applyMatrix4(camera.matrixWorldInverse);

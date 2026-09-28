@@ -31,31 +31,52 @@ function compile(material) {
   return shader;
 }
 
-test('ceiling emitters remain aligned and downward-facing in both asset layouts', () => {
+test('aimed emitters follow their physical fixtures and targets in both asset layouts', () => {
   assert.equal(lights.length, 4);
-  assert.ok(
-    lights.every((light) => light.isRectAreaLight && !light.castShadow),
-  );
+  assert.ok(lights.every((light) => light.isSpotLight && light.castShadow));
   for (const layout of ['compact', 'wide']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
     for (const light of lights) {
       const world = light.getWorldPosition(new THREE.Vector3());
       const [x, y] = model.group.userData.roomAnchors[light.userData.section];
-      assert.ok(Math.abs(world.x - x) < 1e-8);
-      assert.ok(world.y > y + 1.3 && world.y < y + 1.455);
-      assert.ok(
-        new THREE.Vector3(0, 0, -1)
-          .transformDirection(light.matrixWorld)
-          .distanceTo(new THREE.Vector3(0, -1, 0)) < 1e-8,
+      assert.ok(Math.abs(world.x - x) > 0.7);
+      assert.equal(
+        light.parent.name,
+        `${light.userData.section}-aimed-lamp-fixture`,
       );
-      assert.equal(light.width, 2.15 * (layout === 'wide' ? 1.4 : 1));
+      assert.ok(world.y > y + 1.1 && world.y < y + 1.3);
+      const direction = light.target
+        .getWorldPosition(new THREE.Vector3())
+        .sub(world)
+        .normalize();
+      const fixtureDirection = new THREE.Vector3(0, -1, 0).applyNormalMatrix(
+        new THREE.Matrix3().getNormalMatrix(light.parent.matrixWorld),
+      );
+      assert.ok(
+        direction.dot(fixtureDirection) > 0.999999,
+        'emitter points along the angled fixture after room scaling',
+      );
+      assert.ok(
+        direction.y < -0.5 && direction.z < -0.4,
+        'beam points down and toward the rear furnishings',
+      );
+      const casters = meshes.filter((mesh) => mesh.castShadow);
+      const blocked = new THREE.Raycaster(
+        world,
+        direction,
+        0,
+        0.15,
+      ).intersectObjects(casters, false);
+      assert.equal(blocked.length, 0, 'own housing must not block the lamp');
+      assert.ok(light.shadow.camera.near < 0.1);
+      assert.ok(light.penumbra > 0);
     }
   }
   assert.equal(createExteriorLight(THREE).castShadow, true);
 });
 
-test('room and shared-door materials retain sun shadows and link only their own ceiling fill', () => {
+test('room and shared-door materials link fixture light and shadows together while retaining faint sunlight', () => {
   const checked = new Set();
   let shared = 0;
   for (const mesh of meshes) {
@@ -86,10 +107,16 @@ test('room and shared-door materials retain sun shadows and link only their own 
         assert.equal(shader.uniforms.cabinEmitterPositions, undefined);
         assert.doesNotMatch(
           shader.fragmentShader,
-          /RE_Direct_RectArea\( rectAreaLight/,
+          /getSpotLightInfo\( spotLight/,
         );
         continue;
       }
+      assert.match(shader.fragmentShader, /getShadow\( spotShadowMap\[ i \]/);
+      assert.ok(
+        shader.fragmentShader.indexOf('if (distance(spotLight.position') <
+          shader.fragmentShader.indexOf('getSpotLightInfo( spotLight'),
+        'membership gates both illumination and its shadow lookup',
+      );
       if (expected.length > 1) shared++;
       assert.equal(
         shader.uniforms.cabinEmitterPositions.value.length,
@@ -143,7 +170,7 @@ test('lighting preserves authored shadow casters and receivers, including cabin 
 
 test('light linking preserves authored shader hooks and separates programs by membership count', () => {
   const root = new THREE.Group();
-  const light = new THREE.RectAreaLight();
+  const light = new THREE.SpotLight();
   light.userData.section = 'about';
   root.add(light);
   const material = new THREE.MeshPhysicalMaterial({ clearcoat: 0.2 });
@@ -157,7 +184,7 @@ test('light linking preserves authored shader hooks and separates programs by me
   assert.match(compile(material).fragmentShader, /authored iris mask/);
   assert.equal(
     material.customProgramCacheKey(),
-    'authored|cabin-lighting-v2:1',
+    'authored|cabin-lighting-v3:1',
   );
   assert.throws(
     () => cabinLightingChunk('changed upstream shader', 1),

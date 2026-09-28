@@ -1,6 +1,8 @@
 # Live dish and receiving surfaces: Option B
 
-**Restored, retested and retained for the AO-enabled non-phone rendering path.**
+**Historical evidence for the single-shadow-source AO-enabled desktop path.**
+The implementation remains available, but the current [cabin-lamp art direction](../../../../PROJECT-CONTEXT.md#spacecraft-design) uses multiple shadow sources and
+falls back to normal rendering. The timings below do not describe that rig.
 Keeping the dish and affected receiving surfaces live preserves their motion,
 shadows and contact shading while reusing the rest of the spacecraft. Six new
 opposing-order desktop blocks favor B. The decision weighs that evidence against

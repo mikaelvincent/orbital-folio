@@ -35,6 +35,7 @@ export function resolveRenderingSettings(
     capableShading: boolean;
     contactShadingSupported: boolean;
     maxTextureSize: number;
+    stationaryCacheSupported?: boolean;
   },
 ) {
   const {
@@ -44,6 +45,7 @@ export function resolveRenderingSettings(
     capableShading,
     contactShadingSupported,
     maxTextureSize,
+    stationaryCacheSupported = true,
   } = environment;
   const small = width < 700;
   const automaticDensity = Math.min(nativePixelRatio, small ? 1.75 : 2);
@@ -71,7 +73,8 @@ export function resolveRenderingSettings(
       : DEFAULT_RENDERING_SETTINGS.shadowSoftness,
     contactShading,
     // The live-receiver cache is validated only for this rendering path.
-    cacheAvailable: !small && contactShading && settings.shadows,
+    cacheAvailable:
+      stationaryCacheSupported && !small && contactShading && settings.shadows,
   };
 }
 
@@ -83,6 +86,7 @@ export type RenderingState = {
   contactShading: boolean;
   contactShadingSupported: boolean;
   cacheAvailable: boolean;
+  cacheLightingSupported: boolean;
 };
 
 /** Settings observation is event-driven; opening the panel starts no collector. */

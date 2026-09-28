@@ -12,8 +12,8 @@ type ShadowRenderer = Pick<WebGLRenderer, 'shadowMap'> & {
  * mounted. Its CPU duration and draws are a subset of the enclosing spacecraft
  * pass, not another additive phase. No nested GPU timer is started here.
  *
- * The delivered scene has one shadow map generation per frame. getReasons is
- * called only after a successful generation, allowing pending reasons to survive
+ * One generation call can update multiple light maps. getReasons is called
+ * only after a successful generation, allowing pending reasons to survive
  * disabled shadows, background renders without lights, or an interrupted draw.
  */
 export function instrumentShadowUpdates(
