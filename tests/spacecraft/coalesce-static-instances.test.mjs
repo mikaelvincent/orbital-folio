@@ -229,7 +229,10 @@ test('Transmissive physical siblings retain separate draw ordering even with tra
 });
 
 test('Real spacecraft batches preserve exact instances through layouts, room updates and reading transitions', () => {
-  const model = createSpacecraft(THREE, { coalesceInstances: false });
+  const model = createSpacecraft(THREE, {
+    coalesceInstances: false,
+    mergeHardware: false,
+  });
   const snapshots = [];
   const states = [
     ['wide', 'home', false],

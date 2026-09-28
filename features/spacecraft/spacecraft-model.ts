@@ -16,6 +16,7 @@ import {
   trimCabinSideWall,
 } from './geometry/rounded-cabin-interior.ts';
 import { coalesceStaticInstances } from './geometry/coalesce-static-instances.ts';
+import { mergeStaticHardware } from './geometry/merge-static-hardware.ts';
 import { thinChassisOutline } from './geometry/thin-chassis-outline.ts';
 import { ladderOpeningOutline } from './geometry/ladder-opening-outline.ts';
 import { clipGeometryPlane } from './geometry/clip-geometry-plane.ts';
@@ -135,6 +136,8 @@ export function createSpacecraft(
     vesselName?: string;
     /** Keep an exact uncoalesced reference available for equivalence tests. */
     coalesceInstances?: boolean;
+    /** Leave hardware instances separate for construction equivalence checks. */
+    mergeHardware?: boolean;
     /** Exact direct-indexed prototype; reference remains available to the lab. */
     geometryCompaction?: boolean;
   } = {},
@@ -2699,6 +2702,8 @@ export function createSpacecraft(
     options.coalesceInstances === false
       ? null
       : coalesceStaticInstances(THREE, group);
+  const hardwareBatching =
+    options.mergeHardware === false ? null : mergeStaticHardware(THREE, group);
   // Keep printed archive labels and backlit screens free of self-shadows after batching.
   for (const equipment of [workshop, archive, personalStudy])
     equipment.traverse((object: any) => {
@@ -2834,6 +2839,7 @@ export function createSpacecraft(
     drawCalls: targets.length,
     instancedDrawCalls: targets.filter((t) => t.object.isInstancedMesh).length,
     coalescedInstanceDraws: instanceBatching?.drawsRemoved ?? 0,
+    mergedHardwareDraws: hardwareBatching?.drawsRemoved ?? 0,
   };
   group.updateMatrixWorld(true);
   const paintedHover = new THREE.Color(palette.chalk);

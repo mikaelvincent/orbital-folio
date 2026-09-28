@@ -5,6 +5,7 @@ import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts'
 import { LADDER_CENTER_Y } from '../../features/spacecraft/geometry/spacecraft-wall-layout.ts';
 
 const sourceMeshes = new Map();
+const sourceInstances = new Map();
 const roots = new Set([
   'central-docking-assembly',
   'walkway-finished-inner-docking-hatch',
@@ -28,7 +29,26 @@ class SourceMesh extends THREE.Mesh {
     return super.removeFromParent();
   }
 }
-const model = createSpacecraft({ ...THREE, Mesh: SourceMesh });
+// Small hardware may now be folded into its sibling material draw. Keep its
+// individual source solids available for the same physical attachment checks.
+class SourceInstances extends THREE.InstancedMesh {
+  removeFromParent() {
+    const assembly = assemblyOf(this);
+    if (this.parent && assembly)
+      sourceInstances.set(this, {
+        mesh: this,
+        parent: this.parent,
+        matrix: this.matrix.clone(),
+        assembly,
+      });
+    return super.removeFromParent();
+  }
+}
+const model = createSpacecraft({
+  ...THREE,
+  Mesh: SourceMesh,
+  InstancedMesh: SourceInstances,
+});
 const material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
 function actualSolid(source, transform) {
   const mesh = new THREE.Mesh(source.geometry, material);
@@ -103,6 +123,19 @@ function partsForLayout(layout) {
       assembly: assembly.name,
     }),
   );
+  for (const { mesh, parent, matrix, assembly } of sourceInstances.values()) {
+    for (let index = 0; index < mesh.count; index++) {
+      const instance = new THREE.Matrix4();
+      mesh.getMatrixAt(index, instance);
+      parts.push({
+        ...actualSolid(
+          mesh,
+          parent.matrixWorld.clone().multiply(matrix).multiply(instance),
+        ),
+        assembly: assembly.name,
+      });
+    }
+  }
   for (const name of roots)
     model.group.getObjectByName(name).traverseVisible((mesh) => {
       if (!mesh.isInstancedMesh) return;

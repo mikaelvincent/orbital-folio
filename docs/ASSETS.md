@@ -35,6 +35,16 @@ consumer. Room highlights affect local materials/emission; exposed exterior
 surfaces keep their own finish. Camera motion can invalidate cached lighting or
 contact shading even though the spacecraft stays still.
 
+Rounded cuboids choose bevel detail by radius as well as overall size: long,
+thin hardware must not inherit the subdivision budget of broad rounded forms.
+Keep their bounds, smooth normals and physical face UVs when changing detail.
+After ordinary batching, small immutable hardware instances can join an existing
+opaque sibling draw with the same material, section, picking and shadow state.
+The 2,048-triangle expansion limit keeps large repetitions instanced; animated,
+reader, custom-render and per-instance-color paths remain separate. Source names
+survive in `userData.parts`. Construction tests needing individual solids must
+capture removed instance sources as well as ordinary meshes.
+
 ## Interaction and accessibility
 
 Contact's configured social monitors use native links over model anchors. Other

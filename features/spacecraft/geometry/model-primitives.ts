@@ -193,9 +193,11 @@ export function createModelPrimitives(
   function roundedGeometry(w: number, h: number, d: number, radius = 0.04) {
     const r = Math.min(radius, w * 0.495, h * 0.495, d * 0.495);
     return cached(`rounded:${w}:${h}:${d}:${r}`, () => {
-      // Keep every curved bevel sample; omit the redundant midpoint along
-      // each straight core span. Odd segment counts connect -core to +core.
-      const segments = Math.max(w, h, d) > 0.4 ? 9 : 5;
+      // Detail follows the bevel radius, not the length of a thin rail or
+      // panel. Keep broad curves dense; small bevels need fewer samples.
+      // Odd segment counts connect -core to +core without a flat midpoint.
+      const segments =
+        Math.max(w, h, d) <= 0.4 || r < 0.02 ? 5 : r < 0.06 ? 7 : 9;
       const geometry = new THREE.BoxGeometry(
         w,
         h,
@@ -212,7 +214,9 @@ export function createModelPrimitives(
       const steps =
         segments === 9
           ? [-1, -0.8, -0.45, -0.18, 0, 0, 0.18, 0.45, 0.8, 1]
-          : [-1, -0.45, 0, 0, 0.45, 1];
+          : segments === 7
+            ? [-1, -0.6, -0.28, 0, 0, 0.28, 0.6, 1]
+            : [-1, -0.45, 0, 0, 0.45, 1];
       for (let i = 0; i < positions.count; i++) {
         const original = [
           positions.getX(i),

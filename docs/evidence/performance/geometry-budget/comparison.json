@@ -1,0 +1,1328 @@
+{
+  "method": "Deterministic model inventory and finite visual/submission comparison; no timing or power measurements.",
+  "source": {
+    "fixture": "spacecraft-polish-preview",
+    "capturedAt": "2026-09-28T07:10:49.771Z",
+    "fixtureSha256": "4057f132112dff555e4adff116f054adcf44d5d8abb9c10c3f3c2c51ace0beb7",
+    "baselineRevision": "33c29fa3bc92907cb72d96b4b1d70bdce98fe5ab",
+    "currentHead": "33c29fa3bc92907cb72d96b4b1d70bdce98fe5ab",
+    "currentIncludesWorkingTree": true,
+    "rendering": {
+      "finite": true,
+      "timeSeconds": "Query time in seconds (default 0), held for one finite frame.",
+      "fovDegrees": 38,
+      "lighting": "RoomEnvironment PMREM at intensity 0.24, fixed hemisphere and three directional lights; PCF shadows",
+      "omitted": [
+        "GTAO",
+        "orbital sky and Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "devicePixelRatio": "query dpr in 0.5–2, otherwise browser DPR capped at 2",
+      "framing": "Room anchors and architectural bounds; no furniture-derived fit",
+      "browserMeasurements": "Each page exposes actual dimensions, DPR, pose and draw counts in body datasets and window.previewSnapshot."
+    },
+    "versions": {
+      "before": {
+        "source": "33c29fa3bc92907cb72d96b4b1d70bdce98fe5ab",
+        "entry": "features/spacecraft/spacecraft-model.ts",
+        "bundleSha256": "48961f595448f206d33edc32a2ef3740fb738f009af39864653b1574c0280c5d",
+        "sourceTreeSha256": "f38f1e1d70415caff2f3997364fffb951f39ed31f53da49b3d9bcb6091abb7aa",
+        "transitiveSources": {
+          "features/spacecraft/equipment/cabin-utility-fittings.ts": "b8d109d1ae4f2d39f058f3f69434ed7789af495dc2029e1385b0ea80d7fd9c61",
+          "features/spacecraft/equipment/docking-service-assemblies.ts": "6bab6f3312988453de00e52220f7dc98bcfd51d0180dbcabc1626c5e2bd2a228",
+          "features/spacecraft/equipment/docking-shoulder-equipment.ts": "787fa6735f02b071c32d4c2260ffd0a7ef16cf26a7f38f85c1c27d3aff59f122",
+          "features/spacecraft/equipment/exterior-service-equipment.ts": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+          "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+          "features/spacecraft/equipment/ladder-service-spine.ts": "4e3921350848b8a5b255a8a25cc20d5a8b601cf5ea384def69cebdb179a0dae3",
+          "features/spacecraft/equipment/outboard-wall-equipment.ts": "ca54c7b003a18e5e69c730fb6ffddbe9107f20906a707b7b8d8957d6499ba5f2",
+          "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+          "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+          "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+          "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+          "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+          "features/spacecraft/geometry/model-primitives.ts": "269629c385b32e1d8aa5825e5b79b4884f7ebf9a4516b065e07799ba46ddb176",
+          "features/spacecraft/geometry/rounded-cabin-interior.ts": "47fa454709e28b54edb37cfa5a0e4581efc11960f61fc9e92b2e810d86996dd2",
+          "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+          "features/spacecraft/geometry/spacecraft-wall-layout.ts": "3797079a1733ecdee3f9acdb554ae480ed0dbbd8e6a472110d1686b8f2ca9de5",
+          "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+          "features/spacecraft/materials/hardware-finish.ts": "93d8d5fef530f8a4f3cf370d23f5c9937ec752855a8b2786a5e2c52deebbccc2",
+          "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+          "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+          "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+          "features/spacecraft/navigation/iris-hatch.ts": "a75b8beb515db0bc8b1a9decda70c0bf948fc6eba995ec22f5cb53d98d5065ac",
+          "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+          "features/spacecraft/rooms/about-notebook-layout.ts": "4f5f3f301840d7d5ad30bc1e808aa082b0f2f0b134fade603691ab1ce6af1129",
+          "features/spacecraft/rooms/about-personal-study.ts": "58ae729abf0cc1f526774ef78aa7bdb4419df91fc676300b9e21c08c839d2854",
+          "features/spacecraft/rooms/about-photo-print.ts": "dd734cca737167639c7a74b6f561f298068f012e555db0ed16480fa21b94bf78",
+          "features/spacecraft/rooms/about-study-artwork.ts": "1f208d24a89f739f4b0e2d978d5ad42e9f14fbb415c14b93076ca28becfa9281",
+          "features/spacecraft/rooms/about-study-mounts.ts": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e",
+          "features/spacecraft/rooms/cabin-composition.ts": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+          "features/spacecraft/rooms/case-study-archive.ts": "e0ae0138676404e5676583394dc22ade6ed384e3143d60c57c886cb9c9bc9e23",
+          "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+          "features/spacecraft/rooms/contact-display-surface.ts": "b0ffc873c59db25cc4ab3f8d5b3e87e12d0f7d715932f40f0a7b6d40c27c8a53",
+          "features/spacecraft/rooms/contact-flight-audio.ts": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+          "features/spacecraft/rooms/contact-flight-console.ts": "7bc897adf7188870e8cdc42b5d87660eea54ac31914ed90b8c8c9a46817f98d9",
+          "features/spacecraft/rooms/contact-keyboard.ts": "1fe03dd175b717a5130cb92e5d2869c2ad98b15ac4f9aa8c41c72ba3640d0e8c",
+          "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+          "features/spacecraft/rooms/projects-payload-module.ts": "34ec40af851e036400a2397b137850348cc97abc0f3efaf8b6a240077b259dd0",
+          "features/spacecraft/rooms/projects-workshop.ts": "2bc768f152d81c7b2c03c925dd3ba1df77154ae8146587a535da0fdda725fbde",
+          "features/spacecraft/spacecraft-model.ts": "0bdefe9b2c78ac94ab3dff6ab6ca45d9d125ce4b65bd612d1b56f4b837731e3b",
+          "lib/content/about-photos.ts": "6ea3d52dc85b22efef0fffcd1d43ac426b437828a1bf5252c6dd84ec14b70712",
+          "lib/content/case-study-content.ts": "fcee14d3beec20d2240a5da2a8e7c5b63197d429e4332306503311d774625f54",
+          "lib/content/project-content.ts": "1eda895468877331ac50e249cfc36d9d057dafab0c409cbd904db0951d395089",
+          "lib/content/social-links.ts": "dd94c1577e0030eab4ba29430d8fdd96dbe92efaeffe87dbb7563b67fe7a642b",
+          "lib/content/social-platforms.ts": "f07a2e534fbe1925b619e225d90e78e49bd7eaacdfb82dc6507f67acb24dff3c",
+          "lib/palette.ts": "45be860992dd73b71237d0751da56806db32775b5143be17fb6b2f1f8cb5f75d"
+        }
+      },
+      "after": {
+        "source": "working tree at startup",
+        "entry": "features/spacecraft/spacecraft-model.ts",
+        "bundleSha256": "f7db7e3e2fcfb9419629ee3e215dd955d88d3810d1dd4d1ac1262731637e1c87",
+        "sourceTreeSha256": "2f53c77e8cb1f36ea208d2eef2a126694008f608b28434876b80ca0563636477",
+        "transitiveSources": {
+          "features/spacecraft/equipment/cabin-utility-fittings.ts": "b8d109d1ae4f2d39f058f3f69434ed7789af495dc2029e1385b0ea80d7fd9c61",
+          "features/spacecraft/equipment/docking-service-assemblies.ts": "6bab6f3312988453de00e52220f7dc98bcfd51d0180dbcabc1626c5e2bd2a228",
+          "features/spacecraft/equipment/docking-shoulder-equipment.ts": "787fa6735f02b071c32d4c2260ffd0a7ef16cf26a7f38f85c1c27d3aff59f122",
+          "features/spacecraft/equipment/exterior-service-equipment.ts": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+          "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+          "features/spacecraft/equipment/ladder-service-spine.ts": "4e3921350848b8a5b255a8a25cc20d5a8b601cf5ea384def69cebdb179a0dae3",
+          "features/spacecraft/equipment/outboard-wall-equipment.ts": "ca54c7b003a18e5e69c730fb6ffddbe9107f20906a707b7b8d8957d6499ba5f2",
+          "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+          "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+          "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+          "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+          "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+          "features/spacecraft/geometry/merge-static-hardware.ts": "6e278d2c724f8fc9d2be819155e42819e36d9c9c16bb834886f3a9d64ebdff7c",
+          "features/spacecraft/geometry/model-primitives.ts": "4e97fd0fd2d56d9862915600c1045842358486f046a9aafea8a6d837e762504c",
+          "features/spacecraft/geometry/rounded-cabin-interior.ts": "47fa454709e28b54edb37cfa5a0e4581efc11960f61fc9e92b2e810d86996dd2",
+          "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+          "features/spacecraft/geometry/spacecraft-wall-layout.ts": "3797079a1733ecdee3f9acdb554ae480ed0dbbd8e6a472110d1686b8f2ca9de5",
+          "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+          "features/spacecraft/materials/hardware-finish.ts": "93d8d5fef530f8a4f3cf370d23f5c9937ec752855a8b2786a5e2c52deebbccc2",
+          "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+          "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+          "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+          "features/spacecraft/navigation/iris-hatch.ts": "a75b8beb515db0bc8b1a9decda70c0bf948fc6eba995ec22f5cb53d98d5065ac",
+          "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+          "features/spacecraft/rooms/about-notebook-layout.ts": "4f5f3f301840d7d5ad30bc1e808aa082b0f2f0b134fade603691ab1ce6af1129",
+          "features/spacecraft/rooms/about-personal-study.ts": "58ae729abf0cc1f526774ef78aa7bdb4419df91fc676300b9e21c08c839d2854",
+          "features/spacecraft/rooms/about-photo-print.ts": "dd734cca737167639c7a74b6f561f298068f012e555db0ed16480fa21b94bf78",
+          "features/spacecraft/rooms/about-study-artwork.ts": "1f208d24a89f739f4b0e2d978d5ad42e9f14fbb415c14b93076ca28becfa9281",
+          "features/spacecraft/rooms/about-study-mounts.ts": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e",
+          "features/spacecraft/rooms/cabin-composition.ts": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+          "features/spacecraft/rooms/case-study-archive.ts": "e0ae0138676404e5676583394dc22ade6ed384e3143d60c57c886cb9c9bc9e23",
+          "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+          "features/spacecraft/rooms/contact-display-surface.ts": "b0ffc873c59db25cc4ab3f8d5b3e87e12d0f7d715932f40f0a7b6d40c27c8a53",
+          "features/spacecraft/rooms/contact-flight-audio.ts": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+          "features/spacecraft/rooms/contact-flight-console.ts": "7bc897adf7188870e8cdc42b5d87660eea54ac31914ed90b8c8c9a46817f98d9",
+          "features/spacecraft/rooms/contact-keyboard.ts": "1fe03dd175b717a5130cb92e5d2869c2ad98b15ac4f9aa8c41c72ba3640d0e8c",
+          "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+          "features/spacecraft/rooms/projects-payload-module.ts": "34ec40af851e036400a2397b137850348cc97abc0f3efaf8b6a240077b259dd0",
+          "features/spacecraft/rooms/projects-workshop.ts": "2bc768f152d81c7b2c03c925dd3ba1df77154ae8146587a535da0fdda725fbde",
+          "features/spacecraft/spacecraft-model.ts": "39453bef5a05ebb88280d8097d3d57c04a11ff3fd46d716965e42036870dbf5c",
+          "lib/content/about-photos.ts": "6ea3d52dc85b22efef0fffcd1d43ac426b437828a1bf5252c6dd84ec14b70712",
+          "lib/content/case-study-content.ts": "fcee14d3beec20d2240a5da2a8e7c5b63197d429e4332306503311d774625f54",
+          "lib/content/project-content.ts": "1eda895468877331ac50e249cfc36d9d057dafab0c409cbd904db0951d395089",
+          "lib/content/social-links.ts": "dd94c1577e0030eab4ba29430d8fdd96dbe92efaeffe87dbb7563b67fe7a642b",
+          "lib/content/social-platforms.ts": "f07a2e534fbe1925b619e225d90e78e49bd7eaacdfb82dc6507f67acb24dff3c",
+          "lib/palette.ts": "45be860992dd73b71237d0751da56806db32775b5143be17fb6b2f1f8cb5f75d"
+        }
+      }
+    },
+    "frozenAt": "2026-09-28T07:10:50.682Z"
+  },
+  "lockfileSha256": "3d5ccb3561102f4b28ccdc1ab60109b377eaa520641ea5f8d430d4c2e9aaadc4",
+  "inventory": {
+    "before": {
+      "method": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+      "layouts": {
+        "wide": {
+          "scene": {
+            "meshes": 533,
+            "triangles": 1021076,
+            "uniqueGeometries": 468,
+            "attributeBytes": 41519544,
+            "bounds": {
+              "min": [
+                -8.35600020980835,
+                -3.7988064855903243,
+                -1.5136147622980263
+              ],
+              "max": [
+                6.27484508740038,
+                3.7988064855903243,
+                1.6799181723594665
+              ]
+            }
+          },
+          "furniture": {
+            "projects": {
+              "meshes": 74,
+              "triangles": 129988,
+              "uniqueGeometries": 70,
+              "attributeBytes": 5125088,
+              "bounds": {
+                "min": [
+                  -3.6520000572204587,
+                  0.15200000044191264,
+                  -0.9079999923706055
+                ],
+                "max": [
+                  -0.5220000619888303,
+                  2.3093999960422513,
+                  0.3374720513820648
+                ]
+              }
+            },
+            "about": {
+              "meshes": 73,
+              "triangles": 66610,
+              "uniqueGeometries": 67,
+              "attributeBytes": 1889204,
+              "bounds": {
+                "min": [
+                  -3.381999957084655,
+                  -2.6515000271797184,
+                  -1.1035000085830688
+                ],
+                "max": [
+                  -0.3166500162124628,
+                  -0.5304999160766606,
+                  -0.15299999713897705
+                ]
+              }
+            },
+            "caseStudies": {
+              "meshes": 67,
+              "triangles": 68786,
+              "uniqueGeometries": 49,
+              "attributeBytes": 2246804,
+              "bounds": {
+                "min": [
+                  0.6520000572204587,
+                  0.15207500008167707,
+                  -0.9570000171661377
+                ],
+                "max": [
+                  3.5219999427795408,
+                  2.388500061035156,
+                  0.45167668169200315
+                ]
+              }
+            },
+            "contact": {
+              "meshes": 35,
+              "triangles": 60694,
+              "uniqueGeometries": 25,
+              "attributeBytes": 1597484,
+              "bounds": {
+                "min": [
+                  0.4665000314712522,
+                  -2.793000000081957,
+                  -1.100000023841858
+                ],
+                "max": [
+                  3.69973181438446,
+                  -0.6825001049041752,
+                  0.5326781272888184
+                ]
+              }
+            }
+          }
+        },
+        "compact": {
+          "scene": {
+            "meshes": 533,
+            "triangles": 997876,
+            "uniqueGeometries": 468,
+            "attributeBytes": 40234808,
+            "bounds": {
+              "min": [
+                -6.670000209808349,
+                -3.7988064855903243,
+                -1.5136147622980263
+              ],
+              "max": [
+                5.130845087400381,
+                3.7988064855903243,
+                1.6799181723594665
+              ]
+            }
+          },
+          "furniture": {
+            "projects": {
+              "meshes": 74,
+              "triangles": 129988,
+              "uniqueGeometries": 70,
+              "attributeBytes": 5125088,
+              "bounds": {
+                "min": [
+                  -2.8296000480651853,
+                  0.15208000037120664,
+                  -0.7627199935913086
+                ],
+                "max": [
+                  -0.2004000520706175,
+                  1.9642959966754914,
+                  0.2834765231609344
+                ]
+              }
+            },
+            "about": {
+              "meshes": 73,
+              "triangles": 66602,
+              "uniqueGeometries": 67,
+              "attributeBytes": 1888388,
+              "bounds": {
+                "min": [
+                  -2.60279996395111,
+                  -2.6740600228309637,
+                  -1.1029400072097777
+                ],
+                "max": [
+                  -0.15374601361846874,
+                  -0.8924199295043951,
+                  -0.3045199975967407
+                ]
+              }
+            },
+            "caseStudies": {
+              "meshes": 67,
+              "triangles": 68786,
+              "uniqueGeometries": 49,
+              "attributeBytes": 2246804,
+              "bounds": {
+                "min": [
+                  0.3096000480651855,
+                  0.15214300006860876,
+                  -0.8038800144195556
+                ],
+                "max": [
+                  2.720399951934814,
+                  2.0307400512695315,
+                  0.3794084126212826
+                ]
+              }
+            },
+            "contact": {
+              "meshes": 35,
+              "triangles": 60694,
+              "uniqueGeometries": 25,
+              "attributeBytes": 1597484,
+              "bounds": {
+                "min": [
+                  0.15378002643585198,
+                  -2.7929200000688437,
+                  -1.100000009536743
+                ],
+                "max": [
+                  2.8696947240829465,
+                  -1.0201000881195073,
+                  0.4474496269226074
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "after": {
+      "method": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+      "layouts": {
+        "wide": {
+          "scene": {
+            "meshes": 496,
+            "triangles": 860804,
+            "uniqueGeometries": 454,
+            "attributeBytes": 37965408,
+            "bounds": {
+              "min": [
+                -8.35600020980835,
+                -3.7988064855903243,
+                -1.5136147622980263
+              ],
+              "max": [
+                6.27484508740038,
+                3.7988064855903243,
+                1.6799181723594665
+              ]
+            }
+          },
+          "furniture": {
+            "projects": {
+              "meshes": 74,
+              "triangles": 105412,
+              "uniqueGeometries": 70,
+              "attributeBytes": 4529888,
+              "bounds": {
+                "min": [
+                  -3.6520000572204587,
+                  0.15200000044191264,
+                  -0.9079999923706055
+                ],
+                "max": [
+                  -0.5220000619888303,
+                  2.3093999960422513,
+                  0.3374720513820648
+                ]
+              }
+            },
+            "about": {
+              "meshes": 66,
+              "triangles": 48754,
+              "uniqueGeometries": 64,
+              "attributeBytes": 1608644,
+              "bounds": {
+                "min": [
+                  -3.381999957084655,
+                  -2.6515000271797184,
+                  -1.1035000085830688
+                ],
+                "max": [
+                  -0.3166500162124628,
+                  -0.5304999160766606,
+                  -0.15299999713897705
+                ]
+              }
+            },
+            "caseStudies": {
+              "meshes": 47,
+              "triangles": 43538,
+              "uniqueGeometries": 47,
+              "attributeBytes": 1712396,
+              "bounds": {
+                "min": [
+                  0.6520000572204587,
+                  0.15207500008167707,
+                  -0.9570000171661377
+                ],
+                "max": [
+                  3.5219999427795408,
+                  2.388500061035156,
+                  0.45167668169200315
+                ]
+              }
+            },
+            "contact": {
+              "meshes": 34,
+              "triangles": 50326,
+              "uniqueGeometries": 25,
+              "attributeBytes": 1354412,
+              "bounds": {
+                "min": [
+                  0.4665000314712522,
+                  -2.793000000081957,
+                  -1.100000023841858
+                ],
+                "max": [
+                  3.69973181438446,
+                  -0.6825001049041752,
+                  0.5326781272888184
+                ]
+              }
+            }
+          }
+        },
+        "compact": {
+          "scene": {
+            "meshes": 496,
+            "triangles": 838372,
+            "uniqueGeometries": 454,
+            "attributeBytes": 36699104,
+            "bounds": {
+              "min": [
+                -6.670000209808349,
+                -3.7988064855903243,
+                -1.5136147622980263
+              ],
+              "max": [
+                5.130845087400381,
+                3.7988064855903243,
+                1.6799181723594665
+              ]
+            }
+          },
+          "furniture": {
+            "projects": {
+              "meshes": 74,
+              "triangles": 105412,
+              "uniqueGeometries": 70,
+              "attributeBytes": 4529888,
+              "bounds": {
+                "min": [
+                  -2.8296000480651853,
+                  0.15208000037120664,
+                  -0.7627199935913086
+                ],
+                "max": [
+                  -0.2004000520706175,
+                  1.9642959966754914,
+                  0.2834765231609344
+                ]
+              }
+            },
+            "about": {
+              "meshes": 66,
+              "triangles": 48746,
+              "uniqueGeometries": 64,
+              "attributeBytes": 1607828,
+              "bounds": {
+                "min": [
+                  -2.60279996395111,
+                  -2.6740600228309637,
+                  -1.1029400072097777
+                ],
+                "max": [
+                  -0.15374601361846874,
+                  -0.8924199295043951,
+                  -0.3045199975967407
+                ]
+              }
+            },
+            "caseStudies": {
+              "meshes": 47,
+              "triangles": 43538,
+              "uniqueGeometries": 47,
+              "attributeBytes": 1712396,
+              "bounds": {
+                "min": [
+                  0.3096000480651855,
+                  0.15214300006860876,
+                  -0.8038800144195556
+                ],
+                "max": [
+                  2.720399951934814,
+                  2.0307400512695315,
+                  0.3794084126212826
+                ]
+              }
+            },
+            "contact": {
+              "meshes": 34,
+              "triangles": 50326,
+              "uniqueGeometries": 25,
+              "attributeBytes": 1354412,
+              "bounds": {
+                "min": [
+                  0.15378002643585198,
+                  -2.7929200000688437,
+                  -1.100000009536743
+                ],
+                "max": [
+                  2.8696947240829465,
+                  -1.0201000881195073,
+                  0.4474496269226074
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "captures": [
+    {
+      "browserDpr": 2,
+      "calls": 831,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.0869999999999997,
+          1.694027397060318,
+          6.489354201723369
+        ],
+        "target": [
+          -2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1889036,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Projects front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 773,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.0869999999999997,
+          1.694027397060318,
+          6.489354201723369
+        ],
+        "target": [
+          -2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1592560,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Projects front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 785,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          -2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1595662,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "About oblique",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 848,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          -2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1895254,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "About oblique",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 809,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          2.0869999999999997,
+          1.694027397060318,
+          6.489354201723369
+        ],
+        "target": [
+          2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1889488,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Case studies front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 739,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          2.0869999999999997,
+          1.694027397060318,
+          6.489354201723369
+        ],
+        "target": [
+          2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1582932,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Case studies front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 794,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1613098,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 853,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1917250,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 823,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.607585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1849596,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 771,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.607585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1566108,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 835,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          7.682170851236412,
+          0.9002439331750773,
+          4.390244073194875
+        ],
+        "target": [
+          4.959,
+          0.2,
+          0.5
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1639885,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service core",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 908,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          7.682170851236412,
+          0.9002439331750773,
+          4.390244073194875
+        ],
+        "target": [
+          4.959,
+          0.2,
+          0.5
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1955341,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service core",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 944,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -3.5614842924397228,
+          8.588894912370835,
+          7.668526549827781
+        ],
+        "target": [
+          -1,
+          3.1,
+          0.35
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1992430,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Roof access detail",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 870,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -3.5614842924397228,
+          8.588894912370835,
+          7.668526549827781
+        ],
+        "target": [
+          -1,
+          3.1,
+          0.35
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1673902,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Roof access detail",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 868,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -3.5614842924397228,
+          -8.188894912370834,
+          7.668526549827781
+        ],
+        "target": [
+          -1,
+          -2.7,
+          0.35
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1673866,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Underside access detail",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 2,
+      "calls": 942,
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -3.5614842924397228,
+          -8.188894912370834,
+          7.668526549827781
+        ],
+        "target": [
+          -1,
+          -2.7,
+          0.35
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1992394,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Underside access detail",
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browserDpr": 1,
+      "calls": 728,
+      "drawingBuffer": {
+        "height": 1200,
+        "width": 900
+      },
+      "finite": true,
+      "frame": 3,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          2.0869999999999997,
+          -1.0942310598419556,
+          10.96768400451556
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1711252,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Contact front",
+      "viewport": {
+        "height": 1200,
+        "width": 900
+      }
+    },
+    {
+      "browserDpr": 1,
+      "calls": 659,
+      "drawingBuffer": {
+        "height": 1200,
+        "width": 900
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          2.0869999999999997,
+          -1.0942310598419556,
+          10.96768400451556
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1420756,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Contact front",
+      "viewport": {
+        "height": 1200,
+        "width": 900
+      }
+    }
+  ],
+  "imageComparison": {
+    "method": "1280x720 screenshots cropped to x=0 y=110 width=1280 height=610 to omit fixture controls; RGB absolute channel differences, before versus after.",
+    "results": [
+      {
+        "name": "projects",
+        "meanChannelDifference": 0.15453679986338797,
+        "percentPixelsOver16": 0.021004098360655737
+      },
+      {
+        "name": "about",
+        "meanChannelDifference": 0.1394612363387978,
+        "percentPixelsOver16": 0.006147540983606557
+      },
+      {
+        "name": "archive",
+        "meanChannelDifference": 0.1733371755464481,
+        "percentPixelsOver16": 0.058017418032786885
+      },
+      {
+        "name": "contact",
+        "meanChannelDifference": 0.09022925204918032,
+        "percentPixelsOver16": 0.002689549180327869
+      },
+      {
+        "name": "ladder",
+        "meanChannelDifference": 0.10690104166666667,
+        "percentPixelsOver16": 0.0016649590163934425
+      },
+      {
+        "name": "service",
+        "meanChannelDifference": 0.03501707650273224,
+        "percentPixelsOver16": 0.0005122950819672131
+      },
+      {
+        "name": "roof",
+        "meanChannelDifference": 0.039147455601092895,
+        "percentPixelsOver16": 0.0011526639344262295
+      },
+      {
+        "name": "underside",
+        "meanChannelDifference": 0.06059981215846995,
+        "percentPixelsOver16": 0.0028176229508196722
+      }
+    ]
+  }
+}

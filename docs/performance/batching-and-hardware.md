@@ -1,9 +1,52 @@
 # Fewer submissions and less invisible hardware detail
 
-Consolidates former ledger entries **01–02** (14 September 2026). These are two
-successive interventions, with separate baselines. Their figures must not be
-added or compared across resolutions. The mechanisms remain in production;
-subsequent authored room geometry makes these historical workload counts.
+Consolidates former ledger entries **01–02** and the current geometry budget.
+Each comparison has its own source baseline. Do not add their gains or compare
+them across resolutions; subsequent authored geometry changes workload counts.
+
+## Current bevel and hardware budget
+
+Against `33c29fa3bc92907cb72d96b4b1d70bdce98fe5ab`, rounded cuboids use their
+bevel radius to select 5/7/9 segments, preserving the dense broad curves and
+existing small parts. Small, immutable hardware batches join an existing opaque
+sibling draw only when material, parent, section, picking and shadow state agree.
+Animations, reader assemblies, custom shaders and instance colors stay separate;
+the 2,048-triangle per-batch limit bounds expansion of repeated geometry.
+
+The wide visible model inventory changes **1,021,076 → 860,804 triangles
+(−15.7%)**, **533 → 496 meshes (−6.9%)** and **41,519,544 → 37,965,408 geometry
+array bytes (−8.6%)**. Merging alone adds 454,152 array bytes; reduced bevels more
+than offset that cost. Both wide and compact model bounds are unchanged. These
+are scene inventory/array counts, not measured GPU memory or frame-time gains.
+
+Nine matched finite views in hidden built-in **Chromium 154** use time 0, wide
+construction, DPR 1, and 1280×720 CSS/buffer (900×1200 for portrait Contact).
+Projects changes **831 → 773 draws**, including the fixture's shadow generation,
+and **1,889,036 → 1,592,560 submitted triangles**. Across these views, draws fall
+6.3–9.5% and triangles 15.3–17.0%. The fixture omits GTAO, Earth, live screen
+interfaces and navigation; these counts cannot establish an application timing,
+energy or battery percentage. Stationary cache hits already reuse the static
+ship; the reductions chiefly affect reconstruction and direct rendering.
+
+The accepted visual tradeoff is tiny bevel curvature/shading differences.
+Matched checks cover all rooms, ladder/service equipment, roof and underside
+access routes, and portrait Contact. In the eight desktop pairs, excluding the
+top 110-pixel control strip, mean channel difference is 0.035–0.173 on a 0–255
+scale; at most 0.0581% of scene pixels change by more than 16 in any channel.
+These image statistics supplement visual inspection rather than guarantee every
+camera/device. Live app checks include default shading, room/reader interaction
+and responsive overview. Native Safari and GPU/CPU timing were not tested.
+
+[Source identities, inventory, matched view counts and image differences](../evidence/performance/geometry-budget/comparison.json)
+preserve this comparison separately from the earlier runs. Representative
+[Projects](../evidence/performance/geometry-budget/projects-pair.png) and
+[Contact](../evidence/performance/geometry-budget/contact-pair.png) pairs show
+before on the left, after on the right (scene crops displayed at half size).
+
+Regressions check closed bevel topology, dimensions, normals and UVs; expanded
+hardware triangle inputs and resource ownership; render/picking exclusions;
+both layouts; category repacking, dimming and display feedback. Full integration
+verification uses disposable D1/R2 state under the operations guide.
 
 ## Exact batching and matrix reuse
 
