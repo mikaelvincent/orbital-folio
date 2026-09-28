@@ -1,5 +1,9 @@
 import { PALETTE } from '../../lib/palette.ts';
-import { createCabinLight, VESSEL_LIGHTING } from './lighting.ts';
+import {
+  createCabinLight,
+  createLadderLight,
+  VESSEL_LIGHTING,
+} from './lighting.ts';
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
 import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
@@ -1428,7 +1432,108 @@ export function createSpacecraft(
     LADDER_CENTER_Y,
     m,
   );
-  roomLights.walkway = [];
+  // A compact side-wall fitting washes across the rungs. Keep it on the rigid
+  // walkway root, clear of both hatch apertures and the middle service cassette.
+  const ladderLampMount = new THREE.Group();
+  ladderLampMount.name = 'ladder-bay-lamp-mount';
+  ladderLampMount.userData = {
+    section: 'walkway',
+    roomSurface: true,
+    batchRoot: true,
+    excludePick: true,
+  };
+  ladderLampMount.position.set(0.69, LADDER_CENTER_Y, 0.76);
+  walkway.add(ladderLampMount);
+  box(
+    0.035,
+    0.23,
+    0.31,
+    m.gasket,
+    -0.0175,
+    0,
+    0,
+    ladderLampMount,
+    0.012,
+    'ladder-lamp-wall-seal',
+  );
+  box(
+    0.05,
+    0.205,
+    0.285,
+    m.chalk,
+    -0.04,
+    0,
+    0,
+    ladderLampMount,
+    0.016,
+    'ladder-lamp-wall-shoe',
+  );
+  box(
+    0.12,
+    0.06,
+    0.07,
+    m.metal,
+    -0.1,
+    0,
+    0,
+    ladderLampMount,
+    0.01,
+    'ladder-lamp-support',
+  );
+  const ladderLamp = new THREE.Group();
+  ladderLamp.name = 'ladder-bay-aimed-lamp-fixture';
+  ladderLamp.userData = { section: 'walkway', batchRoot: true };
+  ladderLamp.position.set(-0.16, 0, -0.04);
+  const ladderAim = new THREE.Vector3(-0.82, 0, -1.48);
+  ladderLamp.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0, 0, -1),
+    ladderAim.clone().sub(ladderLamp.position).normalize(),
+  );
+  ladderLampMount.add(ladderLamp);
+  box(
+    0.28,
+    0.18,
+    0.1,
+    m.chalk,
+    0,
+    0,
+    0,
+    ladderLamp,
+    0.025,
+    'ladder-lamp-housing',
+  );
+  box(
+    0.24,
+    0.14,
+    0.018,
+    m.navy,
+    0,
+    0,
+    -0.058,
+    ladderLamp,
+    0.008,
+    'ladder-lamp-bezel',
+  );
+  const ladderDiffuser = box(
+    0.205,
+    0.105,
+    0.01,
+    m.light,
+    0,
+    0,
+    -0.072,
+    ladderLamp,
+    0.006,
+    'ladder-lamp-warm-diffuser',
+  );
+  // The bay's pressure lining suppresses emission; this actual lamp face emits.
+  ladderDiffuser.material = roomMat(m.light, 'walkway', false, false);
+  const ladderLight = createLadderLight(THREE);
+  ladderLight.position.set(0, 0, -0.086);
+  ladderLamp.add(ladderLight);
+  ladderLight.target.position.copy(ladderAim);
+  ladderLampMount.add(ladderLight.target);
+  roomLights.walkway = [ladderLight];
   const dockingInterior = new THREE.Group();
   dockingInterior.name = 'walkway-finished-inner-docking-hatch';
   dockingInterior.userData = {
@@ -3083,6 +3188,7 @@ export function createSpacecraft(
     const outward = layoutWalls.rightX - 3.25;
     const walkwayX = layoutWalls.ladderX;
     walkway.position.set(walkwayX, 0, 0);
+    ladderLampMount.position.x = 0.69 * layoutScale;
     // Both hatch assemblies derive their position from the actual sidewall.
     const dockingWallX = layoutWalls.dockingOuterWall;
     const dockingInnerFace = PRESSURE_WALL;
@@ -3747,7 +3853,10 @@ export function createSpacecraft(
         material.emissiveIntensity = 1;
       }
       for (const light of roomLights[section] || [])
-        light.intensity = VESSEL_LIGHTING.cabinIntensity;
+        light.intensity =
+          section === 'walkway'
+            ? VESSEL_LIGHTING.ladderIntensity
+            : VESSEL_LIGHTING.cabinIntensity;
       group.userData.lightingState ||= {};
       group.userData.lightingState[section] = {
         targetLevel: targetLevels[section],
@@ -3774,7 +3883,7 @@ export function createSpacecraft(
           (light: any) => light.intensity,
         ),
         emitterPolicy:
-          'one aimed shadow-casting lamp per cabin; room-linked light, material hover/selected/transit feedback; no pathway emitters',
+          'one aimed shadow-casting lamp per cabin and ladder bay; room-linked light, material hover/selected/transit feedback',
       };
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);

@@ -7,6 +7,10 @@ import {
   cabinLightingChunk,
   createExteriorLight,
 } from '../../features/spacecraft/lighting.ts';
+import {
+  wallLayout,
+  LADDER_CENTER_Y,
+} from '../../features/spacecraft/geometry/spacecraft-wall-layout.ts';
 
 const model = createSpacecraft(THREE, { layout: 'wide' });
 const lights = [];
@@ -32,12 +36,14 @@ function compile(material) {
 }
 
 test('aimed emitters follow their physical fixtures and targets in both asset layouts', () => {
-  assert.equal(lights.length, 4);
+  assert.equal(lights.length, 5);
   assert.ok(lights.every((light) => light.isSpotLight && light.castShadow));
   for (const layout of ['compact', 'wide']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
-    for (const light of lights) {
+    for (const light of lights.filter(
+      (light) => light.userData.section !== 'walkway',
+    )) {
       const world = light.getWorldPosition(new THREE.Vector3());
       const [x, y] = model.group.userData.roomAnchors[light.userData.section];
       assert.ok(Math.abs(world.x - x) > 0.7);
@@ -74,6 +80,86 @@ test('aimed emitters follow their physical fixtures and targets in both asset la
     }
   }
   assert.equal(createExteriorLight(THREE).castShadow, true);
+});
+
+test('the ladder lamp remains attached, unobstructed and aimed across the rungs in both layouts', () => {
+  const light = lights.find((light) => light.userData.section === 'walkway');
+  const mount = model.group.getObjectByName('ladder-bay-lamp-mount');
+  const lamp = light.parent;
+  const sizes = [];
+  for (const layout of ['compact', 'wide']) {
+    model.setLayout(layout);
+    model.group.updateMatrixWorld(true);
+    const wall = wallLayout(layout === 'wide' ? 1.4 : 1);
+    const position = mount.getWorldPosition(new THREE.Vector3());
+    assert.ok(Math.abs(position.x - wall.ladderRightWall) < 1e-8);
+    assert.equal(position.y, LADDER_CENTER_Y);
+    assert.deepEqual(
+      lamp.getWorldScale(new THREE.Vector3()).toArray(),
+      [1, 1, 1],
+    );
+    const fixtureBounds = new THREE.Box3().setFromObject(mount);
+    sizes.push(fixtureBounds.getSize(new THREE.Vector3()).toArray());
+    const cassette = model.group.getObjectByName(
+      'ladder-wall-isolation-cassette',
+    );
+    assert.ok(
+      !fixtureBounds.intersectsBox(new THREE.Box3().setFromObject(cassette)),
+    );
+    for (const guide of meshes.filter(
+      (mesh) => mesh.name === 'recessed-iris-guide',
+    ))
+      assert.ok(
+        !fixtureBounds.intersectsBox(new THREE.Box3().setFromObject(guide)),
+      );
+    const source = light.getWorldPosition(new THREE.Vector3());
+    const direction = light.target
+      .getWorldPosition(new THREE.Vector3())
+      .sub(source)
+      .normalize();
+    const normal = new THREE.Vector3(0, 0, -1).transformDirection(
+      lamp.matrixWorld,
+    );
+    assert.ok(normal.dot(direction) > 0.999999);
+    assert.ok(direction.x < -0.3 && direction.z < -0.8);
+    const blocked = new THREE.Raycaster(
+      source,
+      direction,
+      0,
+      0.15,
+    ).intersectObjects(
+      meshes.filter((mesh) => mesh.castShadow),
+      false,
+    );
+    assert.equal(blocked.length, 0);
+  }
+  sizes[0].forEach((value, index) =>
+    assert.ok(Math.abs(value - sizes[1][index]) < 1e-8),
+  );
+  model.update(1, '', true, { activeRoom: 'home' });
+  const intensity = light.intensity;
+  model.update(2, '', true, {
+    activeRoom: 'about',
+    travelling: true,
+    transitWalkway: true,
+  });
+  assert.equal(
+    light.intensity,
+    intensity,
+    'navigation feedback must not invalidate cached lighting',
+  );
+  const receivers = linked.shadowReceivers().get(light);
+  assert.ok(
+    [...receivers].some(
+      (mesh) => mesh.parent?.name === 'engineering-service-spine',
+    ),
+  );
+  assert.ok(
+    [...receivers].some((mesh) =>
+      mesh.userData.parts?.includes('walkway-continuous-rear-liner'),
+    ),
+  );
+  assert.ok([...receivers].every((mesh) => !mesh.material.userData.exterior));
 });
 
 test('room and shared-door materials link fixture light and shadows together while retaining faint sunlight', () => {

@@ -6,6 +6,7 @@ import { directLightWorkChunk } from './materials/direct-light-work.ts';
 export const VESSEL_LIGHTING = {
   sunIntensity: 0.32,
   cabinIntensity: 11,
+  ladderIntensity: 8.5,
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
@@ -27,6 +28,16 @@ export function createCabinLight(T: typeof Three, section: string) {
   light.shadow.camera.far = 7;
   light.shadow.normalBias = 0.012;
   light.shadow.bias = -0.00015;
+  return light;
+}
+
+/** A broad side wash reveals the ladder rungs while leaving its end recesses dim. */
+export function createLadderLight(T: typeof Three) {
+  const light = createCabinLight(T, 'walkway');
+  light.name = 'ladder-bay-lamp';
+  light.intensity = VESSEL_LIGHTING.ladderIntensity;
+  light.angle = Math.PI * 0.4;
+  light.penumbra = 0.55;
   return light;
 }
 

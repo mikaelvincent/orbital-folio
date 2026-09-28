@@ -148,10 +148,11 @@ test('explicit quality/filter invalidation retains dirty flags until the maps ac
   assert.deepEqual(f.frame(), []);
 });
 
-test('the authored wide ship reuses all cabin maps through a complete dish cycle and reduced-motion snap', () => {
+test('the authored wide ship reuses cabin and ladder maps through a complete dish cycle and reduced-motion snap', () => {
   const model = createSpacecraft(T, { layout: 'wide' });
   const scene = new T.Scene();
   const linked = applyCabinLighting(T, model.group);
+  assert.ok(linked.lights.some((light) => light.name === 'ladder-bay-lamp'));
   const sun = createExteriorLight(T),
     lights = [sun, ...linked.lights];
   scene.add(model.group, sun);
