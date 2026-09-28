@@ -11,6 +11,11 @@ This extends candidate **10**. The [first fallback prototype](../README.md),
 original B trial and current retest have separate sources and measurements.
 Historical exclusions remain intact. No energy or battery-life gain is claimed.
 
+Current scheduling now keeps visible scenes moving continuously by owner choice;
+hidden/offscreen suspension still releases the cache. The retest below predates
+that scheduling decision: its active-frame comparisons still describe the cache,
+while its automatic-rest checks describe the earlier source only.
+
 ## Restoration and decision retest
 
 The implementation decision follows the revised diagnostics guide: valid statistics,

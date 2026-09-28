@@ -271,19 +271,21 @@ a real transmission. Reduced motion holds resting appearances; hidden-page timin
 uses the shared scene loop. Moving dish shadows/contact shading refresh when
 necessary; material-only meters do not. These are authored visual costs.
 
-Visible scenes now rest by default after **15 seconds without interaction**.
-Finish camera travel, door/feedback transitions and notebook turns first, then
-hold the current dish, Earth, sky and signal poses with no recurring render
-callback. Pointer, keyboard, focus, scrolling, content/asset updates and viewport
-changes request rendering again. Resume from the held animation time; never catch
-up across the idle gap. There is no toggle or saved preference, and this does not
-change reduced motion or the semantic reading view.
+Visible scenes animate continuously, including while the user interacts with
+another app or window. Do not stop after inactivity or use loss of keyboard focus
+as a visibility signal. Suspend rendering when the document is hidden or the scene
+is outside the viewport; this includes minimized windows and background tabs as
+reported by the browser. Browsers may also throttle rendering independently.
+Resume from the held animation time without catch-up, including after a RAF gap
+longer than one second with no visibility event. Preserve reduced-motion demand
+rendering and the semantic reading view. Continuous visible motion is the accepted
+appearance/work tradeoff; the historical inactivity comparison remains candidate 9.
 
 During eligible active holds, cache the stationary spacecraft's color/depth while
 keeping Earth, sky, the scanning dish, its affected receiving surfaces and Contact
 effects live. Preserve moving shadows and contact shading. Camera, viewport,
 lighting, material, geometry, hover and room changes reconstruct affected caches;
-rest/hiding releases the extra attachments. The phone/AO-disabled quality paths
+hiding releases the extra attachments. The phone/AO-disabled quality paths
 use normal rendering, as do unsupported dish transforms. Small edge-coverage
 differences are accepted; [candidate 10](performance-ledger.md) records the
 measured scope, memory cost and appearance comparisons.
@@ -314,8 +316,8 @@ relative to 0.0045 rad/s. Seeking pauses; closing preserves phase and resumes 1Ã
 reload restores Europe. State is temporary, with no storage/backend writes. Only
 Earth time changes; preserve readiness, sky/camera timing, reduced motion and
 visibility rules. Manual seeking remains available under reduced motion.
-An open, playing Earth playback panel keeps the scene awake for inspection;
-pausing it allows automatic rest, and closing it restores the normal idle policy.
+Pausing Earth playback holds Earth while other ambient motion continues. Closing
+the panel returns Earth to normal playback; visibility and reduced motion still apply.
 
 Favor a gradual blue horizon with a restrained peak, not gray haze or glaring
 electric blue. Stars surround the world without exposed edges during drag/roll,
@@ -335,9 +337,9 @@ and technical investigators, with guided room/part breakdowns, advanced controls
 and named exports. A URL parameter is an optional shortcut. Closing restores
 normal rendering. The owner uses a passively cooled MacBook Air M4; that does not
 authorize M4-only quality rules or timing-based claims of thermal throttling.
-While Scene diagnostics is open, automatic rest is suspended so capture windows
-retain continuous samples. Its explicit one-frame pause and reduced motion still
-apply. Closing diagnostics starts a fresh inactivity period.
+Scene diagnostics observes the same continuous visible scheduling. Its explicit
+one-frame pause and reduced motion still apply. Closing diagnostics restores the
+normal rendering settings.
 
 [The performance index](performance-ledger.md) owns retained case-study candidates
 and proposal status. [Diagnostics](performance-diagnostics.md) owns comparison

@@ -1,8 +1,13 @@
 # Let the visible scene rest
 
-**Retained as the default.** A visible portfolio previously submitted a complete
-frame continuously, even after the camera and cached lighting had settled.
-After 15 seconds without input or scene updates, the new scheduler finishes any
+**Historical optimization, superseded by the owner's preference for continuous
+visible motion.** Current rendering pauses when hidden/offscreen and preserves
+reduced-motion behavior. The measurements below remain evidence for this trial,
+not the current scheduling policy.
+
+The trial addressed a visible portfolio that submitted a complete frame
+continuously, even after the camera and cached lighting had settled.
+After 15 seconds without input or scene updates, the trial scheduler finishes any
 remaining transitions and stops requesting animation frames. Dish scanning,
 Earth, stars, meteors and signal displays hold their current state. Input wakes
 the next frame; its zero time delta prevents animation catch-up after a pause.

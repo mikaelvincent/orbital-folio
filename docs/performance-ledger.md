@@ -17,7 +17,7 @@ require this ledger or its archive. For measurement, use the
 | **6. Limits of offline lighting bakes** | Native shadow transport fails changing portrait lighting; static contact shading adds 313,812 triangles and visible artifacts; fitted irradiance changes appearance with ~5.3% held-out error. None establishes a qualified net speedup. | Existing cached shadows/GTAO/illumination retained. Merges **21–23**, preserving separate sources/protocols: [shadow](evidence/performance/static-shadow-bake/README.md), [contact](evidence/performance/static-contact-bake/README.md), [diffuse](evidence/performance/baked-diffuse-probe/README.md). |
 | **7. Native-detail regional Earth loop** | A protected original Europe core plus fictional coastal continuation reduces 4096×3072→2560×1536 footprint: 21.05% fewer download bytes, 68.75% less nominal mip storage. Drift prevents a desktop GPU ranking. | Current asset; later camera/atmosphere behavior supersedes original captures. Regional-loop portion of **29** plus **30**. [Provenance, visual tradeoffs, raw timings and coverage](evidence/earth-consistent-loop/README.md). |
 | **8. Idle scene, sustained lighting work** | Stationary hull geometry concealed continued animation and expensive fragment lighting. Skip proven zero-contribution Standard-material lighting and back-facing directional shadow samples. Exploratory quiet-idle GPU means 14.13→11.00 ms; strict readiness and moving-camera timing failed stability gates. | Specialization adopted with unchanged authored quality; 152 image comparisons differed by at most 1/255. Thermal/energy benefit unverified. [Cause, necessary updates, raw/excluded measurements and limits](evidence/performance/idle-lighting/README.md). |
-| **9. Let the visible scene rest** | Default inactivity scheduling stops ambient motion and all recurring scene submissions after 15 seconds, then resumes on interaction. Four ten-second idle windows fell from 587–603 frames to zero; active rendering quality stays unchanged. | Adopted. Stillness is the deliberate tradeoff; frame counts do not quantify energy savings. [Source, alternating comparisons, wake-up checks and limits](evidence/performance/scene-rest/README.md). |
+| **9. Let the visible scene rest** | The historical 15-second inactivity policy reduced four ten-second idle windows from 587–603 frames to zero, preserving active rendering quality. | Superseded by the owner's preference for continuous visible motion. Hidden/offscreen suspension remains; measured frame savings remain valid for the historical source, not the current visible scene. [Tradeoff, source and comparisons](evidence/performance/scene-rest/README.md). |
 | **10. Stationary pixels, moving costs** | Keeping the dish and receiving surfaces live preserves moving shadows/AO while reusing 99.72% of full-cycle frames. Six new desktop blocks observed 5–21% lower CPU callback means and 9–51% lower sampled GPU means across three views; variation limits precise claims, and GPU sampling misses the single rebuild frame. | B restored and retained on the AO-enabled non-phone path; initial fallback prototype remains reverted. Active rendering only, with 140.625 MiB nominal desktop cache storage and minor edge differences. [Original trial](evidence/performance/stationary-pixel-cache/README.md) and [current decision, tradeoffs, retest and historical exclusions](evidence/performance/stationary-pixel-cache/receivers/README.md). |
 
 Routine art, interface and interaction revisions are current requirements in
@@ -60,8 +60,8 @@ not be added. All proposals remain **held pending explicit authorization**;
 implementation needs a concrete visual/interaction tradeoff and the recommended
 experience. Preserve the existing reduced-motion and hidden-page behavior.
 
-Automatic inactivity rest is now the default, with the outcome retained in
-candidate **9** above. Stationary spacecraft caching with live dish receivers is
+Continuous visible motion is now the default; the superseded inactivity policy
+remains candidate **9** as an appearance/work tradeoff. Stationary spacecraft caching with live dish receivers is
 now retained after retesting under the revised decision rules; it shares candidate
 **10** with the earlier reverted fallback prototype.
 The remaining proposals are still deferred.
@@ -81,6 +81,6 @@ The remaining proposals are still deferred.
    GTAO on 239/240 measured frames and camera movement on 238–239/240; even when
    a quiet hold reused the cache, its composite remained in the main frame.
    Expect flatter contact depth around objects and room surfaces. This helps
-   most during movement and ambient scanning while automatic rest is not engaged.
+   most during movement and ambient scanning.
    [Evidence](evidence/performance/idle-lighting/README.md) and
    [diagnostic scope](performance-diagnostics.md#interpret-the-work-correctly).

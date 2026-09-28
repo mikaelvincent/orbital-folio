@@ -1,16 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  createSceneRenderLoop,
-  SCENE_IDLE_DELAY_MS,
-} from '../../features/spacecraft/scene-render-loop.ts';
+import { createSceneRenderLoop } from '../../features/spacecraft/scene-render-loop.ts';
 
 function fixture() {
   let time = 0;
   let id = 0;
   const queued = new Map();
   const draws = [];
-  const rests = [];
   const state = { visible: true, ambient: true, busy: false, once: false };
   let duringDraw = () => {};
   const loop = createSceneRenderLoop({
@@ -22,8 +18,6 @@ function fixture() {
     ambientMotion: () => state.ambient,
     keepAwake: () => state.busy,
     renderOnce: () => state.once,
-    onRest: (value) => rests.push(value),
-    now: () => time,
     requestFrame: (callback) => {
       queued.set(++id, callback);
       return id;
@@ -35,7 +29,6 @@ function fixture() {
     state,
     queued,
     draws,
-    rests,
     duringDraw: (callback) => {
       duringDraw = callback;
     },
@@ -52,32 +45,26 @@ function fixture() {
   };
 }
 
-test('a visible scene rests without a pending callback and resumes without clock catch-up', () => {
+test('a visible scene keeps animating beyond the former idle deadline without input', () => {
   const f = fixture();
   f.loop.wake();
   f.frame();
-  f.frame(SCENE_IDLE_DELAY_MS - 100);
+  f.frame(15_000);
   assert.equal(f.queued.size, 1);
-  f.frame(100);
-  assert.equal(f.queued.size, 0);
-  assert.deepEqual(f.rests, [true]);
   const count = f.draws.length;
   f.frame(60_000);
-  assert.equal(f.draws.length, count);
-  f.loop.wake();
+  assert.equal(f.draws.length, count + 1);
   assert.equal(f.queued.size, 1);
-  assert.deepEqual(f.rests, [true, false]);
-  f.frame();
-  assert.deepEqual(f.draws.at(-1).slice(1), [0, 0]);
   f.frame();
   assert.ok(Math.abs(f.draws.at(-1)[1] - 1 / 60) < 1e-8);
 });
 
-test('new input extends the deadline without resetting an active animation clock', () => {
+test('repeated input coalesces without resetting an active animation clock', () => {
   const f = fixture();
   f.loop.wake();
   f.frame();
-  f.elapse(SCENE_IDLE_DELAY_MS - 100);
+  f.elapse(100);
+  f.loop.wake();
   f.loop.wake();
   f.frame(200);
   assert.equal(f.queued.size, 1);
@@ -86,20 +73,31 @@ test('new input extends the deadline without resetting an active animation clock
     0.05,
     'long active frames retain the delta cap',
   );
-  f.frame(SCENE_IDLE_DELAY_MS);
-  assert.equal(f.queued.size, 0);
+  f.frame(15_000);
+  assert.equal(f.queued.size, 1);
 });
 
-test('unfinished navigation or inspection outlives the deadline, then rests', () => {
+test('visibility lost during a draw stops the loop even with ambient motion enabled', () => {
   const f = fixture();
-  f.state.busy = true;
+  f.duringDraw(() => {
+    f.state.visible = false;
+  });
   f.loop.wake();
-  f.frame(SCENE_IDLE_DELAY_MS * 2);
-  assert.equal(f.queued.size, 1);
-  f.state.busy = false;
   f.frame();
   assert.equal(f.queued.size, 0);
-  assert.deepEqual(f.rests, [true]);
+  f.frame(60_000);
+  assert.equal(f.draws.length, 1);
+});
+
+test('browser suspension without a visibility event resumes from the held animation time', () => {
+  const f = fixture();
+  f.loop.wake();
+  f.frame();
+  f.frame(60_000);
+  assert.deepEqual(f.draws.at(-1).slice(1), [0, 60]);
+  assert.equal(f.queued.size, 1);
+  f.frame();
+  assert.ok(Math.abs(f.draws.at(-1)[1] - 1 / 60) < 1e-8);
 });
 
 test('reduced motion renders on demand while required travel can still finish', () => {
@@ -108,7 +106,6 @@ test('reduced motion renders on demand while required travel can still finish', 
   f.loop.wake();
   f.frame();
   assert.equal(f.queued.size, 0);
-  assert.deepEqual(f.rests, [], 'reduced motion is not automatic inactivity');
   f.state.busy = true;
   f.loop.wake();
   f.frame();
@@ -125,7 +122,6 @@ test('the render-once diagnostic overrides continuous inspection', () => {
   f.loop.wake();
   f.frame();
   assert.equal(f.queued.size, 0);
-  assert.deepEqual(f.rests, []);
 });
 
 test('hidden scenes cancel pending work and resume with zero elapsed hidden time', () => {

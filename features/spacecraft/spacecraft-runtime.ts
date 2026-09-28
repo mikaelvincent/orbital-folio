@@ -48,10 +48,7 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
-import {
-  createSceneRenderLoop,
-  SCENE_IDLE_DELAY_MS,
-} from './scene-render-loop';
+import { createSceneRenderLoop } from './scene-render-loop';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
@@ -842,7 +839,6 @@ export function mountSpacecraftScene({
         let stop = latest.current.paused,
           visible = !document.hidden,
           inViewport = true;
-        let earthPlaybackOpen = false;
         let renderedFrames = 0;
         let active = 'home',
           hovered = '',
@@ -1671,7 +1667,7 @@ export function mountSpacecraftScene({
           });
           if (!stop) {
             elapsed += delta;
-            if (delta > 0) {
+            if (rawDelta > 0) {
               frameIntervals.push(rawDelta * 1000);
               if (frameIntervals.length > 360) frameIntervals.shift();
             }
@@ -2627,16 +2623,7 @@ export function mountSpacecraftScene({
           diagnostics?.mark('legacy-metrics');
           diagnostics?.endFrame();
         };
-        // Flight axes retain small arrival velocities after integration stops;
-        // travelling covers them. Only these axes continue settling afterward.
-        const cameraMotion = [
-          ...rangeMotion,
-          ...pointerMotion,
-          ...dragMotion,
-          ...hoverMotion,
-          dollyMotion,
-        ];
-        el.dataset.sceneResting = 'false';
+        el.dataset.sceneVisible = String(visible);
         const pixelCache = createStationaryPixelCache({
           three: THREE,
           renderer,
@@ -2652,22 +2639,7 @@ export function mountSpacecraftScene({
           canRender: () => visible && !destroyed && !audit?.manual,
           ambientMotion: () => !stop,
           renderOnce: () => experiment === 'render-once',
-          keepAwake: () =>
-            travelling ||
-            (!stop &&
-              (firstFrame ||
-                !!down ||
-                !!model.group.userData.transitionActive ||
-                cameraMotion.some((axis) => Math.abs(axis.velocity) > 0.001) ||
-                !!diagnostics ||
-                (earthPlaybackOpen && background.getEarthPlayback().playing))),
-          onRest: (resting) => {
-            if (resting) pixelCache.release();
-            el.dataset.sceneResting = String(resting);
-            // Publish the final sample even if rest falls between metrics ticks.
-            el.dataset.renderedFrames = String(renderedFrames);
-            el.dataset.activeTime = elapsed.toFixed(3);
-          },
+          keepAwake: () => travelling,
         });
         function kick() {
           pixelCache.invalidate();
@@ -3213,10 +3185,15 @@ export function mountSpacecraftScene({
           cancelPointer,
         );
         const syncVisibility = () => {
+          // Visibility, not keyboard focus: an unfocused window may stay onscreen.
           const nextVisible = inViewport && !document.hidden;
           if (nextVisible !== visible)
             resetDiagnostics('scene visibility changed');
           visible = nextVisible;
+          el.dataset.sceneVisible = String(visible);
+          // Flush counters before hidden pages stop publishing periodic metrics.
+          el.dataset.renderedFrames = String(renderedFrames);
+          el.dataset.activeTime = elapsed.toFixed(3);
           if (!visible) {
             pixelCache.release();
             cancelPointer(new Event('visibilitychange'));
@@ -3309,7 +3286,6 @@ export function mountSpacecraftScene({
           getEarthPlayback: () => background.getEarthPlayback(),
           setEarthPlayback(command) {
             if (destroyed) return;
-            earthPlaybackOpen = command.type !== 'close';
             background.setEarthPlayback(command);
             kick();
           },
@@ -3389,9 +3365,9 @@ export function mountSpacecraftScene({
               room: active,
               visible,
               reducedMotion: stop,
-              automaticRest: {
-                idleDelayMs: SCENE_IDLE_DELAY_MS,
-                suspendedByDiagnostics: true,
+              scheduling: {
+                ambient: 'while-visible',
+                hidden: 'paused',
               },
               travelling,
               cameraPosition: camera.position.toArray(),

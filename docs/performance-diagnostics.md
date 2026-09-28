@@ -42,8 +42,8 @@ Report the decision separately from the claim: for example, "retain because the
 tested active workload consistently costs less, with an acceptable memory cost;
 the exact gain and other devices remain uncertain." Precise or broad published
 claims warrant stronger repetition and device/workload coverage. Per-frame time
-does not establish power, energy or battery savings. Automatic rest already
-submits no frames.
+does not establish power, energy or battery savings. Hidden/offscreen suspension
+submits no scene frames; visible scenes now animate continuously.
 
 ## Thermal-aware comparison procedure
 
@@ -159,19 +159,20 @@ actual wall duration and query coverage; do not compare different phase windows.
 
 ## Interpret the work correctly
 
-Automatic scene rest needs a **wall-time scheduling comparison**, separate from
-the per-frame timing protocol above: a resting renderer has no frame samples to
-time. Keep Scene diagnostics closed (it deliberately keeps rendering active),
-and close Earth playback or pause its explicit playback. After the inactivity
-delay and all transitions finish, compare the scene host's `data-rendered-frames`
-counter across fixed wall-time windows; record `data-scene-resting`, active time,
-room, camera, buffer and motion setting alongside it. The counter publishes about
-every 200 ms while active and flushes at rest, so active-window endpoints have
-that granularity. Use an instrumented reference with the same counter and repeat
-both variants in alternating order. Retain source, device/power, isolation and
-recovery records from the procedure above. Count checks establish removed
-submissions; they do not establish per-frame speedups or energy savings. Check
-wake-up and active navigation separately.
+Scheduling changes need a **wall-time scheduling comparison**, separate from
+per-frame timing: a suspended renderer has no frame samples to time. Keep Scene
+diagnostics and Earth playback closed. Compare the scene host's
+`data-rendered-frames` counter across fixed wall-time windows; record
+`data-scene-visible`, document visibility, active time, room, camera, buffer and
+motion setting alongside it. The counter publishes about every 200 ms while
+active and flushes at visibility changes, so active-window endpoints have that
+granularity. Visible scenes no longer stop after inactivity. The historical
+automatic-rest cohort used `data-scene-resting` and its identified source.
+Use an instrumented reference with the same counter and repeat both variants in
+alternating order. Retain source, device/power, isolation and recovery records
+from the procedure above. Count checks establish removed submissions; they do
+not establish per-frame speedups or energy savings. Check hidden/offscreen
+suspension, visible-but-unfocused activity, wake-up and navigation separately.
 
 | Diagnostic               | Scope and limitation                                                                                 |
 | ------------------------ | ---------------------------------------------------------------------------------------------------- |

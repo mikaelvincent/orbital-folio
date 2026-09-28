@@ -1,41 +1,27 @@
-/** Visible scenes rest after deliberate inactivity, independently of reduced motion. */
-export const SCENE_IDLE_DELAY_MS = 15_000;
-
+/** Animate visible scenes continuously; reduced motion remains demand-driven. */
 export function createSceneRenderLoop({
   draw,
   canRender,
   ambientMotion,
   keepAwake,
   renderOnce,
-  onRest = () => {},
-  now = () => performance.now(),
   requestFrame = requestAnimationFrame,
   cancelFrame = cancelAnimationFrame,
 }: {
   draw: (time: number, delta: number, rawDelta: number) => void;
   canRender: () => boolean;
   ambientMotion: () => boolean;
-  /** Travel, unfinished transitions, held gestures, or explicit inspection. */
+  /** Required work, such as travel, that can continue with ambient motion off. */
   keepAwake: () => boolean;
   renderOnce: () => boolean;
-  onRest?: (resting: boolean) => void;
-  now?: () => number;
   requestFrame?: (callback: FrameRequestCallback) => number;
   cancelFrame?: (id: number) => void;
 }) {
   let frame = 0;
   let previousTime: number | null = null;
-  let lastActivity = now();
   let drawing = false;
   let requestedDuringDraw = false;
   let disposed = false;
-  let resting = false;
-
-  function setRest(value: boolean) {
-    if (value === resting) return;
-    resting = value;
-    onRest(value);
-  }
 
   function schedule() {
     if (!disposed && canRender() && !frame && !drawing)
@@ -50,10 +36,13 @@ export function createSceneRenderLoop({
     }
     const rawDelta = previousTime === null ? 0 : (time - previousTime) / 1000;
     previousTime = time;
+    // Browsers can suspend RAF without a visibility event. Resume from the held
+    // pose after a long gap, while retaining its real duration for diagnostics.
+    const delta = rawDelta > 1 ? 0 : Math.min(0.05, rawDelta);
     drawing = true;
     requestedDuringDraw = false;
     try {
-      draw(time, Math.min(0.05, rawDelta), rawDelta);
+      draw(time, delta, rawDelta);
     } finally {
       drawing = false;
     }
@@ -63,12 +52,9 @@ export function createSceneRenderLoop({
       previousTime = null;
       return;
     }
-    const idle = time - lastActivity >= SCENE_IDLE_DELAY_MS;
-    const needed = keepAwake();
     const continuous =
       requestedDuringDraw ||
-      (!renderOnce() && (needed || (ambientMotion() && !idle)));
-    setRest(!renderOnce() && ambientMotion() && idle && !needed);
+      (!renderOnce() && (keepAwake() || ambientMotion()));
     if (continuous) schedule();
     else previousTime = null;
   }
@@ -76,9 +62,7 @@ export function createSceneRenderLoop({
   return {
     wake() {
       if (disposed) return;
-      lastActivity = now();
       if (drawing) requestedDuringDraw = true;
-      setRest(false);
       schedule();
     },
     resetClock() {
@@ -88,7 +72,6 @@ export function createSceneRenderLoop({
       cancelFrame(frame);
       frame = 0;
       previousTime = null;
-      setRest(false);
     },
     dispose() {
       disposed = true;
