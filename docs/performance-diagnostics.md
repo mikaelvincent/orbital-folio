@@ -293,6 +293,17 @@ accepted/excluded labels describe that protocol, not the implementation decision
 Preserve the labels and use valid partial results under
 [the decision rules](#decide-with-the-available-evidence) when it stops early.
 
+The historical `lighting-*` kernels omit current application-wall feedback,
+fixture brightness and derived object highlights. They do not measure the full
+material update chain. For a new cache decision, compare the current model's
+settled and changing updates, including lookup, validation and miss costs.
+Room dimmers alone cannot validate cached colors: linked rooms, live cartridge
+base colors, emission and wall focus also contribute. Radio meters multiply
+room-lit colors in place and rely on the next update restoring them; object
+highlights then read room sources into independent material copies. Reusing the
+fixed source/copy pairings needs no color invalidation, but caching their values
+must account for these writes and ongoing easing.
+
 For an authorized CPU-kernel question, select only the affected names from
 `local-matrix`, `lighting-settled`, `lighting-changing`, `iris-settled`,
 `iris-moving`, `indexing-startup`. Example (macOS sampler prepared in step 2):

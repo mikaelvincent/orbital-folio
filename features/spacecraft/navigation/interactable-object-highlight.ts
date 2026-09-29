@@ -95,6 +95,9 @@ export function createObjectHighlight(
       }
     root.add(mesh);
   }
+  // Pairings are fixed after isolation. Reuse the entries without snapshotting
+  // mutable colors: room lighting and live content can change their sources.
+  const materialPairs = [...materials];
   let progress = 0;
   return {
     id,
@@ -117,7 +120,7 @@ export function createObjectHighlight(
       const level = dimIdle
         ? idleLevel + (enabled ? progress * (hoverLevel - idleLevel) : 0)
         : 1;
-      for (const [source, material] of materials) {
+      for (const [source, material] of materialPairs) {
         material.color.copy(source.color).multiplyScalar(level);
         if (material.emissive && source.emissive) {
           material.emissive.copy(source.emissive).multiplyScalar(level);
