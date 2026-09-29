@@ -250,7 +250,8 @@ layout, interaction, animation or content changes, including live collection edi
 Journal entries are sections with automatic fixed-page pagination, not manually
 authored pages or scrolling paper. Bottom arrows turn within the current section
 and stop at its ends; hide them for a single spread. Keep an odd final right page
-blank instead of repeating text. Number both pages without the word “Page”; show
+blank instead of repeating text. Center footer numbers within each page, keeping
+the arrows at the outer edges. Number both pages without the word “Page”; show
 the section total only on the right (left `1`, right `2 of 12`). On an odd final
 page, put the total on the left and leave the blank right page unnumbered. Retain
 the full screen-reader announcement. Each crossed leaf turns, including
