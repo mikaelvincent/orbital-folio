@@ -20,6 +20,7 @@ import {
   sceneNavigationKey,
 } from '@/features/spacecraft/navigation/room-navigation';
 import { createScenePerformance } from '@/features/diagnostics/scene-performance';
+import { createSceneMetadataPublisher } from '@/features/diagnostics/scene-metadata';
 import { updateRenderSceneMatrices } from '@/features/spacecraft/scene-matrices';
 import { createVesselCameraFrame } from '@/features/spacecraft/navigation/vessel-camera';
 import {
@@ -619,6 +620,12 @@ export function mountSpacecraftScene({
             }
           : undefined;
         const htmlUpdateGate = createHtmlUpdateGate();
+        const publishSceneMetadata = createSceneMetadataPublisher(
+          THREE,
+          model.group,
+          camera,
+          el.dataset,
+        );
         const notebookPageCache = createNotebookPageCache(
           THREE,
           notebook.root,
@@ -2604,6 +2611,7 @@ export function mountSpacecraftScene({
           diagnostics?.mark('audit-trace');
           renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
           if (now - lastMetrics > 200 || stop) {
+            publishSceneMetadata();
             Object.assign(el.dataset, {
               cameraFar: String(camera.far),
               cameraAspect: String(camera.aspect),
@@ -2648,35 +2656,6 @@ export function mountSpacecraftScene({
               ),
               notebookAttached: 'true',
               projectPage: String(latest.current.projectPage),
-              overviewSupports: JSON.stringify(
-                model.group.userData.overviewSupportPoints.map(
-                  (point: [number, number, number]) => {
-                    const p = model.group
-                      .localToWorld(new THREE.Vector3(...point))
-                      .project(camera);
-                    return [p.x, p.y, p.z];
-                  },
-                ),
-              ),
-              overviewCorners: JSON.stringify(
-                (() => {
-                  const { min, max } = model.group.userData.overviewBounds;
-                  const points = [];
-                  for (const x of [min[0], max[0]])
-                    for (const y of [min[1], max[1]])
-                      for (const z of [min[2], max[2]]) {
-                        const p = model.group
-                          .localToWorld(new THREE.Vector3(x, y, z))
-                          .project(camera);
-                        points.push([p.x, p.y, p.z]);
-                      }
-                  return points;
-                })(),
-              ),
-              physicalLabels: JSON.stringify(model.group.userData.labelPlaques),
-              exteriorLabelAssemblies: JSON.stringify(
-                model.group.userData.labelAssemblyBounds,
-              ),
               pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
               dragResponse: dragMotion.map((s) => s.value.toFixed(5)).join(','),
               cameraAngles: angles.map((v) => v.toFixed(5)).join(','),
@@ -2689,7 +2668,6 @@ export function mountSpacecraftScene({
                 .map((s) => s.value.toFixed(5))
                 .join(','),
               vesselName,
-              roomAnchors: JSON.stringify(model.group.userData.roomAnchors),
               portals: JSON.stringify(model.group.userData.portals),
               activeRoute: JSON.stringify(model.group.userData.activeRoute),
               travelledRoute: JSON.stringify(travelledRoute),

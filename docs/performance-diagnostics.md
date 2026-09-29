@@ -241,6 +241,24 @@ image differences without identifying the cause; compare identical states/noise
 when claiming exact rendering. Record actual/scaled capture sizes and omitted
 HTML/effects. Any authored appearance change needs visual judgment, not just counts.
 
+### Legacy scene metadata
+
+The scene host's data attributes remain available with diagnostics closed. The
+legacy metrics block runs about every 200 ms during active animation and on each
+drawn reduced-motion frame. Its values also support ad hoc browser checks; the
+panel and local audit adapter call the environment's `getDiagnostics()` directly.
+
+| Values                                                                        | Freshness contract                                                                                                                                                                                                                     |
+| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Physical labels, exterior label bounds, room anchors                          | Serialized on the first metrics update and after `layoutVersion` changes. `setLayout` mutates some arrays in place; object identity is insufficient. Site/label changes recreate the runtime.                                          |
+| Overview supports and corners                                                 | Reprojected when the layout revision, camera view/projection matrix or vessel world matrix changes. Exact matrix snapshots include in-place edits, resize and near-plane changes. Call the publisher after world matrices are current. |
+| Reader corners, portals, routes, lighting, camera/motion and frame statistics | Continue through the existing live metrics path. Door and lighting metadata can change without a layout revision.                                                                                                                      |
+| Environment report                                                            | Remains a fresh snapshot, including asset readiness/failure, camera/composition, playback, Earth texture offset and meteor streams. Constant descriptors share this report; retaining the whole object would stale its live fields.    |
+
+Visibility and rendered-frame counters retain their publication cadence and
+visibility-change flush. Reusing metadata does not suppress animation, change
+rendering quality or gate observability on the diagnostics panel.
+
 ## Rested CPU candidate comparisons
 
 This historical runner still has strict automatic qualification gates. Its
