@@ -2121,6 +2121,9 @@ export function mountSpacecraftScene({
             !travelling &&
             (feedbackTarget.walkway || passage?.via === 'walkway');
           diagnostics?.mark('camera');
+          // A frame can precede React's passive prop effect. Keep measured
+          // section offsets and their selected spread in the same update.
+          syncNotebookContent();
           model.update(
             elapsed,
             effectiveHover,
@@ -2884,6 +2887,7 @@ export function mountSpacecraftScene({
                 activeRoom: 'home',
                 reading: false,
                 travelling: false,
+                notebookChapter: latest.current.notebookChapter || 0,
                 delta: 0,
               },
               true,
@@ -3389,23 +3393,27 @@ export function mountSpacecraftScene({
           );
         }
         let notebookEntries = latest.current.journal;
+        function syncNotebookContent() {
+          if (notebookEntries === latest.current.journal) return;
+          notebookEntries = latest.current.journal;
+          notebook.setChapters(
+            (notebookEntries || []).map((entry) => ({
+              title: String(entry.title),
+              pageCount: entry.pageCount,
+            })),
+            latest.current.notebookChapter || 0,
+          );
+          // Feedback precedes the next model update. Publish the changed
+          // flag/leaf transforms before a fresh pick can cache them.
+          notebook.root.updateWorldMatrix(true, true);
+          notebookRoomPicker?.invalidate();
+          htmlUpdateGate.invalidate();
+          invalidateAo('notebook-content');
+        }
         api.current = {
           notebook: () => {
             htmlUpdateGate.invalidate();
-            if (notebookEntries !== latest.current.journal) {
-              notebookEntries = latest.current.journal;
-              notebook.setChapters(
-                (notebookEntries || []).map((entry) => ({
-                  title: String(entry.title),
-                  pageCount: entry.pageCount,
-                })),
-              );
-              // Feedback precedes the next model update. Publish the changed
-              // flag/leaf transforms before a fresh pick can cache them.
-              notebook.root.updateWorldMatrix(true, true);
-              notebookRoomPicker?.invalidate();
-              invalidateAo('notebook-content');
-            }
+            syncNotebookContent();
             kick();
           },
           caseStudies: () => {

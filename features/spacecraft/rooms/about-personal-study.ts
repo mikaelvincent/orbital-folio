@@ -1703,13 +1703,14 @@ export function buildAboutPersonalStudy(
     },
     setChapters(
       chapters: ReadonlyArray<{ title?: string; pageCount?: number }>,
+      selectedChapter?: number,
     ) {
       notebook.chapters = [...chapters];
       notebook.totalPages = totalPages(chapters);
       notebook.available = chapters.length > 0;
       notebook.chapter = Math.max(
         0,
-        Math.min(notebook.chapter, notebook.totalPages - 1),
+        Math.min(selectedChapter ?? notebook.chapter, notebook.totalPages - 1),
       );
       notebook.section = sectionForPage(notebook.chapter);
       finishTurn();

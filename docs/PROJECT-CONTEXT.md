@@ -287,7 +287,10 @@ introduction.
 
 Each published notebook section has an `/about/<slug>` URL. Opening the notebook
 or choosing a marker updates browser history; reload and direct entry restore
-that section in the mounted notebook. Page turns retain the spread with `?page=N`,
+that section in the mounted notebook. On initial load, the requested section and
+spread are already open; startup and pagination measurements never flip through
+earlier pages. Subsequent visitor navigation keeps the normal page turns.
+Page turns retain the spread with `?page=N`,
 using its first printed page number (1, 3, 5…). Back/Forward restores both section
 and spread. Reading view uses the same section URLs with `?view=reading`; private
 studio previews resolve draft sections by ID or slug without exposing them on

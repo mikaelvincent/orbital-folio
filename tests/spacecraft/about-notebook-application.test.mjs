@@ -8,6 +8,56 @@ import {
   CAMERA_RANGES,
 } from '../../features/spacecraft/navigation/scene-controls.ts';
 
+test('direct notebook entry and measured pagination settle immediately while later selections still turn', () => {
+  const chapters = [
+    { title: 'First' },
+    { title: 'Second' },
+    { title: 'Third' },
+  ];
+  const model = createSpacecraft(THREE, { journal: chapters });
+  const notebook = model.group.userData.aboutNotebook;
+  // The initial overview already contains the selected section, before entry.
+  model.update(0, '', true, {
+    activeRoom: 'home',
+    reading: false,
+    notebookChapter: 2,
+    delta: 0,
+  });
+  assert.equal(notebook.settledSection, 2);
+  assert.equal(notebook.turning, false);
+  model.update(1, '', false, {
+    activeRoom: 'about',
+    reading: true,
+    notebookChapter: 2,
+    delta: 0.02,
+  });
+  assert.equal(notebook.turning, false);
+
+  // Fonts/content may finish measuring after the notebook becomes active.
+  // Keep the requested second spread in section three as offsets become known.
+  notebook.setChapters(
+    chapters.map((chapter, index) => ({
+      ...chapter,
+      pageCount: [2, 4, 3][index],
+    })),
+    7,
+  );
+  model.update(1.02, '', false, { notebookChapter: 7, delta: 0.02 });
+  assert.equal(notebook.chapter, 7);
+  assert.equal(notebook.settledChapter, 7);
+  assert.equal(notebook.settledSection, 2);
+  assert.equal(notebook.turning, false);
+  assert.equal(notebook.turningLeaf.visible, false);
+  assert.ok(notebook.flags.every((flag) => flag.side === 'left'));
+
+  model.update(1.04, '', false, { notebookChapter: 6, delta: 0.02 });
+  assert.equal(notebook.turning, true);
+  assert.equal(notebook.turnDirection, -1);
+  model.update(1.5, '', true, { notebookChapter: 6 });
+  assert.equal(notebook.turning, false);
+  assert.equal(notebook.settledChapter, 6);
+});
+
 test('The batched mounted notebook keeps its physical anchor and cabin framing through reading and turns', () => {
   const model = createSpacecraft(THREE, {
     journal: [{ title: 'Story' }, { title: 'University' }],
