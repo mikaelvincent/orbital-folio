@@ -243,6 +243,72 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
       },
     );
     await t.test(
+      'draft imports and deletion stay fresh after public and preview reads',
+      async () => {
+        const template = baseline.find(
+          (r) => r.kind === 'project' && r.published,
+        ).draft;
+        const id = await create('project', {
+          ...template,
+          title: 'Published freshness fixture',
+          slug: 'publication-freshness-fixture',
+        });
+        await publish(id);
+        const path = '/projects/publication-freshness-fixture';
+        assert.equal((await req(path)).status, 200);
+        const current = await record(id);
+        const draft = { ...current.draft, title: 'Imported private revision' };
+        await api({
+          action: 'import',
+          payload: {
+            format: 'orbital-folio/v1',
+            records: [{ ...current, draft }],
+          },
+        });
+        const [publicResponse, previewResponse] = await Promise.all([
+          req(path),
+          authorized('/admin/preview?section=projects&id=' + id),
+        ]);
+        assert.equal(publicResponse.status, 200);
+        assert.equal(previewResponse.status, 200);
+        const publicHtml = await publicResponse.text();
+        assert.match(publicHtml, /Published freshness fixture/);
+        assert.doesNotMatch(publicHtml, /Imported private revision/);
+        assert.match(await previewResponse.text(), /Imported private revision/);
+        assert.match(
+          previewResponse.headers.get('cache-control'),
+          /private.*no-store/,
+        );
+        assert.doesNotMatch(
+          await (await req(path)).text(),
+          /Imported private revision/,
+        );
+        await publish(id);
+        assert.match(
+          await (await req(path)).text(),
+          /Imported private revision/,
+        );
+        assert.match(
+          await (await req('/sitemap.xml')).text(),
+          /publication-freshness-fixture/,
+        );
+        await api({
+          action: 'delete',
+          id,
+          revision: (await record(id)).revision,
+        });
+        assert.equal((await req(path)).status, 404);
+        assert.doesNotMatch(
+          await (await req('/projects')).text(),
+          /Imported private revision/,
+        );
+        assert.doesNotMatch(
+          await (await req('/sitemap.xml')).text(),
+          /publication-freshness-fixture/,
+        );
+      },
+    );
+    await t.test(
       'collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions',
       async () => {
         const template = baseline.find(

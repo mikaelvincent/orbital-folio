@@ -30,10 +30,17 @@ export const kinds: Kind[] = [
   'media',
 ];
 export function toPortfolio(records: Content[], preview = false): Portfolio {
+  return toPublishedPortfolio(
+    preview ? records.map((r) => ({ ...r, published: r.draft })) : records,
+  );
+}
+export function toPublishedPortfolio(
+  records: Pick<Content, 'id' | 'kind' | 'published'>[],
+): Portfolio {
   const list = (kind: Kind) =>
     records
-      .filter((r) => r.kind === kind && (preview || r.published))
-      .map((r) => ({ ...(preview ? r.draft : r.published), id: r.id }))
+      .filter((r) => r.kind === kind && r.published)
+      .map((r) => ({ ...r.published, id: r.id }))
       .sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
   return {
     site: list('site')[0] || {},

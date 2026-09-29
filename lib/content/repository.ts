@@ -1,7 +1,12 @@
 import { env } from 'cloudflare:workers';
-import { cache } from 'react';
+import { cacheForRequest } from 'vinext/cache';
 import { seeds } from './seed';
-import { toPortfolio, type Content } from './types';
+import {
+  toPortfolio,
+  toPublishedPortfolio,
+  type Content,
+  type Kind,
+} from './types';
 export const bindings = () =>
   env as unknown as {
     DB: D1Database;
@@ -49,11 +54,39 @@ export async function getRecords(): Promise<Content[]> {
     updatedAt: r.updated_at,
   }));
 }
-export const getPortfolio = cache(async (preview = false) => {
-  const data = toPortfolio(await getRecords(), preview);
-  if (preview) data.site._preview = true;
+// Vinext also calls loaders outside React's render cache (for metadata/layouts).
+// Keep one public snapshot per request, with a fresh D1 read on the next request.
+const getPublishedPortfolio = cacheForRequest(async () => {
+  const read = () =>
+    database()
+      .prepare(
+        'SELECT id, kind, published FROM content WHERE published IS NOT NULL ORDER BY kind, id',
+      )
+      .all<{ id: string; kind: Kind; published: string }>();
+  let { results } = await read();
+  if (!results.some((r) => r.id === 'site')) {
+    // Preserve ensureSeed's existence guard, including an unpublished site
+    // restored by the owner. Never replace that record with default identity.
+    await ensureSeed();
+    ({ results } = await read());
+  }
+  return toPublishedPortfolio(
+    results.map((r) => ({
+      ...r,
+      published: r.published ? JSON.parse(r.published) : null,
+    })),
+  );
+});
+const getPreviewPortfolio = cacheForRequest(async () => {
+  const data = toPortfolio(await getRecords(), true);
+  data.site._preview = true;
   return data;
 });
+export function getPortfolio(preview = false) {
+  // Separate factories: cacheForRequest is keyed by factory, not arguments.
+  // Callers must authorize previews before loading them; auth is never cached.
+  return preview ? getPreviewPortfolio() : getPublishedPortfolio();
+}
 export async function logAction(action: string, target: string, actor: string) {
   await database()
     .prepare(

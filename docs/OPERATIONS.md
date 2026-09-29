@@ -17,6 +17,31 @@ its `npm run start` process: Wrangler can retain an old SSR asset manifest and
 request deleted chunks. Check referenced CSS/JS as well as HTML. Normal
 `npm run dev` HMR does not need this restart.
 
+## Portfolio reads and publication freshness
+
+`getPortfolio()` uses Vinext's `cacheForRequest` to share one public snapshot
+between metadata, layouts and pages within a request. Its normal D1 query reads
+only published snapshots; missing site settings trigger the existing guarded
+seed procedure. An existing site record, even unpublished after a trusted
+restore, must never be replaced with sample identity.
+
+Every new request rereads D1. There is no cross-request portfolio cache or
+invalidation service. Successful publication, unpublication and deletion are
+visible on the next origin request; an already-running request or an open scene
+can retain the snapshot it loaded. Draft saves, whole-content imports, project
+ZIP imports and uploads do not change public snapshots until publication.
+
+Authorized preview loading has a separate request-scoped factory. Authorization,
+media access checks and `getRecords()` remain uncached; mutation handlers need
+fresh records both before and after writes. Media delivery still checks its own
+record and owner access. Public media, icon, robots and sitemap responses retain
+their existing `max-age=300` HTTP contract, so previously cached responses can
+outlive withdrawal at the origin for that interval. Private previews/media and
+admin responses remain private and uncached by HTTP clients.
+
+See the [request-work comparison](performance-diagnostics.md#portfolio-request-work)
+before adding shared caching or changing this freshness contract.
+
 ## Isolated verification
 
 `npm test` and `npm run check` include API/workflow tests that mutate records and

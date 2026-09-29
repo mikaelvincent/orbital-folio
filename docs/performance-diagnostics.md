@@ -51,6 +51,52 @@ claims warrant stronger repetition and device/workload coverage. Per-frame time
 does not establish power, energy or battery savings. Hidden/offscreen suspension
 submits no scene frames; visible scenes now animate continuously.
 
+## Portfolio request work
+
+Portfolio caching concerns request delivery, not continuous scene rendering.
+Immersive navigation normally uses the portfolio already loaded in the browser.
+The [freshness boundary](OPERATIONS.md#portfolio-reads-and-publication-freshness)
+requires a fresh origin read on each new request.
+
+The September 2026 investigation of Vinext `1.0.0-beta.9` / React `19.2.8`
+(baseline `fc18696`) found that React's `cache()` wrapper did not deduplicate
+the four loader calls in a normal HTML request, in either development or a
+production Worker build. Separate requests also repeated all reads and parsing.
+Use the installed public `vinext/cache` request API; do not infer behavior from
+the wrapper's name or assume Next.js cache semantics apply to these call sites.
+
+An isolated, fresh D1 fixture with 23 shipped records contained 64,481 characters
+of published JSON. A public-only query plus request-scoped reuse reduced normal
+page loads from eight D1 calls to one, 184 JSON parses to 23, and four portfolio
+conversions to one. Route handlers such as sitemap went from two D1 calls to one.
+Each content query still reported 46 D1 rows read: projection reduces transfer
+and parsing, not the scan cost of that individual query.
+
+Production-build prototypes were compared on loopback using Node 26 / local
+workerd, Apple M4, macOS 27.0.1: six warmups per variant, then ABBA and BAAB,
+30 sequential complete-response requests per capture, no retries. Home block
+means fell from 13.8–14.5 ms to 9.1–9.3 ms; Projects from 12.7–13.3 ms to
+7.7–8.0 ms. Baseline capture-mean spread reached 23% on Home and 8% on Projects,
+so these establish a local direction and removed work, not a hosted latency SLA.
+
+A prototype retaining a public snapshot across requests checked every published
+record's ID/kind/revision in D1 before reuse and cloned its cached output. Warm
+hits still needed one query with the same rows-read count; misses added a second
+query. Against the request-only version, extra Home savings were 0.5–1.1 ms;
+Projects ranged from 0.03 ms slower to 1.2 ms faster, amid up to 25% reference
+spread. A separate Node CPU comparison put public JSON parsing/conversion near
+0.07 ms per sample portfolio. Retain request-scoped reuse and the narrower query;
+decline cross-request caching for this workload. TTLs would weaken withdrawal,
+isolate-local invalidation cannot clear other Workers, and durable revision
+management adds complexity for little demonstrated extra saving.
+
+These are synthetic local samples, without hosted traffic/latency or browser
+rendering measurements. Revisit shared caching only with a larger measured
+request/data workload and an explicit freshness/invalidation design. For future
+checks, count actual repository executions on the relevant built routes in a
+disposable checkout; keep instrumentation out of deployed routes. The repository
+tests cover the installed request cache, request isolation and content lifecycle.
+
 ## Thermal-aware comparison procedure
 
 Expect operating-condition drift during sustained rendering, especially on the
