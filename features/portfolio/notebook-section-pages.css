@@ -9,7 +9,7 @@
   outline: none;
   color: var(--carbon);
   font-family: var(--font-notebook);
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
@@ -20,7 +20,7 @@
   column-gap: 56px;
   column-fill: auto;
   overflow: visible;
-  font-size: 14px;
+  font-size: inherit;
   line-height: 1.55;
 }
 .notebook-ink h1 {
@@ -37,14 +37,14 @@
 }
 .notebook-ink .notebook-biography {
   margin: 0 0 16px;
-  font-size: 14px;
+  font-size: inherit;
 }
 .notebook-ink .project-markdown {
-  font-size: 14px;
+  font-size: inherit;
   line-height: 1.55;
 }
 .notebook-ink .project-markdown :is(p, ul, ol) {
-  font-size: 14px;
+  font-size: inherit;
   margin-block: 0.65em;
   orphans: 2;
   widows: 2;
@@ -89,7 +89,7 @@
   width: 100%;
   table-layout: fixed;
   overflow-wrap: anywhere;
-  font-size: 12px;
+  font-size: 16px;
 }
 .notebook-ink .project-markdown :is(td, th) {
   padding: 0.3em;

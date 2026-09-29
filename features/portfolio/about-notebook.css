@@ -63,7 +63,7 @@
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  padding: 4px 8px;
+  padding: 0 8px;
   line-height: 1.13;
   color: var(--carbon);
   background: transparent;
@@ -78,6 +78,9 @@
 .notebook-marker > strong {
   font-size: 13px;
   font-weight: 600;
+  /* Leave room for handwritten descenders on both clamped lines. */
+  line-height: 1.6;
+  flex-shrink: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

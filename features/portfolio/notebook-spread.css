@@ -41,10 +41,13 @@
   justify-content: flex-start;
   text-align: left;
 }
-/* The measured column also follows copied leaves during section/page turns. */
+/* Keep the rule on every page; only later left pages carry a running title.
+   The measured column also follows copied leaves during section/page turns. */
+.notebook-page[data-side='right'] .notebook-page-header > span,
 .notebook-section-pages[data-page='0']
   ~ .notebook-page[data-side='left']
-  .notebook-page-header {
+  .notebook-page-header
+  > span {
   visibility: hidden;
 }
 .notebook-page-header > span {

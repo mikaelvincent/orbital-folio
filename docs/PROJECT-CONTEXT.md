@@ -234,14 +234,17 @@ screens. These editor styles do not restyle visitor applications.
 The notebook stays in its cradle. Opening it moves the camera to the complete
 spread; there is no detached dialog. Authored Markdown flows left to right across
 both facing pages, without decorative filler. Notebook ink, headers, footers and
-section markers use the bundled Edu NSW ACT Foundation handwriting face at the
-existing sizes. Studio paper and cached room previews use the same font, including
-an embedded copy in SVG captures so their line wrapping matches the native ink.
+section markers use the bundled Edu NSW ACT Foundation handwriting face. Body
+copy uses 18px with 1.55 line spacing, with 16px tables; title, heading, marker and
+footer sizes stay distinct. Studio paper and cached room previews use the same
+font, including an embedded copy in SVG captures so their line wrapping matches
+the native ink.
 A shallow continuous paper fold covers the binding through the full page height.
 Room, overview and travel previews use one cached pair of mipmapped page textures
 on the existing opaque paper. Capture the same measured Markdown layout when the
-spread, content, loaded images or fonts change; camera motion does not regenerate it. Keep only
-the current spread (512 × 596 per page, about 3.1 MiB including mipmaps).
+spread, content, loaded images or fonts change; camera motion does not regenerate
+it. Keep only the current spread (512 × 596 per page, about 3.1 MiB including
+mipmaps).
 Close reading and moving leaves use native HTML for sharp text and
 working links. Unsupported media, failed/empty captures or content exceeding the
 capture budget keep native HTML. Passive previews are excluded from keyboard/
@@ -257,9 +260,9 @@ Native labels and reader controls reuse settled projections until their view,
 layout, interaction, animation or content changes, including live collection edits.
 
 Journal entries are sections with automatic fixed-page pagination, not manually
-authored pages or scrolling paper. Running headers show the current section title,
-aligned left on left pages and right on right pages. Omit the running header on
-each section's first page, retaining its main title in the body. Bottom arrows
+authored pages or scrolling paper. Keep the header rule on every page. Show the
+current section title only on left pages after the section's first page, aligned
+left; the opening page retains its main title in the body. Bottom arrows
 turn within the current section and stop at its ends; hide them for a single
 spread. Keep an odd final right page
 blank instead of repeating text. Center footer numbers within each page, keeping
@@ -280,11 +283,14 @@ markers rest left, future markers right. Crossing a section carries its marker;
 within-section turns do not. Use fixed top spacing and show at most six markers
 with Earlier/More controls for additional groups. Only the exposed tab interacts;
 its adhesive region stays hidden. Lettering remains plain dark, including selected
-states. Muted paper and a restrained ivory hover wash replace the rejected strong
-white highlight/underline; retain keyboard focus outlines. Moving tabs also mask
-ink behind them.
+states. Two-line labels reserve enough line height for handwritten descenders
+without shrinking or clipping the last line. Muted paper and a restrained ivory
+hover wash replace the rejected strong white highlight/underline; retain keyboard
+focus outlines. Moving tabs also mask ink behind them.
 
-**Dedicated mobile notebook design is deferred.** Portrait uses the same full
+**Dedicated mobile notebook design is deferred.** Choose type sizes for desktop
+reading rather than enlarging the spread's text to compensate for small screens.
+Portrait uses the same full
 spread, page dimensions, typography and attached flags, scaled to fit. Do not
 crop to one page, stretch paper or reflow mobile text. Reading view is the narrow
 screen alternative. Studio preview uses the same measured ink area and pagination;
