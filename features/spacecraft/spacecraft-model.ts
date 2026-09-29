@@ -199,6 +199,8 @@ export function createSpacecraft(
   // AO consumes geometry/visibility, not the material feedback included in
   // motionActive. A revision survives standalone setters and catches immediate
   // changes and final animation snaps even when no motion remains afterward.
+  // Buffer edits also set needsUpdate (see local-bounds.ts); a transform-only
+  // revision can then reuse local bounds while refreshing their world placement.
   group.userData.geometryRevision = 0;
   group.userData.dishGeometryRevision = 0;
   group.userData.nonCasterGeometryRevision = 0;

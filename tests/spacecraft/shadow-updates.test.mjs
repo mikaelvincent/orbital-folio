@@ -176,6 +176,18 @@ test('in-place receiver geometry changes rebuild previously cached local bounds'
   assert.deepEqual(f.moveDish(3.8), f.lights);
 });
 
+test('dish-only vertex edits refresh local bounds without rescanning receivers', (t) => {
+  const f = fixture();
+  f.frame();
+  const scan = t.mock.method(f.receiver.geometry, 'computeBoundingBox');
+  const position = f.dish.geometry.attributes.position;
+  for (let i = 0; i < position.count; i++)
+    position.setX(i, position.getX(i) - 4);
+  position.needsUpdate = true;
+  assert.deepEqual(f.moveDish(4), f.lights);
+  assert.equal(scan.mock.callCount(), 0);
+});
+
 test('unsupported shadow filters and positive depth bias conservatively keep lamps live', () => {
   for (const setup of [
     (f) => {
@@ -281,7 +293,7 @@ function meshInputs(root) {
 }
 
 for (const layout of ['wide', 'compact']) {
-  test(`${layout}: authored doors, notebook pages and keys preserve caster inputs and refresh AO`, () => {
+  test(`${layout}: authored doors, notebook pages and keys preserve caster inputs and refresh AO`, (t) => {
     const model = createSpacecraft(T, {
       layout,
       journal: [{ title: 'One' }, { title: 'Two' }],
@@ -302,6 +314,24 @@ for (const layout of ['wide', 'compact']) {
       receivers: linked.shadowReceivers,
     });
     let time = 0;
+    const scannedGeometry = new Set();
+    const scannedInstances = new Set();
+    // eslint-disable-next-line typescript/unbound-method -- Restored spies call with the original receiver.
+    const geometryBox = T.BufferGeometry.prototype.computeBoundingBox;
+    // eslint-disable-next-line typescript/unbound-method -- Restored spies call with the original receiver.
+    const instanceBox = T.InstancedMesh.prototype.computeBoundingBox;
+    t.mock.method(
+      T.BufferGeometry.prototype,
+      'computeBoundingBox',
+      function () {
+        scannedGeometry.add(this);
+        return geometryBox.call(this);
+      },
+    );
+    t.mock.method(T.InstancedMesh.prototype, 'computeBoundingBox', function () {
+      scannedInstances.add(this);
+      return instanceBox.call(this);
+    });
     function frame(state, instant = false) {
       model.update(
         (time += 1 / 60),
@@ -326,8 +356,40 @@ for (const layout of ['wide', 'compact']) {
     }
     function verify(state, instant = false) {
       const before = meshInputs(model.group);
+      const positions = new Map(),
+        instances = new Map();
+      model.group.traverse((mesh) => {
+        if (!mesh.isMesh) return;
+        positions.set(mesh.geometry, mesh.geometry.attributes.position.version);
+        if (mesh.isInstancedMesh)
+          instances.set(mesh, mesh.instanceMatrix.version);
+      });
+      scannedGeometry.clear();
+      scannedInstances.clear();
       const revision = model.group.userData.geometryRevision;
       const dirty = frame(state, instant);
+      assert.deepEqual(
+        scannedGeometry,
+        new Set(
+          [...positions]
+            .filter(([g, version]) => g.attributes.position.version !== version)
+            .map(([g]) => g),
+        ),
+        'Only edited vertex buffers are scanned',
+      );
+      assert.deepEqual(
+        scannedInstances,
+        new Set(
+          [...instances]
+            .filter(
+              ([mesh, version]) =>
+                mesh.instanceMatrix.version !== version ||
+                scannedGeometry.has(mesh.geometry),
+            )
+            .map(([mesh]) => mesh),
+        ),
+        'Only edited instance placements are scanned',
+      );
       const changed = [...meshInputs(model.group)]
         .filter(([m, v]) => before.get(m) !== v)
         .map(([m]) => m);

@@ -1,4 +1,5 @@
 import type * as Three from 'three';
+import { localBounds } from './local-bounds.ts';
 
 type Rect = [number, number, number, number];
 const whole: Rect = [0, 0, 1, 1];
@@ -77,12 +78,7 @@ export function createDishInfluenceCache({
   let radius = 0;
 
   function bounds(o: any) {
-    if (o.isInstancedMesh) {
-      o.computeBoundingBox();
-      return o.boundingBox.clone().applyMatrix4(o.matrixWorld);
-    }
-    o.geometry.computeBoundingBox();
-    return o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld);
+    return localBounds(o).clone().applyMatrix4(o.matrixWorld);
   }
   function supported() {
     // A full sweep uses the current world scale only when the parent preserves
@@ -130,9 +126,7 @@ export function createDishInfluenceCache({
     const p = new T.Vector3();
     for (const o of meshes) {
       if (!dynamic.has(o)) continue;
-      if (o.isInstancedMesh) o.computeBoundingBox();
-      else o.geometry.computeBoundingBox();
-      const box = (o.isInstancedMesh ? o.boundingBox : o.geometry.boundingBox)
+      const box = localBounds(o)
         .clone()
         .applyMatrix4(new T.Matrix4().multiplyMatrices(inverse, o.matrixWorld));
       for (let i = 0; i < 8; i++) {

@@ -33,6 +33,12 @@ HTML phases fall from 1.39–1.46 to 0.028–0.031 ms; overall callback gains va
 14–23%. These CPU observations have a separate baseline from the pixel-cache
 GPU comparisons and must not be added to them.
 
+Candidate **10** also includes [local bounds reuse](evidence/performance/local-bounds/README.md),
+shared with **8**'s shadow preparation. Versioned geometry/instance metadata removes
+unchanged vertex scans while retaining fresh world bounds. Two opposing Node CPU
+orders observed 94–96% lower interaction/preparation kernel means, with a small
+dish-only overhead and no browser/GPU speed claim. This is a separate baseline.
+
 ## Candidate selection
 
 After a change or investigation, briefly screen **only the information already

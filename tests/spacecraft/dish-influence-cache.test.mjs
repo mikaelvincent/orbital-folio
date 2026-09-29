@@ -214,3 +214,40 @@ test('AO repairs include hidden proxies and background, and restore all three sc
   f.ao.dispose();
   f.key.shadow.map.dispose();
 });
+
+test('preparation reuses local boxes but follows hidden world transforms and edited instances', (t) => {
+  const f = fixture();
+  const geometryScan = t.mock.method(
+    T.BufferGeometry.prototype,
+    'computeBoundingBox',
+  );
+  const instanceScan = t.mock.method(
+    T.InstancedMesh.prototype,
+    'computeBoundingBox',
+  );
+  f.outside.position.x = -1;
+  f.outside.visible = false;
+  f.camera.position.x = 1;
+  f.camera.updateMatrixWorld();
+  f.group.updateMatrixWorld(true);
+  f.cache.prepare();
+  assert.equal(f.cache.contains(f.outside), true);
+  assert.equal(geometryScan.mock.callCount(), 0);
+  assert.equal(instanceScan.mock.callCount(), 0);
+  f.instances.setMatrixAt(0, new T.Matrix4().makeTranslation(8, 0, -3));
+  f.instances.instanceMatrix.needsUpdate = true;
+  f.cache.prepare();
+  assert.equal(f.cache.contains(f.instances), false);
+  // Moving the underlying vertices brings an instance back into the region.
+  f.instances.geometry.translate(-9, 0, 0);
+  f.cache.prepare();
+  assert.equal(f.cache.contains(f.instances), true);
+  assert.equal(instanceScan.mock.callCount(), 2);
+  const before = f.cache.stats().shadowRect;
+  f.moving.geometry.scale(4, 4, 4);
+  f.cache.prepare();
+  const after = f.cache.stats().shadowRect;
+  assert.ok(after[0] < before[0] && after[2] > before[2]);
+  f.ao.dispose();
+  f.key.shadow.map.dispose();
+});

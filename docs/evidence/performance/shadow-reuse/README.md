@@ -28,10 +28,11 @@ has been omitted since the full refresh. The box can over-refresh a lamp after
 receivers move, but its storage is constant. Dirty flags remain pending until
 Three consumes them. The sun's complete map needs only caster changes.
 
-This adds one model revision, two controller revision comparisons and one Box3;
-there are no added GPU targets, meshes, textures or dependencies. It does not
-remove or optimize the existing whole-model bounding-box reconstruction on geometry
-changes. The existing stationary cache still observes non-dish geometry revisions,
+This comparison added one model revision, two controller revision comparisons and
+one Box3, without GPU targets, meshes, textures or dependencies. It retained
+whole-model bounding-box reconstruction on geometry changes; the current
+[local bounds cache](../local-bounds/README.md) measures that separate opportunity
+against a later baseline. The stationary cache still observes non-dish geometry revisions,
 rebuilds its influence/pixel/AO caches, and requires a full unmasked draw whenever
 an interior map is dirty. No stationary-cache or dish-influence implementation
 changes were needed.

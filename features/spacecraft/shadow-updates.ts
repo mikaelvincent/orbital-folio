@@ -1,4 +1,5 @@
 import type * as Three from 'three';
+import { localBounds } from './local-bounds.ts';
 
 type ShadowLight = Three.DirectionalLight | Three.SpotLight;
 
@@ -94,20 +95,13 @@ export function createShadowUpdates({
         // VSM also draws receivers into the map. Unknown filters retain the
         // original conservative policy instead of assuming PCF semantics.
         renderer.shadowMap.type !== T.PCFShadowMap;
-      if (rebuild || receiversChanged) {
-        // A geometry revision may edit vertices or instances in place. Box3's
-        // object helpers otherwise reuse their old local bounding boxes.
-        const geometries = new Set<Three.BufferGeometry>();
-        root.traverse((object) => {
-          const mesh = object as Three.InstancedMesh;
-          if (!mesh.isMesh) return;
-          if (!geometries.has(mesh.geometry)) {
-            mesh.geometry.computeBoundingBox();
-            geometries.add(mesh.geometry);
-          }
-          if (mesh.isInstancedMesh) mesh.computeBoundingBox();
-        });
-      }
+      // Revisions include rigid motion. Refresh only changed local inputs;
+      // Box3 still applies current world matrices, including hidden receivers.
+      const boundsRoot = rebuild || receiversChanged ? root : dish;
+      boundsRoot?.traverse((object) => {
+        const mesh = object as Three.Mesh;
+        if (mesh.isMesh) localBounds(mesh);
+      });
       if (dish) currentDish.setFromObject(dish);
       let requested = false;
       if (rebuild) {
