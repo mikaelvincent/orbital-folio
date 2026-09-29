@@ -198,6 +198,10 @@ Old unclassified records are not guessed into categories. Owner records are not
 bulk migrated. See [operations](OPERATIONS.md) for Markdown, media dependencies,
 legacy data and package contracts.
 
+Text is not selectable anywhere in Interactive mode, including the notebook and
+floating tools. Keep native selection inside editable fields and throughout
+Reading view and the studio.
+
 Semantic Reading view is the readable alternative to projected displays: carbon
 collection cards, ivory articles, bounded prose and heading-based contents (omit
 when there are no headings). About keeps its paper character; Contact uses one
@@ -227,7 +231,7 @@ previews use one cached pair of mipmapped page textures on the existing opaque
 paper. Capture the same measured Markdown layout when the spread, content,
 loaded images or fonts change; camera motion does not regenerate it. Keep only
 the current spread (512 × 596 per page, about 3.1 MiB including mipmaps).
-Close reading and moving leaves use native HTML for sharp, selectable text and
+Close reading and moving leaves use native HTML for sharp text and
 working links. Unsupported media, failed/empty captures or content exceeding the
 capture budget keep native HTML. Passive previews are excluded from keyboard/
 accessibility navigation; only the active reader owns focus IDs. Closing preserves

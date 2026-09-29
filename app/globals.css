@@ -2716,6 +2716,16 @@ svg {
   height: 100svh;
   overflow: hidden;
 }
+/* Include floating tools rendered into body, outside the spacecraft root. */
+body:has(.orbital-experience.is-immersive) {
+  -webkit-user-select: none;
+  user-select: none;
+}
+body:has(.orbital-experience.is-immersive)
+  :is(input, textarea, [contenteditable='true']) {
+  -webkit-user-select: text;
+  user-select: text;
+}
 .orbital-identity {
   position: fixed;
   z-index: 20;
@@ -3630,7 +3640,6 @@ body:has(#room-reader:target) .boot-loader {
 }
 .world-surface {
   pointer-events: auto;
-  user-select: text !important;
   contain: layout style;
 }
 .world-hotspot {
