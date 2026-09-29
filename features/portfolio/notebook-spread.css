@@ -1,0 +1,70 @@
+.notebook-spread {
+  position: relative;
+  width: 980px;
+  height: 566px;
+  color: var(--carbon);
+  font-family: var(--font-sans, Arial, sans-serif);
+}
+.notebook-spread > .notebook-section-pages {
+  position: absolute;
+  left: 26px;
+  top: 69px;
+  pointer-events: auto;
+}
+.notebook-page {
+  position: absolute;
+  top: 0;
+  width: 486px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 22px 9px 26px;
+  pointer-events: none;
+}
+.notebook-page-header,
+.notebook-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 0 0 auto;
+  font-size: 12px;
+}
+.notebook-page-header {
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
+  min-height: 38px;
+  justify-content: flex-end;
+}
+.notebook-page-header > span {
+  max-width: 100%;
+  text-align: right;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.notebook-page-footer {
+  border-top: 1px solid color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
+  margin-top: auto;
+  height: 39px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+.notebook-page-footer button {
+  min-height: 38px;
+  min-width: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.notebook-page-footer button:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+.notebook-spread :is(button, a):focus-visible {
+  outline: 2px solid var(--carbon-muted);
+  outline-offset: 2px;
+}

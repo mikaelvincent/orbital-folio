@@ -44,7 +44,7 @@ function close(actual, expected, message) {
   );
 }
 
-test('left artwork prints the current identity within its paper margin and reading paper leaves all text to native content', () => {
+test('both reading pages leave authored ink to the native spread', () => {
   const text = [];
   const ctx = new Proxy(
     {
@@ -54,20 +54,55 @@ test('left artwork prints the current identity within its paper margin and readi
     },
     { get: (target, key) => target[key] ?? (() => {}) },
   );
-  drawStudyArtwork(ctx, 'journal-left', { notebookName: 'Avery Mendoza' });
-  assert.ok(text.some(([value]) => value === 'Avery Mendoza'));
-  assert.ok(text.every(([value]) => value !== 'Mikael Vincent'));
-  const name = text.find(([value]) => value === 'Avery Mendoza');
-  assert.ok(
-    name[1] + name[3] <= 768 - 72,
-    'identity fits within the page margin',
-  );
-  text.length = 0;
   drawStudyArtwork(ctx, 'journal-blank');
-  assert.deepEqual(
-    text,
-    [],
-    'room and close views share blank paper beneath native content',
+  assert.deepEqual(text, [], 'paper never supplies generic notebook copy');
+});
+
+test('paper fold covers the binding through the full height and joins both crowned inner edges', () => {
+  const { root, notebook } = fixture();
+  const gutter = root.getObjectByName('personal-study-continuous-paper-gutter');
+  const spine = root.getObjectByName('personal-study-bound-spine');
+  const paper = [-1, 1].map((side) =>
+    root
+      .getObjectByName(
+        `personal-study-${side < 0 ? 'left' : 'right'}-paper-section`,
+      )
+      .getObjectByName('personal-study-printed-top-paper-leaf'),
+  );
+  const ray = new THREE.Raycaster();
+  for (const y of [-0.2829, 0, 0.2829]) {
+    for (const x of [-0.0039, 0, 0.0039]) {
+      for (const offset of [-0.06, 0, 0.06]) {
+        const target = new THREE.Vector3(x, y, 0.055).applyMatrix4(
+          notebook.root.matrixWorld,
+        );
+        const eye = new THREE.Vector3(x + offset, y, 0.35).applyMatrix4(
+          notebook.root.matrixWorld,
+        );
+        ray.set(eye, target.sub(eye).normalize());
+        const hit = ray.intersectObjects([gutter, spine, ...paper], false)[0];
+        assert.ok(
+          hit && hit.object !== spine,
+          'paper covers the center from either side and at both ends',
+        );
+      }
+    }
+  }
+  const points = gutter.geometry.attributes.position;
+  const transform = notebook.root.matrixWorld
+    .clone()
+    .invert()
+    .multiply(paper[1].matrixWorld);
+  const edge = new THREE.Vector3()
+    .fromBufferAttribute(paper[1].geometry.attributes.position, 0)
+    .applyMatrix4(transform);
+  assert.ok(
+    Math.abs(points.getZ(0) - edge.z) < 0.00001,
+    'fold reaches the visible page height',
+  );
+  assert.ok(
+    points.getZ(0) - points.getZ(8) < 0.0013,
+    'the fold is shallow rather than an exposed cavity',
   );
 });
 
@@ -98,6 +133,18 @@ test('native page and chapter targets remain registered to the retained paper ge
   close(top, notebook.page.y, 'page top');
   close(right - left, notebook.page.width, 'page width');
   close(bottom - top, notebook.page.height, 'page height');
+  const leftPaper = root
+    .getObjectByName('personal-study-left-paper-section')
+    .getObjectByName('personal-study-printed-top-paper-leaf');
+  const [leftStart, leftEnd] = pixelsOnSurface(leftPaper, notebook);
+  close(leftStart[0], notebook.leftPage.x, 'left page origin');
+  close(leftEnd[0] - leftStart[0], notebook.leftPage.width, 'left page width');
+  close(
+    leftEnd[1] - leftStart[1],
+    notebook.leftPage.height,
+    'left page height',
+  );
+
   for (const flag of notebook.flags) {
     const printed = root.getObjectByName(
       `personal-study-flag-printed-adhesive-${flag.side === 'left' ? 'back' : 'face'}-${flag.slot}`,
@@ -571,7 +618,7 @@ test('settled frame updates leave shared paper artwork textures untouched', () =
       .getObjectByName('personal-study-left-paper-section')
       .getObjectByName('personal-study-printed-top-paper-leaf').material.map;
     const turningArtwork = root.getObjectByName(
-      'personal-study-turning-paper-artwork',
+      'personal-study-turning-paper-back-surface',
     ).material.map;
     assert.ok(
       artwork?.isCanvasTexture,
@@ -580,7 +627,7 @@ test('settled frame updates leave shared paper artwork textures untouched', () =
     assert.equal(
       turningArtwork,
       artwork,
-      'the reverse leaf reuses the fixed left illustration texture',
+      'the reverse leaf reuses the fixed blank paper texture',
     );
     notebook.setActive(true);
     notebook.setChapter(2, true);

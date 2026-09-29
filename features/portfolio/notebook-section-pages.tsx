@@ -12,6 +12,20 @@ import './notebook-section-pages.css';
 export const NOTEBOOK_INK_WIDTH = 438;
 const COLUMN_GAP = NOTEBOOK_COLUMN_STRIDE - NOTEBOOK_INK_WIDTH;
 
+export type NotebookSectionPagesProps = {
+  title: string;
+  subtitle?: string;
+  body: string;
+  media?: Record<string, any>[];
+  biography?: string;
+  footer?: ReactNode;
+  page: number;
+  spread?: boolean;
+  onPageCount?: (total: number) => void;
+  headingIdPrefix?: string;
+  onPageSelect?: (page: number) => void;
+};
+
 /** A single Markdown story flows through fixed paper columns without scrolling. */
 export function NotebookSectionPages({
   title,
@@ -21,21 +35,11 @@ export function NotebookSectionPages({
   biography,
   footer,
   page,
+  spread = false,
   onPageCount,
   onPageSelect,
   headingIdPrefix = 'notebook-',
-}: {
-  title: string;
-  subtitle?: string;
-  body: string;
-  media?: Record<string, any>[];
-  biography?: string;
-  footer?: ReactNode;
-  page: number;
-  onPageCount?: (total: number) => void;
-  headingIdPrefix?: string;
-  onPageSelect?: (page: number) => void;
-}) {
+}: NotebookSectionPagesProps) {
   const markdown = normalizeNotebookBody(body);
   const headingLinks = useMemo(() => {
     const headings = parseProjectMarkdown(markdown).headings;
@@ -117,6 +121,7 @@ export function NotebookSectionPages({
     };
   }, [signature]);
   const selected = Math.max(0, Math.min(page, count - 1));
+  const first = spread ? Math.floor(selected / 2) * 2 : selected;
   useEffect(() => {
     const host = root.current;
     if (!host) return;
@@ -130,14 +135,17 @@ export function NotebookSectionPages({
           ? 0
           : -1;
     });
-  }, [selected, signature, count]);
+  }, [first, spread, signature, count]);
   return (
     <div
       className="notebook-section-pages notebook-ink"
       ref={root}
       tabIndex={-1}
-      data-page={selected}
+      data-page={first}
       data-page-count={count}
+      style={{
+        width: NOTEBOOK_INK_WIDTH + (spread ? NOTEBOOK_COLUMN_STRIDE : 0),
+      }}
       onClick={(event) => {
         const link = (event.target as Element).closest('a');
         if (!link || !onPageSelect) return;
@@ -162,7 +170,8 @@ export function NotebookSectionPages({
       <div
         className="notebook-columns"
         style={{
-          transform: `translateX(${-selected * (NOTEBOOK_INK_WIDTH + COLUMN_GAP)}px)`,
+          columnGap: COLUMN_GAP,
+          transform: `translateX(${-first * NOTEBOOK_COLUMN_STRIDE}px)`,
         }}
       >
         {title && <h1 tabIndex={-1}>{title}</h1>}

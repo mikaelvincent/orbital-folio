@@ -220,9 +220,10 @@ screens. These editor styles do not restyle visitor applications.
 ## About notebook, photos and social cards
 
 The notebook stays in its cradle. Opening it moves the camera to the complete
-spread; there is no detached dialog. The left keeps mountain art and editable
-identity, social links and Contact invitation. Real Markdown ink stays mounted
-on the right in overview, rooms, travel and close reading, masked by opaque
+spread; there is no detached dialog. Authored Markdown flows left to right across
+both facing pages, without decorative filler. A shallow continuous paper fold
+covers the binding through the full page height. Real ink stays mounted in
+overview, rooms, travel and close reading, masked by opaque
 scenery and moving leaves. Passive previews are excluded from keyboard/accessibility
 navigation; only the active reader owns focus IDs. Closing preserves page/section
 positions. Notebook feedback follows its rounded cloth cover without a second
@@ -236,10 +237,14 @@ layout, interaction, animation or content changes, including live collection edi
 
 Journal entries are sections with automatic fixed-page pagination, not manually
 authored pages or scrolling paper. Bottom arrows turn within the current section
-and stop at its ends; hide them for one page. Each crossed leaf turns, including
+and stop at its ends; hide them for a single spread. Keep an odd final right page
+blank instead of repeating text. Each crossed leaf turns, including
 section jumps within a bounded animation budget; reduced motion settles immediately.
-Native ink follows the turning front; the reverse retains the left artwork.
-Selection survives closing. Empty journals retain the biography introduction.
+Native ink follows both faces: the earlier spread’s right page on the front and
+the next spread’s left page on the reverse. Keep the stationary outer pages visible
+beneath the turn, suppress input on hidden ink, and restore keyboard focus after
+the leaf settles. Selection survives closing. Empty journals retain the biography
+introduction.
 
 Colored section markers sit behind their section's first page: current/earlier
 markers rest left, future markers right. Crossing a section carries its marker;

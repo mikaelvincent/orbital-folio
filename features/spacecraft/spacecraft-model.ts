@@ -131,7 +131,6 @@ export function createSpacecraft(
     caseStudies?: SpacecraftProject[];
     socials?: SocialScreenLinks;
     journal?: { title: string; pageCount?: number }[];
-    notebookName?: string;
     aboutPhotos?: AboutPhotos;
     onAboutPhotoChange?: () => void;
     sampleLabel?: string;
@@ -1610,7 +1609,6 @@ export function createSpacecraft(
       accent: m.amber,
       photos: options.aboutPhotos,
       journal: options.journal,
-      notebookName: options.notebookName,
       onPhotoChange: options.onAboutPhotoChange,
       rearWallProfile: interiorPoints.map((point: any) => ({
         y: point.y,

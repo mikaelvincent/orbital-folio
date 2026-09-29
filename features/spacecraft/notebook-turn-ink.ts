@@ -1,7 +1,7 @@
 import { createProjectedSurface } from './projected-surface.ts';
 import { NOTEBOOK_COLUMN_STRIDE } from '../../lib/content/notebook-pages.ts';
 
-/** The lower numbered right page is the front of a leaf in either direction. */
+/** The lower spread supplies the front; the higher one supplies the reverse. */
 export function notebookTurnPages(settled: number, direction: number) {
   const adjacent = settled + direction;
   return {
@@ -23,7 +23,7 @@ export function notebookPageLocation(
   return { section: 0, page: 0, count: 1 };
 }
 
-/** Native ink and WebGL paper share the same anchors and camera. Two bounded,
+/** Native ink and WebGL paper share the same anchors and camera. Four bounded,
  * inert copies are refreshed only when a physical leaf changes, never per frame.
  * The semantic React reader remains the sole interactive/accessibility surface.
  */
@@ -74,6 +74,7 @@ export function createNotebookTurnInk(
   ];
   let lastLeaf = '';
   let clipped: HTMLElement | null = null;
+  let restoreFocus = false;
 
   const inertCopy = (source: HTMLElement) => {
     const copy = source.cloneNode(true) as HTMLElement;
@@ -87,15 +88,13 @@ export function createNotebookTurnInk(
     }
     return copy;
   };
-  const copyPage = (
-    absolute: number,
-    element: HTMLElement,
-    moving: boolean,
-  ) => {
-    const { section, page, count } = notebookPageLocation(
-      notebook.chapters,
-      absolute,
-    );
+  const stationary = [notebook.leftPage, notebook.page].map((page) => {
+    const slot = document.createElement('div');
+    slot.style.cssText = `position:absolute;left:${page.x}px;top:0;width:${page.width}px;height:${notebook.pixelsHeight}px;overflow:clip`;
+    return slot;
+  });
+  const copyPage = (absolute: number, side: number, element: HTMLElement) => {
+    const { section, page } = notebookPageLocation(notebook.chapters, absolute);
     const source = reader.querySelector<HTMLElement>(
       `[data-notebook-section="${section}"]`,
     );
@@ -106,21 +105,29 @@ export function createNotebookTurnInk(
       element.replaceChildren(copy);
       element.dataset.section = String(section);
     }
-    copy.style.left = `${moving ? 0 : notebook.page.x}px`;
+    copy.style.position = 'absolute';
+    copy.style.left = `${-side * NOTEBOOK_COLUMN_STRIDE}px`;
+    copy.style.top = '0';
     const columns = copy.querySelector<HTMLElement>('.notebook-columns');
     if (columns)
-      columns.style.transform = `translateX(${-page * NOTEBOOK_COLUMN_STRIDE}px)`;
+      columns.style.transform = `translateX(${-page * 2 * NOTEBOOK_COLUMN_STRIDE}px)`;
     const ink = copy.querySelector<HTMLElement>('.notebook-section-pages');
-    if (ink) ink.dataset.page = String(page);
-    const footer = copy.querySelector('.notebook-page-footer');
-    const label = footer?.querySelector('span');
-    if (label) label.textContent = `Page ${page + 1} of ${count}`;
-    const buttons = footer?.querySelectorAll('button');
-    if (buttons?.length === 2) {
-      buttons[0].disabled = page === 0;
-      buttons[1].disabled = page === count - 1;
-    }
+    if (ink) ink.dataset.page = String(page * 2);
+    const count = Number(ink?.dataset.pageCount || 1);
+    copy
+      .querySelectorAll<HTMLElement>('.notebook-page')
+      .forEach((paper, index) => {
+        const label = paper.querySelector('.notebook-page-footer span');
+        const number = page * 2 + index + 1;
+        if (label)
+          label.textContent =
+            number <= count ? `Page ${number} of ${count}` : '';
+        paper.querySelectorAll('button').forEach((button) => {
+          button.disabled = index === 0 ? page === 0 : (page + 1) * 2 >= count;
+        });
+      });
     element.dataset.absolutePage = String(absolute);
+    element.dataset.side = side ? 'right' : 'left';
     return true;
   };
 
@@ -135,19 +142,36 @@ export function createNotebookTurnInk(
         );
         const key = `${pages.front}:${pages.under}`;
         if (key !== lastLeaf) {
-          const copied =
-            copyPage(pages.front, front.element, true) &&
-            copyPage(pages.under, under.element, false);
-          const links = root.querySelector<HTMLElement>(
-            '.notebook-connections',
-          );
-          if (!back.element.firstElementChild && links)
-            back.element.replaceChildren(inertCopy(links));
+          under.element.replaceChildren(...stationary);
+          const copied = [
+            copyPage(pages.front, 1, front.element),
+            copyPage(pages.under, 0, back.element),
+            copyPage(pages.front, 0, stationary[0]),
+            copyPage(pages.under, 1, stationary[1]),
+          ].every(Boolean);
           if (copied) lastLeaf = key;
           else turning = false;
         }
       } else turning = false;
+      if (turning && reader.dataset.turning !== 'true') {
+        restoreFocus = !!root
+          ?.querySelector('.notebook-spread')
+          ?.contains(document.activeElement);
+      }
       reader.dataset.turning = String(turning);
+      // Hidden live pages cannot receive input while their inert copies turn.
+      // Return keyboard reading to the settled ink unless focus moved elsewhere.
+      if (!turning && restoreFocus) {
+        if (
+          visible &&
+          !reader.inert &&
+          document.activeElement === document.body
+        )
+          root
+            ?.querySelector<HTMLElement>('.notebook-section-pages')
+            ?.focus({ preventScroll: true });
+        restoreFocus = false;
+      }
       if (clipped && (!turning || clipped !== root)) {
         clipped.style.clipPath = '';
         clipped = null;
@@ -173,6 +197,7 @@ export function createNotebookTurnInk(
         lastLeaf = '';
         // Release full Markdown sections and media once the turn has settled.
         surfaces.forEach(({ element }) => element.replaceChildren());
+        stationary.forEach((element) => element.replaceChildren());
       }
       const anchors = [notebook.anchor, ...notebook.turnAnchors];
       surfaces.forEach((surface, index) => {

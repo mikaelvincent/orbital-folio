@@ -22,7 +22,6 @@ export function buildAboutPersonalStudy(
     photos?: AboutPhotos;
     onPhotoChange?: () => void;
     journal?: ReadonlyArray<{ title?: string; pageCount?: number }>;
-    notebookName?: string;
     rearWallProfile?: Array<{ y: number; z: number }>;
   } = {},
 ) {
@@ -1263,15 +1262,21 @@ export function buildAboutPersonalStudy(
     ABOUT_NOTEBOOK_LAYOUT.cover.radius,
   );
   cylinder(0.032, 0.585, m.navySeam, 0, 0, -0.012, 'bound-spine', journal, 'y');
-  // The paper bends into the binding; the cloth spine stays beneath the spread.
-  const gutter = new THREE.PlaneGeometry(0.044, 0.565, 16, 1);
+  // Join the crowned inner edges with a shallow paper fold at their actual
+  // height (page-section + top-leaf). The old recessed strip exposed the spine
+  // and left dark holes at the head and foot of the spread.
+  const gutter = new THREE.PlaneGeometry(0.0082, 0.566, 16, 1);
   const gutterPoints = gutter.attributes.position;
+  const innerEdgeHeight =
+    0.014 + 0.038 + 0.004 * Math.exp(-Math.pow(0.004 / 0.065, 2));
   for (let i = 0; i < gutterPoints.count; i++) {
-    const distance = Math.abs(gutterPoints.getX(i)) / 0.022;
-    gutterPoints.setZ(i, 0.024 + 0.022 * Math.pow(distance, 0.6));
+    const distance = Math.min(1, Math.abs(gutterPoints.getX(i)) / 0.004);
+    gutterPoints.setZ(i, innerEdgeHeight - 0.0012 * (1 - distance * distance));
   }
   gutter.computeVertexNormals();
-  mesh(gutter, m.paper, 'continuous-paper-gutter', journal);
+  const gutterMaterial = material('paper-fold', 0xeee2cb, 1);
+  gutterMaterial.userData.studyInk = true;
+  mesh(gutter, gutterMaterial, 'continuous-paper-gutter', journal);
   // These hairline page shadows are only .0012 units thick. A closed cuboid
   // retains each paper layer without spending hundreds of triangles on its bevel.
   const lowerPageEdgeGeometry = new THREE.BoxGeometry(0.477, 0.0012, 0.0013);
@@ -1400,10 +1405,7 @@ export function buildAboutPersonalStudy(
       side < 0 ? 'left-page-print' : 'right-page-print',
       1024,
       1280,
-      (ctx) =>
-        drawStudyArtwork(ctx, side < 0 ? 'journal-left' : 'journal-blank', {
-          notebookName: options.notebookName,
-        }),
+      (ctx) => drawStudyArtwork(ctx, 'journal-blank'),
     );
     pageMat.userData.studyInk = true;
     const printedPage = mesh(
@@ -1540,7 +1542,7 @@ export function buildAboutPersonalStudy(
       }
     }
   }
-  // Reading content stays on the existing page. These geometry-free anchors
+  // Reading content spans both pages. These geometry-free anchors
   // survive batching, including both physical leaves in the camera reference.
   const notebookAnchor = new THREE.Object3D();
   notebookAnchor.name = prefix + 'notebook-application-anchor';
@@ -1588,20 +1590,20 @@ export function buildAboutPersonalStudy(
     turningLeaf,
   );
   turningSurface.castShadow = turningSurface.receiveShadow = false;
-  // Every reverse leaf carries the same illustrated inside cover. Native ink
-  // on the front and the links on the back follow these physical paper anchors.
+  // Both faces carry consecutive authored pages. The blank reverse shares
+  // the stationary paper texture; native ink follows each physical anchor.
   const backGeometry = turningGeometry.clone();
   const backUv = backGeometry.attributes.uv;
   for (let vertex = 0; vertex < backUv.count; vertex++)
     backUv.setX(vertex, 1 - backUv.getX(vertex));
-  const backMaterial = material('turning-notebook-artwork', 0xffffff, 1);
+  const backMaterial = material('turning-notebook-reverse-paper', 0xffffff, 1);
   backMaterial.side = THREE.BackSide;
   backMaterial.userData.studyInk = true;
   backMaterial.map = leftPrintedPage.material.map;
   const turningBack = mesh(
     backGeometry,
     backMaterial,
-    'turning-paper-artwork',
+    'turning-paper-back-surface',
     turningLeaf,
   );
   turningBack.castShadow = turningBack.receiveShadow = false;

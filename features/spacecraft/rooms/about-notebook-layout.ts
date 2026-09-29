@@ -5,6 +5,7 @@ export const ABOUT_NOTEBOOK_LAYOUT = {
   pixelsWidth: 1270,
   pixelsHeight: 566,
   anchorPosition: [0, 0, 0.038],
+  leftPage: { x: 145, y: 0, width: 486, height: 566 },
   page: { x: 639, y: 0, width: 486, height: 566 },
   openingWidth: 1.18,
   openingHeight: 0.65,

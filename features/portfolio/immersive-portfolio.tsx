@@ -5,7 +5,10 @@ import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from '../spacecraft/scene-loader';
 import { ContactComputerWindow } from './contact-computer-window';
 import { AboutNotebook } from './about-notebook';
-import { notebookPageOffset } from '@/lib/content/notebook-pages';
+import {
+  notebookPageOffset,
+  notebookSpreadCount,
+} from '@/lib/content/notebook-pages';
 import {
   ProjectLibraryWindow,
   type ProjectFilter,
@@ -106,15 +109,19 @@ export function ImmersivePortfolio({
   const notebookCounts = data.journal.map(
     (_entry, index) => measuredNotebookCounts[notebookKey(index)] || 1,
   );
+  // Content counts printed pages; the physical scene advances one facing spread per leaf.
+  const notebookSpreads = notebookCounts.map(notebookSpreadCount);
   const notebookPage = Math.min(
     notebookPages[notebookKey(notebookChapter)] || 0,
-    (notebookCounts[notebookChapter] || 1) - 1,
+    (notebookSpreads[notebookChapter] || 1) - 1,
   );
   const notebookJournal = useMemo(
     () =>
       data.journal.map((entry, index) => ({
         ...entry,
-        pageCount: measuredNotebookCounts[notebookKey(index)] || 1,
+        pageCount: notebookSpreadCount(
+          measuredNotebookCounts[notebookKey(index)] || 1,
+        ),
       })),
     [data.journal, measuredNotebookCounts, notebookKey],
   );
@@ -590,7 +597,8 @@ export function ImmersivePortfolio({
             caseStudies={data.experience}
             journal={notebookJournal}
             notebookChapter={
-              notebookPageOffset(notebookCounts, notebookChapter) + notebookPage
+              notebookPageOffset(notebookSpreads, notebookChapter) +
+              notebookPage
             }
             onOpenNotebook={() => go({ section: 'about', open: true })}
             onCloseNotebook={() => go({ section: 'about' })}

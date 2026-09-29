@@ -1,16 +1,13 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
-import { pathFor } from '@/lib/paths';
 import {
   ABOUT_NOTEBOOK_LAYOUT,
   NOTEBOOK_MARKER_LIMIT,
   notebookMarkers,
   notebookWindowStart,
 } from '../spacecraft/rooms/about-notebook-layout';
-import { AboutSocialLinks } from './about-personal-content';
-import { NotebookSectionPages } from './notebook-section-pages';
+import { NotebookSpread } from './notebook-spread';
 import './about-notebook.css';
 
 /** Native ink stays registered to the complete stationary physical spread. */
@@ -41,68 +38,28 @@ export function AboutNotebook({
   useEffect(() => {
     if (!interactive) return;
     root.current
-      ?.querySelector<HTMLElement>('.notebook-page .notebook-section-pages')
+      ?.querySelector<HTMLElement>('.notebook-spread .notebook-section-pages')
       ?.focus({ preventScroll: true });
   }, [section, page, interactive]);
-  const sheet = (index: number, measuring = false) => {
+  const paper = (index: number, measuring = false) => {
     const item = data.journal[index];
     return (
-      <NotebookSectionPages
+      <NotebookSpread
+        section={index}
         title={item?.title || s.aboutHeading || 'A little about me'}
         subtitle={item?.subtitle}
         body={item?.body || (!item ? s.emptyLabel || '' : '')}
         media={data.media}
         biography={index === 0 ? s.biography : undefined}
         page={measuring ? 0 : page}
+        pageCount={pageCounts[index] || 1}
+        label={s.journalLabel || 'Field notes'}
+        ready={ready}
+        measuring={measuring}
         onPageSelect={measuring ? undefined : onPageChange}
         headingIdPrefix={`notebook-${item?.id || index}-${measuring ? 'measure-' : ''}`}
         onPageCount={(total) => onPageCount(index, total)}
       />
-    );
-  };
-  const paper = (index: number, measuring = false) => {
-    const total = pageCounts[index] || 1;
-    const selected = measuring ? 0 : page;
-    return (
-      <div
-        className="notebook-page"
-        data-notebook-section={index}
-        style={{
-          left: ABOUT_NOTEBOOK_LAYOUT.page.x,
-          width: ABOUT_NOTEBOOK_LAYOUT.page.width,
-        }}
-      >
-        <header className="notebook-page-header">
-          <span>{s.journalLabel || 'Field notes'}</span>
-        </header>
-        {sheet(index, measuring)}
-        {total > 1 && (
-          <footer className="notebook-page-footer">
-            <button
-              type="button"
-              disabled={!ready || selected <= 0}
-              onClick={() => onPageChange(selected - 1)}
-              aria-label="Previous page in section"
-            >
-              <ChevronLeft size={18} aria-hidden="true" />
-            </button>
-            <span
-              aria-live={measuring ? undefined : 'polite'}
-              aria-atomic="true"
-            >
-              Page {selected + 1} of {total}
-            </span>
-            <button
-              type="button"
-              disabled={!ready || selected >= total - 1}
-              onClick={() => onPageChange(selected + 1)}
-              aria-label="Next page in section"
-            >
-              <ChevronRight size={18} aria-hidden="true" />
-            </button>
-          </footer>
-        )}
-      </div>
     );
   };
   return (
@@ -114,15 +71,12 @@ export function AboutNotebook({
       aria-label={`${s.journalLabel || 'Notebook'} · ${s.name}`}
       data-notebook-interface
       data-section={section}
+      data-banked={data.journal.length > NOTEBOOK_MARKER_LIMIT}
+      style={{
+        ['--notebook-paper-left' as string]: `${ABOUT_NOTEBOOK_LAYOUT.leftPage.x}px`,
+      }}
     >
       {paper(section)}
-      <div className="notebook-connections">
-        <AboutSocialLinks data={data} />
-        <a href={pathFor('/contact', s)}>
-          {s.inviteLabel}
-          <ArrowUpRight size={13} aria-hidden="true" />
-        </a>
-      </div>
       <nav className="notebook-markers" aria-label="Notebook sections">
         {notebookMarkers(data.journal.length, section).map((flag) => (
           <button

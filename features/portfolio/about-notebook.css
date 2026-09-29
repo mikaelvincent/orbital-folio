@@ -21,51 +21,18 @@
   line-height: 1.55;
   outline: none;
 }
-.notebook-page {
+.about-notebook > .notebook-spread,
+.notebook-measurements .notebook-spread {
   position: absolute;
+  left: var(--notebook-paper-left);
   top: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 13px 22px 9px 26px;
-  pointer-events: auto;
 }
-.notebook-page-header,
-.notebook-page-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex: 0 0 auto;
-  font-size: 12px;
-}
-.notebook-page-header {
-  border-bottom: 1px solid
-    color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
-  margin-bottom: 18px;
-  min-height: 38px;
-  justify-content: flex-end;
-}
-.notebook-page-header > span {
-  max-width: 42%;
-  text-align: right;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.notebook-page-footer button {
-  min-height: 38px;
-  min-width: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.notebook-page-footer {
-  border-top: 1px solid color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
-  margin-top: 10px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
+.about-notebook[data-banked='true']
+  > .notebook-spread
+  .notebook-page[data-side='left']
+  .notebook-page-header
+  > span {
+  visibility: hidden;
 }
 .about-notebook button {
   cursor: pointer;
@@ -78,38 +45,6 @@
 .about-notebook :is(button, a):focus-visible {
   outline: 2px solid var(--carbon-muted);
   outline-offset: 2px;
-}
-.notebook-connections {
-  position: absolute;
-  left: 190px;
-  bottom: 16px;
-  width: 410px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  pointer-events: auto;
-  font-size: 12px;
-}
-.notebook-connections > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 30px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.notebook-connections .about-social-links {
-  margin: 0;
-  gap: 6px;
-  flex-wrap: nowrap;
-}
-.notebook-connections .about-social-links a {
-  min-height: 28px;
-  font-size: 11px;
-  padding: 3px 6px;
-  background: transparent;
-  color: inherit;
-  border-color: color-mix(in srgb, var(--ink-muted) 31.4%, transparent);
 }
 .notebook-markers {
   position: absolute;
@@ -177,8 +112,8 @@
   opacity: 0;
   pointer-events: none;
 }
-.world-surface[data-turning='true'] .about-notebook > .notebook-page {
-  opacity: 0;
+.world-surface[data-turning='true'] .about-notebook > .notebook-spread {
+  visibility: hidden;
   pointer-events: none;
 }
 .notebook-turn-ink {
@@ -188,24 +123,7 @@
 .notebook-turn-ink * {
   pointer-events: none !important;
 }
-.notebook-turn-ink[data-face='back'] .notebook-connections {
-  left: 45px;
-}
 .orbital-experience .world-notebook-target:focus-visible {
   /* The physical cover rim supplies hover and keyboard focus feedback. */
   outline: none;
-}
-
-.notebook-connections .about-social-links a {
-  flex: none;
-  gap: 5px;
-}
-.notebook-connections .about-social-links a span {
-  white-space: nowrap;
-}
-.notebook-connections .about-social-links a svg:last-child {
-  display: none;
-}
-.notebook-connections > a {
-  white-space: nowrap;
 }

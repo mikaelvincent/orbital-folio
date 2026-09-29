@@ -2,8 +2,8 @@
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- The named paper overflow region needs focus for keyboard scrolling at its fixed preview size. */
 import { useCallback, useMemo, useState } from 'react';
 import type { Content } from '@/lib/content/types';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { NotebookSectionPages } from '@/features/portfolio/notebook-section-pages';
+import { notebookSpreadCount } from '@/lib/content/notebook-pages';
+import { NotebookSpread } from '@/features/portfolio/notebook-spread';
 import './journal-page-preview.css';
 
 /** The same automatic paper layout used by the mounted public notebook. */
@@ -74,9 +74,10 @@ export function JournalPagePreview({
     page: number;
   } | null>(null);
   const count = measurement?.signature === signature ? measurement.count : 1;
+  const spreads = notebookSpreadCount(count);
   const page =
     selection?.signature === signature
-      ? Math.min(selection.page, count - 1)
+      ? Math.min(selection.page, spreads - 1)
       : 0;
   const receivePageCount = useCallback(
     (total: number) => {
@@ -89,61 +90,36 @@ export function JournalPagePreview({
     [signature],
   );
   const selectPage = (next: number) =>
-    setSelection({ signature, page: Math.max(0, Math.min(next, count - 1)) });
+    setSelection({ signature, page: Math.max(0, Math.min(next, spreads - 1)) });
 
   return (
     <div className="journal-page-review">
       <p className="journal-paper-scroll-hint">
-        Full-size paper preview. Scroll sideways to inspect the whole page.
+        Full-size paper preview. Scroll sideways to inspect both facing pages.
       </p>
       <div
         className="journal-paper-stage"
         role="region"
-        aria-label="Full-size notebook paper"
+        aria-label="Full-size notebook spread"
         tabIndex={0}
       >
         <article
           className="journal-paper-preview"
-          aria-label={`Notebook page ${page + 1} preview`}
+          aria-label={`Notebook spread ${page + 1} preview`}
         >
-          <header>
-            <span>{site?.journalLabel || 'Personal log'}</span>
-            <span>Paper preview</span>
-          </header>
-          <NotebookSectionPages
+          <NotebookSpread
             title={title}
             subtitle={subtitle}
             body={body}
             media={previewMedia}
             biography={biography}
             page={page}
+            pageCount={count}
+            label={site?.journalLabel || 'Personal log'}
             onPageCount={receivePageCount}
             onPageSelect={selectPage}
             headingIdPrefix="studio-notebook-"
           />
-          {count > 1 && (
-            <footer aria-label="Notebook preview pages">
-              <button
-                type="button"
-                disabled={page === 0}
-                onClick={() => selectPage(page - 1)}
-                aria-label="Previous preview page"
-              >
-                <ChevronLeft size={18} aria-hidden="true" />
-              </button>
-              <span aria-live="polite">
-                Page {page + 1} of {count}
-              </span>
-              <button
-                type="button"
-                disabled={page === count - 1}
-                onClick={() => selectPage(page + 1)}
-                aria-label="Next preview page"
-              >
-                <ChevronRight size={18} aria-hidden="true" />
-              </button>
-            </footer>
-          )}
         </article>
       </div>
       {biography && page === 0 && (
@@ -153,7 +129,7 @@ export function JournalPagePreview({
         </p>
       )}
       <p className="editor-hint">
-        The notebook lays out your story across fixed paper pages automatically.
+        The notebook lays out your story across both facing pages automatically.
         This preview uses the same text size and available space as the reader.
       </p>
     </div>

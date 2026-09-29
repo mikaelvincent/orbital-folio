@@ -372,7 +372,6 @@ export function mountSpacecraftScene({
           }));
         const modelOptions = {
           vesselName,
-          notebookName: String(s.name || ''),
           journal: (latest.current.journal || []).map((entry) => ({
             title: String(entry.title),
             pageCount: entry.pageCount,

@@ -27,6 +27,8 @@ const {
   projectEditorDraft,
   validateProjectPublication,
   normalizeNotebookBody,
+  notebookSpreadCount,
+  notebookPageOffset,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(helpers.outputFiles[0].text).toString('base64')
@@ -39,6 +41,18 @@ const chapter = {
   order: 2,
   sample: false,
 };
+
+test('paired columns count as one spread, including odd final pages and section offsets', () => {
+  assert.deepEqual(
+    [0, 1, 2, 3, 4, 5].map(notebookSpreadCount),
+    [1, 1, 1, 2, 2, 3],
+  );
+  const spreads = [3, 4, 1].map(notebookSpreadCount);
+  assert.deepEqual(
+    [0, 1, 2].map((index) => notebookPageOffset(spreads, index)),
+    [0, 2, 4],
+  );
+});
 
 test('journal Markdown preserves authored whitespace, ordering and sample metadata without changing existing drafts', () => {
   const before = structuredClone(chapter);
@@ -402,11 +416,28 @@ test('mounted notebook shows page controls only for sections with multiple pages
     one,
     /Back to About|notebook-page-footer|Previous page in section|Next page in section/,
   );
+  const pair = render(AboutNotebook, { ...props, pageCounts: [2] });
+  assert.doesNotMatch(pair, /notebook-page-footer/);
+  assert.equal(
+    (pair.match(/class="notebook-columns"/g) || []).length,
+    1,
+    'facing pages share one story and one set of heading IDs',
+  );
+  assert.match(pair, /data-side="left"/);
+  assert.match(pair, /data-side="right"/);
+  assert.match(pair, /width:932px/);
+  assert.doesNotMatch(pair, /notebook-connections/);
   const several = render(AboutNotebook, { ...props, pageCounts: [3] });
   assert.match(several, /notebook-page-footer/);
   assert.match(several, /Previous page in section/);
   assert.match(several, /Next page in section/);
   assert.match(several, /Page 1 of 3/);
+  assert.match(several, /Page 2 of 3/);
+  const last = render(AboutNotebook, { ...props, pageCounts: [3], page: 1 });
+  assert.match(last, /Page 3 of 3/);
+  assert.doesNotMatch(last, /Page 4 of 3/);
+  assert.match(last, /disabled="" aria-label="Next page in section"/);
+
   assert.doesNotMatch(several, /Back to About/);
 });
 

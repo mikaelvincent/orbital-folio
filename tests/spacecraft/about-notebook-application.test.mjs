@@ -92,18 +92,18 @@ test('Front and reverse ink anchors stay centered on the physical leaf throughou
     if (!object.isMesh) return;
     for (const material of [object.material].flat()) {
       if (material.name.includes('left-page-ink')) fixedArtwork = material.map;
-      if (material.name.includes('turning-notebook-artwork'))
+      if (material.name.includes('turning-notebook-reverse-paper'))
         reverseArtwork = material.map;
     }
   });
   assert.ok(
     fixedArtwork?.isCanvasTexture,
-    'the batched comparison includes the authored canvas artwork',
+    'the batched comparison includes the blank canvas paper',
   );
   assert.equal(
     reverseArtwork,
     fixedArtwork,
-    'batching and hover-material isolation keep one shared reverse illustration',
+    'batching and hover-material isolation keep one shared reverse paper texture',
   );
   paper.geometry.computeBoundingBox();
   const paperCenter = paper.geometry.boundingBox.getCenter(new THREE.Vector3());

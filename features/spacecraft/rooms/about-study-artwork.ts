@@ -1,11 +1,7 @@
 import { PALETTE } from '../../../lib/palette.ts';
 
 /** Original, static artwork for the personal study. No images or font downloads. */
-export function drawStudyArtwork(
-  ctx: any,
-  kind: string,
-  options: { notebookName?: string } = {},
-) {
+export function drawStudyArtwork(ctx: any, kind: string) {
   const landscape = kind === 'landscape-postcard';
   const width = landscape ? 512 : 768;
   const height = landscape ? 320 : 1024;
@@ -497,38 +493,7 @@ export function drawStudyArtwork(
     );
   } else {
     paper();
-    if (kind === 'journal-left') {
-      lettering('PERSONAL LOG', 72, 116, 26, '600');
-      path(
-        [
-          [72, 138],
-          [644, 138],
-        ],
-        paleInk,
-        1,
-      );
-      lettering(
-        options.notebookName?.trim() || 'Personal log',
-        72,
-        212,
-        48,
-        '500',
-        ink,
-        572,
-      );
-      lettering('Useful products.', 72, 278, 30);
-      lettering('Thoughtful engineering.', 72, 320, 30);
-      path(
-        [
-          [72, 383],
-          [230, 383],
-        ],
-        paleInk,
-        1,
-      );
-      mountain(86, 466, 1.19);
-      lettering('Always curious.', 74, 934, 23, 'italic', paleInk);
-    } else if (kind === 'mountain-note') {
+    if (kind === 'mountain-note') {
       mountain(55, 258, 1.35);
       path(
         [

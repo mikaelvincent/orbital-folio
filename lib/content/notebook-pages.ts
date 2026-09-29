@@ -45,4 +45,9 @@ export function notebookPageOffset(counts: number[], section: number) {
     .reduce((sum, count) => sum + Math.max(1, count), 0);
 }
 /** Shared by measured Markdown columns and their physical page-turn copies. */
-export const NOTEBOOK_COLUMN_STRIDE = 470;
+export const NOTEBOOK_COLUMN_STRIDE = 494;
+
+/** Each open spread shows two consecutive columns from the same section. */
+export function notebookSpreadCount(pages: number) {
+  return Math.max(1, Math.ceil(pages / 2));
+}
