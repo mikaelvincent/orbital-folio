@@ -47,6 +47,13 @@ consistent changing-ray regression. DOM hit testing stays live; other geometry
 still invalidates conservatively. This separate baseline establishes no browser,
 GPU or energy gain and must not be added to the other cache results.
 
+Candidate **10** also includes [pixel-cache validation](evidence/performance/pixel-validation/README.md).
+Direct matrix snapshots and fewer temporary arrays preserve live
+invalidation checks without a new revision contract. Opposing Node CPU orders
+observed 15–17% lower held/dish validation means (about 0.05 ms/check), with lower
+bookkeeping means in changing/rebuild states. Short-window drift and the absence
+of browser timing limit the claim; no GPU, frame-rate or energy gain is established.
+
 ## Candidate selection
 
 After a change or investigation, briefly screen **only the information already

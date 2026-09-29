@@ -212,6 +212,16 @@ suspension, visible-but-unfocused activity, wake-up and navigation separately.
 - **AO refresh versus reuse:** camera/projection, geometry, reader stretch and dirty
   state refresh GTAO; material-only feedback reuses it. Reasons overlap. The
   legacy broad motion signal remains diagnostic context, not production policy.
+- **Stationary pixel validation:** model revisions do not cover every visual
+  edit. Keep live checks of topology, visibility/layers, lights, materials,
+  texture versions/UVs, geometry attributes and world transforms. Notebook map
+  replacement and asynchronous image uploads are examples outside the geometry
+  revision contract. Fixed inventory membership can be retained; matrix snapshots
+  compare current values and copy only changed matrices. This reduces signature
+  construction, not the required invalidation coverage. Color-only changes still
+  preserve AO, shadow maps and dish bounds; geometry changes take priority. CPU comparison:
+  `scripts/benchmark-pixel-validation.mjs` (disposable checkout, original cache
+  modules supplied with `--baseline-dir`, raw output with `--out`).
 - **Detailed room-dismiss picks:** each picker caches its exact ray, near/far,
   layers and geometry revision. Only the independently counted dish motion is
   excluded: it belongs to none of the pressure-wall/furnishing target sets.

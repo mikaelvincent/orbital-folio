@@ -10,6 +10,7 @@ function fixture(
   eligible = () => true,
   areaLight = false,
   lampCount = 0,
+  beforeCache = () => {},
 ) {
   const scene = new THREE.Scene(),
     camera = new THREE.PerspectiveCamera();
@@ -65,6 +66,7 @@ function fixture(
     scene.add(lamp, lamp.target);
     return lamp;
   });
+  beforeCache({ scene, group, hull, dish });
   camera.updateMatrixWorld();
   scene.updateMatrixWorld(true);
   let target = null,
@@ -528,4 +530,147 @@ test('changes to the dish mount, scale, shadow intensity and softness invalidate
     f.ao.dispose();
     f.light.shadow.map.dispose();
   }
+});
+
+test('unrevisioned transforms, matrix replacement and return poses refresh depth before reuse', () => {
+  const f = fixture();
+  f.frames();
+  const initialRevision = f.group.userData.geometryRevision;
+  for (const mutate of [
+    () => {
+      f.hull.position.x = 2;
+      f.scene.updateMatrixWorld(true);
+    },
+    () => {
+      f.hull.matrixWorld.elements[12] = 3;
+    },
+    () => {
+      f.hull.matrixWorld = new THREE.Matrix4().makeTranslation(4, 0, 0);
+    },
+    () => {
+      f.hull.position.x = 0;
+      f.scene.updateMatrixWorld(true);
+    },
+    () => {
+      f.group.scale.setScalar(2);
+      f.scene.updateMatrixWorld(true);
+    },
+  ]) {
+    f.cache.occlusion(() => {}, true);
+    const builds = f.cache.stats().builds;
+    mutate();
+    f.hull.material.color.offsetHSL(0.1, 0.1, -0.1);
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(
+      f.cache.requiresOcclusion(),
+      true,
+      'geometry takes priority over color',
+    );
+    assert.equal(f.group.userData.geometryRevision, initialRevision);
+    f.frames();
+    assert.equal(f.cache.stats().valid, true);
+    assert.equal(f.cache.stats().builds, builds + 1);
+  }
+  f.cache.dispose();
+});
+
+test('attribute inventory edits and replacement geometry are observed without a model revision', () => {
+  const f = fixture();
+  f.frames();
+  for (const mutate of [
+    () =>
+      f.hull.geometry.setAttribute(
+        'extra',
+        new THREE.Float32BufferAttribute([0, 1, 2], 3),
+      ),
+    () =>
+      f.hull.geometry.setAttribute(
+        'extra',
+        new THREE.Float32BufferAttribute([3, 4, 5], 3),
+      ),
+    () => f.hull.geometry.deleteAttribute('extra'),
+    () => {
+      f.hull.geometry = f.hull.geometry.clone();
+    },
+    () => {
+      f.hull.geometry.attributes.position.needsUpdate = true;
+    },
+  ]) {
+    mutate();
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    f.frames();
+    assert.equal(f.cache.stats().valid, true);
+  }
+  f.cache.dispose();
+});
+
+test('late texture uploads, UV edits, viewport and environment changes remain live checks', () => {
+  const f = fixture();
+  f.hull.material.map = new THREE.Texture();
+  f.scene.environment = new THREE.Texture();
+  f.frames();
+  for (const mutate of [
+    () => {
+      f.hull.material.map.needsUpdate = true;
+    },
+    () => {
+      f.hull.material.map.offset.x += 0.2;
+    },
+    () => {
+      f.hull.material.map = new THREE.Texture();
+    },
+    () => {
+      f.scene.environment.needsUpdate = true;
+    },
+    () => {
+      f.scene.environmentRotation.y += 0.2;
+    },
+    () => {
+      f.renderer.getDrawingBufferSize = (v) => v.set(90, 70);
+    },
+    () => {
+      f.camera.fov += 10;
+      f.camera.updateProjectionMatrix();
+    },
+  ]) {
+    f.cache.occlusion(() => {}, true);
+    mutate();
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.cache.requiresOcclusion(), true);
+    f.frames();
+    assert.equal(f.cache.stats().valid, true);
+  }
+  f.cache.dispose();
+});
+
+test('only dish root rotation is exempt; descendants read their current local matrices', () => {
+  const child = new THREE.Group();
+  const f = fixture(true, undefined, false, 0, ({ dish }) => dish.add(child));
+  f.frames();
+  moveDish(f);
+  assert.equal(f.cache.stats().valid, true);
+  for (const mutate of [
+    () => {
+      child.position.x = 0.2;
+      child.updateMatrix();
+    },
+    () => {
+      child.matrix = new THREE.Matrix4().makeScale(2, 2, 2);
+    },
+    () => {
+      child.matrix.elements[12] = 0.5;
+    },
+  ]) {
+    f.cache.occlusion(() => {}, true);
+    mutate();
+    f.frames(1);
+    assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.cache.requiresOcclusion(), true);
+    f.frames();
+    assert.equal(f.cache.stats().valid, true);
+  }
+  disposeDishFixture(f);
 });

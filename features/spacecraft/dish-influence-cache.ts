@@ -60,6 +60,9 @@ export function createDishInfluenceCache({
   );
   const dynamic = new Set<Three.Object3D>();
   dish?.traverse((o) => dynamic.add(o));
+  // The pixel cache guards topology before reusing this fixed inventory. Read
+  // the descendants' current matrices each frame; only root rotation is exempt.
+  const descendants = [...dynamic].filter((o) => o !== dish);
   const meshes: any[] = [];
   scene.traverse((o: any) => {
     if (o.isMesh) meshes.push(o);
@@ -288,30 +291,36 @@ export function createDishInfluenceCache({
     invalidate() {
       ready = false;
     },
-    signature: () => [
-      ...dish!.position.toArray(),
-      ...dish!.scale.toArray(),
-      ...(dish!.parent?.matrixWorld.elements || []),
-      ...[...dynamic]
-        .filter((o) => o !== dish)
-        .flatMap((o) => o.matrix.elements),
-      key.shadow.mapSize.x,
-      key.shadow.mapSize.y,
-      key.shadow.radius,
-      ...key.shadow.camera.projectionMatrix.elements,
-      ao.gtaoMaterial.version,
-      ao.pdMaterial.version,
-      ao.gtaoMaterial.uniforms.radius.value,
-      ao.gtaoMaterial.uniforms.thickness.value,
-      ao.gtaoMaterial.uniforms.distanceExponent.value,
-      ao.gtaoMaterial.uniforms.scale.value,
-      ao.pdMaterial.uniforms.lumaPhi.value,
-      ao.pdMaterial.uniforms.depthPhi.value,
-      ao.pdMaterial.uniforms.normalPhi.value,
-      ao.pdMaterial.uniforms.radius.value,
-      ao.normalRenderTarget.width,
-      ao.normalRenderTarget.height,
-    ],
+    signature(values: unknown[]) {
+      values.push(
+        dish!.position.x,
+        dish!.position.y,
+        dish!.position.z,
+        dish!.scale.x,
+        dish!.scale.y,
+        dish!.scale.z,
+      );
+      if (dish!.parent) values.push(...dish!.parent.matrixWorld.elements);
+      for (const o of descendants) values.push(...o.matrix.elements);
+      values.push(
+        key.shadow.mapSize.x,
+        key.shadow.mapSize.y,
+        key.shadow.radius,
+        ...key.shadow.camera.projectionMatrix.elements,
+        ao.gtaoMaterial.version,
+        ao.pdMaterial.version,
+        ao.gtaoMaterial.uniforms.radius.value,
+        ao.gtaoMaterial.uniforms.thickness.value,
+        ao.gtaoMaterial.uniforms.distanceExponent.value,
+        ao.gtaoMaterial.uniforms.scale.value,
+        ao.pdMaterial.uniforms.lumaPhi.value,
+        ao.pdMaterial.uniforms.depthPhi.value,
+        ao.pdMaterial.uniforms.normalPhi.value,
+        ao.pdMaterial.uniforms.radius.value,
+        ao.normalRenderTarget.width,
+        ao.normalRenderTarget.height,
+      );
+    },
     stats: () => ({
       ready,
       radius,

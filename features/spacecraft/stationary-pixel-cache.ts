@@ -83,6 +83,12 @@ export function createStationaryPixelCache({
           ao,
         })
       : null;
+  // Inventory membership is fixed (and guarded below), but transforms are not
+  // revisioned. Compare matrices directly instead of flattening 16 values per
+  // mesh into a fresh frame signature. Only changed matrices need copying.
+  const transforms = candidates
+    .filter((mesh) => !influence?.dynamic(mesh))
+    .map((object) => ({ object, previous: new T.Matrix4() }));
   let partialAo = false;
   let aoNeedsFull = true;
   let repairShadow = false;
@@ -233,8 +239,8 @@ export function createStationaryPixelCache({
       scene.environmentRotation.x,
       scene.environmentRotation.y,
       scene.environmentRotation.z,
-      ...(influence?.signature() || []),
     );
+    influence?.signature(values);
     for (const node of nodes) {
       if (
         node.object.parent !== node.parent ||
@@ -332,14 +338,24 @@ export function createStationaryPixelCache({
         mesh.instanceMatrix?.version,
         mesh.instanceColor?.version,
         mesh.count,
-        ...(influence?.dynamic(mesh) ? [] : mesh.matrixWorld.elements),
       );
-      for (const attribute of Object.values(mesh.geometry.attributes) as any[])
+      // Attribute membership can change without a geometry revision. Enumerate
+      // it live, without allocating an Object.values array for every mesh.
+      const attributes = mesh.geometry.attributes;
+      for (const name in attributes) {
+        if (!Object.hasOwn(attributes, name)) continue;
+        const attribute = attributes[name];
         values.push(attribute, attribute.version, attribute.count);
+      }
     }
-    const geometryChanged =
+    let geometryChanged =
       values.length !== previous.length ||
       values.some((v, i) => v !== previous[i]);
+    for (const entry of transforms) {
+      if (entry.previous.equals(entry.object.matrixWorld)) continue;
+      entry.previous.copy(entry.object.matrixWorld);
+      geometryChanged = true;
+    }
     const colorChanged =
       colors.length !== previousColors.length ||
       colors.some((v, i) => v !== previousColors[i]);
