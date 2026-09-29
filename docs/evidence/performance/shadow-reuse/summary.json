@@ -1,0 +1,1314 @@
+{
+  "doors": {
+    "file": "shadow-reuse-doors-timing-1790671005868.json",
+    "blocks": [
+      {
+        "order": "ABBA",
+        "cpu": {
+          "a": 9.47333333334213,
+          "b": 8.785277777814514,
+          "percent": -7.263077644549365
+        },
+        "gpu": {
+          "a": 12.575752916666666,
+          "b": 11.065340604166668,
+          "percent": -12.01051199485834
+        },
+        "maps": {
+          "a": 1779,
+          "b": 284,
+          "percent": -84.03597526700393
+        },
+        "draws": {
+          "a": 1275.7527777777777,
+          "b": 495.76944444444445,
+          "percent": -61.13906604161813
+        },
+        "model": {
+          "a": 0.2030555555441727,
+          "b": 0.2070833332810758,
+          "percent": 1.9835841113083452
+        },
+        "matrices": {
+          "a": 5.350138888878023,
+          "b": 5.339166666678567,
+          "percent": -0.2050829413469124
+        }
+      },
+      {
+        "order": "BAAB",
+        "cpu": {
+          "a": 12.090833333305394,
+          "b": 11.931666666623723,
+          "percent": -1.3164242884998734
+        },
+        "gpu": {
+          "a": 15.235772979166669,
+          "b": 13.068141854166667,
+          "percent": -14.227247465317394
+        },
+        "maps": {
+          "a": 1779,
+          "b": 284,
+          "percent": -84.03597526700393
+        },
+        "draws": {
+          "a": 1275.7527777777777,
+          "b": 495.76944444444445,
+          "percent": -61.13906604161813
+        },
+        "model": {
+          "a": 0.22222222222998322,
+          "b": 0.23472222219117814,
+          "percent": 5.62499998234125
+        },
+        "matrices": {
+          "a": 7.145416666647522,
+          "b": 7.525833333322469,
+          "percent": 5.3239255934592
+        }
+      }
+    ],
+    "referenceSpread": {
+      "cpu": 38.26480967778083,
+      "gpu": 21.779597185501842
+    },
+    "controls": [
+      {
+        "cpu": 9.300277777802613,
+        "gpu": 13.297473499999997
+      },
+      {
+        "cpu": 9.426388888842324,
+        "gpu": 13.066539499999998
+      }
+    ],
+    "coverage": [
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 6112.300000000745,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.967966573816156,
+          "p50": 16.700000001117587,
+          "p95": 18.799999998882413,
+          "max": 26.09999999962747
+        },
+        "cpuP95": 12.600000001490116,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 6085.0999999996275,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.889972144846798,
+          "p50": 16.699999999254942,
+          "p95": 18.5,
+          "max": 24.300000000745058
+        },
+        "cpuP95": 13.5,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 6110.199999999255,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.968245125347153,
+          "p50": 16.700000001117587,
+          "p95": 18.5,
+          "max": 28.699999999254942
+        },
+        "cpuP95": 12.599999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 5999.5,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.647632311977716,
+          "p50": 16.699999999254942,
+          "p95": 18.40000000037253,
+          "max": 28.199999999254942
+        },
+        "cpuP95": 12.599999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 110,
+          "builds": 3,
+          "fallbacks": 247
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 6009,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.658774373259053,
+          "p50": 16.699999999254942,
+          "p95": 18.09999999962747,
+          "max": 24.300000000745058
+        },
+        "cpuP95": 12.699999999254942,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 110,
+          "builds": 3,
+          "fallbacks": 247
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 6150.199999999255,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.97130919220367,
+          "p50": 16.799999998882413,
+          "p95": 19.300000000745058,
+          "max": 28.699999999254942
+        },
+        "cpuP95": 15.599999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 6454,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 17.850417827300127,
+          "p50": 16.700000001117587,
+          "p95": 22.800000000745058,
+          "max": 40.69999999925494
+        },
+        "cpuP95": 22.5,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 110,
+          "builds": 3,
+          "fallbacks": 247
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 6861.5999999996275,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 18.95849582173117,
+          "p50": 17.59999999962747,
+          "p95": 27.300000000745058,
+          "max": 30.199999999254942
+        },
+        "cpuP95": 24,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 7292.39999999851,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 20.2161559888569,
+          "p50": 17.799999998882413,
+          "p95": 31.200000001117587,
+          "max": 33.59999999962747
+        },
+        "cpuP95": 24.90000000037253,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1779,
+        "cache": {
+          "hits": 108,
+          "builds": 3,
+          "fallbacks": 249
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 7164.9000000003725,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 19.821727019498606,
+          "p50": 16.800000000745058,
+          "p95": 38.90000000037253,
+          "max": 52.59999999962747
+        },
+        "cpuP95": 22.800000000745058,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 110,
+          "builds": 3,
+          "fallbacks": 247
+        },
+        "glError": 0
+      }
+    ],
+    "thermal": ["nominal", "fair", "fair"]
+  },
+  "keyboard": {
+    "file": "shadow-reuse-keyboard-timing-1790671399536.json",
+    "blocks": [
+      {
+        "order": "ABBA",
+        "cpu": {
+          "a": 6.111805555555556,
+          "b": 5.981944444467727,
+          "percent": -2.1247585497838117
+        },
+        "gpu": {
+          "a": 9.588090687500001,
+          "b": 8.188773854166666,
+          "percent": -14.594322049515295
+        },
+        "maps": {
+          "a": 977,
+          "b": 284,
+          "percent": -70.93142272262027
+        },
+        "draws": {
+          "a": 689.7722222222222,
+          "b": 326.1222222222222,
+          "percent": -52.720302193155554
+        },
+        "model": {
+          "a": 0.15875000001138284,
+          "b": 0.2038888888976847,
+          "percent": 28.433945753111978
+        },
+        "matrices": {
+          "a": 2.7906944444506534,
+          "b": 2.8724999999963785,
+          "percent": 2.931369133170314
+        }
+      },
+      {
+        "order": "BAAB",
+        "cpu": {
+          "a": 6.203750000027423,
+          "b": 5.9069444444392705,
+          "percent": -4.784292655036715
+        },
+        "gpu": {
+          "a": 9.151449229166666,
+          "b": 8.924371,
+          "percent": -2.481336272324408
+        },
+        "maps": {
+          "a": 977,
+          "b": 284,
+          "percent": -70.93142272262027
+        },
+        "draws": {
+          "a": 689.7722222222222,
+          "b": 326.1222222222222,
+          "percent": -52.720302193155554
+        },
+        "model": {
+          "a": 0.17611111109144986,
+          "b": 0.18236111113284198,
+          "percent": 3.5488959229532435
+        },
+        "matrices": {
+          "a": 2.860277777770534,
+          "b": 2.871250000003622,
+          "percent": 0.3836068761699174
+        }
+      }
+    ],
+    "referenceSpread": {
+      "cpu": 5.298434552954978,
+      "gpu": 12.957511681199652
+    },
+    "controls": [
+      {
+        "cpu": 5.97111111111525,
+        "gpu": 9.938539458333333
+      },
+      {
+        "cpu": 6.191111111108007,
+        "gpu": 8.7124145
+      }
+    ],
+    "coverage": [
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 5982.9000000003725,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.637325905289366,
+          "p50": 16.699999999254942,
+          "p95": 17.90000000037253,
+          "max": 28.40000000037253
+        },
+        "cpuP95": 13.899999998509884,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 5985.5999999996275,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.642061281337046,
+          "p50": 16.699999999254942,
+          "p95": 18.09999999962747,
+          "max": 24.5
+        },
+        "cpuP95": 15,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 5986.800000000745,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.648467966570703,
+          "p50": 16.699999999254942,
+          "p95": 18.800000000745058,
+          "max": 23.699999999254942
+        },
+        "cpuP95": 15.099999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 5985.299999998882,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.63955431754771,
+          "p50": 16.699999999254942,
+          "p95": 18,
+          "max": 24.700000001117587
+        },
+        "cpuP95": 14.5,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 5989.699999999255,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.651810584958216,
+          "p50": 16.699999999254942,
+          "p95": 18,
+          "max": 24.199999999254942
+        },
+        "cpuP95": 14,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 5985.4000000003725,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.647075208915723,
+          "p50": 16.699999999254942,
+          "p95": 18.59999999962747,
+          "max": 24
+        },
+        "cpuP95": 15,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 5986.0999999996275,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.64986072423087,
+          "p50": 16.699999999254942,
+          "p95": 18.300000000745058,
+          "max": 23.5
+        },
+        "cpuP95": 14.400000000372529,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 5988.199999999255,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.644846796657383,
+          "p50": 16.699999999254942,
+          "p95": 17.700000001117587,
+          "max": 25.799999998882413
+        },
+        "cpuP95": 15.300000000745058,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 5985.4000000003725,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.645403899719373,
+          "p50": 16.699999999254942,
+          "p95": 18.200000001117587,
+          "max": 24.90000000037253
+        },
+        "cpuP95": 15.100000001490116,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 977,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 5984.800000000745,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.642339832868043,
+          "p50": 16.699999999254942,
+          "p95": 17.09999999962747,
+          "max": 24.59999999962747
+        },
+        "cpuP95": 14.599999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 213,
+          "builds": 12,
+          "fallbacks": 135
+        },
+        "glError": 0
+      }
+    ],
+    "thermal": ["nominal", "fair", "fair"]
+  },
+  "notebook": {
+    "file": "shadow-reuse-notebook-timing-1790671224494.json",
+    "blocks": [
+      {
+        "order": "ABBA",
+        "cpu": {
+          "a": 16.975555555563833,
+          "b": 13.382916666650111,
+          "percent": -21.163601256844967
+        },
+        "gpu": {
+          "a": 42.15393350000001,
+          "b": 26.596263479166666,
+          "percent": -36.90680496242027
+        },
+        "maps": {
+          "a": 1231,
+          "b": 284,
+          "percent": -76.9293257514216
+        },
+        "draws": {
+          "a": 873.2722222222222,
+          "b": 368.94444444444446,
+          "percent": -57.7514966059966
+        },
+        "model": {
+          "a": 0.2823611111199069,
+          "b": 0.2515277778160655,
+          "percent": -10.91982291100554
+        },
+        "matrices": {
+          "a": 6.042916666625793,
+          "b": 5.117777777750355,
+          "percent": -15.309476200207328
+        }
+      },
+      {
+        "order": "BAAB",
+        "cpu": {
+          "a": 25.501805555538482,
+          "b": 21.86930555557677,
+          "percent": -14.244089470648502
+        },
+        "gpu": {
+          "a": 63.17309937499999,
+          "b": 42.32591695833334,
+          "percent": -33.00009438023027
+        },
+        "maps": {
+          "a": 1231,
+          "b": 284,
+          "percent": -76.9293257514216
+        },
+        "draws": {
+          "a": 873.2722222222222,
+          "b": 368.94444444444446,
+          "percent": -57.7514966059966
+        },
+        "model": {
+          "a": 0.4065277777534599,
+          "b": 0.36222222219479994,
+          "percent": -10.898530920445292
+        },
+        "matrices": {
+          "a": 8.658888888979952,
+          "b": 8.109305555614021,
+          "percent": -6.347042217684273
+        }
+      }
+    ],
+    "referenceSpread": {
+      "cpu": 92.37465636885172,
+      "gpu": 64.04872277940584
+    },
+    "controls": [
+      {
+        "cpu": 14.186666666664596,
+        "gpu": 42.06246995833333
+      },
+      {
+        "cpu": 11.080555555477945,
+        "gpu": 36.70905854166667
+      }
+    ],
+    "coverage": [
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 9370.39999999851,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 26.06323119776951,
+          "p50": 18.5,
+          "p95": 51.40000000037253,
+          "max": 162.09999999962747
+        },
+        "cpuP95": 36.90000000037253,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 8400.699999999255,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 23.373537604455787,
+          "p50": 18.300000000745058,
+          "p95": 48.79999999888241,
+          "max": 65.40000000037253
+        },
+        "cpuP95": 27.09999999962747,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 9297,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 25.855988857935607,
+          "p50": 18.799999998882413,
+          "p95": 49.80000000074506,
+          "max": 69.79999999888241
+        },
+        "cpuP95": 39.5,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 8870.299999998882,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 24.675208913650064,
+          "p50": 17.699999999254942,
+          "p95": 49.90000000037253,
+          "max": 119.10000000149012
+        },
+        "cpuP95": 34.80000000074506,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 190,
+          "builds": 8,
+          "fallbacks": 162
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 9552.700000001118,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 26.577158774371185,
+          "p50": 18.09999999962747,
+          "p95": 57,
+          "max": 77.79999999888241
+        },
+        "cpuP95": 46,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 190,
+          "builds": 8,
+          "fallbacks": 162
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 11554.5,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 32.14512534818838,
+          "p50": 19.300000000745058,
+          "p95": 76.69999999925494,
+          "max": 100.5
+        },
+        "cpuP95": 58.09999999962747,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 12291.5,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 34.1947075208924,
+          "p50": 19.299999998882413,
+          "p95": 80.09999999962747,
+          "max": 119.09999999962747
+        },
+        "cpuP95": 67.5,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 190,
+          "builds": 8,
+          "fallbacks": 162
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 13656.400000000373,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 37.99944289693282,
+          "p50": 21,
+          "p95": 87.60000000149012,
+          "max": 163.2999999988824
+        },
+        "cpuP95": 73.20000000111759,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 14571.299999998882,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 40.54986072423502,
+          "p50": 20.799999998882413,
+          "p95": 96.5,
+          "max": 245
+        },
+        "cpuP95": 76.79999999888241,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 1231,
+        "cache": {
+          "hits": 183,
+          "builds": 8,
+          "fallbacks": 169
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 13943.10000000149,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 38.796378830084606,
+          "p50": 20.699999999254942,
+          "p95": 98,
+          "max": 154.5
+        },
+        "cpuP95": 70.29999999888241,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 190,
+          "builds": 8,
+          "fallbacks": 162
+        },
+        "glError": 0
+      }
+    ],
+    "thermal": ["fair", "fair", "fair"]
+  },
+  "stationary": {
+    "file": "shadow-reuse-stationary-timing-1790671663536.json",
+    "blocks": [
+      {
+        "order": "ABBA",
+        "cpu": {
+          "a": 3.6601851851774243,
+          "b": 3.3630092592504632,
+          "percent": -8.11915001269412
+        },
+        "gpu": {
+          "a": 8.422660944444445,
+          "b": 8.483777534722222,
+          "percent": 0.7256209252740842
+        },
+        "maps": {
+          "a": 569,
+          "b": 569,
+          "percent": 0.0
+        },
+        "draws": {
+          "a": 111.56018518518519,
+          "b": 111.56018518518519,
+          "percent": 0.0
+        },
+        "model": {
+          "a": 0.3913888888631913,
+          "b": 0.3446759259552453,
+          "percent": -11.935178600400775
+        },
+        "matrices": {
+          "a": 0.46638888888474966,
+          "b": 0.41444444441305545,
+          "percent": -11.137581899926074
+        }
+      },
+      {
+        "order": "BAAB",
+        "cpu": {
+          "a": 2.968240740752986,
+          "b": 2.8543518518356397,
+          "percent": -3.836915495218718
+        },
+        "gpu": {
+          "a": 8.419967986111113,
+          "b": 8.533086881944442,
+          "percent": 1.343459927875279
+        },
+        "maps": {
+          "a": 569,
+          "b": 569,
+          "percent": 0.0
+        },
+        "draws": {
+          "a": 111.56018518518519,
+          "b": 111.56018518518519,
+          "percent": 0.0
+        },
+        "model": {
+          "a": 0.29523148147165085,
+          "b": 0.2799074074218946,
+          "percent": -5.190528453595045
+        },
+        "matrices": {
+          "a": 0.36212962962497297,
+          "b": 0.3424537036818004,
+          "percent": -5.433392998951581
+        }
+      }
+    ],
+    "referenceSpread": {
+      "cpu": 24.952544326884315,
+      "gpu": 2.476033949603554
+    },
+    "controls": [
+      {
+        "cpu": 2.963055555600052,
+        "gpu": 7.982523958333335
+      },
+      {
+        "cpu": 3.775277777766395,
+        "gpu": 8.294313666666667
+      }
+    ],
+    "coverage": [
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 5993.700000001118,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.673816155984706,
+          "p50": 16.600000001490116,
+          "p95": 18.5,
+          "max": 28.59999999962747
+        },
+        "cpuP95": 4.200000001117587,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 358,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "control",
+        "wallMs": 5987.200000001118,
+        "frameInterval": {
+          "samples": 359,
+          "mean": 16.64066852367688,
+          "p50": 16.699999999254942,
+          "p95": 17.59999999962747,
+          "max": 18.800000000745058
+        },
+        "cpuP95": 5.099999999627471,
+        "gpuSamples": 24,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 284,
+        "cache": {
+          "hits": 358,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 17998.300000000745,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.658480074142723,
+          "p50": 16.699999999254942,
+          "p95": 18,
+          "max": 18.699999999254942
+        },
+        "cpuP95": 5,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 17996.199999999255,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.659314179796453,
+          "p50": 16.699999999254942,
+          "p95": 17.90000000037253,
+          "max": 18.699999999254942
+        },
+        "cpuP95": 5.099999999627471,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "ABBA",
+        "wallMs": 17995.099999999627,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.659499536607626,
+          "p50": 16.600000001490116,
+          "p95": 18.800000000745058,
+          "max": 29.40000000037253
+        },
+        "cpuP95": 4,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "ABBA",
+        "wallMs": 17998.300000000745,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.659221501390867,
+          "p50": 16.699999999254942,
+          "p95": 18.100000001490116,
+          "max": 18.700000001117587
+        },
+        "cpuP95": 5,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 17997.099999999627,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.66061167747984,
+          "p50": 16.699999999254942,
+          "p95": 18.59999999962747,
+          "max": 29.300000000745058
+        },
+        "cpuP95": 4.099999999627471,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 17997.599999999627,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.660982391103907,
+          "p50": 16.600000001490116,
+          "p95": 18.5,
+          "max": 29.199999999254942
+        },
+        "cpuP95": 4.199999999254942,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "A",
+        "block": "BAAB",
+        "wallMs": 17995.39999999851,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.658850787766795,
+          "p50": 16.699999999254942,
+          "p95": 18.700000001117587,
+          "max": 27.300000000745058
+        },
+        "cpuP95": 4.099999999627471,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      },
+      {
+        "variant": "B",
+        "block": "BAAB",
+        "wallMs": 17996.799999998882,
+        "frameInterval": {
+          "samples": 1079,
+          "mean": 16.660611677478112,
+          "p50": 16.59999999962747,
+          "p95": 19,
+          "max": 27.100000001490116
+        },
+        "cpuP95": 4.099999999627471,
+        "gpuSamples": 72,
+        "pending": 0,
+        "discarded": 0,
+        "skipped": 0,
+        "maps": 569,
+        "cache": {
+          "hits": 1078,
+          "builds": 1,
+          "fallbacks": 1
+        },
+        "glError": 0
+      }
+    ],
+    "thermal": ["nominal", "nominal", "nominal"]
+  }
+}
