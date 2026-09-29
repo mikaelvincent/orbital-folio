@@ -50,6 +50,10 @@
   outline: 2px solid var(--carbon-muted);
   outline-offset: 2px;
 }
+.about-notebook h1:focus {
+  /* Arrival focuses this reading anchor for accessibility, not interaction. */
+  outline: none;
+}
 .notebook-markers {
   position: absolute;
   inset: 0;
