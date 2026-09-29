@@ -43,11 +43,7 @@ export function NotebookSpread({
       {[0, 1].map((side) => {
         const number = page * 2 + side + 1;
         const pageLabel =
-          number > pageCount
-            ? ''
-            : side === 1 || number === pageCount
-              ? `${number} of ${pageCount}`
-              : String(number);
+          number <= pageCount ? `${number} of ${pageCount}` : '';
         return (
           <div
             className="notebook-page"

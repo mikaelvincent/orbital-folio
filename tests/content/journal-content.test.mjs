@@ -437,7 +437,7 @@ test('mounted notebook shows page controls only for sections with multiple pages
         /<footer class="notebook-page-footer">.*?<span>(.*?)<\/span>/g,
       ),
     ].map((match) => match[1]);
-  assert.deepEqual(footerLabels(several), ['1', '2 of 3']);
+  assert.deepEqual(footerLabels(several), ['1 of 3', '2 of 3']);
   assert.match(several, /aria-live="polite" aria-atomic="true">Pages 1–2 of 3/);
   const last = render(AboutNotebook, { ...props, pageCounts: [3], page: 1 });
   assert.deepEqual(footerLabels(last), ['3 of 3', '']);
@@ -447,7 +447,7 @@ test('mounted notebook shows page controls only for sections with multiple pages
     pageCounts: [4],
     page: 1,
   });
-  assert.deepEqual(footerLabels(evenLast), ['3', '4 of 4']);
+  assert.deepEqual(footerLabels(evenLast), ['3 of 4', '4 of 4']);
 
   assert.doesNotMatch(several, /Back to About/);
 });
