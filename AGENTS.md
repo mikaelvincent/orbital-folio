@@ -48,10 +48,10 @@ change benefits from it; routine edits do not require a critic, numeric score,
 exhaustive screen sweep or permanent report. Ordinary functional work needs no
 benchmarking or thermal monitoring. Report actual checks and limitations.
 
-Preserve unrelated work and give parallel agents bounded file ownership. Commit
-completed changes in logical groups, stage explicit paths and report remaining
-uncommitted work. Use `codex/` for new branches; a local change does not authorize
-push or deployment.
+Preserve unrelated work and give parallel agents bounded file ownership. Work
+only on the current branch; do not create or switch branches. Commit completed
+changes in logical groups, stage explicit paths and report remaining uncommitted
+work. A local change does not authorize push or deployment.
 
 ## Keep the repository lean
 
