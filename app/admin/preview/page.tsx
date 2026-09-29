@@ -32,6 +32,9 @@ export default async function Preview({
   const caseStudy = data.experience.find(
     (entry) => entry.id === q.id || entry.slug === q.slug,
   );
+  const notebookSection = data.journal.find(
+    (entry) => entry.id === q.id || entry.slug === q.slug,
+  );
   const category =
     CASE_STUDY_CATEGORIES.find((item) => item.id === q.category)?.id || 'all';
   return (
@@ -40,6 +43,7 @@ export default async function Preview({
       active={section}
       projectSlug={section === 'projects' ? p?.slug : undefined}
       caseStudySlug={section === 'experience' ? caseStudy?.slug : undefined}
+      notebookSlug={section === 'about' ? notebookSection?.slug : undefined}
       preview
     >
       {section === 'projects' ? (
@@ -59,7 +63,7 @@ export default async function Preview({
           <ExperienceView data={data} category={category} />
         )
       ) : section === 'about' ? (
-        <AboutView data={data} />
+        <AboutView data={data} section={notebookSection} />
       ) : section === 'contact' ? (
         <ContactView data={data} />
       ) : section === 'privacy' ? (

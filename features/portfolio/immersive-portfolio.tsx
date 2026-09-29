@@ -20,10 +20,10 @@ import { CaseStudyLibraryWindow } from './case-study-library-window';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
   destinationFromURL,
+  destinationHref,
   rooms,
   type Destination,
 } from '@/features/spacecraft/navigation/flight';
-import { pathFor } from '@/lib/paths';
 import { paletteAccent } from '@/lib/palette';
 import { pageMetadata } from '@/lib/metadata';
 import { Spacecraft } from '../spacecraft/spacecraft';
@@ -84,8 +84,12 @@ export function ImmersivePortfolio({
     useState<EarthPlaybackController | null>(null);
   const [reading, setReading] = useState(false);
   const [selectedChapter, setNotebookChapter] = useState(0);
+  const notebookSection =
+    destination.section === 'about'
+      ? data.journal.find((entry) => entry.slug === destination.slug)
+      : undefined;
   const notebookChapter = Math.min(
-    selectedChapter,
+    notebookSection ? data.journal.indexOf(notebookSection) : selectedChapter,
     Math.max(0, data.journal.length - 1),
   );
   const [notebookPages, setNotebookPages] = useState<Record<string, number>>(
@@ -112,7 +116,9 @@ export function ImmersivePortfolio({
   // Content counts printed pages; the physical scene advances one facing spread per leaf.
   const notebookSpreads = notebookCounts.map(notebookSpreadCount);
   const notebookPage = Math.min(
-    notebookPages[notebookKey(notebookChapter)] || 0,
+    notebookSection
+      ? destination.page || 0
+      : notebookPages[notebookKey(notebookChapter)] || 0,
     (notebookSpreads[notebookChapter] || 1) - 1,
   );
   const notebookJournal = useMemo(
@@ -131,6 +137,17 @@ export function ImmersivePortfolio({
       previous[key] === count ? previous : { ...previous, [key]: count },
     );
   };
+  // Keep the selected place when closing the notebook or visiting another room.
+  // The route owns it while open, including browser Back/Forward and refresh.
+  useEffect(() => {
+    if (!notebookSection) return;
+    setNotebookChapter(notebookChapter);
+    const key = notebookKey(notebookChapter);
+    const page = destination.page || 0;
+    setNotebookPages((previous) =>
+      previous[key] === page ? previous : { ...previous, [key]: page },
+    );
+  }, [notebookSection, notebookChapter, notebookKey, destination.page]);
   const returnToNotebook = useRef(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
@@ -174,38 +191,35 @@ export function ImmersivePortfolio({
       ? data.experience.find((entry) => entry.slug === destination.slug)
       : undefined;
   const hrefFor = useCallback(
-    (d: Destination) => {
-      const path = pathFor(
-        d.section === 'home'
-          ? '/'
-          : '/' + d.section + (d.slug ? '/' + d.slug : ''),
-        s,
-      );
-      const query = new URLSearchParams();
-      if (d.open) query.set('open', '1');
-      if (d.section === 'experience' && d.category && d.category !== 'all')
-        query.set('category', d.category);
-      return (
-        path + (query.size ? (path.includes('?') ? '&' : '?') + query : '')
-      );
-    },
-    [s],
+    (d: Destination) => destinationHref(d, s, reading),
+    [s, reading],
   );
   const parseURL = useCallback(
     (url: URL) =>
-      destinationFromURL(url, preview, data.projects, data.experience),
-    [preview, data.projects, data.experience],
+      destinationFromURL(
+        url,
+        preview,
+        data.projects,
+        data.experience,
+        data.journal,
+      ),
+    [preview, data.projects, data.experience, data.journal],
+  );
+  const isKnownDestination = useCallback(
+    (next: Destination) =>
+      !next.slug ||
+      (next.section === 'about'
+        ? data.journal
+        : next.section === 'experience'
+          ? data.experience
+          : data.projects
+      ).some((entry) => entry.slug === next.slug),
+    [data.journal, data.experience, data.projects],
   );
 
   const go = useCallback(
     (next: Destination, push = true) => {
-      if (
-        next.slug &&
-        !(next.section === 'experience' ? data.experience : data.projects).some(
-          (p) => p.slug === next.slug,
-        )
-      )
-        return false;
+      if (!isKnownDestination(next)) return false;
       setNavigationOpen(false);
       // Leave the URL and current destination unchanged until the camera
       // arrives. Every ordinary door, menu item, and Home shares this slot.
@@ -224,16 +238,18 @@ export function ImmersivePortfolio({
       const same =
         latest.current.section === next.section &&
         latest.current.slug === next.slug &&
+        (latest.current.page || 0) === (next.page || 0) &&
         latest.current.category === next.category &&
         !!latest.current.open === !!next.open &&
         !!latest.current.sent === !!next.sent &&
         !!latest.current.error === !!next.error;
       if (same) {
-        navigationToggle.current?.focus({ preventScroll: true });
+        if (next.section !== 'about' || !(next.slug || next.open))
+          navigationToggle.current?.focus({ preventScroll: true });
         return true;
       }
       const withinApplication =
-        ['projects', 'experience'].includes(latest.current.section) &&
+        ['projects', 'experience', 'about'].includes(latest.current.section) &&
         next.section === latest.current.section &&
         !!(latest.current.slug || latest.current.open) &&
         !!(next.slug || next.open);
@@ -241,16 +257,52 @@ export function ImmersivePortfolio({
       setTravel(!reading && !withinApplication);
       returnToNotebook.current =
         latest.current.section === 'about' &&
-        !!latest.current.open &&
+        !!(latest.current.open || latest.current.slug) &&
         next.section === 'about' &&
-        !next.open;
+        !next.open &&
+        !next.slug;
       latest.current = next;
       setDestination(next);
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
       return true;
     },
-    [data.projects, data.experience, hrefFor, reading, immersive],
+    [isKnownDestination, hrefFor, reading, immersive],
   );
+
+  const openNotebookSection = (section: number, page?: number) => {
+    const entry = data.journal[section];
+    go(
+      entry
+        ? {
+            section: 'about',
+            slug: entry.slug,
+            page: page ?? notebookPages[notebookKey(section)] ?? 0,
+          }
+        : { section: 'about', open: true },
+    );
+  };
+
+  useEffect(() => {
+    // Pagination needs loaded fonts/content before an oversized page can be clamped.
+    if (
+      !notebookSection ||
+      measuredNotebookCounts[notebookKey(notebookChapter)] === undefined ||
+      (destination.page || 0) === notebookPage
+    )
+      return;
+    const next = { ...destination, page: notebookPage };
+    latest.current = next;
+    setDestination(next);
+    window.history.replaceState(window.history.state, '', hrefFor(next));
+  }, [
+    destination,
+    notebookSection,
+    notebookChapter,
+    notebookPage,
+    measuredNotebookCounts,
+    notebookKey,
+    hrefFor,
+  ]);
 
   useEffect(() => {
     setEnhanced(true);
@@ -288,11 +340,20 @@ export function ImmersivePortfolio({
 
   useEffect(() => {
     const pop = (event: PopStateEvent) => {
-      const next = parseURL(new URL(location.href));
+      const url = new URL(location.href);
+      const next = parseURL(url);
       if (!next) return;
       // The browser already changed the URL. Keep this scene alive rather than fetching another page tree.
       event.stopImmediatePropagation();
       go(next, false);
+      const nextReading =
+        url.searchParams.get('view') === 'reading' ||
+        url.hash === '#room-reader' ||
+        innerHeight < 480;
+      if (nextReading !== reading) {
+        setReading(nextReading);
+        setArrived(false);
+      }
     };
     const escape = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
@@ -323,7 +384,7 @@ export function ImmersivePortfolio({
       window.removeEventListener('popstate', pop, true);
       window.removeEventListener('keydown', escape);
     };
-  }, [go, parseURL, navigationOpen, immersive]);
+  }, [go, parseURL, navigationOpen, immersive, reading]);
 
   useEffect(() => {
     if (!navigationOpen) return;
@@ -342,7 +403,11 @@ export function ImmersivePortfolio({
 
   useEffect(() => {
     if (!enhanced) return;
-    const meta = pageMetadata(data, destination.section, caseStudy || project);
+    const meta = pageMetadata(
+      data,
+      destination.section,
+      notebookSection || caseStudy || project,
+    );
     document.title = preview ? 'Private draft preview' : meta.title;
     if (!preview) {
       document
@@ -384,7 +449,17 @@ export function ImmersivePortfolio({
       window.scrollTo({ top: 0, behavior: 'instant' });
       reader.current?.focus({ preventScroll: true });
     }
-  }, [destination, enhanced, preview, project, caseStudy, s, data, reading]);
+  }, [
+    destination,
+    enhanced,
+    preview,
+    project,
+    caseStudy,
+    notebookSection,
+    s,
+    data,
+    reading,
+  ]);
 
   const settled = useCallback(() => {
     setTravel(false);
@@ -406,7 +481,9 @@ export function ImmersivePortfolio({
       return;
     }
     if (readingSurface) {
-      const appHeading = ['projects', 'experience', 'about'].includes(
+      // The notebook owns focus on the visible spread; its title may be off-page.
+      if (destination.section === 'about') return;
+      const appHeading = ['projects', 'experience'].includes(
         destination.section,
       )
         ? document.querySelector<HTMLElement>('#world-reader h1')
@@ -445,14 +522,7 @@ export function ImmersivePortfolio({
     const url = new URL(anchor.href, location.href);
     if (url.origin !== location.origin) return;
     const next = parseURL(url);
-    if (
-      !next ||
-      (next.slug &&
-        !(next.section === 'experience' ? data.experience : data.projects).some(
-          (p) => p.slug === next.slug,
-        ))
-    )
-      return;
+    if (!next || !isKnownDestination(next)) return;
     event.preventDefault();
     go(next);
   };
@@ -481,7 +551,7 @@ export function ImmersivePortfolio({
         />
       )
     ) : destination.section === 'about' ? (
-      <AboutView data={data} />
+      <AboutView data={data} section={notebookSection} />
     ) : destination.section === 'contact' ? (
       <ContactView
         data={data}
@@ -600,7 +670,9 @@ export function ImmersivePortfolio({
               notebookPageOffset(notebookSpreads, notebookChapter) +
               notebookPage
             }
-            onOpenNotebook={() => go({ section: 'about', open: true })}
+            onOpenNotebook={() =>
+              openNotebookSection(notebookChapter, notebookPage)
+            }
             onCloseNotebook={() => go({ section: 'about' })}
             links={data.links}
             media={data.media}
@@ -737,12 +809,9 @@ export function ImmersivePortfolio({
               )}
               page={notebookPage}
               pageCounts={notebookCounts}
-              onSectionChange={setNotebookChapter}
+              onSectionChange={(section) => openNotebookSection(section)}
               onPageChange={(page) =>
-                setNotebookPages((previous) => ({
-                  ...previous,
-                  [notebookKey(notebookChapter)]: page,
-                }))
+                openNotebookSection(notebookChapter, page)
               }
               onPageCount={notebookPageCount}
               onClose={() => go({ section: 'about' })}
@@ -846,6 +915,12 @@ export function ImmersivePortfolio({
             className="flight-view-toggle"
             type="button"
             onClick={() => {
+              const url = new URL(location.href);
+              if (reading) {
+                url.searchParams.delete('view');
+                if (url.hash === '#room-reader') url.hash = '';
+              } else url.searchParams.set('view', 'reading');
+              window.history.replaceState(window.history.state, '', url);
               setReading(!reading);
               setNavigationOpen(false);
               setArrived(false);

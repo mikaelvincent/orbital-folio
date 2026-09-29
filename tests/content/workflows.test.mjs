@@ -187,6 +187,82 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
   const baseline = await records();
   try {
     await t.test(
+      'notebook slug routes expose published sections and keep draft deep links private',
+      async () => {
+        const id = await create('journal', {
+          slug: 'notebook-route-public',
+          title: 'Notebook route publication',
+          subtitle: 'A directly addressable section',
+          body: 'The published notebook section body.',
+          order: 99,
+          sample: true,
+        });
+        assert.equal((await req('/about/notebook-route-public')).status, 404);
+        const draftPreview = await authorized(
+          '/admin/preview?section=about&id=' + id,
+        );
+        assert.equal(draftPreview.status, 200);
+        assert.match(await draftPreview.text(), /id="notebook-route-public"/);
+        await publish(id);
+        const response = await req(
+          '/about/notebook-route-public?page=3&view=reading',
+        );
+        assert.equal(response.status, 200);
+        const html = await response.text();
+        assert.match(html, /<title>Notebook route publication/);
+        assert.match(html, /<article[^>]* id="notebook-route-public"/);
+        assert.match(
+          html,
+          /href="\/about\/notebook-route-public\?view=reading" aria-current="page"/,
+        );
+        assert.match(
+          html,
+          /rel="canonical" href="[^"]*\/about\/notebook-route-public"/,
+        );
+        assert.match(
+          await (await req('/sitemap.xml')).text(),
+          /\/about\/notebook-route-public/,
+        );
+        const current = await record(id);
+        await save(current, {
+          ...current.draft,
+          slug: 'notebook-route-private',
+          title: 'Unpublished notebook route title',
+          body: 'Unpublished notebook route body.',
+        });
+        const live = await (await req('/about/notebook-route-public')).text();
+        assert.doesNotMatch(live, /Unpublished notebook route/);
+        assert.equal((await req('/about/notebook-route-private')).status, 404);
+        const sitemap = await (await req('/sitemap.xml')).text();
+        assert.doesNotMatch(sitemap, /notebook-route-private/);
+        for (const selector of ['id=' + id, 'slug=notebook-route-private']) {
+          const preview = await authorized(
+            '/admin/preview?section=about&' + selector,
+          );
+          assert.equal(preview.status, 200);
+          assert.match(
+            await preview.text(),
+            /<article[^>]* id="notebook-route-private"/,
+          );
+          assert.match(
+            preview.headers.get('cache-control'),
+            /private.*no-store/,
+          );
+          assert.match(preview.headers.get('x-robots-tag'), /noindex/);
+        }
+        await publish(id);
+        assert.equal((await req('/about/notebook-route-public')).status, 404);
+        assert.equal((await req('/about/notebook-route-private')).status, 200);
+        const published = await record(id);
+        await api({ action: 'unpublish', id, revision: published.revision });
+        assert.equal((await req('/about/notebook-route-private')).status, 404);
+        assert.doesNotMatch(
+          await (await req('/sitemap.xml')).text(),
+          /notebook-route-private/,
+        );
+      },
+    );
+    await t.test(
       'published snapshots stay stable while drafts change; optimistic conflicts reject',
       async () => {
         const original = baseline.find(

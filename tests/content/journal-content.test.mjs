@@ -623,8 +623,8 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
     ],
   };
   const markup = render(AboutView, { data });
-  assert.match(markup, /href="#university-life"/);
-  assert.match(markup, /href="#career"/);
+  assert.match(markup, /href="\/about\/university-life\?view=reading"/);
+  assert.match(markup, /href="\/about\/career\?view=reading"/);
   assert.match(markup, /<strong>Another<\/strong>/);
   assert.match(
     markup,
@@ -641,4 +641,20 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
   assert.doesNotMatch(markup, /<script>|href="javascript:/);
   assert.match(markup, /&lt;script&gt;/);
   assert.match(markup, /href="\/contact"/);
+  const selected = render(AboutView, { data, section: data.journal[1] });
+  assert.match(
+    selected,
+    /href="\/about\/career\?view=reading" aria-current="page"/,
+  );
+  assert.match(selected, /<article id="career">/);
+  assert.doesNotMatch(selected, /<article id="university-life">/);
+  assert.match(selected, /id="journal-career-project-highlights"/);
+  const preview = render(AboutView, {
+    data: { ...data, site: { ...data.site, _preview: true } },
+    section: data.journal[0],
+  });
+  assert.match(
+    preview,
+    /href="\/admin\/preview\?view=reading&amp;section=about&amp;slug=university-life" aria-current="page"/,
+  );
 });

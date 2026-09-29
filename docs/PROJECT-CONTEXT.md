@@ -285,6 +285,15 @@ beneath the turn, suppress input on hidden ink, and restore keyboard focus after
 the leaf settles. Selection survives closing. Empty journals retain the biography
 introduction.
 
+Each published notebook section has an `/about/<slug>` URL. Opening the notebook
+or choosing a marker updates browser history; reload and direct entry restore
+that section in the mounted notebook. Page turns retain the spread with `?page=N`,
+using its first printed page number (1, 3, 5…). Back/Forward restores both section
+and spread. Reading view uses the same section URLs with `?view=reading`; private
+studio previews resolve draft sections by ID or slug without exposing them on
+public routes. `/about` remains the room/complete Reading view, and legacy
+`/about?open=1` links still open the notebook.
+
 Colored section markers sit behind their section's first page: current/earlier
 markers rest left, future markers right. Crossing a section carries its marker;
 within-section turns do not. Use fixed top spacing and show at most six markers

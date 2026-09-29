@@ -2,6 +2,7 @@ import {
   CASE_STUDY_CATEGORIES,
   type CaseStudyFilter,
 } from '../../../lib/content/case-study-content.ts';
+import { pathFor } from '../../../lib/paths.ts';
 
 // Keep the persisted experience key while its rendered room is Case studies.
 export const rooms = ['experience', 'projects', 'about', 'contact'] as const;
@@ -9,6 +10,8 @@ export type Room = (typeof rooms)[number];
 export type Destination = {
   section: string;
   slug?: string;
+  /** Zero-based notebook spread; URLs use the first printed page number. */
+  page?: number;
   category?: CaseStudyFilter;
   open?: boolean;
   sent?: boolean;
@@ -19,6 +22,7 @@ export function destinationFromURL(
   preview = false,
   projects: Record<string, any>[] = [],
   caseStudies: Record<string, any>[] = [],
+  journal: Record<string, any>[] = [],
 ): Destination | null {
   let section: string, slug: string | undefined;
   if (preview) {
@@ -26,9 +30,12 @@ export function destinationFromURL(
     section = url.searchParams.get('section') || 'home';
     slug = url.searchParams.get('slug') || undefined;
     if (url.searchParams.has('id')) {
-      const entries = ['experience', 'case-studies'].includes(section)
-        ? caseStudies
-        : projects;
+      const entries =
+        section === 'about'
+          ? journal
+          : ['experience', 'case-studies'].includes(section)
+            ? caseStudies
+            : projects;
       slug = entries.find((p) => p.id === url.searchParams.get('id'))?.slug;
       if (!slug) return null;
     }
@@ -37,7 +44,7 @@ export function destinationFromURL(
     if (
       parts.length > 2 ||
       (parts.length === 2 &&
-        !['projects', 'case-studies', 'experience'].includes(parts[0]))
+        !['projects', 'case-studies', 'experience', 'about'].includes(parts[0]))
     )
       return null;
     section = parts[0] || 'home';
@@ -46,9 +53,18 @@ export function destinationFromURL(
   if (section === 'case-studies') section = 'experience';
   if (!['home', 'privacy', ...rooms].includes(section)) return null;
   const category = url.searchParams.get('category');
+  const page = Number(url.searchParams.get('page'));
   return {
     section,
     slug,
+    ...(section === 'about' && slug
+      ? {
+          page:
+            Number.isSafeInteger(page) && page > 0
+              ? Math.floor((page - 1) / 2)
+              : 0,
+        }
+      : {}),
     ...(section === 'experience' &&
     category &&
     CASE_STUDY_CATEGORIES.some((item) => item.id === category)
@@ -62,6 +78,26 @@ export function destinationFromURL(
     sent: url.searchParams.get('sent') === '1',
     error: url.searchParams.get('error') === '1',
   };
+}
+
+export function destinationHref(
+  destination: Destination,
+  site: Record<string, any>,
+  reading = false,
+) {
+  const { section, slug, page, open, category } = destination;
+  const path = pathFor(
+    section === 'home' ? '/' : '/' + section + (slug ? '/' + slug : ''),
+    site,
+  );
+  const query = new URLSearchParams();
+  if (open) query.set('open', '1');
+  if (section === 'about' && slug && page)
+    query.set('page', String(page * 2 + 1));
+  if (section === 'experience' && category && category !== 'all')
+    query.set('category', category);
+  if (reading) query.set('view', 'reading');
+  return path + (query.size ? (path.includes('?') ? '&' : '?') + query : '');
 }
 export function flightEase(t: number) {
   const x = Math.max(0, Math.min(1, t));

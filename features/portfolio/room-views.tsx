@@ -230,7 +230,13 @@ export function CaseStudyView({
     </>
   );
 }
-export function AboutView({ data }: { data: Portfolio }) {
+export function AboutView({
+  data,
+  section,
+}: {
+  data: Portfolio;
+  section?: Record<string, any>;
+}) {
   const s = data.site;
   return (
     <>
@@ -247,7 +253,11 @@ export function AboutView({ data }: { data: Portfolio }) {
           {!!data.journal.length && (
             <nav aria-label={s.aboutLabel}>
               {data.journal.map((j, i) => (
-                <a href={'#' + j.slug} key={j.id}>
+                <a
+                  href={pathFor(`/about/${j.slug}?view=reading`, s)}
+                  aria-current={section?.id === j.id ? 'page' : undefined}
+                  key={j.id}
+                >
                   <span>{String(i + 1).padStart(2, '0')}</span>
                   {j.title}
                   <ArrowUpRight size={15} />
@@ -257,24 +267,29 @@ export function AboutView({ data }: { data: Portfolio }) {
           )}
         </aside>
         <div className="journal-pages">
-          {data.journal.map((j, i) => (
-            <article key={j.id} id={j.slug}>
-              <div className="paper-top">
-                <p className="eyebrow">
-                  {s.journalLabel} / {String(i + 1).padStart(2, '0')}
-                </p>
-              </div>
-              <h2>{j.title}</h2>
-              {j.subtitle && <p className="journal-subtitle">{j.subtitle}</p>}
-              <ProjectMarkdown
-                body={normalizeNotebookBody(j.body || '')}
-                media={data.media}
-                headingIdPrefix={`journal-${j.id}-`}
-                notebookPageBreaks
-                preserveSoftBreaks
-              />
-            </article>
-          ))}
+          {data.journal.map(
+            (j, i) =>
+              (!section || section.id === j.id) && (
+                <article key={j.id} id={j.slug}>
+                  <div className="paper-top">
+                    <p className="eyebrow">
+                      {s.journalLabel} / {String(i + 1).padStart(2, '0')}
+                    </p>
+                  </div>
+                  <h2>{j.title}</h2>
+                  {j.subtitle && (
+                    <p className="journal-subtitle">{j.subtitle}</p>
+                  )}
+                  <ProjectMarkdown
+                    body={normalizeNotebookBody(j.body || '')}
+                    media={data.media}
+                    headingIdPrefix={`journal-${j.id}-`}
+                    notebookPageBreaks
+                    preserveSoftBreaks
+                  />
+                </article>
+              ),
+          )}
           {!data.journal.length && (
             <p className="reading-empty" role="status">
               {s.emptyLabel}

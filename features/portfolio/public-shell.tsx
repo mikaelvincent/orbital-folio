@@ -8,6 +8,7 @@ export function PublicShell({
   preview = false,
   projectSlug,
   caseStudySlug,
+  notebookSlug,
 }: {
   data: Portfolio;
   active: string;
@@ -15,12 +16,13 @@ export function PublicShell({
   preview?: boolean;
   projectSlug?: string;
   caseStudySlug?: string;
+  notebookSlug?: string;
 }) {
   return (
     <ImmersivePortfolio
       data={data}
       initialSection={active}
-      initialSlug={caseStudySlug || projectSlug}
+      initialSlug={notebookSlug || caseStudySlug || projectSlug}
       preview={preview}
     >
       {children}

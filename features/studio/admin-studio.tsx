@@ -325,13 +325,15 @@ export function AdminStudio({
       ? '/admin/preview?section=projects&id=' + selected
       : kind === 'experience'
         ? '/admin/preview?section=experience&id=' + selected
-        : '/admin/preview?section=' +
-          ({
-            site: 'home',
-            journal: 'about',
-            link: 'contact',
-            media: 'projects',
-          }[kind] || 'home');
+        : kind === 'journal'
+          ? '/admin/preview?section=about&id=' + selected
+          : '/admin/preview?section=' +
+            ({
+              site: 'home',
+              journal: 'about',
+              link: 'contact',
+              media: 'projects',
+            }[kind] || 'home');
   return (
     <div className="studio">
       <header className="studio-header">

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   destinationFromURL,
+  destinationHref,
   flightEase,
   cursorTranslation,
   cursorRotation,
@@ -19,7 +20,8 @@ test('Flight destinations preserve public and private readable URLs', () => {
   assert.equal(destinationFromURL(url('/projects?open=1')).open, true);
   assert.equal(destinationFromURL(url('/admin')), null);
   assert.equal(destinationFromURL(url('/experience/legacy')).slug, 'legacy');
-  assert.equal(destinationFromURL(url('/about/missing')), null);
+  assert.equal(destinationFromURL(url('/about/story')).slug, 'story');
+  assert.equal(destinationFromURL(url('/about/story/extra')), null);
   assert.equal(destinationFromURL(url('/projects/one/two')), null);
   assert.equal(
     destinationFromURL(url('/admin/preview?section=projects&slug=draft'), true)
@@ -39,6 +41,58 @@ test('Flight destinations preserve public and private readable URLs', () => {
       true,
       [],
     ),
+    null,
+  );
+});
+
+test('notebook section URLs round-trip printed pages, reading mode and private previews', () => {
+  const url = (path) => new URL(path, 'https://portfolio.example');
+  const section = { section: 'about', slug: 'university-life', page: 2 };
+  for (const preview of [false, true]) {
+    const href = destinationHref(section, { _preview: preview }, true);
+    assert.equal(
+      href,
+      preview
+        ? '/admin/preview?section=about&slug=university-life&page=5&view=reading'
+        : '/about/university-life?page=5&view=reading',
+    );
+    const restored = destinationFromURL(url(href), preview);
+    assert.equal(restored.section, section.section);
+    assert.equal(restored.slug, section.slug);
+    assert.equal(restored.page, section.page);
+  }
+  assert.equal(
+    destinationHref({ ...section, page: 0 }, {}),
+    '/about/university-life',
+  );
+  assert.equal(destinationFromURL(url('/about/story?page=4')).page, 1);
+  for (const page of [
+    '',
+    '0',
+    '-1',
+    '1.5',
+    'NaN',
+    'Infinity',
+    '9007199254740992',
+  ]) {
+    assert.equal(destinationFromURL(url(`/about/story?page=${page}`)).page, 0);
+  }
+  assert.equal(destinationFromURL(url('/about?page=5')).page, undefined);
+  assert.equal(
+    destinationFromURL(url('/projects/story?page=5')).page,
+    undefined,
+  );
+  const draft = destinationFromURL(
+    url('/admin/preview?section=about&id=shared&page=3'),
+    true,
+    [{ id: 'shared', slug: 'project' }],
+    [{ id: 'shared', slug: 'case-study' }],
+    [{ id: 'shared', slug: 'notebook-story' }],
+  );
+  assert.equal(draft.slug, 'notebook-story');
+  assert.equal(draft.page, 1);
+  assert.equal(
+    destinationFromURL(url('/admin/preview?section=about&id=missing'), true),
     null,
   );
 });
