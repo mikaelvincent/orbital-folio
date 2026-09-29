@@ -42,6 +42,12 @@ export function NotebookSpread({
       />
       {[0, 1].map((side) => {
         const number = page * 2 + side + 1;
+        const pageLabel =
+          number > pageCount
+            ? ''
+            : side === 1 || number === pageCount
+              ? `${number} of ${pageCount}`
+              : String(number);
         return (
           <div
             className="notebook-page"
@@ -64,9 +70,7 @@ export function NotebookSpread({
                     <ChevronLeft size={18} aria-hidden="true" />
                   </button>
                 )}
-                <span>
-                  {number <= pageCount ? `Page ${number} of ${pageCount}` : ''}
-                </span>
+                <span>{pageLabel}</span>
                 {side === 1 && (
                   <button
                     type="button"

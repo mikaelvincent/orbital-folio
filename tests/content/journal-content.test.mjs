@@ -431,12 +431,23 @@ test('mounted notebook shows page controls only for sections with multiple pages
   assert.match(several, /notebook-page-footer/);
   assert.match(several, /Previous page in section/);
   assert.match(several, /Next page in section/);
-  assert.match(several, /Page 1 of 3/);
-  assert.match(several, /Page 2 of 3/);
+  const footerLabels = (markup) =>
+    [
+      ...markup.matchAll(
+        /<footer class="notebook-page-footer">.*?<span>(.*?)<\/span>/g,
+      ),
+    ].map((match) => match[1]);
+  assert.deepEqual(footerLabels(several), ['1', '2 of 3']);
+  assert.match(several, /aria-live="polite" aria-atomic="true">Pages 1–2 of 3/);
   const last = render(AboutNotebook, { ...props, pageCounts: [3], page: 1 });
-  assert.match(last, /Page 3 of 3/);
-  assert.doesNotMatch(last, /Page 4 of 3/);
+  assert.deepEqual(footerLabels(last), ['3 of 3', '']);
   assert.match(last, /disabled="" aria-label="Next page in section"/);
+  const evenLast = render(AboutNotebook, {
+    ...props,
+    pageCounts: [4],
+    page: 1,
+  });
+  assert.deepEqual(footerLabels(evenLast), ['3', '4 of 4']);
 
   assert.doesNotMatch(several, /Back to About/);
 });
