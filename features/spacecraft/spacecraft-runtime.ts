@@ -3,6 +3,7 @@ import { projectApplicationLayout } from './navigation/project-application';
 import { fitAboutNotebook } from './navigation/about-notebook';
 import { createProjectedSurface } from './projected-surface';
 import { createNotebookTurnInk } from './notebook-turn-ink';
+import { createNotebookPageCache } from './notebook-page-cache';
 import { createNotebookOcclusion } from './notebook-occlusion';
 import { createNotebookOcclusionMask } from './notebook-occlusion-mask';
 import { notebookMarkers } from './rooms/about-notebook-layout';
@@ -618,6 +619,17 @@ export function mountSpacecraftScene({
             }
           : undefined;
         const htmlUpdateGate = createHtmlUpdateGate();
+        const notebookPageCache = createNotebookPageCache(
+          THREE,
+          notebook.root,
+          notebookElement,
+          () => {
+            if (!destroyed) {
+              htmlUpdateGate.invalidate();
+              kick();
+            }
+          },
+        );
         let logicalWidth = notebook.pixelsWidth,
           logicalHeight = notebook.pixelsHeight;
         const notebookMasks = new Map<
@@ -2096,7 +2108,6 @@ export function mountSpacecraftScene({
             !travelling &&
             (feedbackTarget.walkway || passage?.via === 'walkway');
           diagnostics?.mark('camera');
-          notebook.setInkMounted(true);
           model.update(
             elapsed,
             effectiveHover,
@@ -2161,6 +2172,10 @@ export function mountSpacecraftScene({
           );
           diagnostics?.mark('annotations');
           const isNotebook = active === 'about';
+          const notebookTextured = notebookPageCache.update(
+            !(isNotebook && reading) && !notebook.turning,
+          );
+          notebook.setInkMounted(!notebookTextured);
           // The dish has no HTML anchors. Its independent movement must not
           // wake all native labels/readers; its ink occlusion is checked below.
           const htmlChanged = htmlUpdateGate.changed(
@@ -2183,6 +2198,7 @@ export function mountSpacecraftScene({
               notebook.turningSection,
               notebook.chapters.length,
               notebook.root.userData.highlightLevel,
+              notebookTextured,
               routeLadderPortalIds.join(','),
             ],
             [
@@ -2496,28 +2512,30 @@ export function mountSpacecraftScene({
               projectedViewport.y,
               surface.visible,
             );
-            projectedNotebook.update(
-              camera,
-              notebookSurface.matrixWorld,
-              notebook.pixelsWidth,
-              notebook.pixelsHeight,
-              projectedViewport.x,
-              projectedViewport.y,
-              true,
-            );
+            if (!notebookTextured)
+              projectedNotebook.update(
+                camera,
+                notebookSurface.matrixWorld,
+                notebook.pixelsWidth,
+                notebook.pixelsHeight,
+                projectedViewport.x,
+                projectedViewport.y,
+                true,
+              );
             notebookTurnInk.update(
               camera,
               projectedViewport.x,
               projectedViewport.y,
-              true,
+              !notebookTextured,
             );
           }
-          occludeNotebookInk(
-            notebookElement,
-            notebook.anchor,
-            notebook.pixelsWidth,
-            notebook.pixelsHeight,
-          );
+          if (!notebookTextured)
+            occludeNotebookInk(
+              notebookElement,
+              notebook.anchor,
+              notebook.pixelsWidth,
+              notebook.pixelsHeight,
+            );
           diagnostics?.mark('css-render');
           if (auditMotion) {
             const sample = {
@@ -3899,6 +3917,7 @@ export function mountSpacecraftScene({
           renderLoop.dispose();
           annotations.dispose();
           notebookTurnInk.dispose();
+          notebookPageCache.dispose();
           notebookMasks.forEach(({ mask }) => mask.dispose());
           notebookMasks.clear();
           observer.disconnect();

@@ -11,6 +11,10 @@
 .world-surface[data-notebook-preview='true'] * {
   pointer-events: none !important;
 }
+.world-notebook-surface[data-notebook-texture='true'] > .about-notebook {
+  /* Keep fixed-column measurement alive while the physical pages supply ink. */
+  opacity: 0;
+}
 .about-notebook {
   position: relative;
   width: 100%;

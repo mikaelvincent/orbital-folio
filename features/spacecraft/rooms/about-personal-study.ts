@@ -1408,6 +1408,7 @@ export function buildAboutPersonalStudy(
       (ctx) => drawStudyArtwork(ctx, 'journal-blank'),
     );
     pageMat.userData.studyInk = true;
+    pageMat.userData.notebookPage = side < 0 ? 'left' : 'right';
     const printedPage = mesh(
       pageGeo,
       pageMat,

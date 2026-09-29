@@ -222,16 +222,22 @@ screens. These editor styles do not restyle visitor applications.
 The notebook stays in its cradle. Opening it moves the camera to the complete
 spread; there is no detached dialog. Authored Markdown flows left to right across
 both facing pages, without decorative filler. A shallow continuous paper fold
-covers the binding through the full page height. Real ink stays mounted in
-overview, rooms, travel and close reading, masked by opaque
-scenery and moving leaves. Passive previews are excluded from keyboard/accessibility
-navigation; only the active reader owns focus IDs. Closing preserves page/section
-positions. Notebook feedback follows its rounded cloth cover without a second
-rectangular HTML outline.
+covers the binding through the full page height. Room, overview and travel
+previews use one cached pair of mipmapped page textures on the existing opaque
+paper. Capture the same measured Markdown layout when the spread, content,
+loaded images or fonts change; camera motion does not regenerate it. Keep only
+the current spread (512 × 596 per page, about 3.1 MiB including mipmaps).
+Close reading and moving leaves use native HTML for sharp, selectable text and
+working links. Unsupported media, failed/empty captures or content exceeding the
+capture budget keep native HTML. Passive previews are excluded from keyboard/
+accessibility navigation; only the active reader owns focus IDs. Closing preserves
+page/section positions. Notebook feedback follows its rounded cloth cover without
+a second rectangular HTML outline.
 
-Reuse the notebook's stationary occluder polygons while the dish moves; keep
-the dish's separate contribution live so it can still hide ink from any angle.
+For native ink, reuse the notebook's stationary occluder polygons while the dish
+moves; keep the dish's separate contribution live so it can still hide ink from any angle.
 Camera, paper, doors and other geometry changes refresh the relevant masks.
+Cached ink uses normal WebGL depth and skips HTML projection/occlusion work.
 Native labels and reader controls reuse settled projections until their view,
 layout, interaction, animation or content changes, including live collection edits.
 

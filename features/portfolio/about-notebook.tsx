@@ -71,6 +71,7 @@ export function AboutNotebook({
       aria-label={`${s.journalLabel || 'Notebook'} · ${s.name}`}
       data-notebook-interface
       data-section={section}
+      data-notebook-ready={ready}
       data-banked={data.journal.length > NOTEBOOK_MARKER_LIMIT}
       style={{
         ['--notebook-paper-left' as string]: `${ABOUT_NOTEBOOK_LAYOUT.leftPage.x}px`,
