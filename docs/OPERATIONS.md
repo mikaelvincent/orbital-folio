@@ -88,7 +88,7 @@ session. The local Sites Vite plugin simulates sign-in on loopback; it strips
 forged headers, uses a local development cookie and is absent from production.
 
 Session expiry and logout belong to the gateway. Owners can revoke other owners
-in **Access & portability**, but cannot revoke themselves there. If all owner
+in **Access & backups**, but cannot revoke themselves there. If all owner
 identities are lost, recover through the provider's authenticated database
 console after verifying deployment ownership; do not add public recovery routes.
 
@@ -135,6 +135,21 @@ hosted separately, with their own secrets and storage; put their HTTPS URL in a
 project's **Independent demo URL**. The portfolio does not proxy or execute them.
 Keep admin cookies host-only rather than sharing them across demo subdomains.
 
+## Finding editable text
+
+Use **General** for shared identity, navigation, loading/error messages, privacy,
+metadata and tool panels. Open a room by its current name for its entries, page
+text and physical labels. The site-settings search finds labels or displayed text
+across rooms. About also contains portrait crops and printed book/note text;
+Contact separates form messages, displays and keyboard legends.
+
+Interface messages share the site record's Save draft, Preview draft and Publish
+workflow. Placeholders such as `{title}` and `{number}` insert content automatically;
+keep them when editing. **Reset text** removes that override. Both views share the
+same content, and empty project/case-study categories are hidden. Published text
+remains unchanged until the site record is explicitly published. Existing backups
+remain valid; no content or storage migration is required.
+
 ## Authoring projects and case studies
 
 Save draft, private preview and Publish are separate operations. Projects and
@@ -161,7 +176,7 @@ backup; standalone ZIP packages apply only to Projects.
 
 ## Authoring notebook sections
 
-In **Journal**, each entry is one continuous Markdown section. Its Order controls
+In **About → Notebook sections** (using your current room name), each entry is one continuous Markdown section. Its Order controls
 section placement; Preview uses the physical notebook's fixed paper area and
 automatic pagination after fonts/images load. Use **Insert page break** at the
 desired cursor position to move the following content to the next page. The
@@ -177,7 +192,7 @@ continuous document flow.
 
 ## Authoring About photos and social cards
 
-In **Identity & copy → Portrait image**, the About frame and Reading view crop are
+In **About → Portrait**, the About frame and Reading view crop are
 independent; resetting a crop leaves the original intact. Clearing the image
 restores the decorative defaults. In **Social links**, About position (Left,
 Center, Right or Off) is independent of Contact console placement. To replace an
@@ -190,7 +205,7 @@ transparency are retained; choose contrast against ivory. A preset clears the
 custom override without deleting its asset. Custom icons affect About/readers;
 Contact uses presets. [Bundled icon provenance](social-icons/README.md).
 
-Use **Preview About** after saving and explicitly publish selected media before
+Use **Preview draft** from the About room after saving and explicitly publish selected media before
 publishing its parent. JSON backups preserve references, crops and positions;
 they do not contain image bytes. The local fictional portrait/workspace/mountain
 assets have [generation provenance](../scripts/assets/about-demos/PROMPTS.md);
@@ -200,7 +215,8 @@ they are editable demonstration content, not seeded into every installation.
 
 Explicit Left/Right placements take priority; remaining screens take Automatic
 links in display order. Conflicts choose the first record by order, then ID;
-extra links remain in Reading view. Reading view only bypasses the monitors.
+both views show only these two resolved links. **Hidden from Contact** excludes a
+link from both Contact views; its About placement remains independent.
 Platform changes preserve custom display names and URLs. An unassigned monitor
 is inert. Sample GitHub/LinkedIn URLs are platform homepages, not owner profiles;
 replace them before launch. Existing databases are not automatically backfilled.

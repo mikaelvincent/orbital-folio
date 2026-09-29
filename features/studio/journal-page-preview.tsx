@@ -64,6 +64,7 @@ export function JournalPagePreview({
     body,
     biography,
     previewMedia,
+    site,
   ]);
   const [measurement, setMeasurement] = useState<{
     signature: string;
@@ -108,6 +109,7 @@ export function JournalPagePreview({
           aria-label={`Notebook spread ${page + 1} preview`}
         >
           <NotebookSpread
+            site={site}
             title={title}
             subtitle={subtitle}
             body={body}
@@ -123,8 +125,8 @@ export function JournalPagePreview({
       </div>
       {biography && page === 0 && (
         <p className="editor-hint">
-          This opening page also includes the published biography from Identity
-          &amp; copy.
+          This opening page also includes the published biography from the
+          room’s Profile &amp; notebook settings.
         </p>
       )}
       <p className="editor-hint">

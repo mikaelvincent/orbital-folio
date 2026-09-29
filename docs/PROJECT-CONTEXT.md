@@ -180,8 +180,9 @@ Case-study cartridges select Product engineering, Systems & reliability,
 Research & experiments or Design & interfaces; the terminal selects All. Populated
 categories pack above blank disabled cartridges in canonical order; their targets
 move with them. Labels appear only on populated cartridges. An empty terminal is
-STANDBY and inert. Reading view retains all five category controls, including
-empty categories. Availability follows published content or authenticated drafts.
+STANDBY and inert. Reading view also hides empty categories; an unavailable
+category selection falls back to All. Availability follows published content or
+authenticated drafts.
 
 Collection→detail and Back stay within the same window, preserving category and
 collection/detail scroll positions for that visit. X, Escape or exposed pressure
@@ -196,8 +197,7 @@ Projects use text-only collection cards; covers/media belong in details. Optiona
 resource actions share one row after the summary, before role/stack: **Open live
 project**, then **View source code**, wrapping in that order. No absent-link
 placeholders. Live has carbon fill/bronze outline and ivory hover/focus; Source is
-secondary. Preserve owner-authored labels except the exact legacy “View source”
-presentation alias. Detail Back appears once; physical monitor art omits counts.
+secondary. Preserve owner-authored labels exactly, including “View source”. Detail Back appears once; physical monitor art omits counts.
 
 `/projects` and `/projects/<slug>` retain deep links/history. Case studies uses
 `/case-studies` and `/case-studies/<slug>` while keeping `/experience` compatibility
@@ -211,23 +211,41 @@ floating tools. Keep native selection inside editable fields and throughout
 Reading view and the studio.
 
 Semantic Reading view is the readable alternative to projected displays: carbon
-collection cards, ivory articles, bounded prose and heading-based contents (omit
-when there are no headings). About keeps its paper character; Contact uses one
-form surface. Visitor-facing sample/demo badges and notices are intentionally
+collection cards, ivory articles and bounded prose. It shares collection, story
+and contact renderers with the interactive applications. It adds no exclusive
+introductions, invitations, stories or social links. About uses the same notebook
+sections and opening biography; Contact uses the same form and two assigned links. Visitor-facing sample/demo badges and notices are intentionally
 absent, including private preview. Keep sample metadata, indexing protection and
 studio controls. Nonfunctional actions must still say nothing was sent/booked.
 
 ## Content studio
 
-Keep an ivory authoring surface with carbon framing, restrained bronze selection
-and visible section boundaries. Identity/copy leads before portrait tooling.
-Desktop uses a bounded collection rail; mobile uses the native Entry selector
-with the same unsaved/busy guard. Save, private Preview and Publish are primary;
-Export, Unpublish and Delete stay separate. Distinguish unsaved edits, saved
-unpublished changes and published state truthfully. Action bars must not obscure
-keyboard focus or validation. The notebook authoring proof keeps full-size paper
-metrics with a named keyboard-scrollable region and sideways hint on narrow
-screens. These editor styles do not restyle visitor applications.
+Use the interactive palette: ivory authoring surfaces, carbon navigation and
+bronze accents. General contains shared identity, navigation/messages, metadata,
+privacy and tool panels. Room groups use their editable names and contain their
+entries, page/interface text and physical labels. Shared resources contains social
+links and media; Management contains the inbox, access and backups. Search spans
+all site settings. Avoid numbered room names, metaphorical editor labels and a
+separate Content dropdown.
+
+Site copy has one authoritative field per setting. Optional `site.interfaceText`
+overrides cover authored interface messages, accessibility text, canvas print,
+keyboard legends and diagnostics; measurement values and stable IDs stay automatic.
+Keep template placeholders intact. Regenerate `lib/content/interface-text-catalog.ts`
+with `node scripts/sync-interface-text.mjs` after changing render-site messages.
+Message keys are stable storage identifiers: preserve or migrate saved overrides
+before renaming a source key. The catalog check is part of the tests. Older backups omit this optional field;
+retired site copy remains round-trip metadata without appearing as active settings.
+Browser-owned media/date controls retain native behavior and localization.
+
+Desktop uses a collection rail; narrow layouts use an Entry selector and collapsible
+section navigation. Save, private Preview and Publish are separate actions;
+Export, Unpublish and Delete stay secondary. Switching among site sections retains
+unsaved edits; changing records and leaving the editor use the same unsaved/busy
+guard. Distinguish unsaved edits, saved unpublished changes and published state.
+Action bars must not obscure keyboard focus or validation. The notebook preview
+keeps full-size paper metrics with a named keyboard-scrollable region and sideways
+hint on narrow screens. Editor styles do not restyle visitor applications.
 
 ## About notebook, photos and social cards
 

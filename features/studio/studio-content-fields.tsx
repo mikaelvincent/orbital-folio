@@ -1,4 +1,5 @@
 'use client';
+import { StudioSiteFields } from './studio-site-fields';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   NativeSelect,
@@ -7,21 +8,13 @@ import {
 import { SocialLinkFields } from './social-link-fields';
 import { ProjectEditor } from './project-editor';
 import type { Content, Kind } from '@/lib/content/types';
-import {
-  ABOUT_PORTRAIT_ASPECT,
-  normalizeImageCrop,
-} from '@/lib/content/about-photos';
-import {
-  PhotoCropFields,
-  PhotoMediaFields,
-  type PhotoMediaActions,
-} from './about-photo-fields';
+import type { PhotoMediaActions } from './about-photo-fields';
 
 export const names: Record<Kind, string> = {
-  site: 'Identity & copy',
+  site: 'Site settings',
   project: 'Projects',
   experience: 'Case studies',
-  journal: 'Journal',
+  journal: 'Notebook sections',
   link: 'Social links',
   media: 'Media library',
 };
@@ -88,73 +81,17 @@ export const templates: Record<string, Record<string, any>> = {
   },
 };
 const labels: Record<string, string> = {
-  name: 'Owner name',
-  initials: 'Brand initials',
-  domain: 'Canonical domain (HTTPS)',
-  email: 'Public contact email',
-  sampleMode: 'Sample mode · keep search indexing off',
-  sampleNotice: 'Sample notice text (retained metadata)',
-  accent: 'Accent color',
-  seoTitle: 'Search & social title',
-  seoDescription: 'Search & social description',
   sample: 'Sample content metadata',
   order: 'Display order (smaller numbers first)',
-  demoUrl: 'Independent demo URL (optional)',
-  sourceUrl: 'Source repository URL (optional)',
-  mediaId: 'Project image',
   url: 'URL',
-  alt: 'Image alternative text',
-  portraitMediaId: 'Portrait image',
-  seoImageId: 'Social preview image (optional)',
+  alt: 'Alternative text',
   posterMediaId: 'Video poster image (optional)',
   captionsMediaId: 'Video captions · WebVTT (optional)',
 };
 const label = (k: string) =>
   labels[k] ||
   k.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase());
-const longKeys = new Set([
-  'intro',
-  'headline',
-  'biography',
-  'summary',
-  'body',
-  'context',
-  'decisions',
-  'impact',
-  'problem',
-  'approach',
-  'system',
-  'outcomes',
-  'next',
-  'seoDescription',
-  'privacyText',
-]);
-const profileKeys = [
-  'name',
-  'initials',
-  'title',
-  'headline',
-  'intro',
-  'biography',
-  'availability',
-  'location',
-  'email',
-  'brand',
-  'accent',
-  'sampleMode',
-  'sampleNotice',
-  'portraitMediaId',
-  'portraitCrop',
-  'portraitReadingCrop',
-];
-const seoKeys = [
-  'domain',
-  'seoTitle',
-  'seoDescription',
-  'language',
-  'seoImageId',
-];
-
+const longKeys = new Set(['alt']);
 export function StudioContentFields({
   kind,
   data,
@@ -175,6 +112,19 @@ export function StudioContentFields({
   records: Content[];
   selected: string;
 } & PhotoMediaActions) {
+  if (kind === 'site')
+    return (
+      <StudioSiteFields
+        data={data}
+        setData={setData}
+        siteGroup={siteGroup}
+        search={search}
+        records={records}
+        busy={busy}
+        onUpload={onUpload}
+        onPublishAssets={onPublishAssets}
+      />
+    );
   if (kind === 'journal')
     return (
       <ProjectEditor
@@ -188,40 +138,19 @@ export function StudioContentFields({
         journalRecordId={selected}
       />
     );
-  const siteFieldOrder =
-    siteGroup === 'profile' ? profileKeys : siteGroup === 'seo' ? seoKeys : [];
   const filteredKeys = [
     ...new Set([
       ...Object.keys(data),
-      ...(kind === 'site' ? ['portraitMediaId'] : []),
       ...(kind === 'media' && String(data.mime).startsWith('video/')
         ? ['posterMediaId', 'captionsMediaId']
         : []),
     ]),
   ]
+    .filter((key) => !['portraitCrop', 'portraitReadingCrop'].includes(key))
     .filter(
       (key) =>
         !['posterMediaId', 'captionsMediaId'].includes(key) ||
         String(data.mime).startsWith('video/'),
-    )
-    .filter((k) => !(kind === 'site' && k === 'periodLabel'))
-    .filter((key) => !['portraitCrop', 'portraitReadingCrop'].includes(key))
-    .filter(
-      (k) =>
-        kind !== 'site' ||
-        (siteGroup === 'profile'
-          ? profileKeys.includes(k)
-          : siteGroup === 'seo'
-            ? seoKeys.includes(k)
-            : !profileKeys.includes(k) && !seoKeys.includes(k)),
-    )
-    .filter(
-      (k) => !search || label(k).toLowerCase().includes(search.toLowerCase()),
-    )
-    .sort((a, b) =>
-      kind === 'site' && siteFieldOrder.length
-        ? siteFieldOrder.indexOf(a) - siteFieldOrder.indexOf(b)
-        : 0,
     );
   return (
     <fieldset
@@ -239,59 +168,9 @@ export function StudioContentFields({
           onUpload={onUpload}
           onPublishAssets={onPublishAssets}
         />
-      ) : kind === 'site' && search && !filteredKeys.length ? (
-        <p className="studio-fields-empty wide-field" role="status">
-          No settings match “{search}” in this section. Try another field name
-          or clear the search.
-        </p>
       ) : (
         filteredKeys.map((key) => {
           const value = data[key];
-          if (kind === 'site' && key === 'portraitMediaId')
-            return (
-              <PhotoMediaFields
-                key={key}
-                title="Portrait image"
-                description="Use one original for the About room's mounted photo and your Reading view portrait. Frame each version independently below."
-                emptyLabel="Keep the room's landscape artwork"
-                mediaId={value || ''}
-                records={records}
-                busy={busy}
-                onUpload={onUpload}
-                onPublishAssets={onPublishAssets}
-                onSelect={(id) =>
-                  setData({
-                    ...data,
-                    portraitMediaId: id,
-                    portraitCrop: normalizeImageCrop(null),
-                    portraitReadingCrop: normalizeImageCrop(null),
-                  })
-                }
-              >
-                {(media) => (
-                  <>
-                    <PhotoCropFields
-                      title="About room frame"
-                      media={media}
-                      value={data.portraitCrop}
-                      aspect={ABOUT_PORTRAIT_ASPECT}
-                      onChange={(portraitCrop) =>
-                        setData({ ...data, portraitCrop })
-                      }
-                    />
-                    <PhotoCropFields
-                      title="Reading view portrait"
-                      media={media}
-                      value={data.portraitReadingCrop}
-                      aspect={1}
-                      onChange={(portraitReadingCrop) =>
-                        setData({ ...data, portraitReadingCrop })
-                      }
-                    />
-                  </>
-                )}
-              </PhotoMediaFields>
-            );
           if (typeof value === 'boolean')
             return (
               <label className="studio-check" key={key}>

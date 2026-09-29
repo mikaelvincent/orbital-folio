@@ -6,7 +6,7 @@ export const socialScreens = [
   { id: 'auto', label: 'Automatic — first two by display order' },
   { id: 'left', label: 'Left console screen' },
   { id: 'right', label: 'Right console screen' },
-  { id: 'list', label: 'Off — Contact reading view only' },
+  { id: 'list', label: 'Hidden from Contact' },
 ] as const;
 export type SocialScreen = (typeof socialScreens)[number]['id'];
 export const aboutSlots = [

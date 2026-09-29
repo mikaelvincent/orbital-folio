@@ -124,15 +124,14 @@ export function SocialLinkFields({
             >
               {socialScreens.map((s) => (
                 <NativeSelectOption key={s.id} value={s.id}>
-                  {s.id === 'list'
-                    ? 'Off — Contact reading view only'
-                    : s.label}
+                  {s.id === 'list' ? 'Hidden from Contact' : s.label}
                 </NativeSelectOption>
               ))}
             </NativeSelect>
             <small>
               Two Contact screens are available. About placement is independent;
-              all published links remain in Contact’s Reading view.
+              both Contact views show only the links assigned to the two
+              screens.
             </small>
           </label>
           <label className="studio-field">

@@ -17,7 +17,7 @@ export function StudioInbox({
   return (
     <section className="studio-panel">
       <div className="studio-panel-header">
-        <h2>Incoming transmissions</h2>
+        <h2>Messages</h2>
         <button
           className="quiet-button"
           onClick={async () => {
@@ -39,7 +39,7 @@ export function StudioInbox({
       {!inbox.length && (
         <div className="studio-empty">
           <Radio size={36} />
-          <h3>No transmissions yet</h3>
+          <h3>No messages yet</h3>
           <p>
             Interview invitations and project conversations will appear here.
           </p>

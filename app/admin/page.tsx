@@ -14,15 +14,11 @@ export default async function Admin() {
     return (
       <main id="main" className="login-page">
         <Orbit size={38} />
-        <p className="eyebrow">ORBITAL / CONTENT STUDIO</p>
-        <h1>
-          Your portfolio.
-          <br />
-          Under your control.
-        </h1>
+        <p className="eyebrow">CONTENT STUDIO</p>
+        <h1>Manage your portfolio.</h1>
         <p>
-          Sign in to manage content, review messages, and make this spacecraft
-          your own.
+          Sign in to edit content, review private messages and manage
+          publishing.
         </p>
         <a
           className="button amber"
@@ -48,9 +44,7 @@ export default async function Admin() {
         <h1>{claimed ? 'Owner access required' : 'Welcome, first owner.'}</h1>
         <p>Signed in as {user.email}.</p>
         {claimed ? (
-          <p>
-            Ask an existing owner to add your email in Access & portability.
-          </p>
+          <p>Ask an existing owner to add your email in Access & backups.</p>
         ) : (
           <SetupForm />
         )}

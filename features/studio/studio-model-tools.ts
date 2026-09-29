@@ -1,17 +1,17 @@
 'use client';
 import { useEffect } from 'react';
-import type { Content, Kind } from '@/lib/content/types';
+import type { Content } from '@/lib/content/types';
 
 export function useStudioModelTools({
   records,
   act,
-  setKind,
-  setSelected,
+  canEdit,
+  onSaved,
 }: {
   records: Content[];
   act: (payload: any) => Promise<any>;
-  setKind: (kind: Kind) => void;
-  setSelected: (id: string) => void;
+  canEdit: () => boolean;
+  onSaved: (record: Content) => void;
 }) {
   useEffect(() => {
     const context = (document as any).modelContext;
@@ -60,8 +60,8 @@ export function useStudioModelTools({
           throw new Error('Provide a record ID and changes object.');
         const r = records.find((r) => r.id === input.id);
         if (!r) throw new Error('Record not found.');
-        setKind(r.kind);
-        setSelected(r.id);
+        if (!canEdit())
+          throw new Error('Save or discard the current edits first.');
         const result = await act({
           action: 'save',
           id: r.id,
@@ -71,9 +71,10 @@ export function useStudioModelTools({
         });
         if (!result)
           throw new Error('Draft validation or authorization failed.');
+        onSaved(r);
         return { id: r.id, status: 'draft_saved' };
       },
     });
     return () => lifecycle.abort();
-  }, [records, act, setKind, setSelected]);
+  }, [records, act, canEdit, onSaved]);
 }

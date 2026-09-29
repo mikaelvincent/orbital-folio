@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import { useMemo, useRef, useState } from 'react';
 import {
   Eye,
@@ -68,13 +69,17 @@ export function ProjectEditor({
     : isCaseStudy
       ? 'Case study'
       : 'Project';
-  const collection = isCaseStudy ? 'All case studies' : 'All projects';
+  const site = records.find((record) => record.kind === 'site')?.draft || {};
+  const collection = isCaseStudy
+    ? copy(site, 'All case studies')
+    : site.allProjectsLabel || copy(site, 'All projects');
   const categoryOptions = isCaseStudy
     ? CASE_STUDY_CATEGORIES
     : PROJECT_CATEGORIES;
-  const storyBody = isCaseStudy ? caseStudyBody : projectBody;
+  const storyBody = (entry: Record<string, any>) =>
+    isCaseStudy ? caseStudyBody(entry, site) : projectBody(entry, site);
   const storyTemplate = isJournal
-    ? '## A moment that mattered\n\nTell the story in your own words.\n\n## What stayed with me\n\nShare what you learned or how it shaped you.\n'
+    ? '## Overview\n\nIntroduce this section.\n\n## Details\n\nAdd the details you want visitors to read.\n'
     : isCaseStudy
       ? CASE_STUDY_STORY_TEMPLATE
       : PROJECT_STORY_TEMPLATE;
@@ -200,7 +205,6 @@ export function ProjectEditor({
         aria-labelledby="project-details-heading"
       >
         <div className="project-editor-section-heading">
-          <span>01</span>
           <div>
             <h3 id="project-details-heading">{title} details</h3>
             <p>
@@ -231,7 +235,12 @@ export function ProjectEditor({
               this URL.
             </small>
           </label>
-          {isJournal && textField('subtitle', 'Subtitle · optional')}
+          {textField('subtitle', 'Subtitle · optional')}
+          {!isJournal &&
+            !isCaseStudy &&
+            textField('category', 'Category caption · optional', {
+              placeholder: 'Label above the project title',
+            })}
           {!isJournal && (
             <>
               <label className="studio-field wide-field">
@@ -266,7 +275,7 @@ export function ProjectEditor({
                           )
                         }
                       />
-                      <span>{category.label}</span>
+                      <span>{copy(site, category.label)}</span>
                     </label>
                   ))}
                 </div>
@@ -326,9 +335,8 @@ export function ProjectEditor({
         aria-labelledby="project-story-heading"
       >
         <div className="project-editor-section-heading">
-          <span>02</span>
           <div>
-            <h3 id="project-story-heading">The story</h3>
+            <h3 id="project-story-heading">Content</h3>
             <p>
               Write or paste Markdown. Use headings, lists, links, images and
               videos.
@@ -336,7 +344,7 @@ export function ProjectEditor({
           </div>
         </div>
         <div className="project-write-toolbar">
-          <div role="group" aria-label="Story editor mode">
+          <div role="group" aria-label="Content editor mode">
             <button
               type="button"
               aria-pressed={mode === 'write'}
@@ -434,7 +442,7 @@ export function ProjectEditor({
                 receiveFiles(event.clipboardData.files);
               }}
               onChange={(e) => changeBody(e.target.value)}
-              placeholder="## The idea\n\nTell the story in your own words…"
+              placeholder="## Overview\n\nDescribe the work, your decisions and the result."
             />
             <small>
               {body.length.toLocaleString()} / 100,000 characters · HTML is not
@@ -467,16 +475,16 @@ export function ProjectEditor({
                   )}
                 </dl>
               )}
-              {cover && <ProjectMedia item={cover} media={media} />}
+              {cover && <ProjectMedia item={cover} media={media} site={site} />}
               {body.trim() ? (
-                <ProjectMarkdown body={body} media={media} />
+                <ProjectMarkdown body={body} media={media} site={site} />
               ) : (
                 <p>Add your story in Write to preview it here.</p>
               )}
             </article>
             <p className="editor-hint">
-              Content-width preview; use Preview saved draft to check the
-              complete portfolio.
+              Content-width preview; use Preview draft to check the complete
+              portfolio.
             </p>
           </div>
         ) : null}
@@ -656,7 +664,6 @@ export function ProjectEditor({
           </label>
           {!isJournal && (
             <>
-              {textField('subtitle', 'Subtitle · optional')}
               {textField('seoTitle', 'Search / social title · optional')}
               {textField(
                 'seoDescription',

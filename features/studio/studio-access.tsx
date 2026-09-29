@@ -21,7 +21,7 @@ export function StudioAccess({
   return (
     <div className="settings-grid">
       <section className="studio-panel">
-        <h2>Take your content with you</h2>
+        <h2>Content backups</h2>
         <p>
           Export all drafts and published snapshots as portable JSON.
           Credentials, access lists, and private messages are excluded. Uploaded

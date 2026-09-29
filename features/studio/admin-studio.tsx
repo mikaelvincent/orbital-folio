@@ -14,7 +14,8 @@ import {
   Check,
   Shield,
 } from 'lucide-react';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { StudioNavigation } from './studio-navigation';
+import { siteSections, type StudioArea } from './studio-site-schema';
 import {
   NativeSelect,
   NativeSelectOption,
@@ -63,7 +64,8 @@ export function AdminStudio({
     initialRecords.find((r) => r.id === 'site')!.draft,
   );
   const [tab, setTab] = useState('content');
-  const [siteGroup, setSiteGroup] = useState('profile');
+  const [siteGroup, setSiteGroup] = useState('identity');
+  const [area, setArea] = useState<StudioArea>('general');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -100,7 +102,7 @@ export function AdminStudio({
       : kind === 'experience'
         ? 'case study'
         : kind === 'site'
-          ? 'identity'
+          ? 'site settings'
           : kind === 'link'
             ? 'social link'
             : 'project';
@@ -118,11 +120,49 @@ export function AdminStudio({
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
   }, [dirty]);
+  const editData = (next: Record<string, any>) => {
+    setData(next);
+    setMessage('');
+    setError('');
+  };
   const canLeave = () => {
     if (busy) return false;
     if (!dirty) return true;
     setError('Save or discard your unsaved edits before changing records.');
     return false;
+  };
+  const selectArea = (
+    nextArea: StudioArea,
+    nextKind?: Kind,
+    group?: string,
+  ) => {
+    const nextTab =
+      nextArea === 'inbox'
+        ? 'inbox'
+        : nextArea === 'settings'
+          ? 'settings'
+          : 'content';
+    const targetKind = nextKind || 'site';
+    // Moving among site sections keeps the same unsaved record in memory.
+    const sameSite =
+      tab === 'content' &&
+      nextTab === 'content' &&
+      kind === 'site' &&
+      targetKind === 'site';
+    if (busy || (!sameSite && !canLeave())) return;
+    setArea(nextArea);
+    setTab(nextTab);
+    setSearch('');
+    setError('');
+    setMessage('');
+    if (group) setSiteGroup(group);
+    if (nextTab !== 'content' || sameSite) return;
+    setKind(targetKind);
+    const record = records
+      .filter((record) => record.kind === targetKind)
+      .sort((a, b) => (a.draft.order || 0) - (b.draft.order || 0))[0];
+    setSelected(record?.id || 'new');
+    setData(record ? { ...record.draft } : { ...templates[targetKind] });
   };
   const choose = (id: string) => {
     if (!canLeave()) return;
@@ -154,7 +194,12 @@ export function AdminStudio({
           setData(b.records.find((r: Content) => r.id === b.id).draft);
         }
         if (payload.action === 'delete') {
-          const next = b.records.find((r: Content) => r.kind === kind);
+          const next = b.records
+            .filter((r: Content) => r.kind === kind)
+            .sort(
+              (a: Content, b: Content) =>
+                (a.draft.order || 0) - (b.draft.order || 0),
+            )[0];
           if (next) {
             setSelected(next.id);
             setData(next.draft);
@@ -190,7 +235,27 @@ export function AdminStudio({
     },
     [inbox, kind, selected],
   );
-  useStudioModelTools({ records, act, setKind, setSelected });
+  useStudioModelTools({
+    records,
+    act,
+    canEdit: canLeave,
+    onSaved: (record) => {
+      const areas: Record<Kind, StudioArea> = {
+        site: 'general',
+        project: 'projects',
+        experience: 'experience',
+        journal: 'about',
+        link: 'links',
+        media: 'media',
+      };
+      setKind(record.kind);
+      setSelected(record.id);
+      setArea(areas[record.kind]);
+      setTab('content');
+      setSearch('');
+      if (record.kind === 'site') setSiteGroup('identity');
+    },
+  });
   const uploadProjectMedia = async (file: File, alt: string) => {
     const invalid = projectUploadError(file);
     if (invalid) {
@@ -285,6 +350,7 @@ export function AdminStudio({
       const imported = result.records.find((r: Content) => r.id === result.id);
       setRecords(result.records);
       setKind('project');
+      setArea('projects');
       setSelected(result.id);
       setData(imported.draft);
       setMessage(
@@ -329,7 +395,11 @@ export function AdminStudio({
           ? '/admin/preview?section=about&id=' + selected
           : '/admin/preview?section=' +
             ({
-              site: 'home',
+              site: ['projects', 'experience', 'about', 'contact'].includes(
+                area,
+              )
+                ? area
+                : 'home',
               journal: 'about',
               link: 'contact',
               media: 'projects',
@@ -340,7 +410,7 @@ export function AdminStudio({
         <a className="studio-brand" href="/">
           <Orbit size={25} />
           <span>
-            Orbital <strong>Studio</strong>
+            Orbital <strong>Folio</strong>
           </span>
         </a>
         <div>
@@ -355,52 +425,64 @@ export function AdminStudio({
           </a>
         </div>
       </header>
+      <StudioNavigation
+        site={
+          kind === 'site'
+            ? data
+            : records.find((record) => record.kind === 'site')!.draft
+        }
+        area={area}
+        kind={kind}
+        siteGroup={siteGroup}
+        inboxCount={inbox.length}
+        onSelect={selectArea}
+      />
       <main id="main" className="studio-main">
         <div className="studio-title">
           <div>
-            <p className="eyebrow">YOUR CONTENT, YOUR SPACECRAFT</p>
-            <h1>Content studio</h1>
-            <p>Edit privately. Preview the result. Publish when it’s ready.</p>
+            <p className="eyebrow">CONTENT STUDIO</p>
+            <h1>
+              {area === 'general'
+                ? 'General'
+                : area === 'inbox'
+                  ? 'Inbox'
+                  : area === 'settings'
+                    ? 'Access & backups'
+                    : area === 'links'
+                      ? 'Social links'
+                      : area === 'media'
+                        ? 'Media library'
+                        : (kind === 'site'
+                            ? data
+                            : records.find((record) => record.kind === 'site')!
+                                .draft)[area + 'Label']}
+            </h1>
+            <p>
+              {area === 'general'
+                ? 'Identity, navigation and settings shared across your portfolio.'
+                : area === 'links'
+                  ? 'Manage destinations and their placement in the rooms.'
+                  : area === 'media'
+                    ? 'Upload and publish images, videos and captions.'
+                    : area === 'inbox'
+                      ? 'Private messages submitted through your contact form.'
+                      : area === 'settings'
+                        ? 'Manage owner access, content backups and activity.'
+                        : 'Edit the content and interface visitors see in this room.'}
+            </p>
           </div>
         </div>
-        <Tabs
-          value={tab}
-          onValueChange={(v) => setTab(String(v))}
-          className="studio-tabs"
-        >
-          <TabsList className="studio-tab-list">
-            <TabsTrigger value="content">Content</TabsTrigger>
-            <TabsTrigger value="inbox">Inbox · {inbox.length}</TabsTrigger>
-            <TabsTrigger value="settings">Access & portability</TabsTrigger>
-          </TabsList>
-          {tab !== 'content' && feedback}
-          <TabsContent value="content">
-            <div className="studio-workspace">
+        {tab !== 'content' && feedback}
+        {tab === 'content' && (
+          <div
+            className={`studio-workspace ${kind === 'site' ? 'is-settings' : 'is-collection'}`}
+          >
+            {kind !== 'site' && (
               <aside className="studio-sidebar">
-                <label className="studio-field">
-                  Collection
-                  <NativeSelect
-                    value={kind}
-                    onChange={(e) => {
-                      if (!canLeave()) return;
-                      const k = e.target.value as Kind;
-                      setKind(k);
-                      const first = records.find((r) => r.kind === k);
-                      if (first) choose(first.id);
-                      else {
-                        setSelected('new');
-                        setData({ ...templates[k] });
-                      }
-                      setSearch('');
-                    }}
-                  >
-                    {Object.entries(names).map(([k, n]) => (
-                      <NativeSelectOption value={k} key={k}>
-                        {n}
-                      </NativeSelectOption>
-                    ))}
-                  </NativeSelect>
-                </label>
+                <div className="studio-collection-title">
+                  <h2>{names[kind]}</h2>
+                  <span>{visible.length}</span>
+                </div>
                 <label className="studio-field studio-record-select">
                   Entry · {visible.length}
                   <NativeSelect
@@ -451,7 +533,7 @@ export function AdminStudio({
                     </button>
                   ))}
                 </div>
-                {kind !== 'site' && (
+                {
                   <button
                     className="button add-record"
                     onClick={() => {
@@ -466,9 +548,15 @@ export function AdminStudio({
                     Add{' '}
                     {kind === 'experience'
                       ? 'case study'
-                      : names[kind].toLowerCase().replace(/s$/, '')}
+                      : kind === 'journal'
+                        ? 'section'
+                        : kind === 'media'
+                          ? 'media'
+                          : kind === 'link'
+                            ? 'link'
+                            : 'project'}
                   </button>
-                )}
+                }
                 {kind === 'project' && (
                   <details className="studio-import-details">
                     <summary>Import project ZIP</summary>
@@ -500,322 +588,296 @@ export function AdminStudio({
                   </p>
                 </div>
               </aside>
-              <section className="studio-editor" aria-label="Content editor">
-                <div className="editor-heading">
-                  <div>
-                    <p className="eyebrow">{names[kind]}</p>
-                    <h2>
-                      {selected === 'new'
-                        ? 'New entry'
-                        : kind === 'site'
-                          ? 'Make it yours'
-                          : current?.draft.title}
-                    </h2>
-                  </div>
-                  <span className={`editor-status ${dirty ? 'is-dirty' : ''}`}>
-                    {draftState}
-                  </span>
+            )}
+            <section className="studio-editor" aria-label="Content editor">
+              <div className="editor-heading">
+                <div>
+                  <p className="eyebrow">
+                    {kind === 'site' ? 'Shared by both views' : names[kind]}
+                  </p>
+                  <h2>
+                    {selected === 'new'
+                      ? 'New entry'
+                      : kind === 'site'
+                        ? siteSections.find(
+                            (section) => section.id === siteGroup,
+                          )?.title
+                        : current?.draft.title}
+                  </h2>
                 </div>
-                {kind === 'site' && (
-                  <div className="editor-sections">
-                    {[
-                      ['profile', 'Identity & branding'],
-                      ['seo', 'Domain & SEO'],
-                      ['copy', 'Navigation & all visible copy'],
-                    ].map(([id, text]) => (
-                      <button
-                        key={id}
-                        className={siteGroup === id ? 'active' : ''}
-                        onClick={() => setSiteGroup(id)}
-                        aria-pressed={siteGroup === id}
-                      >
-                        {text}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {kind === 'site' && (
-                  <label className="studio-field field-search">
-                    Find a setting
-                    <input
-                      type="search"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder="Search field names"
-                    />
-                  </label>
-                )}
-                {kind === 'media' && (
-                  <form
-                    className="upload-box"
-                    onSubmit={async (e) => {
-                      e.preventDefault();
-                      setBusy(true);
-                      setError('');
-                      try {
-                        const r = await fetch('/api/admin/upload', {
-                          method: 'POST',
-                          body: new FormData(e.currentTarget),
-                        });
-                        const b: any = await r.json();
-                        if (!r.ok) throw new Error(b.error);
-                        const rr = await fetch('/api/admin');
-                        const all = ((await rr.json()) as any).records;
-                        setRecords(all);
-                        setSelected(b.id);
-                        setData(all.find((r: Content) => r.id === b.id).draft);
-                        setMessage(
-                          'Media uploaded as a private draft. Publish it to use it on the public site.',
-                        );
-                      } catch (e: any) {
-                        setError(e.message);
-                      } finally {
-                        setBusy(false);
-                      }
-                    }}
-                  >
-                    <strong>Upload media</strong>
-                    <label className="studio-field">
-                      PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT
-                      · 256 KiB
-                      <input
-                        type="file"
-                        name="file"
-                        accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,text/vtt,.vtt"
-                        required
-                      />
-                    </label>
-                    <label className="studio-field">
-                      Description / alternative text
-                      <input name="alt" required maxLength={1000} />
-                    </label>
-                    <button className="button" disabled={busy}>
-                      <Upload size={16} />
-                      Upload to media library
-                    </button>
-                  </form>
-                )}
+                <span className={`editor-status ${dirty ? 'is-dirty' : ''}`}>
+                  {draftState}
+                </span>
+              </div>
+              {kind === 'site' && (
+                <label className="studio-field field-search">
+                  Search all site settings
+                  <input
+                    type="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search by label, room, or text shown on the site"
+                  />
+                </label>
+              )}
+              {kind === 'media' && (
                 <form
-                  onSubmit={(e) => {
+                  className="upload-box"
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    void act({
-                      action: 'save',
-                      id: selected === 'new' ? undefined : selected,
-                      kind,
-                      data:
-                        kind === 'link'
-                          ? socialLinkDraft(data)
-                          : kind === 'project' ||
-                              kind === 'experience' ||
-                              kind === 'journal'
-                            ? projectEditorDraft(data)
-                            : data,
-                      revision: current?.revision,
-                    });
+                    if (!canLeave()) return;
+                    setBusy(true);
+                    setError('');
+                    try {
+                      const r = await fetch('/api/admin/upload', {
+                        method: 'POST',
+                        body: new FormData(e.currentTarget),
+                      });
+                      const b: any = await r.json();
+                      if (!r.ok) throw new Error(b.error);
+                      const rr = await fetch('/api/admin');
+                      const all = ((await rr.json()) as any).records;
+                      setRecords(all);
+                      setSelected(b.id);
+                      setData(all.find((r: Content) => r.id === b.id).draft);
+                      setMessage(
+                        'Media uploaded as a private draft. Publish it to use it on the public site.',
+                      );
+                    } catch (e: any) {
+                      setError(e.message);
+                    } finally {
+                      setBusy(false);
+                    }
                   }}
                 >
-                  <div
-                    className="editor-command-bar"
-                    ref={commandBar}
-                    id="draft-actions"
-                    tabIndex={-1}
-                  >
-                    <div className="editor-actions" aria-label="Draft actions">
-                      <button
-                        className="button amber"
-                        type="submit"
-                        disabled={busy}
-                      >
-                        <Save size={16} />
-                        Save draft
-                      </button>
-                      {current && (
-                        <>
-                          <a
-                            className={`button ${dirty ? 'disabled-link' : ''}`}
-                            href={preview}
-                            target="_blank"
-                            rel="noopener"
-                            aria-disabled={dirty}
-                            onClick={(e) => {
-                              if (dirty) e.preventDefault();
-                            }}
-                          >
-                            <Eye size={16} />
-                            Preview saved draft
-                          </a>
-                          {(kind === 'site' || kind === 'link') && (
-                            <a
-                              className={`button ${dirty ? 'disabled-link' : ''}`}
-                              href="/admin/preview?section=about"
-                              target="_blank"
-                              rel="noopener"
-                              aria-disabled={dirty}
-                              onClick={(event) => {
-                                if (dirty) event.preventDefault();
-                              }}
-                            >
-                              <Eye size={15} /> Preview About
-                            </a>
-                          )}
-                          <button
-                            className="button publish-button"
-                            type="button"
-                            disabled={busy || dirty}
-                            onClick={() =>
-                              act({
-                                action: 'publish',
-                                id: selected,
-                                revision: current.revision,
-                              })
-                            }
-                          >
-                            Publish
-                          </button>
-                        </>
-                      )}
-                    </div>
-                    {dirty && (
-                      <button
-                        type="button"
-                        className="button"
-                        onClick={() => {
-                          setEditorReset((value) => value + 1);
-                          setData(
-                            current
-                              ? { ...current.draft }
-                              : { ...templates[kind] },
-                          );
-                          setError('');
-                        }}
-                      >
-                        Discard unsaved edits
-                      </button>
-                    )}
-                    {dirty && current && (
-                      <p className="editor-hint">
-                        Save the draft to enable preview and publishing.
-                      </p>
-                    )}
-                    {feedback}
-                  </div>
-                  {kind === 'project' || kind === 'experience' ? (
-                    <ProjectEditor
-                      key={`${selected}:${editorReset}`}
-                      kind={kind}
-                      data={data}
-                      records={records}
-                      busy={busy}
-                      onChange={setData}
-                      onUpload={uploadProjectMedia}
-                      onPublishAssets={publishProjectAssets}
+                  <strong>Upload media</strong>
+                  <label className="studio-field">
+                    PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT ·
+                    256 KiB
+                    <input
+                      type="file"
+                      name="file"
+                      accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,text/vtt,.vtt"
+                      required
                     />
-                  ) : (
-                    <StudioContentFields
-                      key={`${selected}:${editorReset}`}
-                      kind={kind}
-                      data={data}
-                      siteGroup={siteGroup}
-                      search={search}
-                      setData={setData}
-                      records={records}
-                      selected={selected}
-                      busy={busy}
-                      onUpload={uploadProjectMedia}
-                      onPublishAssets={publishProjectAssets}
-                    />
-                  )}
-                  <a className="studio-return-actions" href="#draft-actions">
-                    Back to draft actions ↑
-                  </a>
-                  {current && kind !== 'site' && (
-                    <div
-                      className="editor-record-actions"
-                      aria-label="Record management"
+                  </label>
+                  <label className="studio-field">
+                    Description / alternative text
+                    <input name="alt" required maxLength={1000} />
+                  </label>
+                  <button className="button" disabled={busy}>
+                    <Upload size={16} />
+                    Upload to media library
+                  </button>
+                </form>
+              )}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void act({
+                    action: 'save',
+                    id: selected === 'new' ? undefined : selected,
+                    kind,
+                    data:
+                      kind === 'link'
+                        ? socialLinkDraft(data)
+                        : kind === 'project' ||
+                            kind === 'experience' ||
+                            kind === 'journal'
+                          ? projectEditorDraft(data)
+                          : data,
+                    revision: current?.revision,
+                  });
+                }}
+              >
+                <div
+                  className="editor-command-bar"
+                  ref={commandBar}
+                  id="draft-actions"
+                  tabIndex={-1}
+                >
+                  <div className="editor-actions" aria-label="Draft actions">
+                    <button
+                      className="button amber"
+                      type="submit"
+                      disabled={busy}
                     >
-                      <p className="eyebrow">Record management</p>
-                      <div>
-                        {kind === 'project' && (
-                          <a
-                            className={`button ${dirty || busy ? 'disabled-link' : ''}`}
-                            href={`/api/admin/projects/${encodeURIComponent(selected)}/export`}
-                            aria-disabled={dirty || busy}
-                            onClick={(e) => {
-                              if (dirty || busy) e.preventDefault();
-                            }}
-                          >
-                            <Download size={15} />
-                            Export project ZIP
-                          </a>
-                        )}
-                        {current.published && (
-                          <button
-                            className="quiet-button"
-                            type="button"
-                            disabled={busy || dirty}
-                            onClick={() =>
-                              setPending({
-                                action: 'unpublish',
-                                id: selected,
-                                revision: current.revision,
-                              })
-                            }
-                          >
-                            Unpublish
-                          </button>
-                        )}
+                      <Save size={16} />
+                      Save draft
+                    </button>
+                    {current && (
+                      <>
+                        <a
+                          className={`button ${dirty || busy ? 'disabled-link' : ''}`}
+                          href={preview}
+                          target="_blank"
+                          rel="noopener"
+                          aria-disabled={dirty || busy}
+                          onClick={(e) => {
+                            if (dirty || busy) e.preventDefault();
+                          }}
+                        >
+                          <Eye size={16} />
+                          Preview draft
+                        </a>
                         <button
-                          className="quiet-button delete-button"
+                          className="button publish-button"
                           type="button"
-                          disabled={busy}
+                          disabled={busy || dirty}
                           onClick={() =>
-                            setPending({
-                              action: 'delete',
+                            act({
+                              action: 'publish',
                               id: selected,
                               revision: current.revision,
                             })
                           }
                         >
-                          <Trash2 size={15} />
-                          Delete
+                          Publish
                         </button>
-                      </div>
-                    </div>
+                      </>
+                    )}
+                  </div>
+                  {dirty && (
+                    <button
+                      type="button"
+                      className="button"
+                      disabled={busy}
+                      onClick={() => {
+                        setEditorReset((value) => value + 1);
+                        setData(
+                          current
+                            ? { ...current.draft }
+                            : { ...templates[kind] },
+                        );
+                        setError('');
+                      }}
+                    >
+                      Discard changes
+                    </button>
                   )}
-                  {kind !== 'site' && (
+                  {dirty && current && (
                     <p className="editor-hint">
-                      Change “Display order” to organize entries, then publish
-                      the reordered record. All published entries appear
-                      automatically.
-                      {(kind === 'project' || kind === 'experience') &&
-                        ' All includes every published entry; category assignments determine the filtered collections.'}
+                      Save the draft to enable preview and publishing.
                     </p>
                   )}
-                </form>
-              </section>
-            </div>
-          </TabsContent>
-          <TabsContent value="inbox">
-            <StudioInbox
-              inbox={inbox}
-              setInbox={setInbox}
-              moreInbox={moreInbox}
-              setMoreInbox={setMoreInbox}
-              onDelete={(id) => setPending({ action: 'inquiryDelete', id })}
-            />
-          </TabsContent>
-          <TabsContent value="settings">
-            <StudioAccess
-              busy={busy}
-              setError={setError}
-              act={act}
-              members={members}
-              setMembers={setMembers}
-              email={email}
-              audit={audit}
-            />
-          </TabsContent>
-        </Tabs>
+                  {feedback}
+                </div>
+                {kind === 'project' || kind === 'experience' ? (
+                  <ProjectEditor
+                    key={`${selected}:${editorReset}`}
+                    kind={kind}
+                    data={data}
+                    records={records}
+                    busy={busy}
+                    onChange={editData}
+                    onUpload={uploadProjectMedia}
+                    onPublishAssets={publishProjectAssets}
+                  />
+                ) : (
+                  <StudioContentFields
+                    key={`${selected}:${editorReset}`}
+                    kind={kind}
+                    data={data}
+                    siteGroup={siteGroup}
+                    search={search}
+                    setData={editData}
+                    records={records}
+                    selected={selected}
+                    busy={busy}
+                    onUpload={uploadProjectMedia}
+                    onPublishAssets={publishProjectAssets}
+                  />
+                )}
+                <a className="studio-return-actions" href="#draft-actions">
+                  Back to draft actions ↑
+                </a>
+                {current && kind !== 'site' && (
+                  <div
+                    className="editor-record-actions"
+                    aria-label="Record management"
+                  >
+                    <p className="eyebrow">Record management</p>
+                    <div>
+                      {kind === 'project' && (
+                        <a
+                          className={`button ${dirty || busy ? 'disabled-link' : ''}`}
+                          href={`/api/admin/projects/${encodeURIComponent(selected)}/export`}
+                          aria-disabled={dirty || busy}
+                          onClick={(e) => {
+                            if (dirty || busy) e.preventDefault();
+                          }}
+                        >
+                          <Download size={15} />
+                          Export project ZIP
+                        </a>
+                      )}
+                      {current.published && (
+                        <button
+                          className="quiet-button"
+                          type="button"
+                          disabled={busy || dirty}
+                          onClick={() =>
+                            setPending({
+                              action: 'unpublish',
+                              id: selected,
+                              revision: current.revision,
+                            })
+                          }
+                        >
+                          Unpublish
+                        </button>
+                      )}
+                      <button
+                        className="quiet-button delete-button"
+                        type="button"
+                        disabled={busy}
+                        onClick={() =>
+                          setPending({
+                            action: 'delete',
+                            id: selected,
+                            revision: current.revision,
+                          })
+                        }
+                      >
+                        <Trash2 size={15} />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {kind !== 'site' && (
+                  <p className="editor-hint">
+                    Change “Display order” to organize entries, then publish the
+                    reordered record. All published entries appear
+                    automatically.
+                    {(kind === 'project' || kind === 'experience') &&
+                      ' All includes every published entry; category assignments determine the filtered collections.'}
+                  </p>
+                )}
+              </form>
+            </section>
+          </div>
+        )}
+        {tab === 'inbox' && (
+          <StudioInbox
+            inbox={inbox}
+            setInbox={setInbox}
+            moreInbox={moreInbox}
+            setMoreInbox={setMoreInbox}
+            onDelete={(id) => setPending({ action: 'inquiryDelete', id })}
+          />
+        )}
+        {tab === 'settings' && (
+          <StudioAccess
+            busy={busy}
+            setError={setError}
+            act={act}
+            members={members}
+            setMembers={setMembers}
+            email={email}
+            audit={audit}
+          />
+        )}
       </main>
       <AlertDialog
         open={!!pending}
