@@ -222,6 +222,26 @@ suspension, visible-but-unfocused activity, wake-up and navigation separately.
   preserve AO, shadow maps and dish bounds; geometry changes take priority. CPU comparison:
   `scripts/benchmark-pixel-validation.mjs` (disposable checkout, original cache
   modules supplied with `--baseline-dir`, raw output with `--out`).
+- **Additional background caches:** the nebula already uses a small baked,
+  mipmapped atlas. Only its camera projection and the atmosphere's shading are
+  repeatable during a stationary view. Sky projection depends on rotation,
+  projection and viewport; atmosphere also depends on Earth placement, the
+  world-fixed light direction and pixel derivatives. Earth's scrolling texture,
+  star brightness/size and meteor position/opacity remain live. Pausing Earth
+  alone cannot validate a combined background image. Spacecraft color/depth,
+  per-light shadows, AO and notebook textures already have separate reuse paths.
+
+  Full-resolution projected-sky and atmosphere prototypes were declined: the
+  bounded current-runtime comparisons did not establish a consistent net gain.
+  Sampling cached color on the original mesh preserves depth/order, but retains
+  draw calls and rasterization while adding texture bandwidth and capture work.
+  At a 2560×1440 buffer, RGBA8 sky and RGBA16F atmosphere targets add nominal
+  14.06 and 28.13 MiB respectively, without depth or mipmaps. The atmosphere
+  prototype also introduced small color-rounding differences. Reconsider only
+  with evidence that saved shading exceeds these costs, including changing views,
+  allocation/fallback handling and release/rebuild on resize, settings, visibility
+  and context loss. Reduced-motion demand rendering and hidden/offscreen
+  suspension offer little or no repeated-frame work to save.
 - **Detailed room-dismiss picks:** each picker caches its exact ray, near/far,
   layers and geometry revision. Only the independently counted dish motion is
   excluded: it belongs to none of the pressure-wall/furnishing target sets.
