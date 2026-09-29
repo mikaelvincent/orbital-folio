@@ -15,7 +15,6 @@ import './notebook-spread.css';
 export function NotebookSpread({
   page,
   pageCount,
-  label,
   ready = true,
   measuring = false,
   section,
@@ -23,7 +22,6 @@ export function NotebookSpread({
   ...content
 }: Omit<NotebookSectionPagesProps, 'spread'> & {
   pageCount: number;
-  label: string;
   ready?: boolean;
   measuring?: boolean;
   section?: number;
@@ -52,7 +50,7 @@ export function NotebookSpread({
             style={{ left: side * NOTEBOOK_COLUMN_STRIDE }}
           >
             <header className="notebook-page-header">
-              <span>{label}</span>
+              <span>{content.title}</span>
             </header>
             {spreads > 1 && (
               <footer className="notebook-page-footer">

@@ -115,7 +115,6 @@ export function JournalPagePreview({
             biography={biography}
             page={page}
             pageCount={count}
-            label={site?.journalLabel || 'Personal log'}
             onPageCount={receivePageCount}
             onPageSelect={selectPage}
             headingIdPrefix="studio-notebook-"

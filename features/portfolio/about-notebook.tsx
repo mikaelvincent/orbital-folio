@@ -53,7 +53,6 @@ export function AboutNotebook({
         biography={index === 0 ? s.biography : undefined}
         page={measuring ? 0 : page}
         pageCount={pageCounts[index] || 1}
-        label={s.journalLabel || 'Field notes'}
         ready={ready}
         measuring={measuring}
         onPageSelect={measuring ? undefined : onPageChange}
