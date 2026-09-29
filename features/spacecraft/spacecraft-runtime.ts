@@ -803,10 +803,7 @@ export function mountSpacecraftScene({
         let caseStudyRoomPicker: ReturnType<
           typeof createContactRoomDismissPicker
         >;
-        const lastContactPickRay = new THREE.Ray();
         let contactWallPicks = 0;
-        let contactPickRevision = -1,
-          contactPickWall = false;
         const syncSceneTargets = () => {
           Object.assign(anchors, model.group.userData.roomAnchors);
           roomNavigation.sync(model.group.userData.layoutScale);
@@ -872,7 +869,6 @@ export function mountSpacecraftScene({
             notebookWalls,
             notebookBlockers,
           );
-          contactPickRevision = -1;
           for (const hotspot of hotspotObjects) {
             const source = model.group.userData.portals.find(
               (p: any) => p.id === hotspot.portalId,
@@ -1507,7 +1503,13 @@ export function mountSpacecraftScene({
           invalidateAo('navigation');
           const previousRoom = active;
           const wasReading = reading;
-          contactPickRevision = -1;
+          for (const picker of [
+            contactRoomPicker,
+            projectRoomPicker,
+            caseStudyRoomPicker,
+            notebookRoomPicker,
+          ])
+            picker?.invalidate();
           active = latest.current.section;
           reading = latest.current.readingSurface;
           computer.keyboard.clear();
@@ -2973,26 +2975,25 @@ export function mountSpacecraftScene({
           );
           ray.setFromCamera(pointer, camera);
           if (reading && applicationRoom() && !travelling) {
-            // Detailed occlusion is needed only for a new ray or changed
-            // geometry. DOM hit testing still runs first on every frame.
-            const revision = model.group.userData.geometryRevision;
-            if (
-              contactPickRevision !== revision ||
-              !lastContactPickRay.equals(ray.ray)
-            ) {
-              contactPickWall = !!(
-                active === 'about'
-                  ? notebookRoomPicker
-                  : active === 'projects'
-                    ? projectRoomPicker
-                    : active === 'experience'
-                      ? caseStudyRoomPicker
-                      : contactRoomPicker
-              )?.pick(ray);
+            // The dish is outside every picker's walls/furnishings. Reuse its
+            // existing independent revision; all other geometry/visibility
+            // changes still invalidate conservatively. DOM hit testing above
+            // remains live even when detailed raycasts can be reused.
+            const revision =
+              model.group.userData.geometryRevision -
+              model.group.userData.dishGeometryRevision;
+            const picker =
+              active === 'about'
+                ? notebookRoomPicker
+                : active === 'projects'
+                  ? projectRoomPicker
+                  : active === 'experience'
+                    ? caseStudyRoomPicker
+                    : contactRoomPicker;
+            const before = picker?.raycasts;
+            const contactPickWall = !!picker?.pick(ray, revision);
+            if (picker && picker.raycasts !== before)
               el.dataset.contactWallPicks = String(++contactWallPicks);
-              contactPickRevision = revision;
-              lastContactPickRay.copy(ray.ray);
-            }
             return {
               section: contactPickWall ? active : '',
               walkway: false,
@@ -3421,6 +3422,10 @@ export function mountSpacecraftScene({
                   pageCount: entry.pageCount,
                 })),
               );
+              // Feedback precedes the next model update. Publish the changed
+              // flag/leaf transforms before a fresh pick can cache them.
+              notebook.root.updateWorldMatrix(true, true);
+              notebookRoomPicker?.invalidate();
               invalidateAo('notebook-content');
             }
             kick();
@@ -3428,12 +3433,14 @@ export function mountSpacecraftScene({
           caseStudies: () => {
             htmlUpdateGate.invalidate();
             model.setCaseStudies(caseStudyItems());
+            caseStudyRoomPicker?.invalidate();
             feedback.reset();
             kick();
           },
           projects: () => {
             htmlUpdateGate.invalidate();
             model.setProjects(projectItems());
+            projectRoomPicker?.invalidate();
             feedback.reset();
             kick();
           },

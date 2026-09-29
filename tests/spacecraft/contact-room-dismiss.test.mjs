@@ -151,3 +151,129 @@ test('material groups and ray layers match the visible faces instead of hiding a
   blocker.layers.set(1);
   assert.equal(pick.pick(ray())?.object, wall);
 });
+
+test('revision cache retains walls and misses, with separate ownership per room and rebuilt picker', () => {
+  const wall = panel(4, 4, 0, 0, 0);
+  const picker = createContactRoomDismissPicker([wall], []);
+  const other = createContactRoomDismissPicker([], []);
+  const view = ray();
+  const hit = picker.pick(view, 0);
+  assert.equal(hit?.object, wall);
+  assert.equal(picker.pick(view, 0), hit);
+  assert.equal(picker.raycasts, 1);
+  assert.equal(other.pick(view, 0), null);
+  assert.equal(other.pick(view, 0), null);
+  assert.equal(other.raycasts, 1);
+  assert.equal(picker.pick(view, 0), hit);
+  const rebuilt = createContactRoomDismissPicker([], []);
+  assert.equal(rebuilt.pick(view, 0), null);
+  view.ray.origin.x = 10;
+  assert.equal(picker.pick(view, 0), null);
+  assert.equal(picker.pick(view, 0), null);
+  assert.equal(picker.raycasts, 2, 'Sky misses are reusable too');
+});
+
+test('exact ray, clipping range and layers invalidate a cached pick without pointer movement', () => {
+  const wall = panel(4, 4, 0, 0, 0);
+  const picker = createContactRoomDismissPicker([wall], []);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 80);
+  camera.position.z = 10;
+  camera.updateMatrixWorld(true);
+  const pointer = new THREE.Vector2(0.1, 0);
+  const view = ray();
+  const pick = () => {
+    view.setFromCamera(pointer, camera);
+    return picker.pick(view, 0);
+  };
+  assert.equal(pick()?.object, wall);
+  assert.equal(pick()?.object, wall);
+  assert.equal(picker.raycasts, 1);
+  camera.position.x = 10;
+  camera.updateMatrixWorld(true);
+  assert.equal(pick(), null, 'Stationary pointer sees a new camera ray');
+  camera.position.x = 0;
+  camera.updateMatrixWorld(true);
+  assert.equal(pick()?.object, wall);
+  camera.fov = 160;
+  camera.updateProjectionMatrix();
+  assert.equal(pick(), null, 'Projection changes update the ray');
+  camera.fov = 40;
+  camera.updateProjectionMatrix();
+  assert.equal(pick()?.object, wall);
+  view.far = 5;
+  assert.equal(pick(), null);
+  view.far = 80;
+  view.near = 11;
+  assert.equal(pick(), null);
+  view.near = 0;
+  assert.equal(pick()?.object, wall);
+  view.layers.set(1);
+  assert.equal(pick(), null);
+  view.layers.set(0);
+  assert.equal(pick()?.object, wall);
+  assert.equal(picker.raycasts, 10);
+});
+
+test('geometry revisions and explicit invalidation refresh moving or hidden blockers', () => {
+  const wall = panel(4, 4, 0, 0, 0);
+  const blocker = panel(1, 1, 0, 0, 1);
+  const parent = new THREE.Group();
+  parent.add(blocker);
+  parent.updateMatrixWorld(true);
+  const picker = createContactRoomDismissPicker([wall], [blocker]);
+  const view = ray();
+  let revision = 0;
+  const check = (expected) => {
+    assert.equal(picker.pick(view, ++revision)?.object ?? null, expected);
+    const before = picker.raycasts;
+    assert.equal(picker.pick(view, revision)?.object ?? null, expected);
+    assert.equal(picker.raycasts, before);
+  };
+  check(null);
+  parent.position.x = 3;
+  parent.updateMatrixWorld(true);
+  check(wall);
+  parent.position.x = 0;
+  parent.updateMatrixWorld(true);
+  check(null);
+  parent.visible = false;
+  check(wall);
+  parent.visible = true;
+  check(null);
+  blocker.material.visible = false;
+  check(wall);
+  blocker.material.visible = true;
+  blocker.geometry.translate(3, 0, 0);
+  check(wall);
+  blocker.geometry = new THREE.PlaneGeometry(1, 1);
+  picker.invalidate();
+  assert.equal(picker.pick(view, revision), null);
+  parent.visible = false;
+  assert.equal(picker.pick(view)?.object, wall, 'Unversioned picks stay live');
+  parent.visible = true;
+  assert.equal(
+    picker.pick(view, revision),
+    null,
+    'Unversioned pick clears old revision',
+  );
+});
+
+test('revision changes include instance-buffer motion and instance count', () => {
+  const wall = panel(8, 6, 0, 0, 0);
+  const caps = new THREE.InstancedMesh(
+    new THREE.BoxGeometry(0.7, 0.7, 0.15),
+    new THREE.MeshBasicMaterial(),
+    1,
+  );
+  caps.setMatrixAt(0, new THREE.Matrix4().makeTranslation(1, 0, 1));
+  caps.updateMatrixWorld(true);
+  const picker = createContactRoomDismissPicker([wall], [caps]);
+  const view = ray();
+  assert.equal(picker.pick(view, 0)?.object, wall);
+  caps.setMatrixAt(0, new THREE.Matrix4().makeTranslation(0, 0, 1));
+  caps.instanceMatrix.needsUpdate = true;
+  caps.computeBoundingSphere();
+  assert.equal(picker.pick(view, 1), null);
+  caps.count = 0;
+  assert.equal(picker.pick(view, 2)?.object, wall);
+});

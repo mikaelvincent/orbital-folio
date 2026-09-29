@@ -39,6 +39,14 @@ unchanged vertex scans while retaining fresh world bounds. Two opposing Node CPU
 orders observed 94–96% lower interaction/preparation kernel means, with a small
 dish-only overhead and no browser/GPU speed claim. This is a separate baseline.
 
+Candidate **10** also includes [detailed room-dismiss reuse](evidence/performance/room-dismiss-cache/README.md).
+Excluding the independently revisioned dish from wall/furnishing queries reduced
+stationary detailed picks from 571 to 1 per full cycle. Opposing Node CPU orders
+observed about 99.8% lower wall-query workload means across four rooms, with no
+consistent changing-ray regression. DOM hit testing stays live; other geometry
+still invalidates conservatively. This separate baseline establishes no browser,
+GPU or energy gain and must not be added to the other cache results.
+
 ## Candidate selection
 
 After a change or investigation, briefly screen **only the information already

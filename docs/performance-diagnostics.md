@@ -212,6 +212,13 @@ suspension, visible-but-unfocused activity, wake-up and navigation separately.
 - **AO refresh versus reuse:** camera/projection, geometry, reader stretch and dirty
   state refresh GTAO; material-only feedback reuses it. Reasons overlap. The
   legacy broad motion signal remains diagnostic context, not production policy.
+- **Detailed room-dismiss picks:** each picker caches its exact ray, near/far,
+  layers and geometry revision. Only the independently counted dish motion is
+  excluded: it belongs to none of the pressure-wall/furnishing target sets.
+  Other geometry changes still invalidate conservatively. Content updates outside
+  the model update must publish changed world matrices before clearing the cache.
+  DOM hit testing remains live; `data-contact-wall-picks` counts detailed picker
+  executions across all four rooms, not individual mesh raycasts or frame time.
 - **Footprint versus time:** report download, decode/upload/first-ready submission,
   steady CPU/GPU, pacing, geometry arrays and nominal texture storage separately.
   Array/texture arithmetic is not measured physical GPU/process memory. First
