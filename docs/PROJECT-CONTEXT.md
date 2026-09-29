@@ -254,9 +254,11 @@ Native labels and reader controls reuse settled projections until their view,
 layout, interaction, animation or content changes, including live collection edits.
 
 Journal entries are sections with automatic fixed-page pagination, not manually
-authored pages or scrolling paper. Both running headers show the current section
-title. Bottom arrows turn within the current section and stop at its ends; hide
-them for a single spread. Keep an odd final right page
+authored pages or scrolling paper. Running headers show the current section title,
+aligned left on left pages and right on right pages. Omit the running header on
+each section's first page, retaining its main title in the body. Bottom arrows
+turn within the current section and stop at its ends; hide them for a single
+spread. Keep an odd final right page
 blank instead of repeating text. Center footer numbers within each page, keeping
 the arrows at the outer edges. Show the page number and section total on both
 pages without the word “Page” (left `1 of 12`, right `2 of 12`). Leave an odd
