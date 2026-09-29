@@ -13,6 +13,7 @@ function fixture() {
   Object.assign(root.userData, {
     geometryRevision: 0,
     dishGeometryRevision: 0,
+    nonCasterGeometryRevision: 0,
   });
   const dish = new T.Mesh(new T.BoxGeometry(0.1, 0.1, 0.1));
   dish.name = 'service-mounted-communications-dish';
@@ -97,6 +98,63 @@ test('receiver movement refreshes all maps and recomputes relevance, including h
   f.root.userData.geometryRevision++;
   assert.deepEqual(f.frame(), f.lights);
   assert.deepEqual(f.moveDish(3.8), f.lights);
+});
+
+function moveReceiver(f, x) {
+  f.receiver.position.x = x;
+  f.root.userData.geometryRevision++;
+  f.root.userData.nonCasterGeometryRevision++;
+  return f.frame();
+}
+
+test('verified non-casters retain maps while receiver bounds still follow their motion', () => {
+  const f = fixture();
+  f.frame();
+  f.moveDish(3.5);
+  assert.deepEqual(moveReceiver(f, 0.1), []);
+  f.receiver.visible = false;
+  assert.deepEqual(moveReceiver(f, 3.5), [f.lamp]);
+  assert.deepEqual(f.moveDish(3.8), f.lights);
+});
+
+test('new receiver bounds include omitted dish history, not just the last two poses', () => {
+  const f = fixture();
+  f.frame(); // Lamp map still contains the dish at x=4.
+  f.moveDish(8);
+  f.moveDish(9);
+  assert.deepEqual(moveReceiver(f, 4), [f.lamp]);
+  assert.deepEqual(f.frame(), []);
+});
+
+test('non-caster instance/vertex edits recompute bounds and simultaneous caster edits win', () => {
+  const f = fixture();
+  f.frame();
+  f.moveDish(3.5);
+  f.receiver.geometry.translate(4, 0, 0);
+  assert.deepEqual(moveReceiver(f, 0), [f.lamp]);
+  f.root.userData.geometryRevision++; // Unknown/caster change alongside receiver motion.
+  assert.deepEqual(moveReceiver(f, 0.1), f.lights);
+});
+
+test('VSM receiver motion and unbounded PCF receiver volumes keep conservative refreshes', () => {
+  const f = fixture();
+  f.renderer.shadowMap.type = T.VSMShadowMap;
+  f.frame();
+  assert.deepEqual(moveReceiver(f, 0.1), f.lights);
+  f.renderer.shadowMap.type = T.PCFShadowMap;
+  f.lamp.shadow.bias = 0.1;
+  f.cache.invalidate();
+  f.frame();
+  f.moveDish(3.5);
+  assert.deepEqual(moveReceiver(f, 0.2), [f.lamp]);
+});
+
+test('receiver-only updates do not consume pending shadow requests', () => {
+  const f = fixture();
+  f.root.updateMatrixWorld(true);
+  f.cache.update();
+  assert.deepEqual(moveReceiver(f, 0.1), f.lights);
+  assert.deepEqual(moveReceiver(f, 0.2), []);
 });
 
 test('low-detail soft filter and normal bias retain blockers outside the exact receiver box', () => {
@@ -197,3 +255,136 @@ test('the authored wide ship reuses cabin and ladder maps through a complete dis
   model.setLayout('compact');
   assert.deepEqual(frame(3.25, true), lights);
 });
+
+// Inspect the actual assembled/batched model, including effective visibility,
+// vertex and instance edits. This guards the opt-outs against new caster parts.
+function meshInputs(root) {
+  const result = new Map();
+  root.traverse((mesh) => {
+    if (!mesh.isMesh) return;
+    let visible = true;
+    for (let o = mesh; o; o = o.parent) visible &&= o.visible;
+    result.set(
+      mesh,
+      JSON.stringify([
+        ...mesh.matrixWorld.elements,
+        visible,
+        mesh.layers.mask,
+        mesh.geometry.id,
+        mesh.geometry.attributes.position.version,
+        mesh.instanceMatrix?.version,
+        mesh.count,
+      ]),
+    );
+  });
+  return result;
+}
+
+for (const layout of ['wide', 'compact']) {
+  test(`${layout}: authored doors, notebook pages and keys preserve caster inputs and refresh AO`, () => {
+    const model = createSpacecraft(T, {
+      layout,
+      journal: [{ title: 'One' }, { title: 'Two' }],
+    });
+    const linked = applyCabinLighting(T, model.group);
+    const sun = createExteriorLight(T),
+      lights = [sun, ...linked.lights];
+    const scene = new T.Scene();
+    scene.add(model.group, sun);
+    const renderer = {
+      shadowMap: { type: T.PCFShadowMap, needsUpdate: false },
+    };
+    const cache = createShadowUpdates({
+      three: T,
+      renderer,
+      root: model.group,
+      lights,
+      receivers: linked.shadowReceivers,
+    });
+    let time = 0;
+    function frame(state, instant = false) {
+      model.update(
+        (time += 1 / 60),
+        '',
+        instant,
+        {
+          activeRoom: 'about',
+          reading: false,
+          openPortalIds: [],
+          reducedMotion: true,
+          delta: 1 / 60,
+          ...state,
+        },
+        true,
+      );
+      scene.updateMatrixWorld(true);
+      cache.update();
+      const dirty = lights.filter((light) => light.shadow.needsUpdate);
+      for (const light of lights) light.shadow.needsUpdate = false;
+      renderer.shadowMap.needsUpdate = false;
+      return dirty;
+    }
+    function verify(state, instant = false) {
+      const before = meshInputs(model.group);
+      const revision = model.group.userData.geometryRevision;
+      const dirty = frame(state, instant);
+      const changed = [...meshInputs(model.group)]
+        .filter(([m, v]) => before.get(m) !== v)
+        .map(([m]) => m);
+      assert.ok(
+        changed.length,
+        'The workload actually changes renderable geometry',
+      );
+      assert.ok(
+        changed.every((m) => !m.castShadow),
+        changed
+          .filter((m) => m.castShadow)
+          .map((m) => m.name)
+          .join(', '),
+      );
+      assert.ok(
+        model.group.userData.geometryRevision > revision,
+        'AO and stationary pixels still invalidate',
+      );
+      assert.deepEqual(
+        dirty.map((l) => l.name),
+        [],
+        'No caster or newly relevant dish shadow changed',
+      );
+      return changed;
+    }
+    frame({}, true);
+    for (const id of model.group.userData.portals
+      .filter((p) => p.from === 'about')
+      .map((p) => p.id)) {
+      assert.ok(model.group.userData.portals.some((p) => p.id === id));
+      const changed = verify({ openPortalIds: [id] });
+      assert.ok(
+        changed.some((m) => m.receiveShadow),
+        'Moving leaves are receivers',
+      );
+      verify({ immediateDoors: true }, true);
+    }
+    frame({ reading: true }, true);
+    const pages = verify({ reading: true, notebookChapter: 1 });
+    assert.ok(
+      pages.some((m) => m.receiveShadow),
+      'Rebatched carried markers include receivers',
+    );
+    verify({ reading: true, notebookChapter: 1 }, true);
+    verify({ reading: true, notebookChapter: 0 }, true);
+    frame({ activeRoom: 'contact', reading: true }, true);
+    const keyboard = model.group.userData.contactComputer.keyboard;
+    keyboard.press('KeyA');
+    const keys = verify({ activeRoom: 'contact', reading: true });
+    assert.ok(keys.some((m) => m.isInstancedMesh && m.receiveShadow));
+    keyboard.release('KeyA');
+    verify({ activeRoom: 'contact', reading: true }, true);
+    model.setLayout(layout === 'wide' ? 'compact' : 'wide');
+    assert.deepEqual(
+      frame({}).map((l) => l.id),
+      lights.map((l) => l.id),
+      'Layout/caster changes still refresh every map',
+    );
+  });
+}

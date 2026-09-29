@@ -201,9 +201,13 @@ export function createSpacecraft(
   // changes and final animation snaps even when no motion remains afterward.
   group.userData.geometryRevision = 0;
   group.userData.dishGeometryRevision = 0;
+  group.userData.nonCasterGeometryRevision = 0;
   group.userData.geometryChanged = false;
-  const geometryChanged = () => {
+  const geometryChanged = (kind?: 'non-caster') => {
     group.userData.geometryRevision++;
+    // Only verified non-caster animations opt out of depth-map invalidation.
+    // They still invalidate AO, pixels and (potentially) receiver-ray bounds.
+    if (kind === 'non-caster') group.userData.nonCasterGeometryRevision++;
     group.userData.geometryChanged = true;
   };
   const targets: Array<{ object: any; section: string }> = [];
@@ -3634,18 +3638,20 @@ export function createSpacecraft(
       !!currentState.reading && currentState.activeRoom === 'about';
     if (aboutNotebook.active !== notebookActive) {
       aboutNotebook.setActive(notebookActive);
-      geometryChanged();
+      geometryChanged('non-caster');
     }
     const wasTurning = aboutNotebook.turning;
+    const previousChapter = aboutNotebook.chapter;
     aboutNotebook.setChapter(
       currentState.notebookChapter || 0,
       instantHighlight || !notebookActive,
     );
     if (
       aboutNotebook.update(dt, instantHighlight) ||
-      wasTurning !== aboutNotebook.turning
+      wasTurning !== aboutNotebook.turning ||
+      previousChapter !== aboutNotebook.chapter
     )
-      geometryChanged();
+      geometryChanged('non-caster');
     if (aboutNotebook.turning) motionActive = true;
     const projectApplicationActive =
       currentState.reading && currentState.activeRoom === 'projects';
@@ -3676,7 +3682,7 @@ export function createSpacecraft(
     contactComputer.setActive(!!computerActive);
     if (!computerActive) contactComputer.keyboard.clear();
     if (contactComputer.keyboard.update(dt, instantHighlight)) {
-      geometryChanged();
+      geometryChanged('non-caster');
       motionActive = true;
     }
     group.userData.motionActive = motionActive;
@@ -3942,7 +3948,7 @@ export function createSpacecraft(
       }
       const openingProgress = Math.max(0, Math.min(1, doorMotion.value));
       if (iris.group.userData.openProgress !== openingProgress)
-        geometryChanged();
+        geometryChanged('non-caster');
       iris.setOpen(openingProgress);
       for (const portal of hatch.portals) {
         portal.metadata.openProgress = openingProgress;

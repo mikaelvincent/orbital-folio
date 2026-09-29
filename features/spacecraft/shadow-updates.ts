@@ -3,8 +3,9 @@ import type * as Three from 'three';
 type ShadowLight = Three.DirectionalLight | Three.SpotLight;
 
 /** Reuse light-space depth maps, not finished spacecraft pixels. The model's
- * revision contract identifies rigid dish motion separately from every other
- * geometry change. Other changes conservatively refresh the complete rig. */
+ * revision contract separates rigid dish motion and verified non-caster changes.
+ * Unknown changes conservatively refresh the complete rig; moving receivers
+ * must reconsider dish poses omitted from their light's cached map. */
 export function createShadowUpdates({
   three: T,
   renderer,
@@ -22,10 +23,13 @@ export function createShadowUpdates({
   const previousDish = new T.Box3();
   const currentDish = new T.Box3();
   const changedBounds = new T.Box3();
+  const dishHistory = new T.Box3();
   const lightPosition = new T.Vector3();
   const volumes = new Map<Three.SpotLight, Three.Box3>();
   let geometryRevision = -1,
     otherRevision = -1,
+    nonCasterRevision = -1,
+    dishRevision = -1,
     prepare = true;
 
   for (const light of lights) light.shadow.autoUpdate = false;
@@ -77,10 +81,20 @@ export function createShadowUpdates({
     /** Call after synchronizing scene world matrices. Camera pose is irrelevant. */
     update() {
       const revision = root.userData.geometryRevision;
-      const other = revision - root.userData.dishGeometryRevision;
+      const dishVersion = root.userData.dishGeometryRevision;
+      const nonCaster = root.userData.nonCasterGeometryRevision || 0;
+      const other = revision - dishVersion - nonCaster;
       if (!prepare && revision === geometryRevision) return false;
-      const rebuild = prepare || other !== otherRevision || !dish;
-      if (rebuild) {
+      const receiversChanged = nonCaster !== nonCasterRevision;
+      const dishChanged = dishVersion !== dishRevision;
+      const rebuild =
+        prepare ||
+        other !== otherRevision ||
+        !dish ||
+        // VSM also draws receivers into the map. Unknown filters retain the
+        // original conservative policy instead of assuming PCF semantics.
+        renderer.shadowMap.type !== T.PCFShadowMap;
+      if (rebuild || receiversChanged) {
         // A geometry revision may edit vertices or instances in place. Box3's
         // object helpers otherwise reuse their old local bounding boxes.
         const geometries = new Set<Three.BufferGeometry>();
@@ -95,25 +109,45 @@ export function createShadowUpdates({
         });
       }
       if (dish) currentDish.setFromObject(dish);
+      let requested = false;
       if (rebuild) {
         lights.forEach(dirty);
+        requested = true;
         prepareVolumes();
+        dishHistory.makeEmpty();
         prepare = false;
       } else {
+        if (receiversChanged) prepareVolumes();
         // Both poses matter: a caster leaving a region must clear its old shadow.
         // This bounds only the small dish subtree, never the whole spacecraft.
         changedBounds.copy(previousDish).union(currentDish);
+        if (dishChanged) dishHistory.union(changedBounds);
+        // A lamp can hold a dish pose much older than the previous frame. Keep
+        // one conservative history box since the last full refresh, so moving
+        // (even hidden) receivers cannot expose a previously irrelevant shadow.
+        // It may over-refresh after a receiver moves, but never grows in memory.
+        const relevantBounds = receiversChanged ? dishHistory : changedBounds;
         for (const light of lights) {
           const volume = volumes.get(light as Three.SpotLight);
           // Directional rays are parallel; the finite-position proof above does
-          // not apply to the sun, which remains live throughout dish motion.
-          if (!volume || volume.intersectsBox(changedBounds)) dirty(light);
+          // not apply to the sun. Its complete map needs only caster changes.
+          if (
+            (light as Three.DirectionalLight).isDirectionalLight
+              ? dishChanged
+              : !relevantBounds.isEmpty() &&
+                (!volume || volume.intersectsBox(relevantBounds))
+          ) {
+            dirty(light);
+            requested = true;
+          }
         }
       }
       previousDish.copy(currentDish);
       geometryRevision = revision;
       otherRevision = other;
-      return true;
+      nonCasterRevision = nonCaster;
+      dishRevision = dishVersion;
+      return requested;
     },
   };
 }

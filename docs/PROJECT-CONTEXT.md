@@ -77,9 +77,15 @@ reaches all surfaces. Preserve authored caster/receiver exceptions, especially s
 iris leaves. Reuse each light's shadow map while its relevant geometry is unchanged;
 camera movement alone does not alter light-space depth. Dish-only movement
 refreshes the sun and any lamp whose padded receiver-ray volume intersects the
-dish's previous or current bounds. Other geometry changes, including immediate
-reduced-motion changes, and quality/filter changes refresh all maps. This keeps
-receiver movement and previously hidden surfaces correct.
+dish's previous or current bounds. Iris motion, notebook turns/markers and key
+presses are verified non-caster changes: keep their depth maps, but still refresh
+AO and stationary pixels. Some of these surfaces receive shadows, including
+rebatched notebook parts. Rebuild lamp receiver-ray bounds and check the dish's
+accumulated motion since the last full refresh, so newly exposed receivers cannot
+sample an old, previously irrelevant dish shadow. Unknown/caster geometry edits,
+layout changes and explicit quality/filter invalidation still refresh every map;
+non-PCF filters retain the conservative policy. Immediate changes and final snaps
+follow the same revision contract as animated motion.
 
 The Shadows control must visibly change interiors. Default to **Low (512)**
 detail and **4×** softness; both controls apply to the sun and all interior lamps.
