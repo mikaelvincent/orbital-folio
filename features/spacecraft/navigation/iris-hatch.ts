@@ -323,7 +323,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
         child === rim || (child === occlusion ? enabled : !enabled);
   };
 
-  const setOpen = (progress: number) => {
+  const setOpen = (progress: number, deferWorldMatrices = false) => {
     const p = Number.isFinite(progress)
       ? Math.max(0, Math.min(1, progress))
       : 0;
@@ -341,7 +341,9 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     motion.travel.value = travel;
     motion.twist.value = twist;
     group.userData.openProgress = p;
-    group.updateMatrixWorld(true);
+    // Model updates synchronize the complete hierarchy after all mutations.
+    // Standalone hatch consumers still receive current world matrices here.
+    if (!deferWorldMatrices) group.updateMatrixWorld(true);
   };
   setOpen(0);
   return {

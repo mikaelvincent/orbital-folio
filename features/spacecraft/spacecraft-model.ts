@@ -3951,7 +3951,7 @@ export function createSpacecraft(
       const openingProgress = Math.max(0, Math.min(1, doorMotion.value));
       if (iris.group.userData.openProgress !== openingProgress)
         geometryChanged('non-caster');
-      iris.setOpen(openingProgress);
+      iris.setOpen(openingProgress, true);
       for (const portal of hatch.portals) {
         portal.metadata.openProgress = openingProgress;
         portal.metadata.open = openingProgress >= 0.999;

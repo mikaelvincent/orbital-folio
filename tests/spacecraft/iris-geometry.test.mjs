@@ -159,6 +159,26 @@ test('The wall aperture mask stays in hatch coordinates and does not mutate shar
   dispose(hatch, materials);
 });
 
+test('Standalone hatch updates synchronize repeated progress and deferred updates wait for their owner', () => {
+  const { hatch, materials } = build();
+  const child = new THREE.Object3D();
+  hatch.blades[0].add(child);
+  for (const progress of [0, 0.4, 0.4, 1, 0]) {
+    hatch.group.position.x += 2;
+    child.position.y += 1;
+    hatch.setOpen(progress);
+    const before = child.matrixWorld.clone();
+    hatch.group.updateMatrixWorld(true);
+    assert.deepEqual(child.matrixWorld.elements, before.elements);
+    child.position.y += 1;
+    hatch.setOpen(progress, true);
+    assert.deepEqual(child.matrixWorld.elements, before.elements);
+    hatch.group.updateMatrixWorld(true);
+    assert.notDeepEqual(child.matrixWorld.elements, before.elements);
+  }
+  dispose(hatch, materials);
+});
+
 test('Intermediate openings stay a single central component with a sealed outer circumference', () => {
   const { hatch, materials } = build();
   const ray = new THREE.Raycaster();

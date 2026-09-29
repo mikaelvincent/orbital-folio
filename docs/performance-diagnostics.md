@@ -288,6 +288,35 @@ whole-interaction latency nor frame-rate, GPU or energy gains.
 
 ## Rested CPU candidate comparisons
 
+The frame loop already defers the model's final world-matrix update, then
+synchronizes the complete scene after mutations and before transform consumers.
+Automatic scene updates stay disabled across shadows, color and AO. Keep that
+ordering: unchanged hull coordinates do not imply unchanged descendants, reader
+anchors, lights or picking targets. Layout/content setters can also synchronize
+immediately for their own bounds and input consumers.
+
+Iris `setOpen` calls inside the model share that final synchronization. Standalone
+hatch calls and standalone model updates still publish world matrices by default.
+Do not skip an entire hatch subtree just because its opening progress is unchanged:
+parents, attached descendants and manual matrices can change independently. This
+removes duplicate traversal without transform snapshots or dirty tracking. Compare
+the current model against reference copies of `features/spacecraft/spacecraft-model.ts`
+and `features/spacecraft/navigation/iris-hatch.ts` with
+`node scripts/benchmark-iris-sync.mjs --baseline-dir=<source root> --out=<report.json>`
+from a disposable checkout. `--verify-only` checks exact world transforms, portal
+metadata and AO silhouettes; timing covers settled, moving-door and layout-edit
+updates in opposing orders, including synchronization and leaf callbacks. It is a
+Node CPU comparison, not a browser frame-rate measurement.
+
+Each hatch's six leaf callbacks share an inverse-matrix uniform, but currently
+recompute its value from the live hatch world matrix. Leaf animation changes child
+matrices, not this source; layout/parent/manual matrix edits can change the source.
+AO uses a separate silhouette and the leaves do not cast shadows. Visibility and
+stationary pixel reuse can reduce callbacks, so a six-callback kernel is not a
+universal per-frame count. A proposed inverse cache must include validation and
+miss costs, and preserve standalone rendering and live edits; fewer inversions
+alone do not establish a saving.
+
 This historical runner still has strict automatic qualification gates. Its
 accepted/excluded labels describe that protocol, not the implementation decision.
 Preserve the labels and use valid partial results under

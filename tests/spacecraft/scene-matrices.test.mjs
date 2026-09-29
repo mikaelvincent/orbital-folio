@@ -161,3 +161,71 @@ test('Standalone model updates still immediately synchronize world matrices by d
   model.group.updateMatrixWorld(true);
   assert.deepEqual(anchor.matrixWorld.elements, snapshot.elements);
 });
+
+test('Hatches share the final model or scene synchronization, including unchanged progress and live descendants', () => {
+  const model = createSpacecraft(THREE);
+  const scene = new THREE.Scene();
+  scene.add(model.group);
+  scene.matrixWorldAutoUpdate = false;
+  const hatches = model.group.userData.irisHatches;
+  const descendant = new THREE.Object3D();
+  hatches[0].children
+    .find((o) => o.userData.irisBladeIndex === 0)
+    .add(descendant);
+  const manual = new THREE.Object3D();
+  manual.matrixAutoUpdate = false;
+  hatches[1].add(manual);
+  let compositions = 0;
+  let automaticNodes = 0;
+  for (const hatch of hatches)
+    hatch.traverse((object) => {
+      if (!object.matrixAutoUpdate) return;
+      automaticNodes++;
+      const update = object.updateMatrix;
+      object.updateMatrix = function () {
+        compositions++;
+        return update.call(this);
+      };
+    });
+  let frame = 0;
+  for (const layout of ['compact', 'wide']) {
+    model.setLayout(layout);
+    for (const deferred of [false, true]) {
+      for (const open of [true, true, false, false]) {
+        frame++;
+        model.group.rotation.z = frame / 10;
+        descendant.position.set(frame, -frame, frame / 2);
+        manual.matrix.makeTranslation(-frame, frame / 2, frame);
+        manual.matrixWorldNeedsUpdate = true;
+        compositions = 0;
+        model.update(
+          frame / 60,
+          '',
+          true,
+          {
+            activeRoom: 'projects',
+            openPortalIds: open ? ['projects:experience'] : [],
+          },
+          deferred,
+        );
+        assert.equal(compositions, deferred ? 0 : automaticNodes);
+        if (deferred) updateRenderSceneMatrices(scene);
+        assert.equal(
+          compositions,
+          automaticNodes,
+          'Each hatch node composes once',
+        );
+        const objects = nodes(model.group);
+        const snapshots = objects.map((object) => object.matrixWorld.clone());
+        updateRenderSceneMatrices(scene);
+        objects.forEach((object, index) =>
+          assert.deepEqual(
+            object.matrixWorld.elements,
+            snapshots[index].elements,
+            `${object.name || object.type} was already current`,
+          ),
+        );
+      }
+    }
+  }
+});
