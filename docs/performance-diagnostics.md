@@ -259,6 +259,33 @@ Visibility and rendered-frame counters retain their publication cadence and
 visibility-change flush. Reusing metadata does not suppress animation, change
 rendering quality or gate observability on the diagnostics panel.
 
+## Markdown interaction comparisons
+
+Markdown parsing is content work during React updates, not part of the continuous
+WebGL callback. Count actual lexer executions when opening readers, turning
+notebook pages and updating previews before timing. Notebook measurement copies
+also render, and reading contents links consume the same parser.
+
+`scripts/benchmark-markdown.mjs` builds a production React/DOM comparison from
+the current source and reference copies of the four Markdown consumer/parser
+files listed in the script. Run it in a disposable source checkout with
+`--baseline-dir=<reference source root> --out-dir=<temporary static directory>`;
+serve that directory on a separate loopback port and use the hidden built-in
+browser. It uses only shipped sample content. Check equivalent markup first,
+then run the two opposing-order blocks. Retain `metadata.json` and the displayed
+JSON with its raw samples. The runner warms both variants and records 60 updates
+per capture in ABBA, BAAB order, with a ten-minute timing budget.
+
+Compare warm five-section notebook updates, repeated reading renders and Studio
+page controls alongside changing bodies and a 20-section saturation case. The
+last two exercise cache creation/eviction costs; they are not expected cache-hit
+workloads. Timings cover synchronous React/DOM updates, including work flushed by
+those updates, but exclude paint, asynchronous measurement and WebGL. Reading
+rerenders are a controlled replay, not a claim that an idle reader keeps parsing.
+Mount samples occur in an already warmed document. Report reference variation
+and cold/miss costs as well as saved parses; these results establish neither
+whole-interaction latency nor frame-rate, GPU or energy gains.
+
 ## Rested CPU candidate comparisons
 
 This historical runner still has strict automatic qualification gates. Its

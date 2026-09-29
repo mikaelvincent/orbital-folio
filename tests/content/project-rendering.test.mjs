@@ -32,6 +32,8 @@ async function loadComponent(entryPoint) {
     URL,
     Map,
     WeakMap,
+    // Exercise the same immutable cache hits used by mounted readers.
+    window: {},
   });
   return loaded.exports;
 }

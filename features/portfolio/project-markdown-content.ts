@@ -42,13 +42,68 @@ export function projectContentUrl(
 
 export type ProjectHeading = { id: string; text: string; depth: number };
 
+export type MarkdownReadonly<T> = T extends readonly (infer Item)[]
+  ? readonly MarkdownReadonly<Item>[]
+  : T extends object
+    ? { readonly [Key in keyof T]: MarkdownReadonly<T[Key]> }
+    : T;
+export type ParsedProjectMarkdown = MarkdownReadonly<{
+  tokens: TokensList;
+  headings: ProjectHeading[];
+}>;
+
+// Shared by contents links, visible ink and notebook measurement copies in this
+// browser document only. Never retain public or private bodies across requests
+// in the server isolate. Both limits also bound retention of old Studio edits.
+const MAX_CACHED_BODIES = 16;
+const MAX_CACHED_CHARACTERS = 200_000;
+const browserParses = new Map<string, ParsedProjectMarkdown>();
+let cachedCharacters = 0;
+
 export function parseProjectMarkdown(
   body: string,
   { preserveSoftBreaks = false }: { preserveSoftBreaks?: boolean } = {},
-): {
-  tokens: TokensList;
-  headings: ProjectHeading[];
-} {
+): ParsedProjectMarkdown {
+  if (typeof window === 'undefined' || body.length > MAX_CACHED_CHARACTERS)
+    return parseMarkdown(body, preserveSoftBreaks);
+
+  const key = `${preserveSoftBreaks ? '1' : '0'}${body}`;
+  const cached = browserParses.get(key);
+  if (cached) {
+    browserParses.delete(key);
+    browserParses.set(key, cached);
+    return cached;
+  }
+
+  const parsed = freezeMarkdown(parseMarkdown(body, preserveSoftBreaks));
+  browserParses.set(key, parsed);
+  cachedCharacters += body.length;
+  while (
+    browserParses.size > MAX_CACHED_BODIES ||
+    cachedCharacters > MAX_CACHED_CHARACTERS
+  ) {
+    const oldest = browserParses.keys().next().value!;
+    browserParses.delete(oldest);
+    cachedCharacters -= oldest.length - 1;
+  }
+  return parsed;
+}
+
+// Freezing only the top-level array would let nested list/table/inline tokens
+// corrupt later renders. Walk iteratively, including the token list's links.
+function freezeMarkdown<T extends object>(value: T): MarkdownReadonly<T> {
+  const pending: object[] = [value];
+  while (pending.length) {
+    const item = pending.pop()!;
+    if (Object.isFrozen(item)) continue;
+    for (const child of Object.values(item))
+      if (child && typeof child === 'object') pending.push(child);
+    Object.freeze(item);
+  }
+  return value as MarkdownReadonly<T>;
+}
+
+function parseMarkdown(body: string, preserveSoftBreaks: boolean) {
   const tokens = marked.lexer(body, { gfm: true, breaks: preserveSoftBreaks });
   const headings: ProjectHeading[] = [];
   const used = new Map<string, number>();

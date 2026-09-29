@@ -6,6 +6,7 @@ import { decodeHTML } from 'entities';
 import {
   parseProjectMarkdown,
   projectContentUrl,
+  type MarkdownReadonly,
 } from './project-markdown-content';
 import './project-markdown.css';
 
@@ -90,7 +91,7 @@ export function ProjectMarkdown({
     preserveSoftBreaks,
   });
   let headingIndex = 0;
-  const inline = (list: Token[] = []): ReactNode =>
+  const inline = (list: readonly MarkdownReadonly<Token>[] = []): ReactNode =>
     list.map((token, index) => {
       const content =
         'tokens' in token && Array.isArray(token.tokens)
@@ -169,7 +170,7 @@ export function ProjectMarkdown({
           return <Fragment key={index}>{content}</Fragment>;
       }
     });
-  const block = (list: Token[]): ReactNode =>
+  const block = (list: readonly MarkdownReadonly<Token>[]): ReactNode =>
     list.map((token, index) => {
       switch (token.type) {
         case 'space':
@@ -231,7 +232,7 @@ export function ProjectMarkdown({
             <blockquote key={index}>{block(token.tokens ?? [])}</blockquote>
           );
         case 'list': {
-          const list = token as Tokens.List;
+          const list = token as MarkdownReadonly<Tokens.List>;
           return createElement(
             list.ordered ? 'ol' : 'ul',
             { key: index, ...(list.ordered ? { start: list.start } : {}) },
@@ -274,7 +275,10 @@ export function ProjectMarkdown({
                 <thead>
                   <tr>
                     {token.header.map(
-                      (cell: Tokens.TableCell, cellIndex: number) => (
+                      (
+                        cell: MarkdownReadonly<Tokens.TableCell>,
+                        cellIndex: number,
+                      ) => (
                         <th key={cellIndex} scope="col">
                           {inline(cell.tokens)}
                         </th>
@@ -284,7 +288,10 @@ export function ProjectMarkdown({
                 </thead>
                 <tbody>
                   {token.rows.map(
-                    (row: Tokens.TableCell[], rowIndex: number) => (
+                    (
+                      row: readonly MarkdownReadonly<Tokens.TableCell>[],
+                      rowIndex: number,
+                    ) => (
                       <tr key={rowIndex}>
                         {row.map((cell, cellIndex) => (
                           <td key={cellIndex}>{inline(cell.tokens)}</td>

@@ -42,7 +42,9 @@ export function NotebookSectionPages({
 }: NotebookSectionPagesProps) {
   const markdown = normalizeNotebookBody(body);
   const headingLinks = useMemo(() => {
-    const headings = parseProjectMarkdown(markdown).headings;
+    const headings = parseProjectMarkdown(markdown, {
+      preserveSoftBreaks: true,
+    }).headings;
     const links: Record<string, string> = Object.create(null);
     for (const heading of headings)
       links[heading.id] = headingIdPrefix + heading.id;

@@ -33,7 +33,7 @@ function ReadingContents({
   headings,
   label,
 }: {
-  headings: { id: string; text: string }[];
+  headings: readonly { id: string; text: string }[];
   label: string;
 }) {
   const links = (
