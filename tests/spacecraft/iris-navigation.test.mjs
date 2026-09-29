@@ -422,6 +422,11 @@ test('Mid-bay retargeting gates only the final exit in either direction', () => 
   for (const destination of ['experience', 'projects', 'about', 'contact']) {
     const start = [-4, -0.35, 0];
     const plan = planCabinItinerary(nodes, start, destination);
+    assert.equal(
+      plan.hasIntermediateRoom,
+      ['experience', 'contact'].includes(destination),
+      'A ladder retarget lights its destination early only when no cabin intervenes',
+    );
     let prior = start;
     const held = [];
     for (const point of plan.points) {
@@ -437,6 +442,33 @@ test('Mid-bay retargeting gates only the final exit in either direction', () => 
           : 'about:projects',
       ],
     ]);
+  }
+});
+
+test('Itineraries distinguish direct travel, including the ladder, from intermediate cabin routes', () => {
+  const nodes = [
+    { room: 'experience', position: [1.7, 1.7, 0] },
+    { room: 'projects', position: [-1.7, 1.7, 0] },
+    { position: [-4, 1.7, 0] },
+    { position: [-4, 0, 0] },
+    { position: [-4, -1.7, 0] },
+    { room: 'about', position: [-1.7, -1.7, 0] },
+    { room: 'contact', position: [1.7, -1.7, 0] },
+  ];
+  const cabins = nodes.filter((node) => node.room);
+  for (const [from, departure] of cabins.entries()) {
+    for (const [to, destination] of cabins.entries()) {
+      const plan = planCabinItinerary(
+        nodes,
+        departure.position,
+        destination.room,
+      );
+      assert.equal(
+        plan.hasIntermediateRoom,
+        Math.abs(from - to) > 1,
+        `${departure.room} → ${destination.room}`,
+      );
+    }
   }
 });
 

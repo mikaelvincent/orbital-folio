@@ -88,9 +88,11 @@ sun's dish region while all interior maps are allocated, clean and independently
 cached. A dirty or automatically updating interior map requires a complete,
 unmasked scene draw and color-cache reconstruction before reuse resumes. Keep
 the existing phone/AO-disabled fallback. Historical area-light timings do not
-apply to this rig. Room
-hover/selection changes material brightness without a second light dimmer. Keep
-labels and interactive objects readable, including on the phone's AO-free path.
+apply to this rig. Room hover/selection changes material brightness without a
+second light dimmer. Overview entry and direct room-to-room travel keep the chosen
+destination bright from departure through arrival. Routes through intermediate
+cabins retain sequential lighting based on the camera's current room. Keep labels
+and interactive objects readable, including on the phone's AO-free path.
 
 Overview destination tabs must remain distinct from utility controls. Preserve
 readable room labels at compact widths, accessible full names when ellipsized,

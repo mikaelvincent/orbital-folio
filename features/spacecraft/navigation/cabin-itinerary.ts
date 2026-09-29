@@ -73,5 +73,11 @@ export function planCabinItinerary(
     projection: [...projection] as RoutePoint,
     station,
     destinationStation: end,
+    hasIntermediateRoom: nodes.some(
+      (node, index) =>
+        !!node.room &&
+        index > Math.min(station, end) + 0.001 &&
+        index < Math.max(station, end) - 0.001,
+    ),
   };
 }

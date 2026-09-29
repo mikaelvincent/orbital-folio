@@ -90,6 +90,8 @@ export type SpacecraftProject = {
 export type SpacecraftState = {
   activeRoom?: string;
   travelling?: boolean;
+  /** Retain destination brightness only on routes without intermediate cabins. */
+  directRoomTravel?: boolean;
   transitRoom?: string | null;
   /** Preview the ladder bay only from a cabin; overview hover stays dim. */
   hoveredWalkway?: boolean;
@@ -3700,9 +3702,11 @@ export function createSpacecraft(
     if (contactWallHover !== wallHoverGoal) group.userData.motionActive = true;
     const targetLevels: Record<string, number> = {};
     for (const section of Object.keys(roomMaterials)) {
+      // Direct travel retains the clicked room's highlight. Longer routes keep
+      // lighting each crossed cabin in turn, including the eventual destination.
       const selected =
         section !== 'walkway' &&
-        !currentState.travelling &&
+        (!currentState.travelling || currentState.directRoomTravel) &&
         currentState.activeRoom === section;
       const preview = currentState.travelling
         ? currentState.transitRoom === section
@@ -3782,7 +3786,9 @@ export function createSpacecraft(
         labels: level,
         exteriorLabels: 0,
         selected:
-          !currentState.travelling && currentState.activeRoom === section,
+          section !== 'walkway' &&
+          (!currentState.travelling || !!currentState.directRoomTravel) &&
+          currentState.activeRoom === section,
         transit:
           section === 'walkway'
             ? !!currentState.transitWalkway

@@ -11,6 +11,7 @@ function update(hover = '', state = {}) {
     activeRoom: 'home',
     reading: false,
     travelling: false,
+    directRoomTravel: false,
     hoveredObject: null,
     reducedMotion: true,
     ...state,
@@ -48,7 +49,7 @@ function wallFaces() {
 }
 
 for (const layout of ['wide', 'compact']) {
-  test(`${layout}: hover, selection and transit brighten only their own partition face`, () => {
+  test(`${layout}: hover, selection, destination and transit brighten only their own partition face`, () => {
     model.setLayout(layout);
     update();
     const faces = wallFaces();
@@ -56,10 +57,13 @@ for (const layout of ['wide', 'compact']) {
       sections.map((s) => [s, faces[s].color.clone()]),
     );
     for (const target of sections) {
-      for (const mode of ['hover', 'selected', 'transit']) {
+      for (const mode of ['hover', 'selected', 'destination', 'transit']) {
         update(mode === 'hover' ? target : '', {
-          activeRoom: mode === 'selected' ? target : 'home',
-          travelling: mode === 'transit',
+          activeRoom: ['selected', 'destination'].includes(mode)
+            ? target
+            : 'home',
+          travelling: ['destination', 'transit'].includes(mode),
+          directRoomTravel: mode === 'destination',
           transitRoom: mode === 'transit' ? target : null,
         });
         for (const section of sections) {
@@ -79,6 +83,126 @@ for (const layout of ['wide', 'compact']) {
         faces[section].color.equals(idle[section]),
         `${section}: leaving restores idle`,
       );
+  });
+
+  test(`${layout}: direct travel keeps destination walls and lamps bright from hover through arrival`, () => {
+    model.setLayout(layout);
+    const faces = wallFaces();
+    const fixtures = new Map();
+    model.group.traverse((object) => {
+      for (const material of [object.material].flat().filter(Boolean))
+        if (
+          material.userData.lightFixture &&
+          sections.includes(material.userData.section)
+        )
+          fixtures.set(material.userData.section, material);
+    });
+    assert.equal(fixtures.size, sections.length);
+
+    for (const target of sections) {
+      const circulation = model.group.userData.circulation;
+      for (const from of [
+        'home',
+        ...circulation.filter(
+          (room, index) => Math.abs(index - circulation.indexOf(target)) === 1,
+        ),
+      ]) {
+        update(target, {
+          activeRoom: from,
+          transitRoom: '',
+          transitWalkway: false,
+        });
+        const wall = faces[target].color.clone();
+        const emission = fixtures.get(target).emissive.clone();
+        // Travel clears hover before focus leaves the departure room. The
+        // destination stays bright through the gap (or ladder) and arrival.
+        for (const transitRoom of [
+          from === 'home' ? '' : from,
+          '',
+          'walkway',
+          target,
+        ]) {
+          for (let frame = 0; frame < 12; frame++) {
+            model.update((time += 1 / 60), '', false, {
+              activeRoom: target,
+              travelling: true,
+              directRoomTravel: true,
+              transitRoom: transitRoom === 'walkway' ? '' : transitRoom,
+              transitWalkway: transitRoom === 'walkway',
+              delta: 1 / 60,
+            });
+            assert.ok(
+              faces[target].color.equals(wall),
+              `${from} → ${target} via ${transitRoom || 'outside'}: wall must stay bright`,
+            );
+            assert.ok(
+              fixtures.get(target).emissive.equals(emission),
+              `${from} → ${target} via ${transitRoom || 'outside'}: lamp face must stay bright`,
+            );
+            if (transitRoom)
+              assert.equal(
+                model.group.userData.lightingState[transitRoom].targetLevel,
+                1,
+                'The crossed room still brightens',
+              );
+          }
+        }
+        update('', {
+          activeRoom: target,
+          transitRoom: '',
+          transitWalkway: false,
+        });
+        assert.ok(
+          faces[target].color.equals(wall),
+          'Arrival preserves wall brightness',
+        );
+        assert.ok(
+          fixtures.get(target).emissive.equals(emission),
+          'Arrival preserves lamp emission',
+        );
+      }
+    }
+    update('', { transitRoom: '', transitWalkway: false });
+  });
+
+  test(`${layout}: longer routes retain sequential lighting through intermediate cabins`, () => {
+    model.setLayout(layout);
+    const faces = wallFaces();
+    for (const route of [
+      ['contact', 'about', 'walkway', 'projects', 'experience'],
+      ['experience', 'projects', 'walkway', 'about', 'contact'],
+    ]) {
+      const target = route.at(-1);
+      update(target, { activeRoom: route[0] });
+      for (const transit of route) {
+        update('', {
+          activeRoom: target,
+          travelling: true,
+          transitRoom: transit === 'walkway' ? '' : transit,
+          transitWalkway: transit === 'walkway',
+        });
+        for (const room of sections) {
+          const level = room === transit ? 1 : 0.5;
+          assert.ok(
+            faces[room].color.equals(
+              faces[room].userData.baseColor.clone().multiplyScalar(level),
+            ),
+            `${route[0]} → ${target}: only ${transit} lights up`,
+          );
+        }
+        assert.equal(
+          model.group.userData.lightingState.walkway.level,
+          transit === 'walkway' ? 1 : 0.5,
+        );
+      }
+      update('', {
+        activeRoom: target,
+        transitRoom: '',
+        transitWalkway: false,
+      });
+      assert.equal(model.group.userData.lightingState[target].level, 1);
+    }
+    update('', { transitRoom: '', transitWalkway: false });
   });
 
   test(`${layout}: reader dimming and wall feedback stay on the current cabin face`, () => {

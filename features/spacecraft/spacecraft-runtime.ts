@@ -1473,6 +1473,7 @@ export function mountSpacecraftScene({
         let legPortalIds: string[] = [];
         let ladderExitLeg = false;
         let cabinFlight = false;
+        let directRoomTravel = false;
         const doorHoldTarget = new THREE.Vector3();
         const aim = (desired: FlightPose) => {
           doorHoldTarget.copy(currentTarget);
@@ -1537,6 +1538,7 @@ export function mountSpacecraftScene({
           legPortalIds = [];
           ladderExitLeg = false;
           cabinFlight = false;
+          directRoomTravel = true;
           doorHoldTarget.copy(currentTarget);
           if (
             !immediate &&
@@ -1593,6 +1595,7 @@ export function mountSpacecraftScene({
             if (plan) {
               itineraryPlan = plan;
               cabinFlight = true;
+              directRoomTravel = !plan.hasIntermediateRoom;
               const between = nodes
                 .map((node, index) => ({ node, index }))
                 .filter(
@@ -1679,6 +1682,7 @@ export function mountSpacecraftScene({
             itineraryPlan = { kind: 'overview-curve', ...path };
             openPortalIds = [];
             cabinFlight = false;
+            directRoomTravel = true;
           }
           itinerary.push(desired);
           const overviewBounds = model.group.userData.overviewBounds;
@@ -2082,8 +2086,8 @@ export function mountSpacecraftScene({
           );
           // Illumination stays in the vessel/world frame while the camera rolls.
           // Cabin emitters remain attached to their physical ceiling fixtures.
-          // The camera's current focus selects the cabin being crossed, rather
-          // than lighting the eventual destination for the whole journey.
+          // Multi-room routes light the cabin being crossed. Direct travel also
+          // retains the destination highlight while focus moves between rooms.
           const localFocus = currentTarget.clone().applyAxisAngle(zAxis, -roll);
           const transitRoom = travelling
             ? Object.entries(model.group.userData.innerApertureBounds).find(
@@ -2115,6 +2119,7 @@ export function mountSpacecraftScene({
             {
               activeRoom: active,
               travelling,
+              directRoomTravel,
               transitRoom,
               transitWalkway,
               routeLadderPortalIds,
