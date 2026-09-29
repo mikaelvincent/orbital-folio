@@ -23,5 +23,5 @@
   box-shadow:
     5px 5px 0 var(--ivory-shade),
     10px 10px 24px #0005;
-  font-family: var(--font-sans, Arial, sans-serif);
+  font-family: var(--font-notebook);
 }

@@ -233,11 +233,14 @@ screens. These editor styles do not restyle visitor applications.
 
 The notebook stays in its cradle. Opening it moves the camera to the complete
 spread; there is no detached dialog. Authored Markdown flows left to right across
-both facing pages, without decorative filler. A shallow continuous paper fold
-covers the binding through the full page height. Room, overview and travel
-previews use one cached pair of mipmapped page textures on the existing opaque
-paper. Capture the same measured Markdown layout when the spread, content,
-loaded images or fonts change; camera motion does not regenerate it. Keep only
+both facing pages, without decorative filler. Notebook ink, headers, footers and
+section markers use the bundled Edu NSW ACT Foundation handwriting face at the
+existing sizes. Studio paper and cached room previews use the same font, including
+an embedded copy in SVG captures so their line wrapping matches the native ink.
+A shallow continuous paper fold covers the binding through the full page height.
+Room, overview and travel previews use one cached pair of mipmapped page textures
+on the existing opaque paper. Capture the same measured Markdown layout when the
+spread, content, loaded images or fonts change; camera motion does not regenerate it. Keep only
 the current spread (512 × 596 per page, about 3.1 MiB including mipmaps).
 Close reading and moving leaves use native HTML for sharp text and
 working links. Unsupported media, failed/empty captures or content exceeding the

@@ -6,7 +6,7 @@ const width =
   ABOUT_NOTEBOOK_LAYOUT.page.width;
 const height = ABOUT_NOTEBOOK_LAYOUT.pixelsHeight;
 // Copy the notebook's visual layout, without animation, browser controls or
-// hundreds of unrelated computed properties. Fonts are local system faces.
+// hundreds of unrelated computed properties. Embed the same bundled font below.
 const properties =
   `display position left top right bottom box-sizing width height min-width min-height max-width max-height
 margin-top margin-right margin-bottom margin-left padding-top padding-right padding-bottom padding-left
@@ -47,12 +47,18 @@ function decodeSnapshot(svg: string, signal: AbortSignal) {
 
 /** Rasterize the existing fixed paper layout once. Unsupported or costly
  * content fails back to the live reader, never a partial/blank approximation.
- * No network fetches: images must already be loaded and canvas-readable.
+ * Images must already be loaded and canvas-readable. The bundled font is
+ * embedded because an SVG image cannot load external font resources.
  */
 export async function createNotebookPageImage(
   source: HTMLElement,
   signal: AbortSignal,
 ) {
+  const [{ default: fontCss }, { default: fontDataUrl }] = await Promise.all([
+    import('../portfolio/notebook-font.css?inline'),
+    import('../portfolio/fonts/edu-nsw-act-foundation-latin.woff2?inline'),
+  ]);
+  signal.throwIfAborted();
   const started = performance.now();
   const nodes = [
     source,
@@ -107,6 +113,14 @@ export async function createNotebookPageImage(
     transform: 'none',
   });
   copy.querySelectorAll('.sr-only').forEach((element) => element.remove());
+  const fontStyle = document.createElement('style');
+  // Native pages use a same-origin URL under font-src 'self'. The image must
+  // carry its own font bytes, while retaining the same face/weight declaration.
+  fontStyle.textContent = fontCss.replace(
+    /url\([^)]*\)/,
+    () => `url("${fontDataUrl}")`,
+  );
+  copy.insertBefore(fontStyle, copy.firstChild);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><foreignObject width="${width}" height="${height}">${new XMLSerializer().serializeToString(copy)}</foreignObject></svg>`;
   if (svg.length > 2_000_000) throw new Error('Snapshot budget exceeded');
   const preparationMs = performance.now() - started;

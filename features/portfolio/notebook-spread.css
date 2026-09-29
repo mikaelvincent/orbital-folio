@@ -3,7 +3,7 @@
   width: 980px;
   height: 566px;
   color: var(--carbon);
-  font-family: var(--font-sans, Arial, sans-serif);
+  font-family: var(--font-notebook);
 }
 .notebook-spread > .notebook-section-pages {
   position: absolute;
