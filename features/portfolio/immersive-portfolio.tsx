@@ -745,6 +745,7 @@ export function ImmersivePortfolio({
                 }))
               }
               onPageCount={notebookPageCount}
+              onClose={() => go({ section: 'about' })}
             />,
             notebookSurface,
           )}

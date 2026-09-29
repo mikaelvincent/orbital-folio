@@ -163,11 +163,17 @@ backup; standalone ZIP packages apply only to Projects.
 
 In **Journal**, each entry is one continuous Markdown section. Its Order controls
 section placement; Preview uses the physical notebook's fixed paper area and
-automatic pagination after fonts/images load. There are no manual page breaks or
-page-fit save gates. Legacy standalone `<!-- notebook-page -->` separators become
-paragraph breaks; examples inside code remain literal. The opening section
-includes the published biography. Sections share the story/media publication
-rules above; Reading view uses continuous document flow.
+automatic pagination after fonts/images load. Use **Insert page break** at the
+desired cursor position to move the following content to the next page. The
+button inserts a standalone `<!-- page-break -->` between Markdown blocks; it
+can also be typed directly. Repeated and trailing breaks add no empty pages. A
+break at the start of the body keeps the section title, subtitle and any biography
+on the preceding page. Breaks in code or quoted examples remain literal.
+There are no page-fit save gates. Legacy standalone `<!-- notebook-page -->`
+separators still become paragraph breaks; code examples remain literal. The
+opening section includes the published biography. Sections share the story/media
+publication rules above; Reading view hides page-break directives and keeps
+continuous document flow.
 
 ## Authoring About photos and social cards
 

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { X } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import {
   ABOUT_NOTEBOOK_LAYOUT,
@@ -21,6 +22,7 @@ export function AboutNotebook({
   onSectionChange,
   onPageChange,
   onPageCount,
+  onClose,
 }: {
   data: Portfolio;
   interactive: boolean;
@@ -31,6 +33,7 @@ export function AboutNotebook({
   onSectionChange: (index: number) => void;
   onPageChange: (index: number) => void;
   onPageCount: (section: number, count: number) => void;
+  onClose: () => void;
 }) {
   const s = data.site;
   const root = useRef<HTMLElement>(null);
@@ -77,6 +80,17 @@ export function AboutNotebook({
       }}
     >
       {paper(section)}
+      {interactive && (
+        <button
+          type="button"
+          className="notebook-close"
+          aria-label="Close notebook"
+          title="Return to room view"
+          onClick={onClose}
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
+      )}
       <nav className="notebook-markers" aria-label="Notebook sections">
         {notebookMarkers(data.journal.length, section).map((flag) => (
           <button

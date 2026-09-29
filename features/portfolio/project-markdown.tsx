@@ -3,6 +3,7 @@
 import { createElement, Fragment, type ReactNode } from 'react';
 import type { Token, Tokens } from 'marked';
 import { decodeHTML } from 'entities';
+import { NOTEBOOK_PAGE_BREAK } from '@/lib/content/notebook-pages';
 import {
   parseProjectMarkdown,
   projectContentUrl,
@@ -78,6 +79,8 @@ export function ProjectMarkdown({
   headingIdPrefix = '',
   headingLinks,
   paginated = false,
+  notebookPageBreaks = false,
+  hasPrecedingContent = false,
   preserveSoftBreaks = false,
 }: {
   body: string;
@@ -85,6 +88,8 @@ export function ProjectMarkdown({
   headingIdPrefix?: string;
   headingLinks?: Record<string, string>;
   paginated?: boolean;
+  notebookPageBreaks?: boolean;
+  hasPrecedingContent?: boolean;
   preserveSoftBreaks?: boolean;
 }) {
   const { tokens, headings } = parseProjectMarkdown(body, {
@@ -170,152 +175,186 @@ export function ProjectMarkdown({
           return <Fragment key={index}>{content}</Fragment>;
       }
     });
-  const block = (list: readonly MarkdownReadonly<Token>[]): ReactNode =>
-    list.map((token, index) => {
-      switch (token.type) {
-        case 'space':
-        case 'def':
-        // Tight task lists put their checkbox metadata directly in the block
-        // tokens; loose lists put it inside the first paragraph's inline tokens.
-        // Both are rendered once by the parent list item.
-        case 'checkbox':
-          return null;
-        case 'heading': {
-          const heading = headings[headingIndex++];
-          return createElement(
-            `h${Math.max(2, Math.min(6, token.depth))}`,
-            {
-              key: index,
-              id: heading ? headingIdPrefix + heading.id : undefined,
-            },
-            inline(token.tokens),
+  const block = (
+    list: readonly MarkdownReadonly<Token>[],
+    allowPageBreaks = false,
+  ): ReactNode => {
+    let hasContent = allowPageBreaks && hasPrecedingContent;
+    let pageBreak = false;
+    return list.map((token, index) => {
+      if (
+        allowPageBreaks &&
+        token.type === 'html' &&
+        token.raw.trim() === NOTEBOOK_PAGE_BREAK
+      ) {
+        // A break belongs to the next visible block, never an empty page.
+        // Repeated/trailing markers and breaks before any ink add no blank leaves.
+        pageBreak = hasContent;
+        return null;
+      }
+      const content = renderBlock(token, index);
+      if (content === null) return null;
+      const result =
+        paginated && pageBreak ? (
+          <div className="notebook-page-start" key={index}>
+            {content}
+          </div>
+        ) : (
+          content
+        );
+      hasContent = true;
+      pageBreak = false;
+      return result;
+    });
+  };
+  const renderBlock = (
+    token: MarkdownReadonly<Token>,
+    index: number,
+  ): ReactNode => {
+    switch (token.type) {
+      case 'space':
+      case 'def':
+      // Tight task lists put their checkbox metadata directly in the block
+      // tokens; loose lists put it inside the first paragraph's inline tokens.
+      // Both are rendered once by the parent list item.
+      case 'checkbox':
+        return null;
+      case 'heading': {
+        const heading = headings[headingIndex++];
+        return createElement(
+          `h${Math.max(2, Math.min(6, token.depth))}`,
+          {
+            key: index,
+            id: heading ? headingIdPrefix + heading.id : undefined,
+          },
+          inline(token.tokens),
+        );
+      }
+      case 'paragraph': {
+        const paragraphTokens = token.tokens ?? [];
+        const single =
+          paragraphTokens.length === 1 ? paragraphTokens[0] : undefined;
+        if (single?.type === 'link' || single?.type === 'image') {
+          const href = projectContentUrl(single.href, 'media');
+          const item = media.find(
+            (asset) => asset.url === href || `/media/${asset.id}` === href,
           );
-        }
-        case 'paragraph': {
-          const paragraphTokens = token.tokens ?? [];
-          const single =
-            paragraphTokens.length === 1 ? paragraphTokens[0] : undefined;
-          if (single?.type === 'link' || single?.type === 'image') {
-            const href = projectContentUrl(single.href, 'media');
-            const item = media.find(
-              (asset) => asset.url === href || `/media/${asset.id}` === href,
+          if (item && String(item.mime).startsWith('video/'))
+            return (
+              <ProjectMedia
+                key={index}
+                item={{ ...item, alt: single.text || item.alt }}
+                media={media}
+                caption={false}
+              />
             );
-            if (item && String(item.mime).startsWith('video/'))
-              return (
-                <ProjectMedia
-                  key={index}
-                  item={{ ...item, alt: single.text || item.alt }}
-                  media={media}
-                  caption={false}
-                />
-              );
-          }
-          // Block media must not be nested in a <p>; images in prose remain inline.
-          const onlyMedia =
-            paragraphTokens.length === 1 && paragraphTokens[0].type === 'image';
-          return onlyMedia ? (
-            <div className="project-markdown-media" key={index}>
-              {inline(token.tokens)}
-            </div>
-          ) : (
-            <p key={index}>{inline(token.tokens)}</p>
-          );
         }
-        case 'text':
-          return (
-            <Fragment key={index}>
-              {token.tokens ? inline(token.tokens) : decodeHTML(token.text)}
-            </Fragment>
-          );
-        case 'blockquote':
-          return (
-            <blockquote key={index}>{block(token.tokens ?? [])}</blockquote>
-          );
-        case 'list': {
-          const list = token as MarkdownReadonly<Tokens.List>;
-          return createElement(
-            list.ordered ? 'ol' : 'ul',
-            { key: index, ...(list.ordered ? { start: list.start } : {}) },
-            list.items.map((item, itemIndex) => (
-              <li
-                key={itemIndex}
-                className={item.task ? 'project-task-item' : undefined}
-              >
-                {item.task && (
-                  <input
-                    type="checkbox"
-                    checked={!!item.checked}
-                    disabled
-                    aria-label={item.text}
-                  />
-                )}
-                {block(item.tokens)}
-              </li>
-            )),
-          );
-        }
-        case 'code':
-          return (
-            <pre key={index}>
-              <code>{token.text}</code>
-            </pre>
-          );
-        case 'hr':
-          return <hr key={index} />;
-        case 'table':
-          return (
-            <div
-              key={index}
-              className="project-markdown-table"
-              role="region"
-              aria-label={paginated ? 'Table' : 'Scrollable table'}
-              tabIndex={paginated ? undefined : 0}
+        // Block media must not be nested in a <p>; images in prose remain inline.
+        const onlyMedia =
+          paragraphTokens.length === 1 && paragraphTokens[0].type === 'image';
+        return onlyMedia ? (
+          <div className="project-markdown-media" key={index}>
+            {inline(token.tokens)}
+          </div>
+        ) : (
+          <p key={index}>{inline(token.tokens)}</p>
+        );
+      }
+      case 'text':
+        return (
+          <Fragment key={index}>
+            {token.tokens ? inline(token.tokens) : decodeHTML(token.text)}
+          </Fragment>
+        );
+      case 'blockquote':
+        return <blockquote key={index}>{block(token.tokens ?? [])}</blockquote>;
+      case 'list': {
+        const list = token as MarkdownReadonly<Tokens.List>;
+        return createElement(
+          list.ordered ? 'ol' : 'ul',
+          { key: index, ...(list.ordered ? { start: list.start } : {}) },
+          list.items.map((item, itemIndex) => (
+            <li
+              key={itemIndex}
+              className={item.task ? 'project-task-item' : undefined}
             >
-              <table>
-                <thead>
-                  <tr>
-                    {token.header.map(
-                      (
-                        cell: MarkdownReadonly<Tokens.TableCell>,
-                        cellIndex: number,
-                      ) => (
-                        <th key={cellIndex} scope="col">
-                          {inline(cell.tokens)}
-                        </th>
-                      ),
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {token.rows.map(
+              {item.task && (
+                <input
+                  type="checkbox"
+                  checked={!!item.checked}
+                  disabled
+                  aria-label={item.text}
+                />
+              )}
+              {block(item.tokens)}
+            </li>
+          )),
+        );
+      }
+      case 'code':
+        return (
+          <pre key={index}>
+            <code>{token.text}</code>
+          </pre>
+        );
+      case 'hr':
+        return <hr key={index} />;
+      case 'table':
+        return (
+          <div
+            key={index}
+            className="project-markdown-table"
+            role="region"
+            aria-label={paginated ? 'Table' : 'Scrollable table'}
+            tabIndex={paginated ? undefined : 0}
+          >
+            <table>
+              <thead>
+                <tr>
+                  {token.header.map(
                     (
-                      row: readonly MarkdownReadonly<Tokens.TableCell>[],
-                      rowIndex: number,
+                      cell: MarkdownReadonly<Tokens.TableCell>,
+                      cellIndex: number,
                     ) => (
-                      <tr key={rowIndex}>
-                        {row.map((cell, cellIndex) => (
-                          <td key={cellIndex}>{inline(cell.tokens)}</td>
-                        ))}
-                      </tr>
+                      <th key={cellIndex} scope="col">
+                        {inline(cell.tokens)}
+                      </th>
                     ),
                   )}
-                </tbody>
-              </table>
-            </div>
-          );
-        case 'html':
-          return (
-            <p key={index} className="project-markdown-literal">
-              {token.text}
-            </p>
-          );
-        default:
-          return (
-            <Fragment key={index}>
-              {'text' in token ? String(token.text) : token.raw}
-            </Fragment>
-          );
-      }
-    });
-  return <div className="project-markdown">{block(tokens)}</div>;
+                </tr>
+              </thead>
+              <tbody>
+                {token.rows.map(
+                  (
+                    row: readonly MarkdownReadonly<Tokens.TableCell>[],
+                    rowIndex: number,
+                  ) => (
+                    <tr key={rowIndex}>
+                      {row.map((cell, cellIndex) => (
+                        <td key={cellIndex}>{inline(cell.tokens)}</td>
+                      ))}
+                    </tr>
+                  ),
+                )}
+              </tbody>
+            </table>
+          </div>
+        );
+      case 'html':
+        return (
+          <p key={index} className="project-markdown-literal">
+            {token.text}
+          </p>
+        );
+      default:
+        return (
+          <Fragment key={index}>
+            {'text' in token ? String(token.text) : token.raw}
+          </Fragment>
+        );
+    }
+  };
+  return (
+    <div className="project-markdown">{block(tokens, notebookPageBreaks)}</div>
+  );
 }

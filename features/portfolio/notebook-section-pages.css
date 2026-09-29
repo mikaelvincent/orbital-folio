@@ -49,6 +49,15 @@
   orphans: 2;
   widows: 2;
 }
+.notebook-ink .notebook-page-start {
+  break-before: column;
+}
+.notebook-ink .notebook-page-start > :first-child {
+  margin-top: 0;
+}
+.notebook-ink .notebook-page-start > :last-child {
+  margin-bottom: 0;
+}
 .notebook-ink .project-markdown :is(h2, h3, h4, h5, h6) {
   margin: 1em 0 0.5em;
   break-after: avoid;

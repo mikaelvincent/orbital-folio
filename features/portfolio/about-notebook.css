@@ -55,6 +55,22 @@
   inset: 0;
   pointer-events: none;
 }
+.notebook-close {
+  position: absolute;
+  top: 7px;
+  right: calc(var(--notebook-paper-left) + 6px);
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--carbon);
+  background: transparent;
+  pointer-events: auto;
+}
+.notebook-close:hover {
+  background: color-mix(in srgb, var(--ink-muted) 12%, transparent);
+}
 .notebook-marker {
   position: absolute;
   pointer-events: auto;

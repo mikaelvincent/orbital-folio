@@ -248,9 +248,10 @@ mipmaps).
 Close reading and moving leaves use native HTML for sharp text and
 working links. Unsupported media, failed/empty captures or content exceeding the
 capture budget keep native HTML. Passive previews are excluded from keyboard/
-accessibility navigation; only the active reader owns focus IDs. Closing preserves
-page/section positions. Notebook feedback follows its rounded cloth cover without
-a second rectangular HTML outline.
+accessibility navigation; only the active reader owns focus IDs. An X at the
+notebook's top right returns to room view; existing outside-click and Escape
+dismissal remain available. Closing preserves page/section positions. Notebook
+feedback follows its rounded cloth cover without a second rectangular HTML outline.
 
 For native ink, reuse the notebook's stationary occluder polygons while the dish
 moves; keep the dish's separate contribution live so it can still hide ink from any angle.
@@ -259,17 +260,19 @@ Cached ink uses normal WebGL depth and skips HTML projection/occlusion work.
 Native labels and reader controls reuse settled projections until their view,
 layout, interaction, animation or content changes, including live collection edits.
 
-Journal entries are sections with automatic fixed-page pagination, not manually
-authored pages or scrolling paper. Keep the header rule on every page. Show the
-current section title only on left pages after the section's first page, aligned
-left; the opening page retains its main title in the body. Bottom arrows
-turn within the current section and stop at its ends; hide them for a single
-spread. Keep an odd final right page
-blank instead of repeating text. Center footer numbers within each page, keeping
-the arrows at the outer edges. Show the page number and section total on both
-pages without the word “Page” (left `1 of 12`, right `2 of 12`). Leave an odd
-final blank right page unnumbered. Settled and turning pages share the same footer
-format. Retain the full screen-reader announcement. Each crossed leaf turns,
+Journal entries are sections with automatic fixed-page pagination and optional
+authored page breaks that move the following content to the next page. Repeated
+or trailing breaks never add empty pages; a leading break only advances when the
+section introduction already occupies the first page. Keep the header rule on
+every page. Show the current section title only on left pages after the section's
+first page, aligned left; the opening page retains its main title in the body.
+Bottom arrows turn within the current section and stop at its ends; hide them for
+a single spread. Keep an odd final right page blank instead of repeating text,
+exclude it from the section total and hide its entire pagination footer. Center
+footer numbers within each page, keeping the arrows at the outer edges. Show the
+page number and section total on populated pages without the word “Page” (left
+`1 of 12`, right `2 of 12`). Settled and turning pages share the same footer format.
+Retain the full screen-reader announcement. Each crossed leaf turns,
 including section jumps within a bounded animation budget; reduced motion settles
 immediately.
 Native ink follows both faces: the earlier spread’s right page on the front and
@@ -293,8 +296,8 @@ reading rather than enlarging the spread's text to compensate for small screens.
 Portrait uses the same full
 spread, page dimensions, typography and attached flags, scaled to fit. Do not
 crop to one page, stretch paper or reflow mobile text. Reading view is the narrow
-screen alternative. Studio preview uses the same measured ink area and pagination;
-old page-break comments become paragraph breaks without corrupting code examples.
+screen alternative. Studio preview uses the same measured ink area, pagination
+and authored breaks; see [notebook authoring](OPERATIONS.md#authoring-notebook-sections).
 
 The square portrait is passive and has independent nondestructive room/Reading
 view crops. Failed/absent images leave fallback art and never block scene entry.

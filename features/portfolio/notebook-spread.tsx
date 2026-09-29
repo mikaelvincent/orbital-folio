@@ -46,6 +46,7 @@ export function NotebookSpread({
           <div
             className="notebook-page"
             data-side={side ? 'right' : 'left'}
+            data-empty={number > pageCount}
             key={side}
             style={{ left: side * NOTEBOOK_COLUMN_STRIDE }}
           >

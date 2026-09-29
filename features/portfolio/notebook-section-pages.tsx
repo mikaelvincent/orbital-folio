@@ -181,6 +181,8 @@ export function NotebookSectionPages({
         {biography && <p className="notebook-biography">{biography}</p>}
         <ProjectMarkdown
           paginated
+          notebookPageBreaks
+          hasPrecedingContent={!!(title || subtitle || biography)}
           preserveSoftBreaks
           body={markdown}
           media={media}

@@ -270,6 +270,7 @@ export function AboutView({ data }: { data: Portfolio }) {
                 body={normalizeNotebookBody(j.body || '')}
                 media={data.media}
                 headingIdPrefix={`journal-${j.id}-`}
+                notebookPageBreaks
                 preserveSoftBreaks
               />
             </article>

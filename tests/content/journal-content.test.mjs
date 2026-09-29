@@ -29,6 +29,7 @@ const {
   normalizeNotebookBody,
   notebookSpreadCount,
   notebookPageOffset,
+  insertNotebookPageBreak,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(helpers.outputFiles[0].text).toString('base64')
@@ -109,6 +110,25 @@ test('legacy page markers become paragraph breaks while code and authored whites
     validateContent('journal', { ...chapter, body: 'x'.repeat(8000) }).body
       .length,
     8000,
+  );
+});
+
+test('inserting a notebook page break keeps all surrounding text and returns the next-page caret', () => {
+  const body = 'First paragraph.\n\nSecond paragraph.';
+  const inserted = insertNotebookPageBreak(body, body.indexOf('Second'));
+  assert.equal(
+    inserted.body,
+    'First paragraph.\n\n<!-- page-break -->\n\nSecond paragraph.',
+  );
+  assert.equal(inserted.body.slice(inserted.caret), 'Second paragraph.');
+  assert.equal(normalizeNotebookBody(inserted.body), inserted.body);
+  assert.equal(
+    insertNotebookPageBreak('Keep all this text.', 5).body,
+    'Keep \n\n<!-- page-break -->\n\nall this text.',
+  );
+  assert.equal(
+    insertNotebookPageBreak('Last paragraph.').body,
+    'Last paragraph.\n\n<!-- page-break -->\n\n',
   );
 });
 
@@ -254,7 +274,7 @@ test('Studio journal editing uses shared Markdown preview and managed media cont
   );
 });
 
-test('journal editor keeps one continuous Markdown field without manual page controls or fit-gated saving', async () => {
+test('journal editor offers optional page breaks in one Markdown field without page-fit save gates', async () => {
   const { StudioContentFields } = await loadComponent(
     'features/studio/studio-content-fields.tsx',
   );
@@ -278,11 +298,83 @@ test('journal editor keeps one continuous Markdown field without manual page con
   assert.match(markup, /maxLength="100000"/);
   assert.match(markup, /First part\n\nSecond part/);
   assert.match(markup, /Pages are laid out automatically/);
+  assert.match(markup, /Insert page break/);
   assert.doesNotMatch(
     markup,
     /Section pages|Add page|Remove page|Checking paper fit|1,800/,
   );
   assert.doesNotMatch(markup, /&lt;!-- notebook-page --&gt;/);
+});
+
+test('notebook breaks start the next content block without empty leaves or resetting heading/link identities', async () => {
+  const { ProjectMarkdown } = await loadComponent(
+    'features/portfolio/project-markdown.tsx',
+  );
+  const marker = '<!-- page-break -->';
+  const body = [
+    marker,
+    '## Notes',
+    '[Read more][source]',
+    marker,
+    marker,
+    '[source]: https://example.com',
+    '## Notes',
+    'The next page keeps all of this content.',
+    marker,
+  ].join('\n\n');
+  const props = { body, notebookPageBreaks: true, headingIdPrefix: 'journal-' };
+  const paper = render(ProjectMarkdown, { ...props, paginated: true });
+  assert.equal((paper.match(/class="notebook-page-start"/g) || []).length, 1);
+  assert.match(paper, /id="journal-project-notes"/);
+  assert.match(
+    paper,
+    /class="notebook-page-start"><h2 id="journal-project-notes-2"/,
+  );
+  assert.match(paper, /href="https:\/\/example.com"/);
+  assert.doesNotMatch(paper, /page-break/);
+  const reading = render(ProjectMarkdown, props);
+  assert.doesNotMatch(reading, /notebook-page-start|page-break/);
+  assert.match(reading, /The next page keeps all of this content/);
+  const ordinary = render(ProjectMarkdown, { body });
+  assert.match(ordinary, /&lt;!-- page-break --&gt;/);
+  assert.doesNotMatch(ordinary, /notebook-page-start/);
+  const { NotebookSectionPages } = await loadComponent(
+    'features/portfolio/notebook-section-pages.tsx',
+  );
+  const openingBreak = {
+    body: `${marker}\n\n${marker}\n\nBegin the story.\n\n${marker}`,
+    page: 0,
+  };
+  const introduced = render(NotebookSectionPages, {
+    ...openingBreak,
+    title: 'Opening title',
+    biography: 'The introduction stays on the first page.',
+  });
+  assert.equal(
+    (introduced.match(/class="notebook-page-start"/g) || []).length,
+    1,
+  );
+  assert.match(introduced, /notebook-page-start"><p>Begin the story/);
+  const noIntroduction = render(NotebookSectionPages, {
+    ...openingBreak,
+    title: '',
+  });
+  assert.doesNotMatch(noIntroduction, /notebook-page-start/);
+  for (const example of [
+    '```md\n<!-- page-break -->\n```',
+    '    <!-- page-break -->',
+    '`<!-- page-break -->`',
+    '> <!-- page-break -->',
+    '<!-- page-break --><script>alert(1)</script>',
+  ]) {
+    const literal = render(ProjectMarkdown, {
+      body: example,
+      paginated: true,
+      notebookPageBreaks: true,
+    });
+    assert.match(literal, /&lt;!-- page-break --&gt;/);
+    assert.doesNotMatch(literal, /notebook-page-start|<script>/);
+  }
 });
 
 test('journal paper preview includes the biography from the prospective published notebook, ignoring unrelated private drafts', async () => {
@@ -403,6 +495,7 @@ test('mounted notebook shows page controls only for sections with multiple pages
   };
   const props = {
     data,
+    interactive: true,
     section: 0,
     page: 0,
     ready: true,
@@ -410,8 +503,14 @@ test('mounted notebook shows page controls only for sections with multiple pages
     onSectionChange() {},
     onPageChange() {},
     onPageCount() {},
+    onClose() {},
   };
   const one = render(AboutNotebook, props);
+  assert.match(one, /aria-label="Close notebook"/);
+  assert.doesNotMatch(
+    render(AboutNotebook, { ...props, interactive: false }),
+    /aria-label="Close notebook"/,
+  );
   assert.doesNotMatch(
     one,
     /Back to About|notebook-page-footer|Previous page in section|Next page in section/,
@@ -441,6 +540,8 @@ test('mounted notebook shows page controls only for sections with multiple pages
   assert.match(several, /aria-live="polite" aria-atomic="true">Pages 1–2 of 3/);
   const last = render(AboutNotebook, { ...props, pageCounts: [3], page: 1 });
   assert.deepEqual(footerLabels(last), ['3 of 3', '']);
+  assert.match(last, /data-side="right" data-empty="true"/);
+  assert.match(last, /Pages 3–3 of 3/);
   assert.match(last, /disabled="" aria-label="Next page in section"/);
   const evenLast = render(AboutNotebook, {
     ...props,
@@ -448,6 +549,7 @@ test('mounted notebook shows page controls only for sections with multiple pages
     page: 1,
   });
   assert.deepEqual(footerLabels(evenLast), ['3 of 4', '4 of 4']);
+  assert.doesNotMatch(evenLast, /data-empty="true"/);
 
   assert.doesNotMatch(several, /Back to About/);
 });

@@ -122,6 +122,7 @@ export function createNotebookTurnInk(
       .forEach((paper, index) => {
         const label = paper.querySelector('.notebook-page-footer span');
         const number = page * 2 + index + 1;
+        paper.dataset.empty = String(number > count);
         if (label) label.textContent = notebookPageLabel(number, count);
         paper.querySelectorAll('button').forEach((button) => {
           button.disabled = index === 0 ? page === 0 : (page + 1) * 2 >= count;

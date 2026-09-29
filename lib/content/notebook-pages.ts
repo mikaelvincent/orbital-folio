@@ -39,6 +39,20 @@ export function normalizeNotebookBody(body: string) {
   return splitLegacyNotebookPages(body).join('\n\n');
 }
 
+export const NOTEBOOK_PAGE_BREAK = '<!-- page-break -->';
+
+/** Insert a break at the caret without deleting any of the following story. */
+export function insertNotebookPageBreak(body: string, position = body.length) {
+  const from = Math.max(0, Math.min(position, body.length));
+  const prefix = body.slice(0, from);
+  const suffix = body.slice(from);
+  const inserted = `${prefix && !prefix.endsWith('\n\n') ? '\n\n' : ''}${NOTEBOOK_PAGE_BREAK}\n\n`;
+  return {
+    body: prefix + inserted + suffix,
+    caret: prefix.length + inserted.length,
+  };
+}
+
 export function notebookPageOffset(counts: number[], section: number) {
   return counts
     .slice(0, section)

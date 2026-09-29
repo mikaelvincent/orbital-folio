@@ -5,6 +5,7 @@ import {
   FileText,
   ImagePlus,
   Monitor,
+  SeparatorHorizontal,
   Smartphone,
   Upload,
 } from 'lucide-react';
@@ -22,7 +23,10 @@ import {
   caseStudyCategories,
 } from '@/lib/content/case-study-content';
 import type { Content } from '@/lib/content/types';
-import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
+import {
+  insertNotebookPageBreak,
+  normalizeNotebookBody,
+} from '@/lib/content/notebook-pages';
 import { JournalPagePreview } from './journal-page-preview';
 import {
   ProjectMarkdown,
@@ -136,6 +140,18 @@ export function ProjectEditor({
     });
     selection.current = { start: inserted.caret, end: inserted.caret };
     setMode('write');
+    requestAnimationFrame(() => {
+      source.current?.focus();
+      source.current?.setSelectionRange(inserted.caret, inserted.caret);
+    });
+  };
+  const insertPageBreak = () => {
+    const inserted = insertNotebookPageBreak(
+      normalizeNotebookBody(storyBody(dataRef.current)),
+      selection.current?.start,
+    );
+    onChange({ ...dataRef.current, body: inserted.body });
+    selection.current = { start: inserted.caret, end: inserted.caret };
     requestAnimationFrame(() => {
       source.current?.focus();
       source.current?.setSelectionRange(inserted.caret, inserted.caret);
@@ -347,6 +363,16 @@ export function ProjectEditor({
               }}
             >
               Use section starter
+            </button>
+          )}
+          {isJournal && mode === 'write' && (
+            <button
+              type="button"
+              onClick={insertPageBreak}
+              title="Move the following content to the next notebook page"
+            >
+              <SeparatorHorizontal size={15} aria-hidden="true" />
+              Insert page break
             </button>
           )}
           {mode === 'preview' && !isJournal && (

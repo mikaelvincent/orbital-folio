@@ -94,12 +94,12 @@ test('turning and stationary page copies retain the settled footer format throug
   const turnInk = createNotebookTurnInk(THREE, layer, reader, notebook);
   t.after(() => turnInk.dispose());
   const [under, front, back] = layer.children;
+  const visiblePaper = (slot) =>
+    slot.firstElementChild.querySelectorAll('.notebook-page')[
+      slot.dataset.side === 'right' ? 1 : 0
+    ];
   const visibleLabel = (slot) =>
-    slot.firstElementChild
-      .querySelectorAll('.notebook-page')
-      [slot.dataset.side === 'right' ? 1 : 0].querySelector(
-        '.notebook-page-footer span',
-      ).textContent;
+    visiblePaper(slot).querySelector('.notebook-page-footer span').textContent;
   /** @type {[number, number, string[]][]} */
   const turns = [
     [0, 1, ['1 of 3', '2 of 3', '3 of 3', '']],
@@ -116,6 +116,13 @@ test('turning and stationary page copies retain the settled footer format throug
       [under.children[0], front, back, under.children[1]].map(visibleLabel),
       expected,
       `Leaf ${settledChapter}, direction ${turnDirection}: all four exposed page faces use the settled wording`,
+    );
+    assert.deepEqual(
+      [under.children[0], front, back, under.children[1]].map(
+        (slot) => visiblePaper(slot).dataset.empty,
+      ),
+      expected.map((label) => String(!label)),
+      'Blank-page pagination stays hidden during turns and returns on filled pages',
     );
   }
   notebook.turning = false;
