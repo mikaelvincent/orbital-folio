@@ -48,10 +48,19 @@ change benefits from it; routine edits do not require a critic, numeric score,
 exhaustive screen sweep or permanent report. Ordinary functional work needs no
 benchmarking or thermal monitoring. Report actual checks and limitations.
 
-Preserve unrelated work and give parallel agents bounded file ownership. Work
-only on the current branch; do not create or switch branches. Commit completed
-changes in logical groups, stage explicit paths and report remaining uncommitted
-work. A local change does not authorize push or deployment.
+Preserve unrelated work and give parallel agents bounded file ownership.
+
+Work on the current branch by default. Create or switch branches only when the
+owner explicitly requests it or a concrete workflow limitation requires
+isolation, such as parallel agents that cannot safely share a checkout. Explain
+the limitation before using that exception; do not create branches routinely.
+After completing work on a temporary branch, integrate its changes into `main`,
+return to `main`, and delete the task's temporary branches and clean up its
+temporary worktrees once their work is preserved and they are no longer in use.
+Preserve unrelated branches, worktrees and unfinished work.
+
+Commit completed changes in logical groups, stage explicit paths and report
+remaining uncommitted work. A local change does not authorize push or deployment.
 
 ## Keep the repository lean
 
