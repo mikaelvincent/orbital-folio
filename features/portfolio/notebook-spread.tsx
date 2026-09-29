@@ -2,6 +2,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   NOTEBOOK_COLUMN_STRIDE,
+  notebookPageLabel,
   notebookSpreadCount,
 } from '@/lib/content/notebook-pages';
 import {
@@ -42,8 +43,7 @@ export function NotebookSpread({
       />
       {[0, 1].map((side) => {
         const number = page * 2 + side + 1;
-        const pageLabel =
-          number <= pageCount ? `${number} of ${pageCount}` : '';
+        const pageLabel = notebookPageLabel(number, pageCount);
         return (
           <div
             className="notebook-page"

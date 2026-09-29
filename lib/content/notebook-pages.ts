@@ -51,3 +51,8 @@ export const NOTEBOOK_COLUMN_STRIDE = 494;
 export function notebookSpreadCount(pages: number) {
   return Math.max(1, Math.ceil(pages / 2));
 }
+
+/** Keep the semantic spread and animated page copies on the same footer format. */
+export function notebookPageLabel(number: number, total: number) {
+  return number <= total ? `${number} of ${total}` : '';
+}

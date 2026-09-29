@@ -1,5 +1,8 @@
 import { createProjectedSurface } from './projected-surface.ts';
-import { NOTEBOOK_COLUMN_STRIDE } from '../../lib/content/notebook-pages.ts';
+import {
+  NOTEBOOK_COLUMN_STRIDE,
+  notebookPageLabel,
+} from '../../lib/content/notebook-pages.ts';
 
 /** The lower spread supplies the front; the higher one supplies the reverse. */
 export function notebookTurnPages(settled: number, direction: number) {
@@ -119,9 +122,7 @@ export function createNotebookTurnInk(
       .forEach((paper, index) => {
         const label = paper.querySelector('.notebook-page-footer span');
         const number = page * 2 + index + 1;
-        if (label)
-          label.textContent =
-            number <= count ? `Page ${number} of ${count}` : '';
+        if (label) label.textContent = notebookPageLabel(number, count);
         paper.querySelectorAll('button').forEach((button) => {
           button.disabled = index === 0 ? page === 0 : (page + 1) * 2 >= count;
         });

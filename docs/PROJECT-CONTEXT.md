@@ -253,9 +253,10 @@ and stop at its ends; hide them for a single spread. Keep an odd final right pag
 blank instead of repeating text. Center footer numbers within each page, keeping
 the arrows at the outer edges. Show the page number and section total on both
 pages without the word “Page” (left `1 of 12`, right `2 of 12`). Leave an odd
-final blank right page unnumbered. Retain
-the full screen-reader announcement. Each crossed leaf turns, including
-section jumps within a bounded animation budget; reduced motion settles immediately.
+final blank right page unnumbered. Settled and turning pages share the same footer
+format. Retain the full screen-reader announcement. Each crossed leaf turns,
+including section jumps within a bounded animation budget; reduced motion settles
+immediately.
 Native ink follows both faces: the earlier spread’s right page on the front and
 the next spread’s left page on the reverse. Keep the stationary outer pages visible
 beneath the turn, suppress input on hidden ink, and restore keyboard focus after

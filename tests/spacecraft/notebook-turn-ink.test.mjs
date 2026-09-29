@@ -7,9 +7,122 @@ import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts'
 import { fitAboutNotebook } from '../../features/spacecraft/navigation/about-notebook.ts';
 import { createNotebookOcclusion } from '../../features/spacecraft/notebook-occlusion.ts';
 import {
+  createNotebookTurnInk,
   notebookTurnPages,
   notebookPageLocation,
 } from '../../features/spacecraft/notebook-turn-ink.ts';
+
+test('turning and stationary page copies retain the settled footer format through forward, reverse and section turns', (t) => {
+  const previousDocument = Object.getOwnPropertyDescriptor(
+    globalThis,
+    'document',
+  );
+  t.after(() => {
+    if (previousDocument)
+      Object.defineProperty(globalThis, 'document', previousDocument);
+    else delete globalThis.document;
+  });
+  const element = () => ({
+    style: {},
+    dataset: {},
+    children: [],
+    setAttribute() {},
+    removeAttribute() {},
+    matches: () => false,
+    contains: () => false,
+    querySelector: () => null,
+    querySelectorAll: () => [],
+    appendChild(child) {
+      this.children.push(child);
+    },
+    replaceChildren(...children) {
+      this.children = children;
+      this.firstElementChild = children[0] || null;
+    },
+    remove() {},
+  });
+  const spread = (count) => {
+    const copy = element();
+    const columns = element();
+    const ink = { ...element(), dataset: { pageCount: String(count) } };
+    const papers = [1, 2].map((number) => {
+      const label = { ...element(), textContent: `${number} of ${count}` };
+      const button = element();
+      return {
+        ...element(),
+        querySelector: () => label,
+        querySelectorAll: () => [button],
+      };
+    });
+    copy.cloneNode = () => spread(count);
+    copy.querySelector = (selector) =>
+      selector === '.notebook-columns' ? columns : ink;
+    copy.querySelectorAll = (selector) =>
+      selector === '.notebook-page' ? papers : [];
+    return copy;
+  };
+  const sources = [spread(3), spread(4)];
+  const root = element();
+  const reader = {
+    ...element(),
+    querySelector: (selector) =>
+      selector === '.about-notebook'
+        ? root
+        : sources[Number(selector.match(/"(\d+)"/)[1])],
+  };
+  Object.defineProperty(globalThis, 'document', {
+    configurable: true,
+    writable: true,
+    value: { createElement: element, activeElement: null },
+  });
+  const layer = element();
+  const anchor = { matrixWorld: new THREE.Matrix4() };
+  const notebook = {
+    chapters: [{ pageCount: 2 }, { pageCount: 2 }],
+    pixelsWidth: 980,
+    pixelsHeight: 566,
+    leftPage: { x: 0, width: 486 },
+    page: { x: 494, width: 486 },
+    anchor,
+    turningLeaf: anchor,
+    turnAnchors: [anchor, anchor],
+    turning: true,
+  };
+  const camera = new THREE.PerspectiveCamera(38, 16 / 9, 0.08, 100);
+  camera.position.z = 3;
+  camera.updateMatrixWorld(true);
+  const turnInk = createNotebookTurnInk(THREE, layer, reader, notebook);
+  t.after(() => turnInk.dispose());
+  const [under, front, back] = layer.children;
+  const visibleLabel = (slot) =>
+    slot.firstElementChild
+      .querySelectorAll('.notebook-page')
+      [slot.dataset.side === 'right' ? 1 : 0].querySelector(
+        '.notebook-page-footer span',
+      ).textContent;
+  /** @type {[number, number, string[]][]} */
+  const turns = [
+    [0, 1, ['1 of 3', '2 of 3', '3 of 3', '']],
+    [1, -1, ['1 of 3', '2 of 3', '3 of 3', '']],
+    [1, 1, ['3 of 3', '', '1 of 4', '2 of 4']],
+    [2, -1, ['3 of 3', '', '1 of 4', '2 of 4']],
+    [2, 1, ['1 of 4', '2 of 4', '3 of 4', '4 of 4']],
+  ];
+  for (const [settledChapter, turnDirection, expected] of turns) {
+    Object.assign(notebook, { settledChapter, turnDirection });
+    turnInk.update(camera, 1280, 720, true);
+    assert.equal(reader.dataset.turning, 'true');
+    assert.deepEqual(
+      [under.children[0], front, back, under.children[1]].map(visibleLabel),
+      expected,
+      `Leaf ${settledChapter}, direction ${turnDirection}: all four exposed page faces use the settled wording`,
+    );
+  }
+  notebook.turning = false;
+  turnInk.update(camera, 1280, 720, true);
+  assert.equal(reader.dataset.turning, 'false');
+  assert.ok(layer.children.every((surface) => surface.children.length === 0));
+});
 
 test('Each physical leaf carries its own adjacent Markdown pages through multi-section jumps and reversal', () => {
   const journal = [
