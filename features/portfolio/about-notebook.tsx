@@ -85,7 +85,6 @@ export function AboutNotebook({
         disabled={!interactive}
         aria-hidden={!interactive}
         aria-label={interactive ? 'Close notebook' : undefined}
-        title={interactive ? 'Return to room view' : undefined}
         onClick={interactive ? onClose : undefined}
       >
         <svg
@@ -120,7 +119,6 @@ export function AboutNotebook({
             }}
             aria-current={flag.index === section ? 'page' : undefined}
             aria-label={`Section ${flag.index + 1}: ${data.journal[flag.index].title}`}
-            title={data.journal[flag.index].title}
             onClick={() => onSectionChange(flag.index)}
           >
             <span>{String(flag.index + 1).padStart(2, '0')}</span>

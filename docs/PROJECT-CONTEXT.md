@@ -254,7 +254,8 @@ and is included in the same page-texture capture. In close reading it returns to
 room view, with a subtle warm hover wash following the X strokes; existing
 outside-click and Escape dismissal remain available. Closing preserves page/section
 positions. Notebook feedback follows its rounded cloth cover without a second
-rectangular HTML outline.
+rectangular HTML outline. The X and section markers have no hover tooltips;
+retain their accessible labels and hover/focus feedback.
 
 For native ink, reuse the notebook's stationary occluder polygons while the dish
 moves; keep the dish's separate contribution live so it can still hide ink from any angle.
