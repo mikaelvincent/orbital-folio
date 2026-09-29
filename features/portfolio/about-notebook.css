@@ -61,15 +61,32 @@
   right: calc(var(--notebook-paper-left) + 6px);
   width: 40px;
   height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
   color: var(--carbon);
   background: transparent;
   pointer-events: auto;
 }
-.notebook-close:hover {
-  background: color-mix(in srgb, var(--ink-muted) 12%, transparent);
+.about-notebook .notebook-close:disabled {
+  /* The passive mark is the same ink captured on the room's paper texture. */
+  opacity: 1;
+  pointer-events: none;
+}
+.notebook-close-wash {
+  stroke: #b59a65;
+  stroke-width: 7px;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.notebook-close:disabled .notebook-close-wash {
+  /* Room captures always receive resting ink, never a fading hover wash. */
+  transition: none;
+}
+.notebook-close:not(:disabled):is(:hover, :focus-visible) .notebook-close-wash {
+  /* A light pencil wash follows both strokes, leaving the paper unboxed. */
+  opacity: 0.45;
 }
 .notebook-marker {
   position: absolute;
@@ -109,7 +126,8 @@
   background: color-mix(in srgb, var(--ivory) 24%, transparent);
 }
 @media (prefers-reduced-motion: reduce) {
-  .notebook-marker {
+  .notebook-marker,
+  .notebook-close-wash {
     transition: none;
   }
 }

@@ -60,10 +60,17 @@ export async function createNotebookPageImage(
   ]);
   signal.throwIfAborted();
   const started = performance.now();
-  const nodes = [
-    source,
-    ...source.querySelectorAll<HTMLElement | SVGElement>('*'),
+  // The close mark stays outside the turning spread, but belongs to the same
+  // stationary paper capture. Keep its native layout instead of drawing a copy.
+  const close = source.parentElement?.querySelector<HTMLElement>(
+    ':scope > .notebook-close',
+  );
+  const roots = close ? [source, close] : [source];
+  const descendants = (root: HTMLElement) => [
+    root,
+    ...root.querySelectorAll<HTMLElement | SVGElement>('*'),
   ];
+  const nodes = roots.flatMap(descendants);
   if (
     nodes.length > 256 ||
     source.querySelector('video,audio,canvas,input,iframe,object,embed')
@@ -72,11 +79,10 @@ export async function createNotebookPageImage(
   if (document.fonts.status !== 'loaded' || !source.offsetWidth)
     throw new Error('Paper layout is not ready');
   signal.throwIfAborted();
-  const copy = source.cloneNode(true) as HTMLElement;
-  const copies = [
-    copy,
-    ...copy.querySelectorAll<HTMLElement | SVGElement>('*'),
-  ];
+  const [copy, closeCopy] = roots.map(
+    (root) => root.cloneNode(true) as HTMLElement,
+  );
+  const copies = [copy, ...(closeCopy ? [closeCopy] : [])].flatMap(descendants);
   for (let index = 0; index < nodes.length; index++) {
     const node = nodes[index],
       clone = copies[index];
@@ -112,6 +118,14 @@ export async function createNotebookPageImage(
     top: '0',
     transform: 'none',
   });
+  if (close && closeCopy) {
+    Object.assign(closeCopy.style, {
+      left: `${close.offsetLeft - source.offsetLeft}px`,
+      top: `${close.offsetTop - source.offsetTop}px`,
+      right: 'auto',
+    });
+    copy.appendChild(closeCopy);
+  }
   copy.querySelectorAll('.sr-only').forEach((element) => element.remove());
   const fontStyle = document.createElement('style');
   // Native pages use a same-origin URL under font-src 'self'. The image must

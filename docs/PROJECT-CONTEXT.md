@@ -248,10 +248,13 @@ mipmaps).
 Close reading and moving leaves use native HTML for sharp text and
 working links. Unsupported media, failed/empty captures or content exceeding the
 capture budget keep native HTML. Passive previews are excluded from keyboard/
-accessibility navigation; only the active reader owns focus IDs. An X at the
-notebook's top right returns to room view; existing outside-click and Escape
-dismissal remain available. Closing preserves page/section positions. Notebook
-feedback follows its rounded cloth cover without a second rectangular HTML outline.
+accessibility navigation; only the active reader owns focus IDs. The X at the
+notebook's top right stays visible as passive ink in room/overview/travel previews
+and is included in the same page-texture capture. In close reading it returns to
+room view, with a subtle warm hover wash following the X strokes; existing
+outside-click and Escape dismissal remain available. Closing preserves page/section
+positions. Notebook feedback follows its rounded cloth cover without a second
+rectangular HTML outline.
 
 For native ink, reuse the notebook's stationary occluder polygons while the dish
 moves; keep the dish's separate contribution live so it can still hide ink from any angle.

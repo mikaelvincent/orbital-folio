@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import {
   ABOUT_NOTEBOOK_LAYOUT,
@@ -80,17 +79,30 @@ export function AboutNotebook({
       }}
     >
       {paper(section)}
-      {interactive && (
-        <button
-          type="button"
-          className="notebook-close"
-          aria-label="Close notebook"
-          title="Return to room view"
-          onClick={onClose}
+      <button
+        type="button"
+        className="notebook-close"
+        disabled={!interactive}
+        aria-hidden={!interactive}
+        aria-label={interactive ? 'Close notebook' : undefined}
+        title={interactive ? 'Return to room view' : undefined}
+        onClick={interactive ? onClose : undefined}
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
         >
-          <X size={20} aria-hidden="true" />
-        </button>
-      )}
+          <path className="notebook-close-wash" d="m6 6 12 12M18 6 6 18" />
+          <path d="m6 6 12 12M18 6 6 18" />
+        </svg>
+      </button>
       <nav className="notebook-markers" aria-label="Notebook sections">
         {notebookMarkers(data.journal.length, section).map((flag) => (
           <button

@@ -507,10 +507,20 @@ test('mounted notebook shows page controls only for sections with multiple pages
   };
   const one = render(AboutNotebook, props);
   assert.match(one, /aria-label="Close notebook"/);
-  assert.doesNotMatch(
-    render(AboutNotebook, { ...props, interactive: false }),
-    /aria-label="Close notebook"/,
+  const passive = render(AboutNotebook, { ...props, interactive: false });
+  assert.doesNotMatch(passive, /aria-label="Close notebook"/);
+  const closeMark = (markup) =>
+    markup.match(/<button[^>]*class="notebook-close"[^>]*>(.*?)<\/button>/)[1];
+  assert.equal(
+    closeMark(passive),
+    closeMark(one),
+    'room previews and the active reader share the same close ink',
   );
+  assert.match(
+    passive,
+    /class="notebook-close" disabled="" aria-hidden="true"/,
+  );
+  assert.match(one, /class="notebook-close" aria-hidden="false"/);
   assert.doesNotMatch(
     one,
     /Back to About|notebook-page-footer|Previous page in section|Next page in section/,
