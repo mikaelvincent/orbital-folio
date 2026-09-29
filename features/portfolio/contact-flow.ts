@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../lib/content/interface-text.ts';
 export type ContactMode = 'call' | 'message';
 export type ContactDraft = {
   // null records an explicit return to the chooser across view remounts.
@@ -34,25 +35,31 @@ export function contactInboxMessage(draft: ContactDraft) {
   ].join('\n');
 }
 
-export function validateContactDraft(draft: ContactDraft): string | null {
+export function validateContactDraft(
+  draft: ContactDraft,
+  site: Record<string, any> = {},
+): string | null {
   if (draft.mode !== 'call' && draft.mode !== 'message')
-    return 'Choose Schedule a call or Send a message first.';
+    return copy(site, 'Choose Schedule a call or Send a message first.');
   if (text(draft.name).length > 120)
-    return 'Keep your name under 121 characters.';
+    return copy(site, 'Keep your name under 121 characters.');
   if (text(draft.company).length > 160)
-    return 'Keep your company name under 161 characters.';
+    return copy(site, 'Keep your company name under 161 characters.');
   if (text(draft.subject).length > 200)
-    return 'Keep the subject under 201 characters.';
+    return copy(site, 'Keep the subject under 201 characters.');
   if (
     text(draft.email).length > 254 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text(draft.email))
   ) {
-    return 'Enter a valid email address.';
+    return copy(site, 'Enter a valid email address.');
   }
   if (text(draft.message).length < 10)
-    return 'Please write a message of at least 10 characters.';
+    return copy(site, 'Please write a message of at least 10 characters.');
   if (contactInboxMessage(draft).length > CONTACT_MESSAGE_LIMIT) {
-    return 'Your message, company and subject together must fit within 5,000 characters. Please shorten them before sending.';
+    return copy(
+      site,
+      'Your message, company and subject together must fit within 5,000 characters. Please shorten them before sending.',
+    );
   }
   if (draft.mode !== 'message') {
     const date = text(draft.date);
@@ -62,18 +69,18 @@ export function validateContactDraft(draft: ContactDraft): string | null {
       !Number.isFinite(parsed.getTime()) ||
       parsed.toISOString().slice(0, 10) !== date
     ) {
-      return 'Choose a valid preferred date.';
+      return copy(site, 'Choose a valid preferred date.');
     }
     if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(text(draft.time)))
-      return 'Choose a valid preferred time.';
+      return copy(site, 'Choose a valid preferred time.');
     try {
       if (!draft.timeZone)
-        return 'Your time zone is not ready. Please try again.';
+        return copy(site, 'Your time zone is not ready. Please try again.');
       new Intl.DateTimeFormat('en', { timeZone: draft.timeZone }).format(
         parsed,
       );
     } catch {
-      return 'Your time zone could not be recognized.';
+      return copy(site, 'Your time zone could not be recognized.');
     }
   }
   return null;
@@ -87,8 +94,9 @@ export async function submitContactDraft(
   draft: ContactDraft,
   transport: ContactTransport,
   website = '',
+  site: Record<string, any> = {},
 ): Promise<'sent' | 'demo'> {
-  const error = validateContactDraft(draft);
+  const error = validateContactDraft(draft, site);
   if (error) throw new Error(error);
   if (draft.mode !== 'message') return 'demo';
 

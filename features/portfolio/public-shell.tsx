@@ -1,6 +1,5 @@
 import type { Portfolio } from '@/lib/content/types';
 import { ImmersivePortfolio } from './immersive-portfolio';
-export * from './portfolio-parts';
 export function PublicShell({
   data,
   active,

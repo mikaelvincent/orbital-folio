@@ -10,7 +10,9 @@ import {
   NOTEBOOK_MARKER_LIMIT,
 } from '../../features/spacecraft/rooms/about-notebook-layout.ts';
 
-function fixture(journal) {
+function fixture(
+  journal = [{ title: 'First' }, { title: 'Second' }, { title: 'Third' }],
+) {
   const root = new THREE.Group();
   root.userData.section = 'about';
   const helpers = createModelPrimitives(THREE, root, undefined, { about: [] });

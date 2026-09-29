@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import { useEffect, useRef } from 'react';
 import type { Portfolio } from '@/lib/content/types';
 import {
@@ -47,8 +48,9 @@ export function AboutNotebook({
     const item = data.journal[index];
     return (
       <NotebookSpread
+        site={s}
         section={index}
-        title={item?.title || s.aboutHeading || 'A little about me'}
+        title={item?.title || s.aboutHeading || copy(s, 'A little about me')}
         subtitle={item?.subtitle}
         body={item?.body || (!item ? s.emptyLabel || '' : '')}
         media={data.media}
@@ -69,7 +71,7 @@ export function AboutNotebook({
       className="about-notebook"
       id={interactive ? 'world-reader' : undefined}
       tabIndex={-1}
-      aria-label={`${s.journalLabel || 'Notebook'} · ${s.name}`}
+      aria-label={`${s.journalLabel || copy(s, 'Notebook')} · ${s.name}`}
       data-notebook-interface
       data-section={section}
       data-notebook-ready={ready}
@@ -84,7 +86,7 @@ export function AboutNotebook({
         className="notebook-close"
         disabled={!interactive}
         aria-hidden={!interactive}
-        aria-label={interactive ? 'Close notebook' : undefined}
+        aria-label={interactive ? copy(s, 'Close notebook') : undefined}
         onClick={interactive ? onClose : undefined}
       >
         <svg
@@ -102,7 +104,10 @@ export function AboutNotebook({
           <path d="m6 6 12 12M18 6 6 18" />
         </svg>
       </button>
-      <nav className="notebook-markers" aria-label="Notebook sections">
+      <nav
+        className="notebook-markers"
+        aria-label={copy(s, 'Notebook sections')}
+      >
         {notebookMarkers(data.journal.length, section).map((flag) => (
           <button
             type="button"
@@ -118,7 +123,10 @@ export function AboutNotebook({
               height: flag.height,
             }}
             aria-current={flag.index === section ? 'page' : undefined}
-            aria-label={`Section ${flag.index + 1}: ${data.journal[flag.index].title}`}
+            aria-label={copy(s, 'Section {number}: {title}', {
+              number: flag.index + 1,
+              title: data.journal[flag.index].title,
+            })}
             onClick={() => onSectionChange(flag.index)}
           >
             <span>{String(flag.index + 1).padStart(2, '0')}</span>
@@ -129,18 +137,23 @@ export function AboutNotebook({
       {data.journal.length > NOTEBOOK_MARKER_LIMIT && (
         <nav
           className="notebook-section-banks"
-          aria-label="More notebook sections"
+          aria-label={copy(s, 'More notebook sections')}
         >
           <button
             type="button"
             disabled={!ready || !start}
             onClick={() => onSectionChange(start - NOTEBOOK_MARKER_LIMIT)}
           >
-            Earlier sections
+            {copy(s, 'Earlier sections')}
           </button>
           <span>
-            Sections {start + 1}–
-            {Math.min(start + NOTEBOOK_MARKER_LIMIT, data.journal.length)}
+            {copy(s, 'Sections {first}–{last}', {
+              first: start + 1,
+              last: Math.min(
+                start + NOTEBOOK_MARKER_LIMIT,
+                data.journal.length,
+              ),
+            })}
           </span>
           <button
             type="button"
@@ -149,7 +162,7 @@ export function AboutNotebook({
             }
             onClick={() => onSectionChange(start + NOTEBOOK_MARKER_LIMIT)}
           >
-            More sections
+            {copy(s, 'More sections')}
           </button>
         </nav>
       )}

@@ -375,7 +375,7 @@ await test('library categories rely on explicit authored assignment and keep ord
     createElement(ReadingProjectLibrary, { data: { ...data, projects: [] } }),
   );
   assert.doesNotMatch(empty, /<button/);
-  assert.match(empty, /No projects are available yet/);
+  assert.match(empty, /No projects here yet/);
 });
 
 await test('immersive gallery omits cover assets and placeholders while project details retain their media', async () => {
@@ -689,7 +689,7 @@ await test('optional resource controls share the intro row in live-before-source
             markup.indexOf('Project resources'),
         );
       if (expectedLive) assert.match(resources, />Open live project<\/span>/);
-      if (expectedSource) assert.match(resources, />View source code<\/span>/);
+      if (expectedSource) assert.match(resources, />View source<\/span>/);
       assert.doesNotMatch(markup, /href="(?:javascript:|data:)/);
     }
   }
@@ -722,14 +722,14 @@ await test('the shared resource row retains configured live and source labels wi
   assert.doesNotMatch(markup, /<button/);
 });
 
-await test('source control clarifies only its legacy default label and preserves authored alternatives', async () => {
+await test('source control preserves every authored label exactly', async () => {
   const { ProjectLinks } = await loadComponent(
     'features/portfolio/project-library-window.tsx',
   );
   for (const [configured, expected] of [
     [undefined, 'View source code'],
     ['', 'View source code'],
-    ['View source', 'View source code'],
+    ['View source', 'View source'],
     ['View source code', 'View source code'],
     ['Source code', 'Source code'],
     ['Explore the repository', 'Explore the repository'],

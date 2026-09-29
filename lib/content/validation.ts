@@ -1,3 +1,4 @@
+import { interfaceTextCatalog } from './interface-text-catalog.ts';
 import { PROJECT_CATEGORIES } from './project-content.ts';
 import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
 import { aboutSlots, socialPlatforms, socialScreens } from './social-links.ts';
@@ -9,6 +10,7 @@ const fields: Record<Kind, string[]> = {
   // identity exports must round-trip without silently discarding owner text.
   site: [
     ...Object.keys(seedSite),
+    'interfaceText',
     'periodLabel',
     'portraitCrop',
     'portraitReadingCrop',
@@ -104,7 +106,45 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
   for (const key of fields[kind]) {
     const value = data[key];
     if (value === undefined) continue;
-    if (['portraitCrop', 'portraitReadingCrop', 'photoCrop'].includes(key)) {
+    if (kind === 'site' && key === 'interfaceText') {
+      const allowed = new Set(Object.values(interfaceTextCatalog).flat());
+      if (
+        !value ||
+        Array.isArray(value) ||
+        typeof value !== 'object' ||
+        Object.keys(value).length > allowed.size
+      )
+        throw new HttpError(
+          400,
+          'Interface text must be a collection of supported messages.',
+        );
+      const overrides: Record<string, string> = Object.create(null);
+      for (const [message, text] of Object.entries(value)) {
+        if (
+          !allowed.has(message) ||
+          typeof text !== 'string' ||
+          !text.trim() ||
+          text.length > 2000
+        )
+          throw new HttpError(
+            400,
+            'Interface messages must use supported keys and contain 1–2,000 characters.',
+          );
+        const tokens = (template: string) =>
+          [...new Set(template.match(/\{[a-zA-Z][a-zA-Z0-9]*\}/g) || [])]
+            .sort()
+            .join(',');
+        if (tokens(message) !== tokens(text))
+          throw new HttpError(
+            400,
+            `Keep the placeholders in this message: ${message}`,
+          );
+        overrides[message] = text;
+      }
+      if (Object.keys(overrides).length) clean[key] = overrides;
+    } else if (
+      ['portraitCrop', 'portraitReadingCrop', 'photoCrop'].includes(key)
+    ) {
       if (
         !value ||
         Array.isArray(value) ||

@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
@@ -7,6 +8,7 @@ export function buildOutboardWallEquipment(
   h: any,
   root: any,
   kind: 'communications' | 'recorder',
+  site?: Record<string, any>,
 ) {
   const prefix = `outboard-${kind}-`;
   const material = (
@@ -143,7 +145,7 @@ export function buildOutboardWallEquipment(
         0.009,
       );
       label(
-        index === 0 ? 'UPLINK' : 'VOICE',
+        index === 0 ? copy(site, 'UPLINK') : copy(site, 'VOICE'),
         0.32,
         0.041,
         -0.2,

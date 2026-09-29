@@ -1,172 +1,43 @@
 import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
 import { pathFor } from '@/lib/paths';
+import { resolveSocialScreens } from '@/lib/content/social-links';
 import { AboutPortrait, AboutSocialLinks } from './about-personal-content';
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  Radio,
-  ArrowRight,
-  FileText,
-  Layers,
-} from 'lucide-react';
-import { RoomIntro, TextBlocks } from './portfolio-parts';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
-import { projectBody } from '@/lib/content/project-content';
-import {
-  caseStudyBody,
-  type CaseStudyFilter,
-} from '@/lib/content/case-study-content';
+import type { CaseStudyFilter } from '@/lib/content/case-study-content';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import {
   CaseStudyStory,
   ReadingCaseStudyLibrary,
 } from './case-study-library-window';
-import { ReadingProjectLibrary, ProjectLinks } from './project-library-window';
-import { ProjectMarkdown, ProjectMedia } from './project-markdown';
-import { parseProjectMarkdown } from './project-markdown-content';
+import { ReadingProjectLibrary, ProjectStory } from './project-library-window';
+import { ProjectMarkdown } from './project-markdown';
 import {
   ContactForm,
   type ContactDraft,
   type ContactSubmission,
 } from './contact-form';
 import './reading-views.css';
-function ReadingContents({
-  headings,
-  label,
-}: {
-  headings: readonly { id: string; text: string }[];
-  label: string;
-}) {
-  const links = (
-    <nav aria-label={label}>
-      {headings.map((heading, index) => (
-        <a href={'#' + heading.id} key={heading.id}>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          {heading.text}
-        </a>
-      ))}
-    </nav>
-  );
-  return (
-    <>
-      <div className="reading-contents-wide">
-        <h2 className="reading-contents-title">Contents</h2>
-        {links}
-      </div>
-      <details className="reading-contents-compact">
-        <summary>
-          Contents <span>{headings.length} sections</span>
-        </summary>
-        {links}
-      </details>
-    </>
-  );
-}
+
 export function ProjectsView({ data }: { data: Portfolio }) {
-  return (
-    <>
-      <RoomIntro site={data.site} section="projects" number="01" />
-      <div className="rack-label">
-        <span>{data.site.projectsRoom}</span>
-        <span>
-          {String(data.projects.length).padStart(2, '0')} /{' '}
-          {data.site.allProjectsLabel}
-        </span>
-      </div>
-      <ReadingProjectLibrary data={data} />
-    </>
-  );
+  return <ReadingProjectLibrary data={data} />;
 }
 export function DossierView({
   data,
-  project: p,
+  project,
 }: {
   data: Portfolio;
   project: Record<string, any>;
 }) {
-  const s = data.site;
-  const media = data.media.find((m) => m.id === p.mediaId);
-  const body = projectBody(p);
-  const legacySections = [
-    'problem',
-    'approach',
-    'system',
-    'decisions',
-    'outcomes',
-    'next',
-  ];
-  const isMarkdown = typeof p.body === 'string';
-  const headings = isMarkdown
-    ? parseProjectMarkdown(body).headings
-    : legacySections.map((id) => ({ id, text: s[id + 'Label'] }));
   return (
     <>
-      <a className="back-link" href={pathFor('/projects', s)}>
+      <a className="back-link" href={pathFor('/projects', data.site)}>
         <ArrowLeft size={16} />
-        {s.backLabel}
+        {data.site.backLabel || copy(data.site, 'Back to projects')}
       </a>
-      <div className="dossier-layout">
-        {!!headings.length && (
-          <aside className="dossier-index">
-            <p className="eyebrow">
-              <FileText size={16} />
-              {s.dossierLabel}
-            </p>
-            <ReadingContents headings={headings} label={s.dossierLabel} />
-          </aside>
-        )}
-        <article className="dossier-paper">
-          <div className="paper-top">
-            <p className="eyebrow">{p.category}</p>
-          </div>
-          <h1>{p.title}</h1>
-          {p.subtitle && <p className="dossier-subtitle">{p.subtitle}</p>}
-          <p className="dossier-summary">{p.summary}</p>
-          <ProjectLinks project={p} site={s} />
-          {(p.role || p.stack) && (
-            <dl className="dossier-meta">
-              {p.role && (
-                <div>
-                  <dt>{s.roleLabel}</dt>
-                  <dd>{p.role}</dd>
-                </div>
-              )}
-              {p.stack && (
-                <div>
-                  <dt>{s.stackLabel}</dt>
-                  <dd>{p.stack}</dd>
-                </div>
-              )}
-            </dl>
-          )}
-          {media && <ProjectMedia item={media} media={data.media} />}
-          {isMarkdown ? (
-            <ProjectMarkdown body={body} media={data.media} />
-          ) : (
-            legacySections.map((id, index) => (
-              <section id={id} key={id}>
-                <h2>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  {s[id + 'Label']}
-                </h2>
-                {id === 'system' && (
-                  <div className="system-flow" aria-hidden="true">
-                    <FileText />
-                    <ArrowRight />
-                    <Layers />
-                    <ArrowRight />
-                    <Radio />
-                  </div>
-                )}
-                <TextBlocks text={p[id]} />
-              </section>
-            ))
-          )}
-          <a className="paper-cta" href={pathFor('/contact', s)}>
-            {s.inviteLabel}
-            <ArrowUpRight size={20} />
-          </a>
-        </article>
-      </div>
+      <article className="dossier-paper">
+        <ProjectStory data={data} project={project} />
+      </article>
     </>
   );
 }
@@ -180,17 +51,13 @@ export function ExperienceView({
   onCategoryChange?: (category: CaseStudyFilter) => void;
 }) {
   return (
-    <>
-      <RoomIntro site={data.site} section="experience" number="02" />
-      <ReadingCaseStudyLibrary
-        data={data}
-        category={category}
-        onCategoryChange={onCategoryChange}
-      />
-    </>
+    <ReadingCaseStudyLibrary
+      data={data}
+      category={category}
+      onCategoryChange={onCategoryChange}
+    />
   );
 }
-
 export function CaseStudyView({
   data,
   caseStudy,
@@ -200,7 +67,6 @@ export function CaseStudyView({
   caseStudy: Record<string, any>;
   category?: CaseStudyFilter;
 }) {
-  const headings = parseProjectMarkdown(caseStudyBody(caseStudy)).headings;
   return (
     <>
       <a
@@ -211,22 +77,11 @@ export function CaseStudyView({
         )}
       >
         <ArrowLeft size={16} />
-        Back to case studies
+        {copy(data.site, 'Back to case studies')}
       </a>
-      <div className="dossier-layout">
-        {!!headings.length && (
-          <aside className="dossier-index">
-            <p className="eyebrow">
-              <FileText size={16} />
-              Case study
-            </p>
-            <ReadingContents headings={headings} label="Case study contents" />
-          </aside>
-        )}
-        <article className="dossier-paper case-study-reading-paper">
-          <CaseStudyStory data={data} caseStudy={caseStudy} />
-        </article>
-      </div>
+      <article className="dossier-paper case-study-reading-paper">
+        <CaseStudyStory data={data} caseStudy={caseStudy} />
+      </article>
     </>
   );
 }
@@ -238,20 +93,19 @@ export function AboutView({
   section?: Record<string, any>;
 }) {
   const s = data.site;
+  const entries = data.journal.length
+    ? data.journal
+    : [{ id: 'introduction', title: s.aboutHeading, body: s.emptyLabel }];
   return (
-    <>
-      <RoomIntro site={s} section="about" number="03" />
-      <div className="journal">
-        <aside className="journal-cover">
-          <div>
-            <AboutPortrait data={data} />
-            <p className="eyebrow">{s.journalLabel}</p>
-            <h2>{s.name}</h2>
-            <p>{s.biography}</p>
-            <AboutSocialLinks data={data} />
-          </div>
+    <div className="journal">
+      <aside className="journal-cover">
+        <div>
+          <AboutPortrait data={data} />
+          <p className="eyebrow">{s.journalLabel}</p>
+          <h1>{s.name}</h1>
+          <AboutSocialLinks data={data} />
           {!!data.journal.length && (
-            <nav aria-label={s.aboutLabel}>
+            <nav aria-label={copy(s, 'Notebook sections')}>
               {data.journal.map((j, i) => (
                 <a
                   href={pathFor(`/about/${j.slug}?view=reading`, s)}
@@ -265,43 +119,29 @@ export function AboutView({
               ))}
             </nav>
           )}
-        </aside>
-        <div className="journal-pages">
-          {data.journal.map(
-            (j, i) =>
-              (!section || section.id === j.id) && (
-                <article key={j.id} id={j.slug}>
-                  <div className="paper-top">
-                    <p className="eyebrow">
-                      {s.journalLabel} / {String(i + 1).padStart(2, '0')}
-                    </p>
-                  </div>
-                  <h2>{j.title}</h2>
-                  {j.subtitle && (
-                    <p className="journal-subtitle">{j.subtitle}</p>
-                  )}
-                  <ProjectMarkdown
-                    body={normalizeNotebookBody(j.body || '')}
-                    media={data.media}
-                    headingIdPrefix={`journal-${j.id}-`}
-                    notebookPageBreaks
-                    preserveSoftBreaks
-                  />
-                </article>
-              ),
-          )}
-          {!data.journal.length && (
-            <p className="reading-empty" role="status">
-              {s.emptyLabel}
-            </p>
-          )}
-          <a className="paper-cta" href={pathFor('/contact', s)}>
-            {s.inviteLabel}
-            <ArrowUpRight size={20} />
-          </a>
         </div>
+      </aside>
+      <div className="journal-pages">
+        {entries.map(
+          (j, i) =>
+            (!section || section.id === j.id) && (
+              <article key={j.id} id={j.slug}>
+                <h2>{j.title}</h2>
+                {j.subtitle && <p className="journal-subtitle">{j.subtitle}</p>}
+                {i === 0 && s.biography && <p>{s.biography}</p>}
+                <ProjectMarkdown
+                  body={normalizeNotebookBody(j.body || '')}
+                  media={data.media}
+                  site={s}
+                  headingIdPrefix={`journal-${j.id}-`}
+                  notebookPageBreaks
+                  preserveSoftBreaks
+                />
+              </article>
+            ),
+        )}
       </div>
-    </>
+    </div>
   );
 }
 export function ContactView({
@@ -323,48 +163,45 @@ export function ContactView({
   onDraftChange?: (draft: ContactDraft) => void;
   onSent?: () => void;
 }) {
-  const s = data.site;
+  const links = Object.values(resolveSocialScreens(data.links)).filter(
+    (link) => link !== null,
+  );
   return (
-    <div className="contact-layout">
-      <div>
-        <RoomIntro site={s} section="contact" number="04" />
-        <div className="contact-details">
-          <p className="eyebrow">{s.emailLabelCta}</p>
-          <a className="contact-email" href={'mailto:' + s.email}>
-            {s.email}
-            <ArrowUpRight size={20} />
-          </a>
-          <p>
-            <span className="status-dot" />
-            {s.availability}
-          </p>
-          <div className="social-links">
-            {data.links.map((l) => (
-              <a
-                href={l.url}
-                key={l.id}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {l.title}
-                <ArrowUpRight size={16} />
-              </a>
-            ))}
-          </div>
+    <div className="reading-contact-form">
+      <ContactForm
+        site={data.site}
+        initialSent={sent}
+        initialError={error}
+        draft={draft}
+        onDraftChange={onDraftChange}
+        onSent={onSent}
+        submission={submission}
+        onSubmissionChange={onSubmissionChange}
+      />
+      {!!links.length && (
+        <div className="social-links">
+          {links.map((link) => (
+            <a
+              href={link.url}
+              key={link.id}
+              rel={
+                link.url.startsWith('mailto:')
+                  ? undefined
+                  : 'noopener noreferrer'
+              }
+              target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+            >
+              <span>
+                {link.title}
+                <small>
+                  {link.description || copy(data.site, 'Connect with me')}
+                </small>
+              </span>
+              <ArrowUpRight size={16} />
+            </a>
+          ))}
         </div>
-      </div>
-      <div className="reading-contact-form">
-        <ContactForm
-          site={s}
-          initialSent={sent}
-          initialError={error}
-          draft={draft}
-          onDraftChange={onDraftChange}
-          onSent={onSent}
-          submission={submission}
-          onSubmissionChange={onSubmissionChange}
-        />
-      </div>
+      )}
     </div>
   );
 }

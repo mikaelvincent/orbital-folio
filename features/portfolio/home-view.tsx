@@ -1,10 +1,27 @@
-import { ProjectCards } from './portfolio-parts';
+import { ArrowUpRight } from 'lucide-react';
+import { pathFor } from '@/lib/paths';
+import { portfolioIdentity } from '@/lib/content/interface-text';
 import type { Portfolio } from '@/lib/content/types';
 export function HomeView({ data }: { data: Portfolio }) {
   const s = data.site;
-  return <section className="reading-overview">
-    <p className="eyebrow">{s.brand}</p>
-    <h1>{s.headline}</h1><p className="hero-role">{s.title}</p><p>{s.intro}</p>
-    <h2>{s.projectsHeading}</h2><ProjectCards projects={data.projects} site={s} />
-  </section>;
+  return (
+    <section className="reading-overview">
+      <h1>{portfolioIdentity(s)}</h1>
+      <p className="hero-role">{s.title}</p>
+      <nav className="reading-room-links" aria-label={s.sectionLabel}>
+        {['projects', 'experience', 'about', 'contact'].map((room) => (
+          <a
+            key={room}
+            href={pathFor(
+              `/${room === 'experience' ? 'case-studies' : room}`,
+              s,
+            )}
+          >
+            <span>{s[room + 'Label']}</span>
+            <ArrowUpRight size={22} />
+          </a>
+        ))}
+      </nav>
+    </section>
+  );
 }

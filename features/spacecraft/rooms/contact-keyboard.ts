@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 
 /** Physical ANSI 75% layout, keyed by KeyboardEvent.code rather than typed text.
@@ -125,6 +126,7 @@ export function buildContactKeyboard(
   h: any,
   deck: any,
   materials: any,
+  site?: Record<string, any>,
 ) {
   const root = new THREE.Group();
   root.name = 'contact-keyboard';
@@ -197,7 +199,7 @@ export function buildContactKeyboard(
       CONTACT_KEY_LAYOUT.forEach((key, index) => {
         ctx.font = `${key.label.length > 2 ? 15 : 25}px system-ui, sans-serif`;
         ctx.fillText(
-          key.label,
+          copy(site, key.label),
           (index % 16) * 64 + 32,
           Math.floor(index / 16) * 64 + 32,
           60,

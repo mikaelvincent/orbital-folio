@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import {
   socialIcon,
@@ -11,6 +12,7 @@ export function drawSocialChannel(
   height: number,
   link: SocialLink | null,
   side: 'left' | 'right',
+  site?: Record<string, any>,
 ) {
   ctx.save();
   const pad = width * 0.1;
@@ -18,7 +20,12 @@ export function drawSocialChannel(
   ctx.textAlign = 'left';
   ctx.fillStyle = link ? PALETTE.ivory : PALETTE.textMuted;
   ctx.font = `500 ${width * 0.037}px monospace`;
-  ctx.fillText(`COM / ${side === 'left' ? '02' : '03'}`, pad, height * 0.082);
+  ctx.fillText(
+    copy(site, 'COM / {number}', { number: side === 'left' ? '02' : '03' }),
+    pad,
+    height * 0.082,
+    width - pad * 2 - width * 0.03,
+  );
   ctx.fillStyle = link ? PALETTE.bronzeLight : PALETTE.alloy;
   ctx.beginPath();
   ctx.arc(width - pad, height * 0.082, width * 0.009, 0, Math.PI * 2);
@@ -75,14 +82,15 @@ export function drawSocialChannel(
     );
   };
   text(
-    link?.title || 'Unassigned',
+    link?.title || copy(site, 'Unassigned'),
     height * 0.56,
     width * 0.148,
     PALETTE.ivory,
     600,
   );
   text(
-    link?.description || (link ? 'Connect with me' : 'Channel standby'),
+    link?.description ||
+      (link ? copy(site, 'Connect with me') : copy(site, 'Channel standby')),
     height * 0.75,
     width * 0.061,
     link ? PALETTE.ivory : PALETTE.textMuted,
@@ -95,7 +103,7 @@ export function drawSocialChannel(
   ctx.lineTo(width - pad, height * 0.815);
   ctx.stroke();
   text(
-    link ? 'Open link' : 'NO LINK ASSIGNED',
+    link ? copy(site, 'Open link') : copy(site, 'NO LINK ASSIGNED'),
     height * 0.905,
     width * (link ? 0.071 : 0.038),
     PALETTE.ivory,

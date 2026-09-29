@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../lib/content/interface-text.ts';
 type Experiment =
   | 'normal'
   | 'no-background'
@@ -10,6 +11,7 @@ type SpacecraftFilter = { mode: 'all' | 'hide' | 'only'; id: string };
 type SpacecraftGroup = { id: string; label: string; kind: 'room' | 'part' };
 
 type PanelOptions = {
+  site?: Record<string, any>;
   collector: {
     snapshot: (includeFrames?: boolean) => any;
     reset: (reason?: string) => void;
@@ -22,15 +24,6 @@ type PanelOptions = {
   setSpacecraftFilter?: (filter: SpacecraftFilter) => void;
   onClose?: () => void;
 };
-
-const experiments: Array<[Experiment, string]> = [
-  ['normal', 'Normal rendering'],
-  ['no-background', 'Skip background'],
-  ['no-ao', 'Skip contact shading'],
-  ['half-resolution', 'Half drawing resolution'],
-  ['no-spacecraft', 'Skip spacecraft rendering'],
-  ['render-once', 'Render one frame, then pause'],
-];
 
 const styles = `
 .scene-perf{position:fixed;top:12px;left:12px;z-index:20000;width:min(390px,calc(100vw - 24px));max-height:calc(100dvh - 104px - env(safe-area-inset-bottom,0px));overflow:auto;border:1px solid var(--bronze);border-radius:12px;background:#1f2730f5;color:var(--ivory);box-shadow:0 12px 38px #0007;font:12px/1.5 ui-sans-serif,system-ui,sans-serif;letter-spacing:normal;text-align:left;color-scheme:dark}
@@ -136,6 +129,7 @@ function fillRows(body: HTMLTableSectionElement, rows: string[][]) {
 
 /** Local diagnostics; the host controls when profiling is enabled and mounted. */
 export function mountPerformancePanel({
+  site = {},
   collector,
   getSettings,
   setExperiment,
@@ -144,23 +138,43 @@ export function mountPerformancePanel({
   setSpacecraftFilter,
   onClose,
 }: PanelOptions): () => void {
+  const diagnosticLabel = (label: string) => {
+    const rooms: Record<string, string> = {
+      Projects: 'projects',
+      'Case studies': 'experience',
+      About: 'about',
+      Contact: 'contact',
+    };
+    return label
+      .split(' · ')
+      .map((part) => site[(rooms[part] || part) + 'Label'] || copy(site, part))
+      .join(' · ');
+  };
+  const experiments: Array<[Experiment, string]> = [
+    ['normal', copy(site, 'Normal rendering')],
+    ['no-background', copy(site, 'Skip background')],
+    ['no-ao', copy(site, 'Skip contact shading')],
+    ['half-resolution', copy(site, 'Half drawing resolution')],
+    ['no-spacecraft', copy(site, 'Skip spacecraft rendering')],
+    ['render-once', copy(site, 'Render one frame, then pause')],
+  ];
   const style = textElement('style', styles);
   document.head.appendChild(style);
   const panel = textElement('aside', '', 'scene-perf');
   panel.dataset.scenePerf = '';
-  panel.setAttribute('aria-label', 'Scene performance diagnostics');
+  panel.setAttribute('aria-label', copy(site, 'Scene performance diagnostics'));
   const heading = document.createElement('header');
-  const panelTitle = textElement('h2', 'Performance check');
+  const panelTitle = textElement('h2', copy(site, 'Performance check'));
   panelTitle.tabIndex = -1;
   heading.appendChild(panelTitle);
   const collapse = textElement('button', '−');
   collapse.type = 'button';
-  collapse.setAttribute('aria-label', 'Collapse scene diagnostics');
+  collapse.setAttribute('aria-label', copy(site, 'Collapse scene diagnostics'));
   collapse.setAttribute('aria-expanded', 'true');
   heading.appendChild(collapse);
   const close = textElement('button', '×');
   close.type = 'button';
-  close.setAttribute('aria-label', 'Close diagnostics');
+  close.setAttribute('aria-label', copy(site, 'Close diagnostics'));
   close.hidden = !onClose;
   heading.appendChild(close);
   const body = textElement('div', '', 'scene-perf-body');
@@ -171,9 +185,9 @@ export function mountPerformancePanel({
   const progressBar = textElement('div', '', 'scene-perf-progress');
   progressBar.hidden = true;
   const progressLabel = textElement('span', '');
-  const stopRecording = textElement('button', 'Stop');
+  const stopRecording = textElement('button', copy(site, 'Stop'));
   stopRecording.type = 'button';
-  stopRecording.setAttribute('aria-label', 'Stop recording');
+  stopRecording.setAttribute('aria-label', copy(site, 'Stop recording'));
   progressBar.appendChild(progressLabel);
   progressBar.appendChild(stopRecording);
   panel.appendChild(progressBar);
@@ -181,13 +195,19 @@ export function mountPerformancePanel({
   body.appendChild(
     textElement(
       'p',
-      'Hold the same view, record a baseline, then try one change. Keep this panel collapsed during captures.',
+      copy(
+        site,
+        'Hold the same view, record a baseline, then try one change. Keep this panel collapsed during captures.',
+      ),
       'scene-perf-muted',
     ),
   );
   const mode = textElement('p', '', 'scene-perf-mode');
   body.appendChild(mode);
-  const experimentLabel = textElement('label', 'Temporary diagnostic');
+  const experimentLabel = textElement(
+    'label',
+    copy(site, 'Temporary diagnostic'),
+  );
   const experiment = document.createElement('select');
   experiment.id = `${body.id}-experiment`;
   experimentLabel.htmlFor = experiment.id;
@@ -198,37 +218,42 @@ export function mountPerformancePanel({
   }
   body.appendChild(experimentLabel);
   body.appendChild(experiment);
-  const restore = textElement('button', 'Restore normal');
+  const restore = textElement('button', copy(site, 'Restore normal'));
   restore.type = 'button';
   const restoreRow = textElement('div', '', 'scene-perf-actions');
   restoreRow.appendChild(restore);
   body.appendChild(restoreRow);
   const settingsDetails = document.createElement('details');
-  settingsDetails.appendChild(textElement('summary', 'Environment and scene'));
-  const settingsTable = table(['Setting', 'Current value']);
+  settingsDetails.appendChild(
+    textElement('summary', copy(site, 'Environment and scene')),
+  );
+  const settingsTable = table([
+    copy(site, 'Setting'),
+    copy(site, 'Current value'),
+  ]);
   settingsDetails.appendChild(settingsTable.element);
   const browserLabel = textElement('small', '');
   settingsDetails.appendChild(browserLabel);
   body.appendChild(settingsDetails);
 
-  const nameLabel = textElement('label', 'Capture name');
+  const nameLabel = textElement('label', copy(site, 'Capture name'));
   const name = document.createElement('input');
   name.type = 'text';
   name.id = `${body.id}-name`;
   name.maxLength = 80;
-  name.placeholder = 'For example: overview, pointer still';
+  name.placeholder = copy(site, 'For example: overview, pointer still');
   nameLabel.htmlFor = name.id;
   body.appendChild(nameLabel);
   body.appendChild(name);
   const actions = textElement('div', '', 'scene-perf-actions');
   const record = textElement(
     'button',
-    'Record 10 seconds',
+    copy(site, 'Record 10 seconds'),
     'scene-perf-primary',
   );
-  const cancel = textElement('button', 'Cancel');
-  const download = textElement('button', 'Download JSON');
-  const viewReport = textElement('button', 'View JSON');
+  const cancel = textElement('button', copy(site, 'Cancel'));
+  const download = textElement('button', copy(site, 'Download JSON'));
+  const viewReport = textElement('button', copy(site, 'View JSON'));
   for (const button of [record, cancel, download, viewReport])
     button.type = 'button';
   cancel.hidden = true;
@@ -236,7 +261,7 @@ export function mountPerformancePanel({
     actions.appendChild(button);
   body.appendChild(actions);
   const reportText = document.createElement('textarea');
-  reportText.setAttribute('aria-label', 'Performance report JSON');
+  reportText.setAttribute('aria-label', copy(site, 'Performance report JSON'));
   reportText.readOnly = true;
   reportText.wrap = 'off';
   reportText.hidden = true;
@@ -246,7 +271,7 @@ export function mountPerformancePanel({
   body.appendChild(reportText);
   const status = textElement(
     'p',
-    'Ready · 3 second warmup before each capture.',
+    copy(site, 'Ready · 3 second warmup before each capture.'),
     'scene-perf-status',
   );
   status.setAttribute('role', 'status');
@@ -263,9 +288,9 @@ export function mountPerformancePanel({
     metrics.appendChild(card);
     return value;
   };
-  const fps = metricValue('Smoothness · FPS');
-  const cpu = metricValue('CPU preparing · ms');
-  const shipGpu = metricValue('GPU drawing ship · ms');
+  const fps = metricValue(copy(site, 'Smoothness · FPS'));
+  const cpu = metricValue(copy(site, 'CPU preparing · ms'));
+  const shipGpu = metricValue(copy(site, 'GPU drawing ship · ms'));
   body.appendChild(metrics);
   const windowLabel = textElement('p', '', 'scene-perf-muted');
   body.appendChild(windowLabel);
@@ -273,13 +298,21 @@ export function mountPerformancePanel({
   body.insertBefore(metrics, body.firstChild);
   body.insertBefore(windowLabel, metrics.nextSibling);
   const spacecraftSection = document.createElement('section');
-  spacecraftSection.setAttribute('aria-label', 'Spacecraft workload');
+  spacecraftSection.setAttribute(
+    'aria-label',
+    copy(site, 'Spacecraft workload'),
+  );
   spacecraftSection.hidden = !getSpacecraftReport;
-  spacecraftSection.appendChild(textElement('h3', 'Spacecraft workload'));
+  spacecraftSection.appendChild(
+    textElement('h3', copy(site, 'Spacecraft workload')),
+  );
   spacecraftSection.appendChild(
     textElement(
       'small',
-      'Actual draw calls and triangles per pass. Choose the workload to rank; counts are not GPU time.',
+      copy(
+        site,
+        'Actual draw calls and triangles per pass. Choose the workload to rank; counts are not GPU time.',
+      ),
     ),
   );
   const labelledSelect = (
@@ -307,28 +340,37 @@ export function mountPerformancePanel({
   spacecraftSection.appendChild(breakdownControls);
   const breakdown = labelledSelect(
     breakdownControls,
-    'Breakdown',
+    copy(site, 'Breakdown'),
     'breakdown',
     [
-      ['parts', 'Parts'],
-      ['rooms', 'Rooms'],
+      ['parts', copy(site, 'Parts')],
+      ['rooms', copy(site, 'Rooms')],
     ],
   );
   const renderPass = labelledSelect(
     breakdownControls,
-    'Render pass',
+    copy(site, 'Render pass'),
     'render-pass',
-    [['spacecraft', 'Main spacecraft']],
+    [['spacecraft', copy(site, 'Main spacecraft')]],
   );
-  const rankBy = labelledSelect(breakdownControls, 'Rank by', 'rank-by', [
-    ['drawsPerPass', 'Draw calls'],
-    ['trianglesPerPass', 'Triangles'],
+  const rankBy = labelledSelect(
+    breakdownControls,
+    copy(site, 'Rank by'),
+    'rank-by',
+    [
+      ['drawsPerPass', copy(site, 'Draw calls')],
+      ['trianglesPerPass', copy(site, 'Triangles')],
+    ],
+  );
+  const spacecraftTable = table([
+    copy(site, 'Group'),
+    copy(site, 'Draw calls'),
+    copy(site, 'Triangles'),
   ]);
-  const spacecraftTable = table(['Group', 'Draw calls', 'Triangles']);
   spacecraftSection.appendChild(spacecraftTable.element);
   const workloadSummary = textElement('p', '', 'scene-perf-muted');
   spacecraftSection.appendChild(workloadSummary);
-  const showGroups = textElement('button', 'Show all groups');
+  const showGroups = textElement('button', copy(site, 'Show all groups'));
   showGroups.type = 'button';
   showGroups.setAttribute('aria-expanded', 'false');
   spacecraftSection.appendChild(showGroups);
@@ -336,17 +378,17 @@ export function mountPerformancePanel({
   filterControls.hidden = !setSpacecraftFilter;
   const filterMode = labelledSelect(
     filterControls,
-    'Spacecraft visibility',
+    copy(site, 'Spacecraft visibility'),
     'spacecraft-visibility',
     [
-      ['all', 'Show all groups'],
-      ['hide', 'Hide selected group'],
-      ['only', 'Show only selected group'],
+      ['all', copy(site, 'Show all groups')],
+      ['hide', copy(site, 'Hide selected group')],
+      ['only', copy(site, 'Show only selected group')],
     ],
   );
   const filterGroup = labelledSelect(
     filterControls,
-    'Spacecraft group',
+    copy(site, 'Spacecraft group'),
     'spacecraft-group',
     [],
   );
@@ -354,50 +396,76 @@ export function mountPerformancePanel({
   spacecraftSection.appendChild(
     textElement(
       'small',
-      'Record the full scene, hide one group, then record again at the same view and settings. Compare elapsed CPU and spacecraft GPU time in Saved captures; repeat the full scene to check the result.',
+      copy(
+        site,
+        'Record the full scene, hide one group, then record again at the same view and settings. Compare elapsed CPU and spacecraft GPU time in Saved captures; repeat the full scene to check the result.',
+      ),
     ),
   );
   body.insertBefore(spacecraftSection, windowLabel.nextSibling);
-  body.appendChild(textElement('h3', 'Largest CPU phases'));
+  body.appendChild(textElement('h3', copy(site, 'Largest CPU phases')));
   body.appendChild(
     textElement(
       'small',
-      'Ranked by CPU time per rendered frame; p95 is per execution.',
+      copy(
+        site,
+        'Ranked by CPU time per rendered frame; p95 is per execution.',
+      ),
     ),
   );
-  const cpuTable = table(['Phase', 'ms/frame', 'p95 ms', 'Samples']);
+  const cpuTable = table([
+    copy(site, 'Phase'),
+    copy(site, 'ms/frame'),
+    copy(site, 'p95 ms'),
+    copy(site, 'Samples'),
+  ]);
   body.appendChild(cpuTable.element);
-  body.appendChild(textElement('h3', 'GPU phases'));
+  body.appendChild(textElement('h3', copy(site, 'GPU phases')));
   const gpuStatus = textElement('p', '', 'scene-perf-muted');
-  const gpuTable = table(['Phase', 'Mean ms', 'p95 ms', 'Samples']);
+  const gpuTable = table([
+    copy(site, 'Phase'),
+    copy(site, 'Mean ms'),
+    copy(site, 'p95 ms'),
+    copy(site, 'Samples'),
+  ]);
   body.appendChild(gpuStatus);
   body.appendChild(gpuTable.element);
 
   const passDetails = document.createElement('details');
   passDetails.appendChild(
-    textElement('summary', 'Draw calls and scene workload'),
+    textElement('summary', copy(site, 'Draw calls and scene workload')),
   );
-  const passTable = table(['Pass', 'Mean calls', 'Mean triangles']);
+  const passTable = table([
+    copy(site, 'Pass'),
+    copy(site, 'Mean calls'),
+    copy(site, 'Mean triangles'),
+  ]);
   const counterSummary = textElement('p', '', 'scene-perf-muted');
   passDetails.appendChild(passTable.element);
   passDetails.appendChild(counterSummary);
   body.appendChild(passDetails);
   const saved = document.createElement('details');
-  const savedSummary = textElement('summary', 'Saved captures (0 of 6)');
+  const savedSummary = textElement(
+    'summary',
+    copy(site, 'Saved captures (0 of 6)'),
+  );
   const savedList = document.createElement('ol');
   const captureTable = table([
-    'Capture / change',
-    'FPS',
-    'Frame p95 ms',
-    'CPU ms',
-    'Ship GPU mean / p95 ms',
+    copy(site, 'Capture / change'),
+    copy(site, 'FPS'),
+    copy(site, 'Frame p95 ms'),
+    copy(site, 'CPU ms'),
+    copy(site, 'Ship GPU mean / p95 ms'),
   ]);
   saved.appendChild(savedSummary);
   saved.appendChild(captureTable.element);
   saved.appendChild(
     textElement(
       'small',
-      'CPU is mean preparation time per frame. GPU shows mean / p95 for the whole spacecraft draw; p95 exposes slower samples, not confidence or measurement error. Missing GPU timing stays unavailable.',
+      copy(
+        site,
+        'CPU is mean preparation time per frame. GPU shows mean / p95 for the whole spacecraft draw; p95 exposes slower samples, not confidence or measurement error. Missing GPU timing stays unavailable.',
+      ),
     ),
   );
   saved.appendChild(savedList);
@@ -405,89 +473,116 @@ export function mountPerformancePanel({
   body.appendChild(
     textElement(
       'small',
-      'CPU measures JavaScript and render submission, not GPU time. Browser metrics do not measure temperature or power. Diagnostics add overhead. Compare normal → one change → normal at the same viewport and browser profile. Captures stay in this session until downloaded; closing diagnostics or reloading clears them.',
+      copy(
+        site,
+        'CPU measures JavaScript and render submission, not GPU time. Browser metrics do not measure temperature or power. Diagnostics add overhead. Compare normal → one change → normal at the same viewport and browser profile. Captures stay in this session until downloaded; closing diagnostics or reloading clears them.',
+      ),
     ),
   );
   const footer = body.lastElementChild!;
   const baselineSection = textElement('section', '', 'scene-perf-step');
-  baselineSection.appendChild(textElement('h3', '1. Record the normal scene'));
+  baselineSection.appendChild(
+    textElement('h3', copy(site, '1. Record the normal scene')),
+  );
   baselineSection.appendChild(
     textElement(
       'p',
-      'Keep the view still. This gives us a reference for the work your browser is doing.',
+      copy(
+        site,
+        'Keep the view still. This gives us a reference for the work your browser is doing.',
+      ),
       'scene-perf-muted',
     ),
   );
   const duration = labelledSelect(
     baselineSection,
-    'Capture length',
+    copy(site, 'Capture length'),
     'duration',
     [
-      ['10', '10 seconds · quick check'],
-      ['30', '30 seconds · longer run'],
-      ['60', '60 seconds · sustained run'],
+      ['10', copy(site, '10 seconds · quick check')],
+      ['30', copy(site, '30 seconds · longer run')],
+      ['60', copy(site, '60 seconds · sustained run')],
     ],
   );
   baselineSection.appendChild(
     textElement(
       'small',
-      'Longer runs can reveal changes over time; they cannot identify temperature or power use. Each capture starts after a 3 second warmup.',
+      copy(
+        site,
+        'Longer runs can reveal changes over time; they cannot identify temperature or power use. Each capture starts after a 3 second warmup.',
+      ),
     ),
   );
-  record.textContent = 'Record baseline';
+  record.textContent = copy(site, 'Record baseline');
   baselineSection.appendChild(record);
   const compareSection = textElement('section', '', 'scene-perf-step');
-  compareSection.appendChild(textElement('h3', '2. Compare one change'));
+  compareSection.appendChild(
+    textElement('h3', copy(site, '2. Compare one change')),
+  );
   compareSection.appendChild(
     textElement(
       'p',
-      'Temporarily remove one source of work, then repeat the same view.',
+      copy(
+        site,
+        'Temporarily remove one source of work, then repeat the same view.',
+      ),
       'scene-perf-muted',
     ),
   );
   const compareChoice = labelledSelect(
     compareSection,
-    'Change to compare',
+    copy(site, 'Change to compare'),
     'compare-choice',
     [
-      ['no-background', 'Hide the animated background'],
-      ['group', 'Hide one room or part'],
-      ['half-resolution', 'Draw fewer pixels'],
-      ['no-ao', 'Turn off contact shading'],
-      ['no-spacecraft', 'Hide the whole spacecraft'],
-      ['current', 'Use my Advanced settings'],
+      ['no-background', copy(site, 'Hide the animated background')],
+      ['group', copy(site, 'Hide one room or part')],
+      ['half-resolution', copy(site, 'Draw fewer pixels')],
+      ['no-ao', copy(site, 'Turn off contact shading')],
+      ['no-spacecraft', copy(site, 'Hide the whole spacecraft')],
+      ['current', copy(site, 'Use my Advanced settings')],
     ],
   );
   const compareGroup = labelledSelect(
     compareSection,
-    'Group to compare',
+    copy(site, 'Group to compare'),
     'compare-group',
     [],
   );
   compareGroup.parentElement!.hidden = true;
   const recordComparison = textElement(
     'button',
-    'Record this change',
+    copy(site, 'Record this change'),
     'scene-perf-primary',
   );
   recordComparison.type = 'button';
   compareSection.appendChild(recordComparison);
-  const comparisonHint = textElement('small', 'Record a baseline first.');
+  const comparisonHint = textElement(
+    'small',
+    copy(site, 'Record a baseline first.'),
+  );
   compareSection.appendChild(comparisonHint);
-  const confirmBaseline = textElement('button', 'Record baseline again');
+  const confirmBaseline = textElement(
+    'button',
+    copy(site, 'Record baseline again'),
+  );
   confirmBaseline.type = 'button';
   confirmBaseline.hidden = true;
   restoreRow.insertBefore(confirmBaseline, restore);
   compareSection.appendChild(restoreRow);
   const reviewSection = textElement('section', '', 'scene-perf-step');
-  reviewSection.appendChild(textElement('h3', '3. Review the result'));
+  reviewSection.appendChild(
+    textElement('h3', copy(site, '3. Review the result')),
+  );
   const reviewPair = textElement('p', '', 'scene-perf-muted');
   reviewPair.hidden = true;
   reviewPair.style.whiteSpace = 'pre-line';
   reviewSection.appendChild(reviewPair);
   const reviewMessage = textElement(
     'p',
-    'Your captures will appear here. Repeat the normal scene after a change to check whether the reference has drifted.',
+    copy(
+      site,
+      'Your captures will appear here. Repeat the normal scene after a change to check whether the reference has drifted.',
+    ),
     'scene-perf-help',
   );
   reviewSection.appendChild(reviewMessage);
@@ -495,16 +590,22 @@ export function mountPerformancePanel({
   saved.insertBefore(captureScroll, captureTable.element);
   captureScroll.appendChild(captureTable.element);
   reviewSection.appendChild(saved);
-  download.textContent = 'Download report';
-  download.setAttribute('aria-label', 'Download report JSON');
+  download.textContent = copy(site, 'Download report');
+  download.setAttribute('aria-label', copy(site, 'Download report JSON'));
   reviewSection.appendChild(download);
   const advanced = document.createElement('details');
   advanced.appendChild(
-    textElement('summary', 'Advanced: parts, render settings and data'),
+    textElement(
+      'summary',
+      copy(site, 'Advanced: parts, render settings and data'),
+    ),
   );
   const workloadDetails = document.createElement('details');
   workloadDetails.appendChild(
-    textElement('summary', 'Which spacecraft parts create the most work?'),
+    textElement(
+      'summary',
+      copy(site, 'Which spacecraft parts create the most work?'),
+    ),
   );
   workloadDetails.appendChild(spacecraftSection);
   advanced.appendChild(workloadDetails);
@@ -513,12 +614,15 @@ export function mountPerformancePanel({
   advanced.appendChild(settingsDetails);
   const timingDetails = document.createElement('details');
   timingDetails.appendChild(
-    textElement('summary', 'CPU and GPU timing breakdown'),
+    textElement('summary', copy(site, 'CPU and GPU timing breakdown')),
   );
   timingDetails.appendChild(
     textElement(
       'small',
-      'CPU averages include frames where a phase did not run. GPU values are per sampled execution. CPU and GPU overlap; do not add them.',
+      copy(
+        site,
+        'CPU averages include frames where a phase did not run. GPU values are per sampled execution. CPU and GPU overlap; do not add them.',
+      ),
     ),
   );
   timingDetails.appendChild(cpuTable.element);
@@ -526,10 +630,13 @@ export function mountPerformancePanel({
   timingDetails.appendChild(gpuTable.element);
   advanced.appendChild(timingDetails);
   advanced.appendChild(passDetails);
-  nameLabel.textContent = 'Optional capture name';
+  nameLabel.textContent = copy(site, 'Optional capture name');
   advanced.appendChild(nameLabel);
   advanced.appendChild(name);
-  const recordCustom = textElement('button', 'Record current settings');
+  const recordCustom = textElement(
+    'button',
+    copy(site, 'Record current settings'),
+  );
   recordCustom.type = 'button';
   const advancedActions = textElement('div', '', 'scene-perf-actions');
   advancedActions.appendChild(recordCustom);
@@ -540,7 +647,10 @@ export function mountPerformancePanel({
   body.appendChild(
     textElement(
       'p',
-      'Find what keeps the page busy, then compare one change at a time.',
+      copy(
+        site,
+        'Find what keeps the page busy, then compare one change at a time.',
+      ),
       'scene-perf-muted',
     ),
   );
@@ -549,7 +659,10 @@ export function mountPerformancePanel({
   body.appendChild(
     textElement(
       'small',
-      'FPS is how often the page draws. CPU prepares each frame; GPU draws the spacecraft. These are work timings, not a device rating.',
+      copy(
+        site,
+        'FPS is how often the page draws. CPU prepares each frame; GPU draws the spacecraft. These are work timings, not a device rating.',
+      ),
     ),
   );
   body.appendChild(mode);
@@ -610,10 +723,10 @@ export function mountPerformancePanel({
   selectedFilter = currentFilter();
 
   function filterLabel(value: SpacecraftFilter, groups = groupChoices) {
-    if (value.mode === 'all') return 'Full spacecraft';
+    if (value.mode === 'all') return copy(site, 'Full spacecraft');
     const label =
       groups.find((group) => group.id === value.id)?.label || value.id;
-    return `${value.mode === 'hide' ? 'Hidden' : 'Only'}: ${label}`;
+    return `${value.mode === 'hide' ? copy(site, 'Hidden') : copy(site, 'Only')}: ${diagnosticLabel(label)}`;
   }
 
   function updateCaptureControls() {
@@ -632,8 +745,8 @@ export function mountPerformancePanel({
     );
     confirmBaseline.disabled = !!capture || document.hidden;
     comparisonHint.textContent = hasBaseline
-      ? 'Use the same capture length, view and browser settings.'
-      : 'Record a baseline first.';
+      ? copy(site, 'Use the same capture length, view and browser settings.')
+      : copy(site, 'Record a baseline first.');
     duration.disabled = !!capture;
     compareChoice.disabled = !!capture;
     compareGroup.disabled = !!capture || !groupChoices.length;
@@ -652,7 +765,8 @@ export function mountPerformancePanel({
   }
 
   function changeExperiment(value: Experiment) {
-    if (capture) cancelCapture('Capture cancelled: diagnostic changed.');
+    if (capture)
+      cancelCapture(copy(site, 'Capture cancelled: diagnostic changed.'));
     setExperiment(value);
     selectedExperiment = currentExperiment();
     update();
@@ -660,7 +774,10 @@ export function mountPerformancePanel({
 
   function changeFilter(value: SpacecraftFilter) {
     if (!setSpacecraftFilter) return;
-    if (capture) cancelCapture('Capture cancelled: spacecraft filter changed.');
+    if (capture)
+      cancelCapture(
+        copy(site, 'Capture cancelled: spacecraft filter changed.'),
+      );
     setSpacecraftFilter(value);
     selectedFilter = { ...value };
     update();
@@ -680,9 +797,10 @@ export function mountPerformancePanel({
       const options = document.createDocumentFragment();
       for (const kind of ['room', 'part'] as const) {
         const category = document.createElement('optgroup');
-        category.label = kind === 'room' ? 'Rooms' : 'Parts';
+        category.label =
+          kind === 'room' ? copy(site, 'Rooms') : copy(site, 'Parts');
         for (const group of groupChoices.filter((item) => item.kind === kind)) {
-          const option = textElement('option', group.label);
+          const option = textElement('option', diagnosticLabel(group.label));
           option.value = group.id;
           category.appendChild(option);
         }
@@ -715,10 +833,10 @@ export function mountPerformancePanel({
           const option = textElement(
             'option',
             pass === 'spacecraft'
-              ? 'Main spacecraft'
+              ? copy(site, 'Main spacecraft')
               : pass === 'ao-refresh'
-                ? 'Contact shading'
-                : phaseName(pass),
+                ? copy(site, 'Contact shading')
+                : copy(site, phaseName(pass)),
           );
           option.value = pass;
           return option;
@@ -743,7 +861,7 @@ export function mountPerformancePanel({
     fillRows(
       spacecraftTable.body,
       (showAllGroups ? rows : rows.slice(0, 8)).map((row) => [
-        row.label,
+        diagnosticLabel(row.label),
         number(row.drawsPerPass, 1),
         number(row.trianglesPerPass, 0),
       ]),
@@ -751,8 +869,33 @@ export function mountPerformancePanel({
     showGroups.hidden = rows.length <= 8;
     const missing = pass?.unattributed;
     workloadSummary.textContent = pass?.samples
-      ? `${number(pass.samples, 0)} pass samples · ${number(pass.total?.drawsPerPass, 1)} total calls / ${number(pass.total?.trianglesPerPass, 0)} triangles per pass.${missing === null ? ' Unattributed counts are unavailable for this pass.' : missing?.drawsPerPass > 0 ? ` Unattributed: ${number(missing.drawsPerPass, 1)} calls.` : ''}${!showAllGroups && rows.length > 8 ? ` Top 8 of ${rows.length} groups shown.` : ''}`
-      : 'No draws recorded for this pass in the current window.';
+      ? copy(
+          site,
+          '{value1} pass samples · {value2} total calls / {value3} triangles per pass.{value4}{value5}',
+          {
+            value1: number(pass.samples, 0),
+            value2: number(pass.total?.drawsPerPass, 1),
+            value3: number(pass.total?.trianglesPerPass, 0),
+            value4:
+              missing === null
+                ? copy(
+                    site,
+                    ' Unattributed counts are unavailable for this pass.',
+                  )
+                : missing?.drawsPerPass > 0
+                  ? copy(site, ' Unattributed: {calls} calls.', {
+                      calls: number(missing.drawsPerPass, 1),
+                    })
+                  : '',
+            value5:
+              !showAllGroups && rows.length > 8
+                ? copy(site, ' Top 8 of {value1} groups shown.', {
+                    value1: rows.length,
+                  })
+                : '',
+          },
+        )
+      : copy(site, 'No draws recorded for this pass in the current window.');
   }
 
   function phaseRows(phases: Record<string, any> = {}, totalFrames?: number) {
@@ -763,7 +906,7 @@ export function mountPerformancePanel({
       .filter(([, value]) => value && Number.isFinite(cost(value)))
       .sort(([, a], [, b]) => cost(b) - cost(a))
       .map(([key, value]) => [
-        phaseName(key),
+        copy(site, phaseName(key)),
         totalFrames ? number(cost(value), 2) : stat(value, 'mean'),
         stat(value, 'p95'),
         number(samples(value), 0),
@@ -775,7 +918,9 @@ export function mountPerformancePanel({
     if (
       ['disposed', 'context-lost', 'contextlost'].includes(report.gpu?.status)
     ) {
-      cancelCapture('Capture cancelled: the renderer became unavailable.');
+      cancelCapture(
+        copy(site, 'Capture cancelled: the renderer became unavailable.'),
+      );
       return true;
     }
     if (
@@ -783,7 +928,9 @@ export function mountPerformancePanel({
       report.resetReason !== 'capture started'
     ) {
       cancelCapture(
-        `Capture cancelled: measurements restarted (${report.resetReason || 'unknown reason'}).`,
+        copy(site, 'Capture cancelled: measurements restarted ({value1}).', {
+          value1: report.resetReason || 'unknown reason',
+        }),
       );
       return true;
     }
@@ -794,13 +941,16 @@ export function mountPerformancePanel({
     if (destroyed) return;
     const activeExperiment = currentExperiment();
     if (selectedExperiment !== activeExperiment) {
-      if (capture) cancelCapture('Capture cancelled: diagnostic changed.');
+      if (capture)
+        cancelCapture(copy(site, 'Capture cancelled: diagnostic changed.'));
       selectedExperiment = activeExperiment;
     }
     const activeFilter = currentFilter();
     if (filterKey(selectedFilter) !== filterKey(activeFilter)) {
       if (capture)
-        cancelCapture('Capture cancelled: spacecraft filter changed.');
+        cancelCapture(
+          copy(site, 'Capture cancelled: spacecraft filter changed.'),
+        );
       selectedFilter = activeFilter;
     }
     if (capture) {
@@ -810,12 +960,17 @@ export function mountPerformancePanel({
       );
       status.textContent =
         capture.phase === 'warmup'
-          ? `Warming up · recording starts in ${remaining}s.`
-          : `Recording “${capture.label}” · ${remaining}s remaining.`;
+          ? copy(site, 'Warming up · recording starts in {value1}s.', {
+              value1: remaining,
+            })
+          : copy(site, 'Recording “{value1}” · {value2}s remaining.', {
+              value1: capture.label,
+              value2: remaining,
+            });
       progressLabel.textContent =
         capture.phase === 'warmup'
-          ? `Starting in ${remaining}s…`
-          : `Recording · ${remaining}s left`;
+          ? copy(site, 'Starting in {value1}s…', { value1: remaining })
+          : copy(site, 'Recording · {value1}s left', { value1: remaining });
     }
     updateCaptureControls();
     // Capture deadlines and visibility cancellation remain active while closed.
@@ -827,8 +982,15 @@ export function mountPerformancePanel({
     )![1];
     mode.textContent =
       activeExperiment === 'normal' && selectedFilter.mode === 'all'
-        ? 'Normal rendering · baseline'
-        : `Diagnostic active: ${activeLabel.toLowerCase()} · ${filterLabel(selectedFilter)}. Restore normal when finished.`;
+        ? copy(site, 'Normal rendering · baseline')
+        : copy(
+            site,
+            'Diagnostic active: {value1} · {value2}. Restore normal when finished.',
+            {
+              value1: activeLabel,
+              value2: filterLabel(selectedFilter),
+            },
+          );
     mode.dataset.active = String(
       activeExperiment !== 'normal' || selectedFilter.mode !== 'all',
     );
@@ -854,22 +1016,22 @@ export function mountPerformancePanel({
     if (advanced.open && settingsDetails.open)
       fillRows(settingsTable.body, [
         [
-          'Build / Three.js',
+          copy(site, 'Build / Three.js'),
           `${settingLabel(settings.build)} / r${settingLabel(settings.threeRevision)}`,
         ],
-        ['Viewport', dimensions(settings.viewport)],
-        ['Drawing buffer', dimensions(settings.drawingBuffer)],
+        [copy(site, 'Viewport'), dimensions(settings.viewport)],
+        [copy(site, 'Drawing buffer'), dimensions(settings.drawingBuffer)],
         [
-          'DPR / device DPR',
+          copy(site, 'DPR / device DPR'),
           `${number(settings.pixelRatio, 2)} / ${number(settings.nativePixelRatio, 2)}`,
         ],
         [
-          'Contact shading',
+          copy(site, 'Contact shading'),
           settings.aoEnabled === undefined
             ? '—'
-            : `${settings.aoEnabled ? 'On' : 'Off'} · ${dimensions(settings.aoBuffer)}`,
+            : `${settings.aoEnabled ? copy(site, 'On') : copy(site, 'Off')} · ${dimensions(settings.aoBuffer)}`,
         ],
-        ['Room', settingLabel(settings.room)],
+        [copy(site, 'Room'), diagnosticLabel(settingLabel(settings.room))],
       ]);
     browserLabel.textContent =
       typeof settings.userAgent === 'string' ? settings.userAgent : '';
@@ -880,8 +1042,31 @@ export function mountPerformancePanel({
       ? stat(report.gpu?.phases?.spacecraft, 'mean')
       : '—';
     windowLabel.textContent = frames
-      ? `${number((report.window?.durationMs || 0) / 1000)}s live window · slower frames (p95): ${stat(report.frameInterval, 'p95')}ms.${report.gpu?.phases?.spacecraft ? '' : ' GPU timing is unavailable or still waiting for samples.'}${activeExperiment === 'render-once' ? ' Rendering is paused; these are retained samples.' : ''}`
-      : 'Waiting for rendered frames. GPU timing may not be available in this browser.';
+      ? copy(
+          site,
+          '{value1}s live window · slower frames (p95): {value2}ms.{value3}{value4}',
+          {
+            value1: number((report.window?.durationMs || 0) / 1000),
+            value2: stat(report.frameInterval, 'p95'),
+            value3: report.gpu?.phases?.spacecraft
+              ? ''
+              : copy(
+                  site,
+                  ' GPU timing is unavailable or still waiting for samples.',
+                ),
+            value4:
+              activeExperiment === 'render-once'
+                ? copy(
+                    site,
+                    ' Rendering is paused; these are retained samples.',
+                  )
+                : '',
+          },
+        )
+      : copy(
+          site,
+          'Waiting for rendered frames. GPU timing may not be available in this browser.',
+        );
     if (advanced.open && timingDetails.open)
       fillRows(
         cpuTable.body,
@@ -890,10 +1075,18 @@ export function mountPerformancePanel({
     const gpuRows = frames ? phaseRows(report.gpu?.phases) : [];
     if (advanced.open && timingDetails.open) fillRows(gpuTable.body, gpuRows);
     gpuTable.element.hidden = gpuRows.length === 0;
-    const gpuState = String(report.gpu?.status || 'unavailable');
+    const gpuState = copy(site, String(report.gpu?.status || 'unavailable'));
     gpuStatus.textContent = gpuRows.length
-      ? `Time per sampled execution · ${gpuState} · ${number(report.gpu?.pending, 0)} pending. GPU means are not amortized across all frames.`
-      : `GPU timing: ${gpuState}. No valid GPU samples; CPU time is not a substitute.`;
+      ? copy(
+          site,
+          'Time per sampled execution · {value1} · {value2} pending. GPU means are not amortized across all frames.',
+          { value1: gpuState, value2: number(report.gpu?.pending, 0) },
+        )
+      : copy(
+          site,
+          'GPU timing: {value1}. No valid GPU samples; CPU time is not a substitute.',
+          { value1: gpuState },
+        );
     if (advanced.open && passDetails.open)
       fillRows(
         passTable.body,
@@ -904,7 +1097,7 @@ export function mountPerformancePanel({
                   (b.calls?.mean || 0) - (a.calls?.mean || 0),
               )
               .map(([key, value]: any) => [
-                phaseName(key),
+                copy(site, phaseName(key)),
                 stat(value.calls, 'mean', 1),
                 stat(value.triangles, 'mean', 0),
               ])
@@ -912,7 +1105,9 @@ export function mountPerformancePanel({
       );
     counterSummary.textContent = Object.entries(report.counters || {})
       .filter(([, value]) => typeof value === 'number')
-      .map(([key, value]) => `${phaseName(key)}: ${number(value, 0)}`)
+      .map(
+        ([key, value]) => `${copy(site, phaseName(key))}: ${number(value, 0)}`,
+      )
       .join(' · ');
     updateCaptureControls();
   }
@@ -925,7 +1120,10 @@ export function mountPerformancePanel({
       filterKey(currentFilter()) !== filterKey(capture.spacecraftFilter)
     ) {
       cancelCapture(
-        'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+        copy(
+          site,
+          'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+        ),
       );
       return;
     }
@@ -952,13 +1150,19 @@ export function mountPerformancePanel({
     if (captures.length > 6) captures.shift();
     const label = capture.label;
     cancelCapture(
-      `Saved “${label}” · ${number(actualDurationMs / 1000)}s, ${number(report.window?.frames || 0, 0)} frames.`,
+      copy(site, 'Saved “{value1}” · {value2}s, {value3} frames.', {
+        value1: label,
+        value2: number(actualDurationMs / 1000),
+        value3: number(report.window?.frames || 0, 0),
+      }),
     );
-    savedSummary.textContent = `Saved captures (${captures.length} of 6)`;
+    savedSummary.textContent = copy(site, 'Saved captures ({value1} of 6)', {
+      value1: captures.length,
+    });
     fillRows(
       captureTable.body,
       captures.map((item) => [
-        `${item.name} · ${filterLabel(item.spacecraftFilter, item.spacecraft?.groups || groupChoices)} · ${item.settings.experiment || 'normal'}`,
+        `${item.name} · ${filterLabel(item.spacecraftFilter, item.spacecraft?.groups || groupChoices)} · ${experiments.find(([key]) => key === item.settings.experiment)?.[1] || experiments[0][1]}`,
         item.report.window?.frames
           ? number(item.report.window.renderedFps)
           : '—',
@@ -966,14 +1170,31 @@ export function mountPerformancePanel({
         stat(item.report.cpuTotal, 'mean'),
         item.report.gpu?.phases?.spacecraft
           ? `${stat(item.report.gpu.phases.spacecraft, 'mean')} / ${stat(item.report.gpu.phases.spacecraft, 'p95')}`
-          : 'Unavailable',
+          : copy(site, 'Unavailable'),
       ]),
     );
     savedList.replaceChildren(
       ...captures.map((item) =>
         textElement(
           'li',
-          `${item.name}: ${number(item.report.window.durationMs / 1000)}s of ${number(item.actualDurationMs / 1000)}s retained.${item.trend ? ` Early → late CPU: ${number(item.trend.earlyCpuMs, 2)} → ${number(item.trend.lateCpuMs, 2)}ms; frame interval: ${number(item.trend.earlyFrameMs, 2)} → ${number(item.trend.lateFrameMs, 2)}ms (first/last ${number(item.trend.windowMs / 1000)}s).` : ''}`,
+          copy(site, '{value1}: {value2}s of {value3}s retained.{value4}', {
+            value1: item.name,
+            value2: number(item.report.window.durationMs / 1000),
+            value3: number(item.actualDurationMs / 1000),
+            value4: item.trend
+              ? copy(
+                  site,
+                  ' Early → late CPU: {value1} → {value2}ms; frame interval: {value3} → {value4}ms (first/last {value5}s).',
+                  {
+                    value1: number(item.trend.earlyCpuMs, 2),
+                    value2: number(item.trend.lateCpuMs, 2),
+                    value3: number(item.trend.earlyFrameMs, 2),
+                    value4: number(item.trend.lateFrameMs, 2),
+                    value5: number(item.trend.windowMs / 1000),
+                  },
+                )
+              : '',
+          }),
         ),
       ),
     );
@@ -994,30 +1215,71 @@ export function mountPerformancePanel({
         savedCapture === baseline ||
         savedCapture === comparison ||
         savedCapture === confirmation;
-      reviewPair.textContent = `${latestIsIncluded ? 'Reviewing these captures:' : `Latest saved: “${savedCapture.name}” (not part of this comparison).\nReviewing an earlier comparison:`}\nBaseline: “${baseline.name}”\nChange: “${comparison.name}”\nBaseline again: ${confirmation ? `“${confirmation.name}”` : 'not recorded yet'}`;
-      const warnings = comparisonWarnings(baseline, comparison);
+      reviewPair.textContent = copy(
+        site,
+        '{value1}\nBaseline: “{value2}”\nChange: “{value3}”\nBaseline again: {value4}',
+        {
+          value1: latestIsIncluded
+            ? copy(site, 'Reviewing these captures:')
+            : copy(
+                site,
+                'Latest saved: “{value1}” (not part of this comparison).\nReviewing an earlier comparison:',
+                { value1: savedCapture.name },
+              ),
+          value2: baseline.name,
+          value3: comparison.name,
+          value4: confirmation
+            ? `“${confirmation.name}”`
+            : copy(site, 'not recorded yet'),
+        },
+      );
+      const warnings = comparisonWarnings(baseline, comparison, site);
       const confirmationWarnings = confirmation
-        ? comparisonWarnings(baseline, confirmation)
+        ? comparisonWarnings(baseline, confirmation, site)
         : [];
       if (warnings.length || confirmationWarnings.length)
-        reviewMessage.textContent = `Treat this comparison as inconclusive. ${[...new Set([...warnings, ...confirmationWarnings])].join(' ')}`;
+        reviewMessage.textContent = copy(
+          site,
+          'Treat this comparison as inconclusive. {value1}',
+          {
+            value1: [...new Set([...warnings, ...confirmationWarnings])].join(
+              ' ',
+            ),
+          },
+        );
       else if (confirmation && baselineDrift(baseline, confirmation))
-        reviewMessage.textContent =
-          'The repeated baseline drifted. Conditions changed during the test, so repeat before attributing a difference to the selected change. These timings do not identify the cause.';
+        reviewMessage.textContent = copy(
+          site,
+          'The repeated baseline drifted. Conditions changed during the test, so repeat before attributing a difference to the selected change. These timings do not identify the cause.',
+        );
       else
         reviewMessage.textContent = confirmation
-          ? 'The view and settings match, and the repeated baseline is reasonably close. Compare the timings below; repeat the test before choosing an optimization.'
-          : 'The view and settings match. Record the baseline again to check for drift before drawing a conclusion.';
+          ? copy(
+              site,
+              'The view and settings match, and the repeated baseline is reasonably close. Compare the timings below; repeat the test before choosing an optimization.',
+            )
+          : copy(
+              site,
+              'The view and settings match. Record the baseline again to check for drift before drawing a conclusion.',
+            );
       if (
         !baseline.report.gpu.phases.spacecraft ||
         !comparison.report.gpu.phases.spacecraft
       )
-        reviewMessage.textContent +=
-          ' GPU timing is unavailable for this pair; smoothness and CPU timing are still useful.';
+        reviewMessage.textContent += copy(
+          site,
+          ' GPU timing is unavailable for this pair; smoothness and CPU timing are still useful.',
+        );
     } else {
-      reviewPair.textContent = `Latest saved: “${savedCapture.name}”\nNo complete comparison pair is available yet.`;
-      reviewMessage.textContent =
-        'Capture saved. Choose one change and record it at the same view and capture length. All timings and retained-window details are in Saved captures.';
+      reviewPair.textContent = copy(
+        site,
+        'Latest saved: “{value1}”\nNo complete comparison pair is available yet.',
+        { value1: savedCapture.name },
+      );
+      reviewMessage.textContent = copy(
+        site,
+        'Capture saved. Choose one change and record it at the same view and capture length. All timings and retained-window details are in Saved captures.',
+      );
     }
     setCollapsed(false);
     update();
@@ -1032,7 +1294,7 @@ export function mountPerformancePanel({
       phase: 'warmup',
       label:
         name.value.trim() ||
-        `${kind === 'baseline' ? 'Baseline' : kind === 'confirmation' ? 'Baseline again' : kind === 'comparison' ? (filterLabel(currentFilter()) === 'Full spacecraft' ? experiments.find(([key]) => key === currentExperiment())![1] : filterLabel(currentFilter())) : 'Custom capture'} ${sequence}`,
+        `${kind === 'baseline' ? copy(site, 'Baseline') : kind === 'confirmation' ? copy(site, 'Baseline again') : kind === 'comparison' ? (currentFilter().mode === 'all' ? experiments.find(([key]) => key === currentExperiment())![1] : filterLabel(currentFilter())) : copy(site, 'Custom capture')} ${sequence}`,
       experiment: currentExperiment(),
       deadline: performance.now() + 3_000,
       started: 0,
@@ -1050,7 +1312,10 @@ export function mountPerformancePanel({
         filterKey(currentFilter()) !== filterKey(capture.spacecraftFilter)
       ) {
         cancelCapture(
-          'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+          copy(
+            site,
+            'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+          ),
         );
         return;
       }
@@ -1117,7 +1382,14 @@ export function mountPerformancePanel({
     }, 1_000);
     revokeTimers.add(timer);
     if (!capture)
-      status.textContent = `Downloaded ${captures.length} saved capture${captures.length === 1 ? '' : 's'} and the current snapshot.`;
+      status.textContent =
+        captures.length === 1
+          ? copy(site, 'Downloaded 1 saved capture and the current snapshot.')
+          : copy(
+              site,
+              'Downloaded {count} saved captures and the current snapshot.',
+              { count: captures.length },
+            );
   }
 
   const stopEvent = (event: Event) => event.stopPropagation();
@@ -1146,7 +1418,9 @@ export function mountPerformancePanel({
     collapse.setAttribute('aria-expanded', String(!body.hidden));
     collapse.setAttribute(
       'aria-label',
-      `${body.hidden ? 'Expand' : 'Collapse'} scene diagnostics`,
+      copy(site, '{value1} scene diagnostics', {
+        value1: body.hidden ? copy(site, 'Expand') : copy(site, 'Collapse'),
+      }),
     );
     if (value && focusWasInside) collapse.focus({ preventScroll: true });
     if (!value && document.activeElement === stopRecording)
@@ -1158,7 +1432,10 @@ export function mountPerformancePanel({
     changeExperiment(experiment.value as Experiment),
   );
   function restoreNormal() {
-    if (capture) cancelCapture('Capture cancelled: normal rendering restored.');
+    if (capture)
+      cancelCapture(
+        copy(site, 'Capture cancelled: normal rendering restored.'),
+      );
     setExperiment('normal');
     setSpacecraftFilter?.({ mode: 'all', id: '' });
     selectedExperiment = 'normal';
@@ -1167,7 +1444,8 @@ export function mountPerformancePanel({
   }
   restore.addEventListener('click', restoreNormal);
   close.addEventListener('click', () => {
-    if (capture) cancelCapture('Capture cancelled: diagnostics closed.');
+    if (capture)
+      cancelCapture(copy(site, 'Capture cancelled: diagnostics closed.'));
     onClose?.();
   });
   breakdown.addEventListener('change', update);
@@ -1176,8 +1454,8 @@ export function mountPerformancePanel({
   showGroups.addEventListener('click', () => {
     showAllGroups = !showAllGroups;
     showGroups.textContent = showAllGroups
-      ? 'Show top 8 groups'
-      : 'Show all groups';
+      ? copy(site, 'Show top 8 groups')
+      : copy(site, 'Show all groups');
     showGroups.setAttribute('aria-expanded', String(showAllGroups));
     update();
   });
@@ -1217,7 +1495,9 @@ export function mountPerformancePanel({
   });
   compareGroup.addEventListener('change', updateCaptureControls);
   stopRecording.addEventListener('click', () => {
-    cancelCapture('Recording stopped. No partial capture was saved.');
+    cancelCapture(
+      copy(site, 'Recording stopped. No partial capture was saved.'),
+    );
     setCollapsed(false);
   });
   for (const details of [
@@ -1228,29 +1508,36 @@ export function mountPerformancePanel({
     settingsDetails,
   ])
     details.addEventListener('toggle', update);
-  cancel.addEventListener('click', () => cancelCapture('Capture cancelled.'));
+  cancel.addEventListener('click', () =>
+    cancelCapture(copy(site, 'Capture cancelled.')),
+  );
   download.addEventListener('click', exportReports);
   viewReport.addEventListener('click', () => {
     if (!reportText.hidden) {
       reportText.hidden = true;
       reportText.value = '';
-      viewReport.textContent = 'View JSON';
+      viewReport.textContent = copy(site, 'View JSON');
       return;
     }
     // Keep the on-screen copy small; the download retains full raw samples.
     reportText.value = serializeReports(false);
     reportText.hidden = false;
-    viewReport.textContent = 'Hide JSON';
+    viewReport.textContent = copy(site, 'Hide JSON');
     reportText.focus();
     reportText.select();
     if (!capture)
-      status.textContent =
-        'Summary ready. Copy the selected JSON; Download JSON includes raw frames and batch inventory.';
+      status.textContent = copy(
+        site,
+        'Summary ready. Copy the selected JSON; Download JSON includes raw frames and batch inventory.',
+      );
   });
   const visibilityChanged = () => {
     if (document.hidden && capture)
       cancelCapture(
-        'Capture cancelled: page was hidden. Keep it visible for a complete recording.',
+        copy(
+          site,
+          'Capture cancelled: page was hidden. Keep it visible for a complete recording.',
+        ),
       );
     update();
   };

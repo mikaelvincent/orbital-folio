@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   NOTEBOOK_COLUMN_STRIDE,
@@ -41,7 +42,7 @@ export function NotebookSpread({
       />
       {[0, 1].map((side) => {
         const number = page * 2 + side + 1;
-        const pageLabel = notebookPageLabel(number, pageCount);
+        const pageLabel = notebookPageLabel(number, pageCount, content.site);
         return (
           <div
             className="notebook-page"
@@ -60,7 +61,10 @@ export function NotebookSpread({
                     type="button"
                     disabled={!ready || page <= 0}
                     onClick={() => onPageSelect?.(page - 1)}
-                    aria-label="Previous page in section"
+                    aria-label={
+                      content.site?.previousPageLabel ||
+                      copy(content.site, 'Previous page in section')
+                    }
                   >
                     <ChevronLeft size={18} aria-hidden="true" />
                   </button>
@@ -71,7 +75,10 @@ export function NotebookSpread({
                     type="button"
                     disabled={!ready || page >= spreads - 1}
                     onClick={() => onPageSelect?.(page + 1)}
-                    aria-label="Next page in section"
+                    aria-label={
+                      content.site?.nextPageLabel ||
+                      copy(content.site, 'Next page in section')
+                    }
                   >
                     <ChevronRight size={18} aria-hidden="true" />
                   </button>
@@ -83,8 +90,11 @@ export function NotebookSpread({
       })}
       {!measuring && (
         <span className="sr-only" aria-live="polite" aria-atomic="true">
-          Pages {page * 2 + 1}–{Math.min(page * 2 + 2, pageCount)} of{' '}
-          {pageCount}
+          {copy(content.site, 'Pages {first}–{last} of {total}', {
+            first: page * 2 + 1,
+            last: Math.min(page * 2 + 2, pageCount),
+            total: pageCount,
+          })}
         </span>
       )}
     </div>

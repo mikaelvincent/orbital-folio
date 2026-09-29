@@ -11,6 +11,7 @@ import {
   Globe,
   X,
 } from 'lucide-react';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import type { Portfolio } from '@/lib/content/types';
 import {
   PROJECT_CATEGORIES,
@@ -21,7 +22,6 @@ import {
 } from '@/lib/content/project-content';
 import { pathFor } from '@/lib/paths';
 import { ContactScrollArea } from './contact-scroll-area';
-import { ProjectCards } from './portfolio-parts';
 import { ProjectMarkdown, ProjectMedia } from './project-markdown';
 import { projectContentUrl } from './project-markdown-content';
 import './contact-computer-window.css';
@@ -56,7 +56,10 @@ function CategoryControls({
   data: Portfolio;
 }) {
   return (
-    <nav className="project-category-controls" aria-label="Project categories">
+    <nav
+      className="project-category-controls"
+      aria-label={copy(data.site, 'Project categories')}
+    >
       {filters.map((filter) => {
         const count = projectCategoryCount(data.projects, filter.id);
         if (!count) return null;
@@ -69,7 +72,7 @@ function CategoryControls({
             onClick={() => onChange(filter.id)}
           >
             <Icon size={16} aria-hidden="true" />
-            <span>{filter.label}</span>
+            <span>{projectFilterLabel(data.site, filter.id)}</span>
             <small>{count}</small>
           </button>
         );
@@ -85,7 +88,6 @@ export function ReadingProjectLibrary({ data }: { data: Portfolio }) {
   const category = projectCategoryCount(data.projects, selectedCategory)
     ? selectedCategory
     : 'all';
-  const projects = filteredProjects(data, category);
   return (
     <div className="reading-project-library">
       <CategoryControls
@@ -93,15 +95,7 @@ export function ReadingProjectLibrary({ data }: { data: Portfolio }) {
         onChange={setCategory}
         data={data}
       />
-      {projects.length ? (
-        <ProjectCards projects={projects} site={data.site} />
-      ) : (
-        <p className="project-category-empty" role="status">
-          {category === 'all'
-            ? 'No projects are available yet.'
-            : `No projects are assigned to ${category} yet.`}
-        </p>
-      )}
+      <ProjectCollection data={data} category={category} />
     </div>
   );
 }
@@ -125,8 +119,7 @@ export function ProjectLibraryWindow({
   const positions = useRef<Record<string, number>>({});
   const heading = useRef<HTMLHeadingElement>(null);
   const viewKey = project ? `project:${project.id}` : `category:${category}`;
-  const projects = filteredProjects(data, category);
-  const categoryLabel = filters.find((filter) => filter.id === category)!.label;
+  const categoryLabel = projectFilterLabel(data.site, category);
   const CategoryIcon = icons[category];
 
   useEffect(() => {
@@ -156,8 +149,6 @@ export function ProjectLibraryWindow({
     remember();
     onProjectSelect(selected);
   };
-  const cover =
-    project && data.media.find((item) => item.id === project.mediaId);
 
   return (
     <div className="project-computer-desktop">
@@ -165,7 +156,7 @@ export function ProjectLibraryWindow({
         className="project-library-window"
         id="world-reader"
         tabIndex={-1}
-        aria-label="Projects application"
+        aria-label={copy(data.site, 'Projects application')}
         data-project-interface
       >
         <header className="project-window-bar">
@@ -176,7 +167,7 @@ export function ProjectLibraryWindow({
               onClick={returnToCollection}
             >
               <ArrowLeft size={16} aria-hidden="true" />
-              Back to projects
+              {data.site.backLabel || copy(data.site, 'Back to projects')}
             </button>
           ) : (
             <span className="project-window-label">
@@ -188,14 +179,15 @@ export function ProjectLibraryWindow({
             type="button"
             className="project-window-close"
             onClick={onClose}
-            aria-label="Close Projects application"
-            title="Close Projects application"
+            aria-label={copy(data.site, 'Close Projects application')}
+            title={copy(data.site, 'Close Projects application')}
           >
             <X size={21} aria-hidden="true" />
           </button>
         </header>
         <ContactScrollArea
-          label="Projects application"
+          site={data.site}
+          label={copy(data.site, 'Projects application')}
           viewportRef={scroll}
           restorationKey={viewKey}
           initialScrollTop={positions.current[viewKey] ?? 0}
@@ -204,125 +196,14 @@ export function ProjectLibraryWindow({
           }}
         >
           {project ? (
-            <div className="project-window-detail">
-              <div className="project-detail-heading">
-                <p className="project-library-eyebrow">
-                  {project.category ||
-                    projectCategories(project)
-                      .map(
-                        (id) =>
-                          PROJECT_CATEGORIES.find((item) => item.id === id)!
-                            .label,
-                      )
-                      .join(' · ') ||
-                    'PROJECT'}
-                </p>
-                <h1 ref={heading} tabIndex={-1}>
-                  {project.title}
-                </h1>
-                {project.subtitle && (
-                  <p className="project-detail-subtitle">{project.subtitle}</p>
-                )}
-                {project.summary && (
-                  <p className="project-detail-summary">{project.summary}</p>
-                )}
-                <ProjectLinks project={project} site={data.site} />
-              </div>
-              {(project.role || project.stack) && (
-                <dl className="project-library-meta">
-                  {[
-                    ['role', data.site.roleLabel || 'Role'],
-                    ['stack', data.site.stackLabel || 'Built with'],
-                  ].map(([key, label]) =>
-                    project[key] ? (
-                      <div key={key}>
-                        <dt>{label}</dt>
-                        <dd>{project[key]}</dd>
-                      </div>
-                    ) : null,
-                  )}
-                </dl>
-              )}
-              {cover && <ProjectMedia item={cover} media={data.media} />}
-              <ProjectMarkdown body={projectBody(project)} media={data.media} />
-              {!projectBody(project).trim() && (
-                <p className="project-story-pending">
-                  More details about this project will be added here.
-                </p>
-              )}
-            </div>
+            <ProjectStory data={data} project={project} headingRef={heading} />
           ) : (
-            <div className="project-window-gallery">
-              <div className="project-gallery-heading">
-                <div>
-                  <p className="project-library-eyebrow">IDEAS, BUILT.</p>
-                  <h1 ref={heading} tabIndex={-1}>
-                    {category === 'all' ? 'Selected work' : categoryLabel}
-                  </h1>
-                </div>
-                <span className="project-gallery-count">
-                  {String(projects.length).padStart(2, '0')}{' '}
-                  <span>{projects.length === 1 ? 'project' : 'projects'}</span>
-                </span>
-              </div>
-              <p className="project-gallery-intro">
-                Explore the work, the decisions, and what came next.
-              </p>
-              {projects.length ? (
-                <div className="project-app-grid">
-                  {projects.map((item) => {
-                    const categories = projectCategories(item);
-                    return (
-                      <a
-                        className="project-app-card"
-                        key={item.id}
-                        href={pathFor(`/projects/${item.slug}`, data.site)}
-                        onClick={(event) => selectProject(event, item)}
-                        aria-label={`Read project: ${item.title}`}
-                      >
-                        <div className="project-app-card-content">
-                          <div className="project-card-kicker">
-                            <span>
-                              {item.category ||
-                                categories
-                                  .map(
-                                    (id) =>
-                                      PROJECT_CATEGORIES.find(
-                                        (entry) => entry.id === id,
-                                      )!.label,
-                                  )
-                                  .join(' / ') ||
-                                'PROJECT'}
-                            </span>
-                            <ArrowUpRight size={17} aria-hidden="true" />
-                          </div>
-                          <h2>{item.title}</h2>
-                          <p>{item.summary}</p>
-                          {item.stack && <small>{item.stack}</small>}
-                        </div>
-                      </a>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="project-app-empty" role="status">
-                  <Box size={34} strokeWidth={1} aria-hidden="true" />
-                  <h2>No projects here yet</h2>
-                  <p>
-                    {category === 'all'
-                      ? data.site._preview
-                        ? 'Your drafts will appear in this library.'
-                        : 'Published projects will appear in this library.'
-                      : `Projects assigned to ${categoryLabel.toLowerCase()} will appear here.`}
-                  </p>
-                  {category !== 'all' && (
-                    <button type="button" onClick={onClose}>
-                      Back to room <ArrowLeft size={16} />
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+            <ProjectCollection
+              data={data}
+              category={category}
+              headingRef={heading}
+              onSelect={selectProject}
+            />
           )}
         </ContactScrollArea>
         {project && (
@@ -347,12 +228,12 @@ export function ProjectLinks({
 }) {
   const sourceHref = projectContentUrl(project.sourceUrl);
   const liveHref = projectContentUrl(project.demoUrl);
-  const label =
-    !site.codeLabel || site.codeLabel === 'View source'
-      ? 'View source code'
-      : site.codeLabel;
+  const label = site.codeLabel || copy(site, 'View source code');
   return liveHref || sourceHref ? (
-    <nav className="project-library-links" aria-label="Project resources">
+    <nav
+      className="project-library-links"
+      aria-label={copy(site, 'Project resources')}
+    >
       {liveHref && (
         <a
           className="project-live-link"
@@ -361,7 +242,7 @@ export function ProjectLinks({
           rel="noopener noreferrer"
         >
           <Globe size={17} aria-hidden="true" />
-          <span>{site.demoLabel || 'Open live project'}</span>
+          <span>{site.demoLabel || copy(site, 'Open live project')}</span>
           <ArrowUpRight size={16} aria-hidden="true" />
         </a>
       )}
@@ -383,4 +264,160 @@ export function ProjectLinks({
       )}
     </nav>
   ) : null;
+}
+
+export function projectFilterLabel(
+  site: Record<string, any>,
+  category: ProjectFilter,
+) {
+  return category === 'all'
+    ? site.allProjectsLabel || copy(site, 'All projects')
+    : copy(
+        site,
+        PROJECT_CATEGORIES.find((entry) => entry.id === category)!.label,
+      );
+}
+
+export function ProjectStory({
+  data,
+  project,
+  headingRef,
+}: {
+  data: Portfolio;
+  project: Record<string, any>;
+  headingRef?: React.RefObject<HTMLHeadingElement | null>;
+}) {
+  const cover = data.media.find((item) => item.id === project.mediaId);
+  return (
+    <div className="project-window-detail">
+      <div className="project-detail-heading">
+        <p className="project-library-eyebrow">
+          {project.category ||
+            projectCategories(project)
+              .map((id) => projectFilterLabel(data.site, id))
+              .join(' · ') ||
+            copy(data.site, 'PROJECT')}
+        </p>
+        <h1 ref={headingRef} tabIndex={-1}>
+          {project.title}
+        </h1>
+        {project.subtitle && (
+          <p className="project-detail-subtitle">{project.subtitle}</p>
+        )}
+        {project.summary && (
+          <p className="project-detail-summary">{project.summary}</p>
+        )}
+        <ProjectLinks project={project} site={data.site} />
+      </div>
+      {(project.role || project.stack) && (
+        <dl className="project-library-meta">
+          {[
+            ['role', data.site.roleLabel || copy(data.site, 'Role')],
+            ['stack', data.site.stackLabel || copy(data.site, 'Built with')],
+          ].map(([key, label]) =>
+            project[key] ? (
+              <div key={key}>
+                <dt>{label}</dt>
+                <dd>{project[key]}</dd>
+              </div>
+            ) : null,
+          )}
+        </dl>
+      )}
+      {cover && (
+        <ProjectMedia site={data.site} item={cover} media={data.media} />
+      )}
+      <ProjectMarkdown
+        site={data.site}
+        body={projectBody(project, data.site)}
+        media={data.media}
+      />
+      {!projectBody(project, data.site).trim() && (
+        <p className="project-story-pending">
+          {copy(
+            data.site,
+            'More details about this project will be added here.',
+          )}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export function ProjectCollection({
+  data,
+  category,
+  headingRef,
+  onSelect,
+}: {
+  data: Portfolio;
+  category: ProjectFilter;
+  headingRef?: React.RefObject<HTMLHeadingElement | null>;
+  onSelect?: (
+    event: MouseEvent<HTMLAnchorElement>,
+    project: Record<string, any>,
+  ) => void;
+}) {
+  const projects = filteredProjects(data, category);
+  const categoryLabel = projectFilterLabel(data.site, category);
+  return (
+    <div className="project-window-gallery">
+      <div className="project-gallery-heading">
+        <div>
+          <p className="project-library-eyebrow">
+            {copy(data.site, 'IDEAS, BUILT.')}
+          </p>
+          <h1 ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
+            {category === 'all' ? data.site.projectsHeading : categoryLabel}
+          </h1>
+        </div>
+        <span className="project-gallery-count">
+          {String(projects.length).padStart(2, '0')}{' '}
+          <span>
+            {projects.length === 1
+              ? copy(data.site, 'project')
+              : copy(data.site, 'projects')}
+          </span>
+        </span>
+      </div>
+      <p className="project-gallery-intro">{data.site.projectsIntro}</p>
+      {projects.length ? (
+        <div className="project-app-grid">
+          {projects.map((item) => (
+            <a
+              className="project-app-card"
+              key={item.id}
+              href={pathFor(`/projects/${item.slug}`, data.site)}
+              onClick={onSelect ? (event) => onSelect(event, item) : undefined}
+              aria-label={copy(data.site, 'Read project: {title}', {
+                title: item.title,
+              })}
+            >
+              <div className="project-app-card-content">
+                <div className="project-card-kicker">
+                  <span>
+                    {item.category ||
+                      projectCategories(item)
+                        .map((id) => projectFilterLabel(data.site, id))
+                        .join(' / ') ||
+                      copy(data.site, 'PROJECT')}
+                  </span>
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </div>
+                <h2>{item.title}</h2>
+                <p>{item.summary}</p>
+                {item.stack && <small>{item.stack}</small>}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="project-app-empty" role="status">
+          <Box size={34} strokeWidth={1} aria-hidden="true" />
+          <h2>{copy(data.site, 'No projects here yet')}</h2>
+          <p>{data.site.emptyLabel}</p>
+        </div>
+      )}
+    </div>
+  );
 }

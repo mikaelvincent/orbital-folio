@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Native keyboard scrolling needs a focusable viewport. */
 import {
   useEffect,
@@ -34,6 +35,7 @@ export function projectedScrollFraction(
  * auto-hide preferences. Only resize and input events do work; no frame loop. */
 export function ContactScrollArea({
   children,
+  site,
   label = 'Contact application',
   viewportRef,
   onScroll,
@@ -41,6 +43,7 @@ export function ContactScrollArea({
   initialScrollTop = 0,
 }: {
   children: ReactNode;
+  site?: Record<string, any>;
   label?: string;
   viewportRef?: RefObject<HTMLDivElement | null>;
   onScroll?: (top: number) => void;
@@ -125,7 +128,9 @@ export function ContactScrollArea({
         }}
         tabIndex={0}
         role="region"
-        aria-label={`${label} content`}
+        aria-label={copy(site, '{application} content', {
+          application: copy(site, label),
+        })}
         onScroll={(event) => onScroll?.(event.currentTarget.scrollTop)}
       >
         <div ref={content}>{children}</div>
@@ -135,7 +140,9 @@ export function ContactScrollArea({
           className="contact-window-scrollbar"
           role="scrollbar"
           tabIndex={0}
-          aria-label={`Scroll ${label}`}
+          aria-label={copy(site, 'Scroll {application}', {
+            application: copy(site, label),
+          })}
           aria-controls={id}
           aria-orientation="vertical"
           aria-valuemin={0}

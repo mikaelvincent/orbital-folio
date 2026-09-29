@@ -127,6 +127,7 @@ export type SpacecraftState = {
 export function createSpacecraft(
   THREE: any,
   options: {
+    site?: Record<string, any>;
     accent?: string;
     labels?: Record<string, string>;
     projects?: SpacecraftProject[];
@@ -1560,6 +1561,7 @@ export function createSpacecraft(
     { box, mesh, cylinder, torus, rod, instances },
     workshop,
     {
+      site: options.site,
       accent: m.amber,
       desktopMaterial: computerDesktopMaterial,
     },
@@ -1585,6 +1587,7 @@ export function createSpacecraft(
     archive,
     {
       caseCount: caseStudyData.length,
+      site: options.site,
       accent: m.amber,
       desktopMaterial: computerDesktopMaterial,
     },
@@ -1614,6 +1617,7 @@ export function createSpacecraft(
     { box, mesh, cylinder, torus, rod, instances },
     personalStudy,
     {
+      site: options.site,
       accent: m.amber,
       photos: options.aboutPhotos,
       journal: options.journal,
@@ -1646,6 +1650,7 @@ export function createSpacecraft(
     { box, mesh, cylinder, torus, rod, instances },
     contactConsole,
     {
+      site: options.site,
       accent: m.amber,
       socials: options.socials,
       desktopMaterial: computerDesktopMaterial,
@@ -1678,6 +1683,7 @@ export function createSpacecraft(
       { box, mesh, cylinder, instances },
       root,
       section === 'contact' ? 'communications' : 'recorder',
+      options.site,
     );
     return { section, root };
   });

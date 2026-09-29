@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import {
@@ -11,6 +12,7 @@ export function buildProjectPayloadModule(
   h: any,
   parent: any,
   options: {
+    site?: Record<string, any>;
     label: string;
     kind: 'all' | 'systems' | 'interfaces' | 'experiments';
     accent?: any;
@@ -535,7 +537,7 @@ export function buildProjectPayloadModule(
       ctx.fillStyle = PALETTE.textMuted;
       ctx.font =
         '500 48px Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText('STANDBY', 512, 470);
+      ctx.fillText(copy(options.site, 'STANDBY'), 512, 470);
       return;
     }
     if (options.screenLabels !== false) {

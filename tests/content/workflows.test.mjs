@@ -187,6 +187,42 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
   const baseline = await records();
   try {
     await t.test(
+      'interface text stays private until published and is shared by both views',
+      async () => {
+        const original = await record('site');
+        try {
+          await save(original, {
+            ...original.draft,
+            interfaceText: {
+              ...original.draft.interfaceText,
+              'Schedule a call': 'Fixture edited contact action',
+              'Read project: {title}': 'Fixture read {title}',
+            },
+          });
+          assert.doesNotMatch(
+            await (await req('/contact?view=reading')).text(),
+            /Fixture edited contact action/,
+          );
+          const preview = await authorized('/admin/preview?section=contact');
+          assert.match(await preview.text(), /Fixture edited contact action/);
+          await publish('site');
+          for (const path of ['/contact', '/contact?view=reading'])
+            assert.match(
+              await (await req(path)).text(),
+              /Fixture edited contact action/,
+            );
+          assert.equal(
+            (await record('site')).published.interfaceText[
+              'Read project: {title}'
+            ],
+            'Fixture read {title}',
+          );
+        } finally {
+          await restore(original);
+        }
+      },
+    );
+    await t.test(
       'notebook slug routes expose published sections and keep draft deep links private',
       async () => {
         const id = await create('journal', {

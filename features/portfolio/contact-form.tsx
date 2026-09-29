@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import { useEffect, useId, useRef, useState } from 'react';
 import {
   ArrowUpRight,
@@ -74,7 +75,7 @@ export function ContactForm({
   const error =
     (!current.mode || current.mode === mode ? current.error : '') ||
     (initialError && !initialNoticeDismissed
-      ? 'Your message could not be saved. Please try again.'
+      ? copy(s, 'Your message could not be saved. Please try again.')
       : '');
   const updateDraft = (patch: Partial<ContactDraft>) => {
     // Autofill and rapid input events can arrive before the parent has rendered
@@ -139,7 +140,7 @@ export function ContactForm({
     <label className="contact-app-field" htmlFor={`${id}-${name}`}>
       <span>
         {label}
-        {!props.required && <small>Optional</small>}
+        {!props.required && <small>{copy(s, 'Optional')}</small>}
       </span>
       <input
         {...props}
@@ -154,8 +155,9 @@ export function ContactForm({
     <div className="contact-app" data-contact-mode={mode ?? 'choose'}>
       <div className="contact-app-toolbar">
         <div>
-          <p className="contact-app-eyebrow">OPEN A CONVERSATION</p>
-          <h2>Let’s connect.</h2>
+          <p className="contact-app-eyebrow">{s.contactRoom}</p>
+          <h1>{s.contactHeading}</h1>
+          <p className="contact-app-intro">{s.contactIntro}</p>
         </div>
         {!emailOpen && email && (
           <button
@@ -169,20 +171,22 @@ export function ContactForm({
             }}
             aria-expanded="false"
           >
-            <Mail size={15} /> Prefer email?
+            <Mail size={15} />
+            {s.emailLabelCta}
           </button>
         )}
         {emailOpen && email && (
-          <aside className="contact-email-callout" aria-label="Prefer email?">
+          <aside className="contact-email-callout" aria-label={s.emailLabelCta}>
             <div className="contact-email-callout-top">
               <span>
-                <Mail size={14} /> Prefer email?
+                <Mail size={14} />
+                {s.emailLabelCta}
               </span>
               <button
                 type="button"
                 disabled={!ready}
                 ref={emailDismiss}
-                aria-label="Dismiss email alternative"
+                aria-label={copy(s, 'Dismiss email alternative')}
                 onClick={() => {
                   setEmailOpen(false);
                   setCopyNotice('');
@@ -197,13 +201,16 @@ export function ContactForm({
               <button
                 type="button"
                 disabled={!ready}
-                aria-label="Copy email address"
+                aria-label={copy(s, 'Copy email address')}
                 onClick={async () => {
                   const copied = await copyContactEmail(email);
                   setCopyNotice(
                     copied
-                      ? 'Email address copied.'
-                      : 'Copy unavailable. Select the address to copy it.',
+                      ? copy(s, 'Email address copied.')
+                      : copy(
+                          s,
+                          'Copy unavailable. Select the address to copy it.',
+                        ),
                   );
                 }}
               >
@@ -218,11 +225,13 @@ export function ContactForm({
         className="contact-app-options"
         disabled={!ready || status === 'sending'}
       >
-        <legend className="sr-only">How would you like to get in touch?</legend>
+        <legend className="sr-only">
+          {copy(s, 'How would you like to get in touch?')}
+        </legend>
         {(
           [
-            ['call', 'Schedule a call', CalendarDays],
-            ['message', 'Send a message', Mail],
+            ['call', copy(s, 'Schedule a call'), CalendarDays],
+            ['message', copy(s, 'Send a message'), Mail],
           ] as const
         ).map(([value, label, Icon]) => (
           <button
@@ -241,18 +250,19 @@ export function ContactForm({
         <div className="contact-app-context" id={`${id}-context`}>
           <p>
             {mode === 'call'
-              ? 'Choose your preferred time to talk.'
-              : 'Your message goes to my private inbox.'}
+              ? copy(s, 'Choose your preferred time to talk.')
+              : copy(s, 'Your message goes to my private inbox.')}
           </p>
         </div>
       )}
       <noscript>
         <p className="contact-app-context">
-          These forms need JavaScript and cannot submit without it.
+          {copy(s, 'These forms need JavaScript and cannot submit without it.')}
           {email && (
             <>
               {' '}
-              You can still <a href={`mailto:${email}`}>email me directly</a>.
+              {copy(s, 'You can still')}{' '}
+              <a href={`mailto:${email}`}>{copy(s, 'email me directly')}</a>.
             </>
           )}
         </p>
@@ -261,20 +271,26 @@ export function ContactForm({
         <div className="contact-app-result" role="status">
           <Check size={28} />
           <h3>
-            {status === 'demo' ? 'Preview complete.' : 'Message received.'}
+            {status === 'demo' ? copy(s, 'Preview complete.') : s.sentHeading}
           </h3>
           <p>
             {status === 'demo'
-              ? 'Nothing was sent or saved, and no call was booked. You can still edit the details or use email to get in touch.'
-              : 'Your message was saved to my private inbox. Thank you for getting in touch.'}
+              ? copy(
+                  s,
+                  'Nothing was sent or saved, and no call was booked. You can still edit the details or use email to get in touch.',
+                )
+              : s.sentMessage}
           </p>
           <button type="button" disabled={!ready} onClick={beginAgain}>
-            {status === 'demo' ? 'Edit request' : 'Back to form'}
+            {status === 'demo'
+              ? copy(s, 'Edit request')
+              : copy(s, 'Back to form')}
             <ArrowUpRight size={16} />
           </button>
         </div>
       ) : (
         <form
+          noValidate
           className="contact-app-form"
           aria-describedby={`${id}-context`}
           onSubmit={async (event) => {
@@ -297,7 +313,7 @@ export function ContactForm({
               if (typeof value === 'string') submitted[key] = value;
             }
             updateDraft(submitted);
-            const validation = validateContactDraft(submitted);
+            const validation = validateContactDraft(submitted, s);
             if (validation) {
               updateSubmission({ status: 'idle', error: validation, mode });
               return;
@@ -324,12 +340,19 @@ export function ContactForm({
                   ) {
                     throw new Error(
                       response.status === 429
-                        ? 'Too many messages were sent recently. Please try again later or use email.'
-                        : 'Your message could not be saved. Please try again or use email.',
+                        ? copy(
+                            s,
+                            'Too many messages were sent recently. Please try again later or use email.',
+                          )
+                        : copy(
+                            s,
+                            'Your message could not be saved. Please try again or use email.',
+                          ),
                     );
                   }
                 },
                 typeof website === 'string' ? website : '',
+                s,
               );
               updateSubmission({ status: result, error: '', mode });
               if (result === 'sent') onSent?.();
@@ -337,9 +360,17 @@ export function ContactForm({
               updateSubmission({
                 status: 'idle',
                 error:
-                  failure instanceof Error
+                  failure instanceof Error &&
+                  failure.message ===
+                    copy(
+                      s,
+                      'Too many messages were sent recently. Please try again later or use email.',
+                    )
                     ? failure.message
-                    : 'Your message could not be saved. Please try again.',
+                    : copy(
+                        s,
+                        'Your message could not be saved. Please try again or use email.',
+                      ),
                 mode,
               });
             }
@@ -350,45 +381,50 @@ export function ContactForm({
             disabled={!ready || status === 'sending'}
           >
             <legend className="sr-only">
-              {mode === 'call' ? 'Call request details' : 'Message details'}
+              {mode === 'call'
+                ? copy(s, 'Call request details')
+                : copy(s, 'Message details')}
             </legend>
             <div className="contact-app-grid">
               {mode === 'call' && (
                 <>
-                  {field('date', 'Preferred date', {
+                  {field('date', copy(s, 'Preferred date'), {
                     type: 'date',
                     required: true,
                   })}
-                  {field('time', 'Preferred time', {
+                  {field('time', copy(s, 'Preferred time'), {
                     type: 'time',
                     required: true,
                   })}
                   <p className="contact-app-timezone contact-app-wide">
-                    Time zone:{' '}
+                    {copy(s, 'Time zone:')}{' '}
                     <strong>
-                      {values.timeZone || 'Detecting your time zone…'}
+                      {values.timeZone || copy(s, 'Detecting your time zone…')}
                     </strong>
-                    {values.timeZone && ' · your device’s time zone'}
+                    {values.timeZone && copy(s, ' · your device’s time zone')}
                   </p>
                 </>
               )}
-              {field('name', 'Name', { autoComplete: 'name', maxLength: 120 })}
-              {field('company', 'Company', {
+              {field('name', s.nameLabel, {
+                autoComplete: 'name',
+                maxLength: 120,
+              })}
+              {field('company', copy(s, 'Company'), {
                 autoComplete: 'organization',
                 maxLength: 160,
               })}
-              {field('email', 'Email address', {
+              {field('email', s.emailLabel, {
                 type: 'email',
                 autoComplete: 'email',
                 maxLength: 254,
                 required: true,
               })}
-              {field('subject', 'Subject', { maxLength: 200 })}
+              {field('subject', copy(s, 'Subject'), { maxLength: 200 })}
               <label
                 className="contact-app-field contact-app-wide"
                 htmlFor={`${id}-message`}
               >
-                <span>Message</span>
+                <span>{s.messageLabel}</span>
                 <textarea
                   name="message"
                   id={`${id}-message`}
@@ -410,15 +446,18 @@ export function ContactForm({
                   }
                   id={`${id}-length`}
                 >
-                  At least 10 characters · {characters.toLocaleString('en-US')}{' '}
-                  / 5,000 including company and subject
+                  {copy(
+                    s,
+                    'At least 10 characters · {count} / 5,000 including company and subject',
+                    { count: characters.toLocaleString('en-US') },
+                  )}
                 </small>
               </label>
             </div>
           </fieldset>
           <div className="honeypot" aria-hidden="true">
             <label htmlFor={`${id}-website`}>
-              Website
+              {copy(s, 'Website')}
               <input
                 id={`${id}-website`}
                 name="website"
@@ -436,11 +475,14 @@ export function ContactForm({
           <div className="contact-app-submit-row">
             <p>
               {mode === 'call' ? (
-                'Call requests aren’t sent yet. Use email to arrange a time.'
+                copy(
+                  s,
+                  'Call requests aren’t sent yet. Use email to arrange a time.',
+                )
               ) : (
                 <>
-                  Only used to respond to your inquiry.{' '}
-                  <a href={pathFor('/privacy', s)}>Privacy ↗</a>
+                  {s.contactPrivacy}{' '}
+                  <a href={pathFor('/privacy', s)}>{s.privacyLabel}</a>
                 </>
               )}
             </p>
@@ -450,10 +492,10 @@ export function ContactForm({
               type="submit"
             >
               {status === 'sending'
-                ? 'Sending…'
+                ? s.sendingLabel
                 : mode === 'call'
-                  ? 'Request a call'
-                  : 'Send message'}
+                  ? copy(s, 'Request a call')
+                  : s.sendLabel}
               <Send size={16} />
             </button>
           </div>

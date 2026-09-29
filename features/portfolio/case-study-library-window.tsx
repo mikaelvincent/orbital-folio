@@ -16,6 +16,7 @@ import {
   PanelsTopLeft,
   X,
 } from 'lucide-react';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import type { Portfolio } from '@/lib/content/types';
 import {
   CASE_STUDY_CATEGORIES,
@@ -50,12 +51,9 @@ function filteredCaseStudies(data: Portfolio, category: CaseStudyFilter) {
   );
 }
 
-function categoryLabel(entry: Record<string, any>) {
+function categoryLabel(entry: Record<string, any>, site: Record<string, any>) {
   return caseStudyCategories(entry)
-    .map(
-      (id) =>
-        CASE_STUDY_CATEGORIES.find((category) => category.id === id)!.label,
-    )
+    .map((id) => caseStudyFilterLabel(site, id))
     .join(' · ');
 }
 
@@ -83,15 +81,17 @@ function CaseStudyList({
               data.site,
             )}
             onClick={onSelect ? (event) => onSelect(event, entry) : undefined}
-            aria-label={`Read case study: ${entry.title}`}
+            aria-label={copy(data.site, 'Read case study: {title}', {
+              title: entry.title,
+            })}
           >
             <span className="case-study-archive-number" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}
             </span>
             <div className="case-study-archive-copy">
-              {!!categoryLabel(entry) && (
+              {!!categoryLabel(entry, data.site) && (
                 <p className="case-study-archive-category">
-                  {categoryLabel(entry)}
+                  {categoryLabel(entry, data.site)}
                 </p>
               )}
               <h2>{entry.title}</h2>
@@ -117,8 +117,11 @@ function CaseStudyList({
   ) : (
     <p className="case-study-empty" role="status">
       {category === 'all'
-        ? 'No case studies are available yet.'
-        : 'No case studies have been added to this category yet.'}
+        ? copy(data.site, 'No case studies are available yet.')
+        : copy(
+            data.site,
+            'No case studies have been added to this category yet.',
+          )}
     </p>
   );
 }
@@ -134,15 +137,19 @@ export function ReadingCaseStudyLibrary({
   onCategoryChange?: (category: CaseStudyFilter) => void;
 }) {
   const [selected, setSelected] = useState<CaseStudyFilter>('all');
-  const category = requestedCategory ?? selected;
+  const requested = requestedCategory ?? selected;
+  const category = caseStudyCategoryCount(data.experience, requested)
+    ? requested
+    : 'all';
   return (
     <div className="reading-case-study-library">
       <nav
         className="project-category-controls"
-        aria-label="Case study categories"
+        aria-label={copy(data.site, 'Case study categories')}
       >
         {filters.map((filter) => {
           const count = caseStudyCategoryCount(data.experience, filter.id);
+          if (!count) return null;
           const Icon = icons[filter.id];
           return (
             <button
@@ -155,13 +162,13 @@ export function ReadingCaseStudyLibrary({
               }}
             >
               <Icon size={16} aria-hidden="true" />
-              <span>{filter.label}</span>
+              <span>{caseStudyFilterLabel(data.site, filter.id)}</span>
               <small>{count}</small>
             </button>
           );
         })}
       </nav>
-      <CaseStudyList data={data} category={category} />
+      <CaseStudyCollection data={data} category={category} />
     </div>
   );
 }
@@ -176,18 +183,20 @@ export function CaseStudyStory({
   caseStudy: Record<string, any>;
   headingRef?: RefObject<HTMLHeadingElement | null>;
 }) {
-  const body = caseStudyBody(caseStudy);
+  const body = caseStudyBody(caseStudy, data.site);
   const cover = data.media.find((media) => media.id === caseStudy.mediaId);
-  const categories = categoryLabel(caseStudy);
+  const categories = categoryLabel(caseStudy, data.site);
   const metadata = [
-    ['role', data.site.roleLabel || 'Role'],
-    ['organization', 'Organization'],
-    ['period', 'Period'],
+    ['role', data.site.roleLabel || copy(data.site, 'Role')],
+    ['organization', copy(data.site, 'Organization')],
+    ['period', copy(data.site, 'Period')],
   ];
   return (
     <div className="case-study-story">
       <header className="case-study-story-heading">
-        <p className="case-study-story-kicker">{categories || 'Case study'}</p>
+        <p className="case-study-story-kicker">
+          {categories || copy(data.site, 'Case study')}
+        </p>
         <h1 ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
           {caseStudy.title}
         </h1>
@@ -210,12 +219,17 @@ export function CaseStudyStory({
           )}
         </dl>
       )}
-      {cover && <ProjectMedia item={cover} media={data.media} />}
+      {cover && (
+        <ProjectMedia site={data.site} item={cover} media={data.media} />
+      )}
       {body.trim() ? (
-        <ProjectMarkdown body={body} media={data.media} />
+        <ProjectMarkdown site={data.site} body={body} media={data.media} />
       ) : (
         <p className="case-study-empty">
-          More details about this case study will be added here.
+          {copy(
+            data.site,
+            'More details about this case study will be added here.',
+          )}
         </p>
       )}
     </div>
@@ -243,8 +257,7 @@ export function CaseStudyLibraryWindow({
   const viewKey = caseStudy
     ? `case-study:${caseStudy.id}`
     : `category:${category}`;
-  const entries = filteredCaseStudies(data, category);
-  const label = filters.find((filter) => filter.id === category)!.label;
+  const label = caseStudyFilterLabel(data.site, category);
   const Icon = icons[category];
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
@@ -274,7 +287,7 @@ export function CaseStudyLibraryWindow({
         className="project-library-window case-study-library-window"
         id="world-reader"
         tabIndex={-1}
-        aria-label="Case studies application"
+        aria-label={copy(data.site, 'Case studies application')}
         data-case-study-interface
       >
         <header className="project-window-bar">
@@ -288,7 +301,7 @@ export function CaseStudyLibraryWindow({
               }}
             >
               <ArrowLeft size={16} aria-hidden="true" />
-              Back to case studies
+              {copy(data.site, 'Back to case studies')}
             </button>
           ) : (
             <span className="project-window-label">
@@ -300,14 +313,15 @@ export function CaseStudyLibraryWindow({
             type="button"
             className="project-window-close"
             onClick={onClose}
-            aria-label="Close Case studies application"
-            title="Close Case studies application"
+            aria-label={copy(data.site, 'Close Case studies application')}
+            title={copy(data.site, 'Close Case studies application')}
           >
             <X size={21} aria-hidden="true" />
           </button>
         </header>
         <ContactScrollArea
-          label="Case studies application"
+          site={data.site}
+          label={copy(data.site, 'Case studies application')}
           viewportRef={scroll}
           restorationKey={viewKey}
           initialScrollTop={positions.current[viewKey] ?? 0}
@@ -324,30 +338,12 @@ export function CaseStudyLibraryWindow({
               />
             </div>
           ) : (
-            <div className="case-study-window-collection">
-              <div className="case-study-collection-heading">
-                <div>
-                  <p className="case-study-story-kicker">
-                    THE DECISIONS BEHIND THE WORK
-                  </p>
-                  <h1 ref={heading} tabIndex={-1}>
-                    {category === 'all' ? 'Case studies' : label}
-                  </h1>
-                </div>
-                <span className="case-study-collection-count">
-                  {String(entries.length).padStart(2, '0')}
-                  <small>{entries.length === 1 ? 'story' : 'stories'}</small>
-                </span>
-              </div>
-              <p className="case-study-collection-intro">
-                Context, considered choices, and what changed.
-              </p>
-              <CaseStudyList
-                data={data}
-                category={category}
-                onSelect={select}
-              />
-            </div>
+            <CaseStudyCollection
+              data={data}
+              category={category}
+              headingRef={heading}
+              onSelect={select}
+            />
           )}
         </ContactScrollArea>
         {caseStudy && (
@@ -359,6 +355,54 @@ export function CaseStudyLibraryWindow({
           </footer>
         )}
       </article>
+    </div>
+  );
+}
+
+export function caseStudyFilterLabel(
+  site: Record<string, any>,
+  category: CaseStudyFilter,
+) {
+  return copy(site, filters.find((filter) => filter.id === category)!.label);
+}
+export function CaseStudyCollection({
+  data,
+  category,
+  headingRef,
+  onSelect,
+}: {
+  data: Portfolio;
+  category: CaseStudyFilter;
+  headingRef?: RefObject<HTMLHeadingElement | null>;
+  onSelect?: (
+    event: MouseEvent<HTMLAnchorElement>,
+    entry: Record<string, any>,
+  ) => void;
+}) {
+  const entries = filteredCaseStudies(data, category);
+  const label = caseStudyFilterLabel(data.site, category);
+  return (
+    <div className="case-study-window-collection">
+      <div className="case-study-collection-heading">
+        <div>
+          <p className="case-study-story-kicker">
+            {copy(data.site, 'THE DECISIONS BEHIND THE WORK')}
+          </p>
+          <h1 ref={headingRef} tabIndex={-1}>
+            {category === 'all' ? data.site.experienceHeading : label}
+          </h1>
+        </div>
+        <span className="case-study-collection-count">
+          {String(entries.length).padStart(2, '0')}
+          <small>
+            {entries.length === 1
+              ? copy(data.site, 'story')
+              : copy(data.site, 'stories')}
+          </small>
+        </span>
+      </div>
+      <p className="case-study-collection-intro">{data.site.experienceIntro}</p>
+      <CaseStudyList data={data} category={category} onSelect={onSelect} />
     </div>
   );
 }

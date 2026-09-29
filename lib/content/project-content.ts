@@ -29,7 +29,10 @@ export function projectCategoryCount(
 }
 
 /** Older projects keep their authored story without requiring a migration. */
-export function projectBody(project: Project): string {
+export function projectBody(
+  project: Project,
+  site: Record<string, any> = {},
+): string {
   if (typeof project.body === 'string') return project.body;
   const sections = [
     ['problem', 'The problem'],
@@ -42,7 +45,7 @@ export function projectBody(project: Project): string {
   return sections
     .flatMap(([key, heading]) =>
       typeof project[key] === 'string' && project[key].trim()
-        ? [`## ${heading}\n\n${project[key].trim()}`]
+        ? [`## ${site[key + 'Label'] || heading}\n\n${project[key].trim()}`]
         : [],
     )
     .join('\n\n');

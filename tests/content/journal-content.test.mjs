@@ -640,7 +640,7 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
   assert.match(markup, /<track[^>]*src="\/media\/captions"/);
   assert.doesNotMatch(markup, /<script>|href="javascript:/);
   assert.match(markup, /&lt;script&gt;/);
-  assert.match(markup, /href="\/contact"/);
+  assert.doesNotMatch(markup, /href="\/contact"/); // No reading-only invitation.
   const selected = render(AboutView, { data, section: data.journal[1] });
   assert.match(
     selected,

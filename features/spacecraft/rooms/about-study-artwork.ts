@@ -1,7 +1,12 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 
 /** Original, static artwork for the personal study. No images or font downloads. */
-export function drawStudyArtwork(ctx: any, kind: string) {
+export function drawStudyArtwork(
+  ctx: any,
+  kind: string,
+  site?: Record<string, any>,
+) {
   const landscape = kind === 'landscape-postcard';
   const width = landscape ? 512 : 768;
   const height = landscape ? 320 : 1024;
@@ -478,11 +483,11 @@ export function drawStudyArtwork(ctx: any, kind: string) {
       1.5,
     );
     book.title.forEach((word, i) =>
-      lettering(word, 120, 284 + i * 95, 70, '500', coverInk),
+      lettering(copy(site, word), 120, 284 + i * 95, 70, '500', coverInk, 517),
     );
     ctx.fillStyle = coverInk;
     ctx.font = '17px "Helvetica Neue", Arial, sans-serif';
-    ctx.fillText(book.subtitle, 122, 862);
+    ctx.fillText(copy(site, book.subtitle), 122, 862, 517);
     path(
       [
         [122, 891],
@@ -505,15 +510,15 @@ export function drawStudyArtwork(ctx: any, kind: string) {
       );
       ctx.fillStyle = ink;
       ctx.font = 'italic 30px Georgia, serif';
-      ctx.fillText('Look a little closer.', 101, 811);
+      ctx.fillText(copy(site, 'Look a little closer.'), 101, 811, 550);
     } else if (kind === 'curiosity-note') {
       ctx.save();
       ctx.translate(95, 260);
       ctx.rotate(0.018);
       ctx.fillStyle = ink;
       ctx.font = 'italic 85px Georgia, serif';
-      ctx.fillText('Stay', 36, 164);
-      ctx.fillText('curious.', 36, 286);
+      ctx.fillText(copy(site, 'Stay'), 36, 164, 500);
+      ctx.fillText(copy(site, 'curious.'), 36, 286, 500);
       path(
         [
           [49, 331],
@@ -530,9 +535,9 @@ export function drawStudyArtwork(ctx: any, kind: string) {
       ctx.rotate(-0.025);
       ctx.fillStyle = ink;
       ctx.font = 'italic 85px Georgia, serif';
-      ctx.fillText('Make', 36, 102);
-      ctx.fillText('useful', 36, 224);
-      ctx.fillText('things.', 36, 346);
+      ctx.fillText(copy(site, 'Make'), 36, 102, 500);
+      ctx.fillText(copy(site, 'useful'), 36, 224, 500);
+      ctx.fillText(copy(site, 'things.'), 36, 346, 500);
       path(
         [
           [49, 391],

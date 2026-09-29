@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 
 import { useState } from 'react';
 import { ArrowUpRight, BookOpen } from 'lucide-react';
@@ -16,7 +17,10 @@ export function AboutPortrait({ data }: { data: Portfolio }) {
     <div className="about-profile-photo">
       <img
         src={photo.media.url}
-        alt={photo.media.alt || `Portrait of ${data.site.name}`}
+        alt={
+          photo.media.alt ||
+          copy(data.site, 'Portrait of {name}', { name: data.site.name })
+        }
         width="300"
         height="300"
         style={imageCropStyle(photo.readingCrop)}
@@ -32,7 +36,10 @@ export function AboutSocialLinks({ data }: { data: Portfolio }) {
   );
   if (!links.length) return null;
   return (
-    <nav className="about-social-links" aria-label="Social profiles">
+    <nav
+      className="about-social-links"
+      aria-label={copy(data.site, 'Social profiles')}
+    >
       {links.map(({ link, icon }) => {
         const email = link.url.startsWith('mailto:');
         return (
@@ -43,8 +50,10 @@ export function AboutSocialLinks({ data }: { data: Portfolio }) {
             rel={email ? undefined : 'noopener noreferrer'}
             aria-label={
               email
-                ? `Email ${link.title}`
-                : `${link.title} (opens in a new tab)`
+                ? copy(data.site, 'Email {name}', { name: link.title })
+                : copy(data.site, '{name} (opens in a new tab)', {
+                    name: link.title,
+                  })
             }
           >
             <AboutSocialIcon platform={link.platform} url={icon?.media.url} />

@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 import type { ComponentProps } from 'react';
 import { Radio, X } from 'lucide-react';
 import { ContactForm } from './contact-form';
@@ -16,24 +17,25 @@ export function ContactComputerWindow({
         className="contact-computer-window"
         id="world-reader"
         tabIndex={-1}
-        aria-label="Contact computer"
+        aria-label={copy(form.site, 'Contact computer')}
         data-contact-interface
       >
         <header className="contact-window-bar">
           <span>
-            <Radio size={13} aria-hidden="true" /> CONTACT
+            <Radio size={13} aria-hidden="true" />
+            {form.site.contactLabel}
           </span>
           <button
             className="contact-window-close"
             type="button"
-            aria-label="Close Contact application"
-            title="Close Contact application"
+            aria-label={copy(form.site, 'Close Contact application')}
+            title={copy(form.site, 'Close Contact application')}
             onClick={onClose}
           >
             <X size={20} aria-hidden="true" />
           </button>
         </header>
-        <ContactScrollArea>
+        <ContactScrollArea site={form.site}>
           <ContactForm {...form} />
         </ContactScrollArea>
       </article>

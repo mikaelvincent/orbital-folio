@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import {
@@ -15,7 +16,12 @@ export function buildCaseStudyArchive(
   THREE: any,
   h: any,
   floorRoot: any,
-  options: { caseCount?: number; accent?: any; desktopMaterial?: any } = {},
+  options: {
+    site?: Record<string, any>;
+    caseCount?: number;
+    accent?: any;
+    desktopMaterial?: any;
+  } = {},
 ) {
   const prefix = 'case-archive-';
   const material = (
@@ -488,9 +494,11 @@ export function buildCaseStudyArchive(
   }> = [];
   // Four category cartridges retain their upper rows, leaving room for the taller terminal.
   const categories = CASE_STUDY_CATEGORIES.map(({ id, label }, index) => ({
-    title: label,
+    title: copy(options.site, label),
     kind: id,
-    code: `FR–${String(index + 1).padStart(2, '0')}`,
+    code: copy(options.site, 'FR–{number}', {
+      number: String(index + 1).padStart(2, '0'),
+    }),
     active: false,
   }));
   categories.forEach((category, index) => {
@@ -683,7 +691,7 @@ export function buildCaseStudyArchive(
         ctx.rotate(-Math.PI / 2);
         ctx.font = `500 ${ch * 0.18}px monospace`;
         ctx.textAlign = 'center';
-        ctx.fillText(category.code, 0, 0);
+        ctx.fillText(category.code, 0, 0, ch * 0.85);
         ctx.restore();
       },
     );
@@ -823,11 +831,18 @@ export function buildCaseStudyArchive(
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = '600 100px Arial, sans-serif';
-      ctx.fillText('All case studies', cw / 2, ch * 0.48, cw - 150);
+      ctx.fillText(
+        copy(options.site, 'All case studies'),
+        cw / 2,
+        ch * 0.48,
+        cw - 150,
+      );
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
-        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
+        terminalAvailable
+          ? copy(options.site, 'Ideas. Systems. People. Progress.')
+          : copy(options.site, 'STANDBY'),
         cw / 2,
         ch * 0.62,
         cw - 150,
@@ -841,7 +856,12 @@ export function buildCaseStudyArchive(
       ctx.textAlign = 'left';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '500 26px monospace';
-      ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88);
+      ctx.fillText(
+        copy(options.site, 'FLIGHT RECORDS'),
+        85,
+        ch * 0.88,
+        cw - 280,
+      );
       ctx.textAlign = 'right';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.bronzeLight;
       ctx.font = '500 38px Arial, sans-serif';
@@ -1112,7 +1132,7 @@ export function buildCaseStudyArchive(
       interactionAnchor: anchor,
       hitTarget: display.plane,
       category: 'all' as const,
-      label: 'All case studies',
+      label: copy(options.site, 'All case studies'),
       interactableId: 'case-study-screen-all',
       get available() {
         return terminalAvailable;

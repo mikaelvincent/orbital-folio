@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../lib/content/interface-text.ts';
 import type { CaseStudyFilter } from '../../lib/content/case-study-content';
 import { projectApplicationLayout } from './navigation/project-application';
 import { fitAboutNotebook } from './navigation/about-notebook';
@@ -315,7 +316,7 @@ export function mountSpacecraftScene({
         el.appendChild(surfaceLayer);
         const contactReturnHint = document.createElement('span');
         contactReturnHint.className = 'contact-room-return-hint';
-        contactReturnHint.textContent = 'Click wall to return';
+        contactReturnHint.textContent = copy(s, 'Click wall to return');
         contactReturnHint.setAttribute('aria-hidden', 'true');
         el.appendChild(contactReturnHint);
         const surfaceElement = document.createElement('div');
@@ -373,6 +374,7 @@ export function mountSpacecraftScene({
             sample: item.sample && (s.sampleMode || s._preview),
           }));
         const modelOptions = {
+          site: s,
           vesselName,
           journal: (latest.current.journal || []).map((entry) => ({
             title: String(entry.title),
@@ -592,8 +594,10 @@ export function mountSpacecraftScene({
             link.setAttribute(
               'aria-label',
               screen.link.url.startsWith('mailto:')
-                ? `Email ${screen.link.title}`
-                : `Open ${screen.link.title} (new tab)`,
+                ? copy(s, 'Email {name}', { name: screen.link.title })
+                : copy(s, '{name} (opens in a new tab)', {
+                    name: screen.link.title,
+                  }),
             );
             link.dataset.targetKey = `social:${screen.side}:${screen.link.id}`;
             if (screen.section === 'about') {
@@ -693,11 +697,12 @@ export function mountSpacecraftScene({
           notebookElement,
           notebook,
           occludeNotebookInk,
+          s,
         );
         const notebookButton = document.createElement('button');
         notebookButton.type = 'button';
         notebookButton.className = 'world-object-target world-notebook-target';
-        notebookButton.setAttribute('aria-label', 'Read notebook');
+        notebookButton.setAttribute('aria-label', copy(s, 'Read notebook'));
         notebookButton.dataset.targetKey = 'about-notebook';
         notebookButton.dataset.sceneObject = 'about-notebook';
         notebookButton.style.width = '500px';
@@ -712,7 +717,10 @@ export function mountSpacecraftScene({
         const computerButton = document.createElement('button');
         computerButton.type = 'button';
         computerButton.className = 'world-object-target world-computer-screen';
-        computerButton.setAttribute('aria-label', 'Open Contact computer');
+        computerButton.setAttribute(
+          'aria-label',
+          copy(s, 'Open Contact computer'),
+        );
         computerButton.dataset.targetKey = 'contact-computer';
         computerButton.dataset.sceneObject = 'contact-computer';
         computerButton.style.width = '500px';
@@ -729,7 +737,10 @@ export function mountSpacecraftScene({
             button.type = 'button';
             button.className = 'world-object-target world-computer-screen';
             button.disabled = !screen.available;
-            button.setAttribute('aria-label', `Open ${screen.label}`);
+            button.setAttribute(
+              'aria-label',
+              copy(s, 'Open {name}', { name: screen.label }),
+            );
             button.dataset.targetKey = screen.interactableId;
             button.dataset.sceneObject = screen.interactableId;
             button.style.width = '500px';
@@ -750,7 +761,10 @@ export function mountSpacecraftScene({
             button.type = 'button';
             button.className = 'world-object-target world-computer-screen';
             button.disabled = !screen.available;
-            button.setAttribute('aria-label', `Open ${screen.label}`);
+            button.setAttribute(
+              'aria-label',
+              copy(s, 'Open {name}', { name: screen.label }),
+            );
             button.dataset.targetKey = screen.interactableId;
             button.dataset.sceneObject = screen.interactableId;
             button.style.width = '500px';
@@ -3529,6 +3543,7 @@ export function mountSpacecraftScene({
           if (audit) return;
           const sceneInventory = collectSceneInventory();
           unmountPerformancePanel = mountPerformancePanel({
+            site: s,
             collector: {
               snapshot: (includeFrames) => diagnostics!.snapshot(includeFrames),
               reset: (reason) => resetDiagnostics(reason || 'reset'),

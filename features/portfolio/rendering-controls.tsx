@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -12,11 +13,13 @@ import {
 import './rendering-controls.css';
 
 export function RenderingControls({
+  site,
   settings,
   observer,
   onChange,
   onClose,
 }: {
+  site: Record<string, any>;
   settings: RenderingSettings;
   observer: RenderingObserver;
   onChange: (settings: RenderingSettings) => void;
@@ -54,15 +57,15 @@ export function RenderingControls({
     >
       <header>
         <h2 id="rendering-controls-title" ref={heading} tabIndex={-1}>
-          Rendering
+          {copy(site, 'Rendering')}
         </h2>
         <button
           type="button"
           className="rendering-icon-button"
           aria-label={
             collapsed
-              ? 'Expand rendering controls'
-              : 'Collapse rendering controls'
+              ? copy(site, 'Expand rendering controls')
+              : copy(site, 'Collapse rendering controls')
           }
           aria-expanded={!collapsed}
           aria-controls="rendering-controls-body"
@@ -73,7 +76,7 @@ export function RenderingControls({
         <button
           type="button"
           className="rendering-icon-button"
-          aria-label="Close rendering controls"
+          aria-label={copy(site, 'Close rendering controls')}
           onClick={onClose}
         >
           <X size={18} aria-hidden="true" />
@@ -81,24 +84,27 @@ export function RenderingControls({
       </header>
       <div id="rendering-controls-body" hidden={collapsed}>
         <p className="rendering-intro">
-          Compare the appearance live. Changes stay when you close this panel.
+          {copy(
+            site,
+            'Compare the appearance live. Changes stay when you close this panel.',
+          )}
         </p>
         {(
           [
             [
               'exteriorLight',
-              'Exterior light',
-              'Sunlight on the hull and through the openings.',
+              copy(site, 'Exterior light'),
+              copy(site, 'Sunlight on the hull and through the openings.'),
             ],
             [
               'roomLight',
-              'Room lights',
-              'The warm fixtures in all four rooms.',
+              copy(site, 'Room lights'),
+              copy(site, 'The warm fixtures in all four rooms.'),
             ],
             [
               'ladderLight',
-              'Ladder lights',
-              'The existing worklights in the ladder bay.',
+              copy(site, 'Ladder lights'),
+              copy(site, 'The existing worklights in the ladder bay.'),
             ],
           ] as const
         ).map(([key, label, hint]) => {
@@ -113,7 +119,7 @@ export function RenderingControls({
                   type="range"
                   aria-label={label}
                   aria-describedby={`${id}-hint`}
-                  aria-valuetext={`${percent} percent`}
+                  aria-valuetext={copy(site, '{percent} percent', { percent })}
                   min={0}
                   max={5}
                   step={0.05}
@@ -126,19 +132,27 @@ export function RenderingControls({
                   {percent}%
                 </output>
               </span>
-              <small id={`${id}-hint`}>{hint} 100% is the default.</small>
+              <small id={`${id}-hint`}>
+                {hint}
+                {copy(site, '100% is the default.')}
+              </small>
             </label>
           );
         })}
         <label className="rendering-toggle">
           <span>
-            <strong>Shadows</strong>
-            <small>Cast shadows inside the cabins and across the hull.</small>
+            <strong>{copy(site, 'Shadows')}</strong>
+            <small>
+              {copy(
+                site,
+                'Cast shadows inside the cabins and across the hull.',
+              )}
+            </small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label="Shadows"
+            aria-label={copy(site, 'Shadows')}
             checked={settings.shadows}
             aria-checked={settings.shadows}
             onChange={(event) =>
@@ -147,9 +161,9 @@ export function RenderingControls({
           />
         </label>
         <label className="rendering-field">
-          <span>Shadow detail</span>
+          <span>{copy(site, 'Shadow detail')}</span>
           <select
-            aria-label="Shadow detail"
+            aria-label={copy(site, 'Shadow detail')}
             value={settings.shadowSize}
             disabled={!settings.shadows}
             onChange={(event) =>
@@ -161,26 +175,32 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">Automatic</option>
-            <option value="512">Low · 512</option>
-            <option value="1024">Medium · 1024</option>
-            <option value="2048">High · 2048</option>
+            <option value="auto">{copy(site, 'Automatic')}</option>
+            <option value="512">{copy(site, 'Low · 512')}</option>
+            <option value="1024">{copy(site, 'Medium · 1024')}</option>
+            <option value="2048">{copy(site, 'High · 2048')}</option>
           </select>
           <small>
             {settings.shadows
-              ? `${state.shadowSize} × ${state.shadowSize}. Lower detail gives coarser shadow edges.`
-              : 'Turn shadows on to compare their detail.'}
+              ? copy(
+                  site,
+                  '{size} × {size}. Lower detail gives coarser shadow edges.',
+                  { size: state.shadowSize },
+                )
+              : copy(site, 'Turn shadows on to compare their detail.')}
           </small>
         </label>
         <label className="rendering-field" htmlFor={softnessId}>
-          <span>Shadow softness</span>
+          <span>{copy(site, 'Shadow softness')}</span>
           <span className="rendering-range">
             <input
               id={softnessId}
               type="range"
-              aria-label="Shadow softness"
+              aria-label={copy(site, 'Shadow softness')}
               aria-describedby={`${softnessId}-hint`}
-              aria-valuetext={`${state.shadowSoftness} times`}
+              aria-valuetext={copy(site, '{value} times', {
+                value: state.shadowSoftness,
+              })}
               min={0}
               max={4}
               step={0.25}
@@ -196,14 +216,18 @@ export function RenderingControls({
           </span>
           <small id={`${softnessId}-hint`}>
             {settings.shadows
-              ? `Higher values soften shadow edges. ${DEFAULT_RENDERING_SETTINGS.shadowSoftness}× is the default.`
-              : 'Turn shadows on to adjust their softness.'}
+              ? copy(
+                  site,
+                  'Higher values soften shadow edges. {value}× is the default.',
+                  { value: DEFAULT_RENDERING_SETTINGS.shadowSoftness },
+                )
+              : copy(site, 'Turn shadows on to adjust their softness.')}
           </small>
         </label>
         <label className="rendering-field">
-          <span>Pixel density</span>
+          <span>{copy(site, 'Pixel density')}</span>
           <select
-            aria-label="Pixel density"
+            aria-label={copy(site, 'Pixel density')}
             value={settings.pixelDensity}
             onChange={(event) =>
               change({
@@ -214,7 +238,7 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">Automatic</option>
+            <option value="auto">{copy(site, 'Automatic')}</option>
             {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((density) => (
               <option key={density} value={density}>
                 {density}×
@@ -222,15 +246,20 @@ export function RenderingControls({
             ))}
           </select>
           <small>
-            Drawing at {Number(state.pixelDensity.toFixed(2))}× ·{' '}
-            {state.drawingBuffer.join(' × ')} pixels. Interface text stays
-            sharp.
+            {copy(
+              site,
+              'Drawing at {density}× · {size} pixels. Interface text stays sharp.',
+              {
+                density: Number(state.pixelDensity.toFixed(2)),
+                size: state.drawingBuffer.join(' × '),
+              },
+            )}
           </small>
         </label>
         <label className="rendering-field">
-          <span>Contact shading</span>
+          <span>{copy(site, 'Contact shading')}</span>
           <select
-            aria-label="Contact shading"
+            aria-label={copy(site, 'Contact shading')}
             value={settings.contactShading}
             disabled={!state.contactShadingSupported}
             onChange={(event) =>
@@ -240,25 +269,35 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">Automatic</option>
-            <option value="on">On</option>
-            <option value="off">Off</option>
+            <option value="auto">{copy(site, 'Automatic')}</option>
+            <option value="on">{copy(site, 'On')}</option>
+            <option value="off">{copy(site, 'Off')}</option>
           </select>
           <small>
             {state.contactShadingSupported
-              ? `${state.contactShading ? 'On' : 'Off'} · Soft darkness at corners and where surfaces meet.`
-              : 'Unavailable in this browser’s graphics context.'}
+              ? copy(
+                  site,
+                  '{state} · Soft darkness at corners and where surfaces meet.',
+                  {
+                    state: state.contactShading
+                      ? copy(site, 'On')
+                      : copy(site, 'Off'),
+                  },
+                )
+              : copy(site, 'Unavailable in this browser’s graphics context.')}
           </small>
         </label>
         <label className="rendering-toggle">
           <span>
-            <strong>Earth and sky</strong>
-            <small>The animated background behind the spacecraft.</small>
+            <strong>{copy(site, 'Earth and sky')}</strong>
+            <small>
+              {copy(site, 'The animated background behind the spacecraft.')}
+            </small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label="Earth and sky"
+            aria-label={copy(site, 'Earth and sky')}
             checked={settings.background}
             aria-checked={settings.background}
             onChange={(event) =>
@@ -268,19 +307,25 @@ export function RenderingControls({
         </label>
         <label className="rendering-toggle">
           <span>
-            <strong>Spacecraft caching</strong>
+            <strong>{copy(site, 'Spacecraft caching')}</strong>
             <small>
               {state.cacheAvailable
-                ? 'Reuse stationary pixels while moving parts stay live.'
+                ? copy(
+                    site,
+                    'Reuse stationary pixels while moving parts stay live.',
+                  )
                 : !state.cacheLightingSupported
-                  ? 'Unavailable with cabin shadow lights.'
-                  : 'Available on wider screens with shadows and contact shading on.'}
+                  ? copy(site, 'Unavailable with cabin shadow lights.')
+                  : copy(
+                      site,
+                      'Available on wider screens with shadows and contact shading on.',
+                    )}
             </small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label="Spacecraft caching"
+            aria-label={copy(site, 'Spacecraft caching')}
             checked={settings.spacecraftCache && state.cacheAvailable}
             aria-checked={settings.spacecraftCache && state.cacheAvailable}
             disabled={!state.cacheAvailable}
@@ -295,9 +340,12 @@ export function RenderingControls({
             disabled={renderingSettingsAreDefault(settings)}
             onClick={() => onChange({ ...DEFAULT_RENDERING_SETTINGS })}
           >
-            <RotateCcw size={15} aria-hidden="true" /> Reset defaults
+            <RotateCcw size={15} aria-hidden="true" />
+            {copy(site, 'Reset defaults')}
           </button>
-          <small>Temporary for this visit. Reload restores defaults.</small>
+          <small>
+            {copy(site, 'Temporary for this visit. Reload restores defaults.')}
+          </small>
         </footer>
       </div>
     </section>,

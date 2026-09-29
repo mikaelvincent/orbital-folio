@@ -1,3 +1,4 @@
+import { interfaceText as copy } from './interface-text.ts';
 /** Authored collections shared by the archive, Studio and semantic readers. */
 export const CASE_STUDY_CATEGORIES = [
   { id: 'product', label: 'Product engineering' },
@@ -30,7 +31,10 @@ export function caseStudyCategoryCount(
 }
 
 /** Preserve legacy sections until the author explicitly edits a Markdown body. */
-export function caseStudyBody(study: CaseStudy): string {
+export function caseStudyBody(
+  study: CaseStudy,
+  site: Record<string, any> = {},
+): string {
   if (typeof study.body === 'string') return study.body;
   return [
     ['context', 'Context'],
@@ -39,7 +43,7 @@ export function caseStudyBody(study: CaseStudy): string {
   ]
     .flatMap(([key, heading]) =>
       typeof study[key] === 'string' && study[key].trim()
-        ? [`## ${heading}\n\n${study[key].trim()}`]
+        ? [`## ${copy(site, heading)}\n\n${study[key].trim()}`]
         : [],
     )
     .join('\n\n');

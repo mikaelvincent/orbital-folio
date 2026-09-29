@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
@@ -9,6 +10,7 @@ export function buildProjectsWorkshop(
   h: any,
   floorRoot: any,
   options: {
+    site?: Record<string, any>;
     accent?: any;
     screenLabels?: boolean;
     desktopMaterial?: any;
@@ -546,25 +548,26 @@ export function buildProjectsWorkshop(
   const moduleScale = 0.83;
   const configs = [
     {
-      label: 'All projects',
+      label:
+        options.site?.allProjectsLabel || copy(options.site, 'All projects'),
       kind: 'all' as const,
       x: -PROJECTS_GRID.columnX,
       y: PROJECTS_GRID.topY,
     },
     {
-      label: 'Systems',
+      label: copy(options.site, 'Systems'),
       kind: 'systems' as const,
       x: PROJECTS_GRID.columnX,
       y: PROJECTS_GRID.topY,
     },
     {
-      label: 'Interfaces',
+      label: copy(options.site, 'Interfaces'),
       kind: 'interfaces' as const,
       x: -PROJECTS_GRID.columnX,
       y: PROJECTS_GRID.bottomY,
     },
     {
-      label: 'Experiments',
+      label: copy(options.site, 'Experiments'),
       kind: 'experiments' as const,
       x: PROJECTS_GRID.columnX,
       y: PROJECTS_GRID.bottomY,
@@ -609,6 +612,7 @@ export function buildProjectsWorkshop(
     return buildProjectPayloadModule(THREE, h, carrier, {
       label: config.label,
       kind: config.kind,
+      site: options.site,
       accent: options.accent,
       screenLabels: options.screenLabels,
       sharedMaterials: moduleMaterials,

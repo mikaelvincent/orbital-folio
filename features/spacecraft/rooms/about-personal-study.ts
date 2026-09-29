@@ -18,6 +18,7 @@ export function buildAboutPersonalStudy(
   h: any,
   root: any,
   options: {
+    site?: Record<string, any>;
     accent?: any;
     photos?: AboutPhotos;
     onPhotoChange?: () => void;
@@ -288,7 +289,7 @@ export function buildAboutPersonalStudy(
       kind + '-texture',
       kind === 'landscape-postcard' ? 1024 : 768,
       kind === 'landscape-postcard' ? 640 : 1024,
-      (ctx) => drawStudyArtwork(ctx, kind),
+      (ctx) => drawStudyArtwork(ctx, kind, options.site),
     );
     if (kind === 'landscape-postcard' && mat.map) {
       const visibleWidth = w / height / (512 / 320);
@@ -1294,9 +1295,7 @@ export function buildAboutPersonalStudy(
     root: any;
   }> = [];
   const initialChapters = options.journal ?? [
-    { title: 'My story' },
-    { title: 'How I work' },
-    { title: 'Beyond work' },
+    { title: options.site?.aboutHeading || '', pageCount: 1 },
   ];
   const flagColors = NOTEBOOK_MARKER_COLORS.map(
     (color) => `#${color.toString(16).padStart(6, '0')}`,
@@ -1405,7 +1404,7 @@ export function buildAboutPersonalStudy(
       side < 0 ? 'left-page-print' : 'right-page-print',
       1024,
       1280,
-      (ctx) => drawStudyArtwork(ctx, 'journal-blank'),
+      (ctx) => drawStudyArtwork(ctx, 'journal-blank', options.site),
     );
     pageMat.userData.studyInk = true;
     pageMat.userData.notebookPage = side < 0 ? 'left' : 'right';
@@ -1582,7 +1581,7 @@ export function buildAboutPersonalStudy(
   turningMaterial.side = THREE.FrontSide;
   turningMaterial.userData.studyInk = true;
   turningMaterial.map = canvasMap('turning-notebook-paper', 512, 640, (ctx) =>
-    drawStudyArtwork(ctx, 'journal-blank'),
+    drawStudyArtwork(ctx, 'journal-blank', options.site),
   );
   const turningSurface = mesh(
     turningGeometry,

@@ -41,6 +41,7 @@ export function createNotebookTurnInk(
     width: number,
     height: number,
   ) => void,
+  site?: Record<string, any>,
 ) {
   const makeSurface = (face: string, width: number) => {
     const element = document.createElement('div');
@@ -123,7 +124,7 @@ export function createNotebookTurnInk(
         const label = paper.querySelector('.notebook-page-footer span');
         const number = page * 2 + index + 1;
         paper.dataset.empty = String(number > count);
-        if (label) label.textContent = notebookPageLabel(number, count);
+        if (label) label.textContent = notebookPageLabel(number, count, site);
         paper.querySelectorAll('button').forEach((button) => {
           button.disabled = index === 0 ? page === 0 : (page + 1) * 2 >= count;
         });

@@ -444,3 +444,119 @@
     padding-bottom: 0;
   }
 }
+
+/* Shared collection/story markup keeps the same content in ordinary flow. */
+.is-readable .reading-room-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+.is-readable .reading-room-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px;
+  background: var(--carbon);
+  color: var(--ivory);
+  border: 1px solid var(--alloy);
+  border-radius: 8px;
+  font-size: 24px;
+}
+.is-readable .room-reader .project-window-gallery,
+.is-readable .room-reader .case-study-window-collection {
+  padding: 0;
+}
+.is-readable .room-reader .project-app-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.is-readable .room-reader .project-app-card {
+  background: var(--carbon);
+  color: var(--ivory);
+  border: 1px solid var(--alloy);
+  padding: 26px;
+}
+.is-readable .room-reader .project-app-card h2 {
+  font-size: 26px;
+}
+.is-readable .room-reader .project-app-card p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.is-readable .room-reader .project-gallery-heading h1,
+.is-readable .room-reader .case-study-collection-heading h1 {
+  font-size: clamp(30px, 4vw, 44px);
+}
+.is-readable .room-reader .project-gallery-intro,
+.is-readable .room-reader .case-study-collection-intro {
+  max-width: 70ch;
+  font-size: 17px;
+  line-height: 1.75;
+  margin-bottom: 30px;
+}
+.is-readable .room-reader .project-window-detail {
+  padding: 0;
+}
+.is-readable .room-reader .project-detail-heading h1 {
+  font-size: clamp(32px, 4vw, 48px);
+}
+.is-readable .room-reader .project-detail-summary {
+  font-size: 18px;
+  line-height: 1.8;
+}
+.is-readable .room-reader .reading-contact-form {
+  max-width: 900px;
+  margin-inline: auto;
+}
+.is-readable .room-reader .social-links {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.is-readable .room-reader .social-links a {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 20px;
+}
+.is-readable .room-reader .social-links small {
+  display: block;
+  font-size: 12px;
+}
+@media (max-width: 650px) {
+  .is-readable .room-reader .project-app-grid,
+  .is-readable .reading-room-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Shared monitor stories need document contrast on ivory reading paper. */
+.is-readable
+  .room-reader
+  .project-window-detail
+  :is(
+    .project-detail-subtitle,
+    .project-library-eyebrow,
+    .project-library-meta dt
+  ) {
+  color: var(--bronze-dark);
+}
+.is-readable
+  .room-reader
+  .project-window-detail
+  :is(
+    .project-detail-summary,
+    .project-library-meta dd,
+    .project-markdown h2,
+    .project-markdown h3,
+    .project-markdown h4,
+    .project-story-pending
+  ) {
+  color: var(--ink);
+}
+.is-readable .room-reader .project-window-detail .project-markdown a {
+  color: var(--bronze-dark);
+}

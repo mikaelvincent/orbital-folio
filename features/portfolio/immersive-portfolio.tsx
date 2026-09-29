@@ -27,7 +27,10 @@ import {
 import { paletteAccent } from '@/lib/palette';
 import { pageMetadata } from '@/lib/metadata';
 import { Spacecraft } from '../spacecraft/spacecraft';
-import { Footer } from './portfolio-parts';
+import {
+  interfaceText as copy,
+  portfolioIdentity,
+} from '@/lib/content/interface-text';
 import { HomeView } from './home-view';
 import {
   ProjectsView,
@@ -62,12 +65,7 @@ export function ImmersivePortfolio({
   sceneAudit?: SceneAudit;
 }) {
   const s = data.site;
-  let portfolioName = s.name;
-  try {
-    portfolioName = new URL(s.domain).hostname || s.name;
-  } catch {
-    // An unfinished domain setting still leaves the editable owner name visible.
-  }
+  const portfolioName = portfolioIdentity(s);
   const [destination, setDestination] = useState<Destination>({
     section: initialSection,
     slug: initialSlug,
@@ -408,7 +406,7 @@ export function ImmersivePortfolio({
       destination.section,
       notebookSection || caseStudy || project,
     );
-    document.title = preview ? 'Private draft preview' : meta.title;
+    document.title = preview ? copy(s, 'Private draft preview') : meta.title;
     if (!preview) {
       document
         .querySelector<HTMLLinkElement>('link[rel="canonical"]')
@@ -581,7 +579,8 @@ export function ImmersivePortfolio({
       </noscript>
       {preview && (
         <div className="preview-banner">
-          Private draft preview · <a href="/admin">Return to studio</a>
+          {copy(s, 'Private draft preview')} ·{' '}
+          <a href="/admin">{copy(s, 'Return to studio')}</a>
         </div>
       )}
       <a
@@ -831,7 +830,7 @@ export function ImmersivePortfolio({
                 <ArrowLeft size={16} />
                 {s.homeLabel}
               </a>
-              <span>{s[destination.section + 'Room'] || s.brand}</span>
+              <span>{s[destination.section + 'Label'] || s.homeLabel}</span>
             </div>
             {!immersive && (enhanced ? content : children)}
           </div>
@@ -905,6 +904,7 @@ export function ImmersivePortfolio({
               motionPaused={reduced}
               diagnosticsEnabled={diagnosticsEnabled}
               onDiagnosticsChange={setDiagnosticsEnabled}
+              site={s}
               studioLabel={s.studioLabel}
               renderingSettings={renderingSettings}
               renderingObserver={renderingObserver}
@@ -945,7 +945,6 @@ export function ImmersivePortfolio({
             : ''}
         </span>
       </main>
-      {!immersive && <Footer site={s} />}
     </div>
   );
 }

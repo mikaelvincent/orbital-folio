@@ -1,3 +1,4 @@
+import { interfaceText as copy } from '@/lib/content/interface-text';
 /* oxlint-disable jsx-a11y/media-has-caption -- The native player renders an authored caption track when the asset has one; silent recordings may omit it. */
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Scrollable tables need native keyboard focus for horizontal navigation. */
 import { createElement, Fragment, type ReactNode } from 'react';
@@ -17,10 +18,12 @@ export function ProjectMedia({
   item,
   media,
   caption = true,
+  site = {},
 }: {
   item: Media;
   media: Media[];
   caption?: boolean;
+  site?: Record<string, any>;
 }) {
   const url = projectContentUrl(item.url, 'media');
   if (!url) return null;
@@ -43,7 +46,7 @@ export function ProjectMedia({
           preload="none"
           playsInline
           poster={posterUrl}
-          aria-label={item.alt || item.title || 'Project video'}
+          aria-label={item.alt || item.title || copy(site, 'Project video')}
         >
           <source src={url} type={item.mime} />
           {captions && (
@@ -51,12 +54,12 @@ export function ProjectMedia({
               kind="captions"
               src={projectContentUrl(captions.url, 'media')}
               srcLang={captions.language || 'en'}
-              label={captions.title || 'Captions'}
+              label={captions.title || copy(site, 'Captions')}
               default
             />
           )}
-          Your browser does not support this video.{' '}
-          <a href={url}>Download the video</a>.
+          {copy(site, 'Your browser does not support this video.')}{' '}
+          <a href={url}>{copy(site, 'Download the video')}</a>.
         </video>
       ) : (
         <img
@@ -76,6 +79,7 @@ export function ProjectMedia({
 export function ProjectMarkdown({
   body,
   media = [],
+  site = {},
   headingIdPrefix = '',
   headingLinks,
   paginated = false,
@@ -85,6 +89,7 @@ export function ProjectMarkdown({
 }: {
   body: string;
   media?: Media[];
+  site?: Record<string, any>;
   headingIdPrefix?: string;
   headingLinks?: Record<string, string>;
   paginated?: boolean;
@@ -155,7 +160,7 @@ export function ProjectMarkdown({
           if (item && String(item.mime).startsWith('video/'))
             return (
               <a key={index} href={href}>
-                {token.text || item.alt || 'Watch video'}
+                {token.text || item.alt || copy(site, 'Watch video')}
               </a>
             );
           return href ? (
@@ -242,6 +247,7 @@ export function ProjectMarkdown({
           if (item && String(item.mime).startsWith('video/'))
             return (
               <ProjectMedia
+                site={site}
                 key={index}
                 item={{ ...item, alt: single.text || item.alt }}
                 media={media}
@@ -305,7 +311,9 @@ export function ProjectMarkdown({
             key={index}
             className="project-markdown-table"
             role="region"
-            aria-label={paginated ? 'Table' : 'Scrollable table'}
+            aria-label={
+              paginated ? copy(site, 'Table') : copy(site, 'Scrollable table')
+            }
             tabIndex={paginated ? undefined : 0}
           >
             <table>

@@ -13,6 +13,7 @@ export const NOTEBOOK_INK_WIDTH = 438;
 const COLUMN_GAP = NOTEBOOK_COLUMN_STRIDE - NOTEBOOK_INK_WIDTH;
 
 export type NotebookSectionPagesProps = {
+  site?: Record<string, any>;
   title: string;
   subtitle?: string;
   body: string;
@@ -28,6 +29,7 @@ export type NotebookSectionPagesProps = {
 
 /** A single Markdown story flows through fixed paper columns without scrolling. */
 export function NotebookSectionPages({
+  site,
   title,
   subtitle,
   body,
@@ -180,6 +182,7 @@ export function NotebookSectionPages({
         {subtitle && <p className="notebook-subtitle">{subtitle}</p>}
         {biography && <p className="notebook-biography">{biography}</p>}
         <ProjectMarkdown
+          site={site}
           paginated
           notebookPageBreaks
           hasPrecedingContent={!!(title || subtitle || biography)}

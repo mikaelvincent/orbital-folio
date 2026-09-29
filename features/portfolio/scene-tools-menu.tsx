@@ -1,4 +1,5 @@
 'use client';
+import { interfaceText as copy } from '@/lib/content/interface-text';
 
 import {
   useCallback,
@@ -29,6 +30,7 @@ import './scene-tools-menu.css';
 
 /** A quiet launcher; opening this list does not start either inspection tool. */
 export function SceneToolsMenu({
+  site,
   launcherRef,
   earthPlayback,
   motionPaused,
@@ -39,6 +41,7 @@ export function SceneToolsMenu({
   renderingObserver,
   onRenderingChange,
 }: {
+  site: Record<string, any>;
   launcherRef: RefObject<HTMLButtonElement | null>;
   earthPlayback: EarthPlaybackController | null;
   motionPaused: boolean;
@@ -99,11 +102,11 @@ export function SceneToolsMenu({
         ref={launcherRef}
         className="scene-tools-toggle"
         type="button"
-        aria-label="Scene tools"
+        aria-label={copy(site, 'Scene tools')}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={id}
-        title="Scene tools"
+        title={copy(site, 'Scene tools')}
         onPointerDown={(event) => {
           // Focus can leave the popover before click (notably when a browser
           // does not focus pointer-clicked buttons). Keep this press's intent
@@ -123,7 +126,7 @@ export function SceneToolsMenu({
         }}
       >
         <SlidersHorizontal size={16} aria-hidden="true" />
-        <span>Tools</span>
+        <span>{copy(site, 'Tools')}</span>
         <ChevronUp
           className="scene-tools-chevron"
           size={13}
@@ -137,17 +140,17 @@ export function SceneToolsMenu({
             ref={panel}
             className="scene-tools-popover"
             role="dialog"
-            aria-label="Scene tools"
+            aria-label={copy(site, 'Scene tools')}
           >
-            <p className="scene-tools-heading">Scene tools</p>
+            <p className="scene-tools-heading">{copy(site, 'Scene tools')}</p>
             <button
               className="scene-tools-item"
               type="button"
               disabled={!renderingObserver}
               aria-label={
                 renderingOpen
-                  ? 'Close rendering controls'
-                  : 'Open rendering controls'
+                  ? copy(site, 'Close rendering controls')
+                  : copy(site, 'Open rendering controls')
               }
               aria-pressed={renderingOpen}
               onClick={() => {
@@ -161,12 +164,12 @@ export function SceneToolsMenu({
               }}
             >
               <SunMedium size={18} aria-hidden="true" />
-              <span>Rendering</span>
+              <span>{copy(site, 'Rendering')}</span>
               {renderingOpen ? (
-                <small>Open</small>
+                <small>{copy(site, 'Open')}</small>
               ) : (
                 !renderingSettingsAreDefault(renderingSettings) && (
-                  <small>Custom</small>
+                  <small>{copy(site, 'Custom')}</small>
                 )
               )}
             </button>
@@ -175,7 +178,9 @@ export function SceneToolsMenu({
               type="button"
               disabled={!earthPlayback}
               aria-label={
-                earthOpen ? 'Close Earth playback' : 'Open Earth playback'
+                earthOpen
+                  ? copy(site, 'Close Earth playback')
+                  : copy(site, 'Open Earth playback')
               }
               aria-pressed={earthOpen}
               onClick={() => {
@@ -188,8 +193,8 @@ export function SceneToolsMenu({
               }}
             >
               <Globe2 size={18} aria-hidden="true" />
-              <span>Earth playback</span>
-              {earthOpen && <small>Open</small>}
+              <span>{copy(site, 'Earth playback')}</span>
+              {earthOpen && <small>{copy(site, 'Open')}</small>}
             </button>
             <button
               className="scene-tools-item"
@@ -197,8 +202,8 @@ export function SceneToolsMenu({
               data-scene-perf="toggle"
               aria-label={
                 diagnosticsEnabled
-                  ? 'Close scene diagnostics'
-                  : 'Open scene diagnostics'
+                  ? copy(site, 'Close scene diagnostics')
+                  : copy(site, 'Open scene diagnostics')
               }
               aria-pressed={diagnosticsEnabled}
               onClick={() => {
@@ -210,8 +215,8 @@ export function SceneToolsMenu({
               }}
             >
               <Activity size={18} aria-hidden="true" />
-              <span>Scene diagnostics</span>
-              {diagnosticsEnabled && <small>On</small>}
+              <span>{copy(site, 'Scene diagnostics')}</span>
+              {diagnosticsEnabled && <small>{copy(site, 'On')}</small>}
             </button>
             <a
               className="scene-tools-item"
@@ -226,6 +231,7 @@ export function SceneToolsMenu({
         )}
       {earthOpen && (
         <EarthPlaybackControls
+          site={site}
           controller={earthPlayback}
           motionPaused={motionPaused}
           onClose={closeEarth}
@@ -233,6 +239,7 @@ export function SceneToolsMenu({
       )}
       {renderingOpen && renderingObserver && (
         <RenderingControls
+          site={site}
           settings={renderingSettings}
           observer={renderingObserver}
           onChange={onRenderingChange}

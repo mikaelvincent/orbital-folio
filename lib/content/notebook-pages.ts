@@ -1,3 +1,4 @@
+import { interfaceText as copy } from './interface-text.ts';
 /** Only standalone markers outside fenced code split paper pages. */
 function splitLegacyNotebookPages(body: string): string[] {
   const source = String(body || '');
@@ -67,6 +68,12 @@ export function notebookSpreadCount(pages: number) {
 }
 
 /** Keep the semantic spread and animated page copies on the same footer format. */
-export function notebookPageLabel(number: number, total: number) {
-  return number <= total ? `${number} of ${total}` : '';
+export function notebookPageLabel(
+  number: number,
+  total: number,
+  site?: Record<string, any>,
+) {
+  return number <= total
+    ? copy(site, '{number} of {total}', { number, total })
+    : '';
 }

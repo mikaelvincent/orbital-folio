@@ -103,7 +103,7 @@ test('physical category collections show assigned studies, accessible native lin
   assert.match(all, /href="\/case-studies\/recovery"/);
 });
 
-test('reading and monitor collections retain empty category selections without falling back to All', () => {
+test('reading controls hide empty categories and stale selections return to All', () => {
   const markup = render(ReadingCaseStudyLibrary, {
     data,
     category: 'research',
@@ -113,33 +113,33 @@ test('reading and monitor collections retain empty category selections without f
     markup,
     /aria-pressed="true"[^>]*>.*?<span>Research &amp; experiments<\/span>/,
   );
-  for (const label of ['Product engineering', 'Systems &amp; reliability', 'Design &amp; interfaces'])
-    assert.ok(markup.includes(label));
-  assert.doesNotMatch(markup, /href="[^"]*older-story/);
+  assert.match(markup, /Systems &amp; reliability/);
+  assert.doesNotMatch(
+    markup,
+    /Product engineering|Design &amp; interfaces|href="[^"]*older-story/,
+  );
   assert.match(markup, /href="\/case-studies\/recovery\?category=research"/);
-  for (const experience of [data.experience, []]) {
-    const emptyCategory = render(ReadingCaseStudyLibrary, {
-      data: { ...data, experience },
-      category: 'product',
-    });
-    assert.match(emptyCategory, /aria-pressed="true"[^>]*>.*?<span>Product engineering<\/span>/);
-    assert.match(emptyCategory, /No case studies have been added to this category yet/);
-    assert.equal((emptyCategory.match(/<button/g) || []).length, 5);
-    assert.doesNotMatch(emptyCategory, /<a /);
-    const monitor = render(CaseStudyLibraryWindow, {
-      ...windowProps,
-      data: { ...data, experience },
-      category: 'product',
-    });
-    assert.match(monitor, /Product engineering/);
-    assert.match(monitor, /No case studies have been added to this category yet/);
-    assert.doesNotMatch(monitor, /Read case study:/);
-  }
-  const emptyAll = render(ReadingCaseStudyLibrary, {
+  const stale = render(ReadingCaseStudyLibrary, { data, category: 'product' });
+  assert.match(
+    stale,
+    /aria-pressed="true"[^>]*>.*?<span>All case studies<\/span>/,
+  );
+  assert.match(stale, /href="\/case-studies\/older-story"/);
+  assert.equal((stale.match(/<button/g) || []).length, 3);
+  const empty = render(ReadingCaseStudyLibrary, {
     data: { ...data, experience: [] },
+    category: 'product',
   });
-  assert.match(emptyAll, /No case studies are available yet/);
-  assert.equal((emptyAll.match(/<button/g) || []).length, 5);
+  assert.match(empty, /No case studies are available yet/);
+  assert.doesNotMatch(empty, /<button|<a /);
+  // A stale direct monitor selection remains an explicit empty collection;
+  // no physical target or reading control can newly select it.
+  const monitor = render(CaseStudyLibraryWindow, {
+    ...windowProps,
+    category: 'product',
+  });
+  assert.match(monitor, /No case studies have been added to this category yet/);
+  assert.doesNotMatch(monitor, /Read case study:/);
 });
 
 test('legacy case studies and optional metadata survive in both semantic and monitor detail', () => {
@@ -169,7 +169,7 @@ test('legacy case studies and optional metadata survive in both semantic and mon
     category: 'systems',
   });
   assert.match(reading, /href="\/case-studies\?category=systems"/);
-  assert.match(reading, /href="#project-recovery-boundary"/);
+  assert.doesNotMatch(reading, /Contents/); // No exclusive reading sidebar.
   assert.match(reading, /id="project-recovery-boundary"/);
 });
 
