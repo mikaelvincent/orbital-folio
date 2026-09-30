@@ -1,0 +1,158 @@
+.studio-entry {
+  min-height: 100svh;
+  background: var(--ivory);
+  color: var(--carbon);
+  padding: 0 clamp(22px, 5vw, 84px);
+}
+.studio-entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1240px;
+  margin: auto;
+  padding: 28px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--carbon) 16%, transparent);
+}
+.studio-entry-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.studio-entry-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  max-width: 1120px;
+  margin: clamp(36px, 8vh, 110px) auto;
+  border: 1px solid color-mix(in srgb, var(--carbon) 20%, transparent);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.studio-entry-intro {
+  background: var(--carbon);
+  color: var(--ivory);
+  padding: clamp(30px, 5vw, 64px);
+}
+.studio-entry-mark {
+  display: inline-flex;
+  padding: 15px;
+  border: 1px solid var(--bronze);
+  border-radius: 14px;
+  color: var(--bronze-light);
+  margin-bottom: 40px;
+}
+.studio-entry-intro .eyebrow {
+  color: var(--bronze-light);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+}
+.studio-entry-intro h1 {
+  font-size: clamp(48px, 6vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+  margin: 15px 0 24px;
+}
+.studio-entry-intro > p:not(.eyebrow) {
+  max-width: 310px;
+  line-height: 1.6;
+  color: var(--ivory-shade);
+  font-size: 17px;
+}
+.studio-entry-visitor {
+  border-top: 1px solid color-mix(in srgb, var(--ivory) 20%, transparent);
+  margin-top: 42px;
+  padding-top: 25px;
+  font-size: 14px;
+}
+.studio-entry-visitor span {
+  font-weight: 600;
+}
+.studio-entry-visitor p {
+  color: var(--ivory-shade);
+  line-height: 1.6;
+  max-width: 330px;
+}
+.studio-entry-visitor a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ivory);
+}
+.studio-entry-access {
+  padding: clamp(30px, 5vw, 64px);
+  align-self: center;
+}
+.studio-entry-access > svg {
+  color: var(--bronze);
+  margin-bottom: 20px;
+}
+.studio-entry-access h2 {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  margin: 0 0 17px;
+  font-weight: 500;
+}
+.studio-entry-access p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--carbon);
+}
+.studio-entry-access .studio-entry-signin {
+  margin: 24px 0 18px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 18px;
+  background: var(--bronze);
+  color: var(--carbon-deep);
+  border-color: var(--bronze);
+}
+.studio-entry-access small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--carbon);
+}
+.studio-entry-access .back-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+.studio-entry-account {
+  overflow-wrap: anywhere;
+}
+.studio-entry-footer {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-bottom: 28px;
+  font-size: 12px;
+  color: var(--carbon);
+}
+.studio-entry a:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 5px;
+}
+@media (max-width: 700px) {
+  .studio-entry-layout {
+    grid-template-columns: 1fr;
+    margin: 28px auto;
+  }
+  .studio-entry-intro h1 br {
+    display: none;
+  }
+  .studio-entry-mark {
+    margin-bottom: 20px;
+  }
+  .studio-entry-visitor {
+    margin-top: 28px;
+  }
+  .studio-entry-header {
+    padding: 20px 0;
+  }
+  .studio-entry-header a {
+    font-size: 12px;
+  }
+}

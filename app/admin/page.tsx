@@ -2,7 +2,7 @@ import { getChatGPTUser, chatGPTSignInPath } from '@/app/chatgpt-auth';
 import { adminIdentity } from '@/lib/security';
 import { getRecords, database } from '@/lib/content/repository';
 import { AdminStudio, SetupForm } from '@/features/studio/admin-studio';
-import { Orbit, ArrowUpRight } from 'lucide-react';
+import { StudioEntry } from '@/features/studio/studio-entry';
 export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Content studio',
@@ -10,54 +10,26 @@ export const metadata = {
 };
 export default async function Admin() {
   const user = await getChatGPTUser();
-  if (!user)
-    return (
-      <main id="main" className="login-page">
-        <Orbit size={38} />
-        <p className="eyebrow">CONTENT STUDIO</p>
-        <h1>Manage your portfolio.</h1>
-        <p>
-          Sign in to edit content, review private messages and manage
-          publishing.
-        </p>
-        <a
-          className="button amber"
-          href={chatGPTSignInPath('/admin')}
-          target="_top"
-        >
-          Sign in with ChatGPT
-          <ArrowUpRight size={17} />
-        </a>
-        <a className="back-link" href="/">
-          Back to portfolio
-        </a>
-      </main>
-    );
+  if (!user) return <StudioEntry signIn={chatGPTSignInPath('/admin')} />;
   const allowed = await adminIdentity();
   if (!allowed) {
     const claimed = await database()
       .prepare('SELECT id FROM admins LIMIT 1')
       .first();
     return (
-      <main id="main" className="login-page">
-        <Orbit size={38} />
-        <h1>{claimed ? 'Owner access required' : 'Welcome, first owner.'}</h1>
-        <p>Signed in as {user.email}.</p>
-        {claimed ? (
-          <p>Ask an existing owner to add your email in Access & backups.</p>
-        ) : (
-          <SetupForm />
-        )}
-        <a className="back-link" href="/signout-with-chatgpt?return_to=/admin">
-          Sign out
-        </a>
-      </main>
+      <StudioEntry
+        email={user.email}
+        setup={claimed ? undefined : <SetupForm />}
+      />
     );
   }
+
   const [records, inbox, admins, audit] = await Promise.all([
     getRecords(),
     database()
-      .prepare('SELECT * FROM inquiries ORDER BY created_at DESC LIMIT 100')
+      .prepare(
+        'SELECT * FROM inquiries ORDER BY created_at DESC, id DESC LIMIT 100',
+      )
       .all(),
     database().prepare('SELECT * FROM admins ORDER BY created_at').all(),
     database()
