@@ -365,13 +365,11 @@ portrait crops to a tall app inside the same glass. Native inputs never start a
 drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL keys.
 
 Both views use the compact “OPEN A CONVERSATION” / “Let’s connect.” form header
-and share an in-memory draft. **Schedule a call** comes first; initially
-neither choice is selected. Clicking the selected choice returns to the chooser
-without losing fields, including across view remounts after a prior success. Call
-mode asks date/time/device zone, then name/company/email/subject/message. Message
-mode uses the shared fields; only email/message are required. Failed sends retain
-the draft. Contact's app has a persistent draggable/keyboard scrollbar on overflow;
-Reading view uses page flow. Mobile viewport changes resize the inner scroll area
+and share an in-memory draft. The message form opens immediately with no contact
+method chooser or call scheduling. It asks name/company/email/subject/message;
+only email/message are required. Failed sends retain the draft. Contact's app has
+a persistent draggable/keyboard scrollbar on overflow; Reading view uses page
+flow. Mobile viewport changes resize the inner scroll area
 without altering the camera.
 
 Privacy opens inside the Contact monitor in Interactive mode and in page flow in
@@ -386,12 +384,10 @@ backdrop to the virtual monitor. Expansion shares the same draft and character
 limit. Done, Collapse, backdrop dismissal or Escape retains edits; Escape closes
 the editor before room navigation, and focus returns to the compact message field.
 
-**Send a message** stores through `/api/contact` in the private inbox. Optional
+**Send message** stores through `/api/contact` in the private inbox. Optional
 name is adapted to the legacy backend and company/subject count toward the total
-message limit. **Schedule a call** validates locally but sends and saves nothing;
-no booking, availability or confirmation service exists. Keep explicit disclosure
-and truthful acknowledgment. Without hydration, controls fail closed and the
-configured email alternative remains available.
+message limit. Success acknowledges that the message was saved. Without hydration,
+controls fail closed and the configured email alternative remains available.
 
 The email callout supports dismissal, copy and a mail draft. Clipboard fallbacks
 must remain within the original user gesture and restore focus/selection. Physical

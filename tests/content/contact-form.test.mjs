@@ -8,54 +8,11 @@ import {
 } from '../../features/portfolio/contact-flow.ts';
 
 const message = {
-  mode: 'message',
   email: 'visitor@example.com',
   message: 'A useful message about working together.',
 };
-const call = {
-  ...message,
-  mode: 'call',
-  date: '2026-10-20',
-  time: '14:30',
-  timeZone: 'Asia/Manila',
-};
 
-test('call requests validate and complete as a demo without invoking any transport', async () => {
-  let calls = 0;
-  const before = structuredClone(call);
-  assert.equal(
-    await submitContactDraft(call, async () => {
-      calls++;
-    }),
-    'demo',
-  );
-  assert.equal(calls, 0);
-  assert.deepEqual(
-    call,
-    before,
-    'Temporary input remains available for editing',
-  );
-  await assert.rejects(
-    submitContactDraft({ ...call, mode: undefined }, async () => {
-      calls++;
-    }),
-    /Choose Schedule a call or Send a message first/,
-  );
-  assert.equal(calls, 0);
-  await assert.rejects(
-    submitContactDraft({ ...call, mode: null }, async () => {
-      calls++;
-    }),
-    /Choose Schedule a call or Send a message first/,
-  );
-  assert.equal(
-    calls,
-    0,
-    'Returning to the chooser cannot submit retained fields',
-  );
-});
-
-test('messages reuse the existing inbox contract while preserving optional subject/company', async () => {
+test('messages need no mode selection and preserve the existing inbox contract and optional fields', async () => {
   const draft = {
     ...message,
     company: 'Orbital Studio',
@@ -113,20 +70,13 @@ test('optional metadata is counted in the existing inbox limit and never silentl
   );
 });
 
-test('invalid email, short text, oversized fields and impossible call dates cannot submit', async () => {
+test('invalid email, short text and oversized fields cannot submit', async () => {
   const invalid = [
     { ...message, email: 'missing-at' },
     { ...message, message: '   short  ' },
     { ...message, name: 'x'.repeat(121) },
     { ...message, company: 'x'.repeat(161) },
     { ...message, subject: 'x'.repeat(201) },
-    { ...call, date: '' },
-    { ...call, date: '2026-02-30' },
-    { ...call, date: '2026-13-01' },
-    { ...call, time: '' },
-    { ...call, time: '24:00' },
-    { ...call, time: '14:60' },
-    { ...call, timeZone: 'Invalid/timezone' },
   ];
   let calls = 0;
   for (const draft of invalid) {
@@ -137,15 +87,6 @@ test('invalid email, short text, oversized fields and impossible call dates cann
     );
   }
   assert.equal(calls, 0);
-  assert.equal(
-    validateContactDraft({
-      ...call,
-      date: '2028-02-29',
-      time: '00:00',
-      timeZone: 'UTC',
-    }),
-    null,
-  );
 });
 
 test('working submission retains honeypot and rejects delivery failures without mutating input', async () => {
@@ -194,31 +135,16 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     exports: serverModule.exports,
   });
   const { ContactForm } = serverModule.exports;
-  const chooser = renderToStaticMarkup(
-    createElement(ContactForm, {
-      site: { email: 'owner@example.com' },
-      draft: { timeZone: 'UTC' },
-    }),
-  );
-  assert.doesNotMatch(
-    chooser,
-    /<form\b|name="(?:date|time|email|message)"|checked=""/,
-  );
-  assert.match(chooser, /Schedule a call/);
-  assert.match(chooser, /Send a message/);
-  assert.equal((chooser.match(/aria-pressed="false"/g) || []).length, 2);
-  const deselectedAfterSent = renderToStaticMarkup(
+  const sent = renderToStaticMarkup(
     createElement(ContactForm, {
       site: { email: 'owner@example.com' },
       initialSent: true,
-      draft: { ...message, mode: null },
+      draft: message,
     }),
   );
-  assert.doesNotMatch(
-    deselectedAfterSent,
-    /<form\b|Message received|aria-pressed="true"/,
-  );
-  for (const draft of [call, message]) {
+  assert.match(sent, /Message received/);
+  assert.doesNotMatch(sent, /<form\b|Schedule a call|Send a message/);
+  for (const draft of [undefined, message]) {
     // Include a valid prefilled draft: native validation alone must not be the
     // protection against leaking fields through the browser's default GET.
     const markup = renderToStaticMarkup(
@@ -227,17 +153,20 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
         draft,
       }),
     );
-    if (draft.mode === 'call') {
-      assert.ok(markup.indexOf('name="date"') < markup.indexOf('name="time"'));
-      assert.ok(markup.indexOf('name="time"') < markup.indexOf('name="name"'));
-    }
+    assert.match(markup, /<form\b/);
+    assert.match(markup, /<input[^>]*name="email"/);
+    assert.match(markup, /Send message/);
+    assert.doesNotMatch(
+      markup,
+      /Schedule a call|Send a message|aria-pressed|name="(?:date|time)"/,
+    );
     const fieldsets = [...markup.matchAll(/<fieldset\b[^>]*>/g)].map(
       ([tag]) => tag,
     );
-    assert.equal(fieldsets.length, 2);
+    assert.equal(fieldsets.length, 1);
     assert.ok(
       fieldsets.every((tag) => /\bdisabled=""/.test(tag)),
-      'Mode selection and all visitor fields stay disabled until hydration',
+      'All visitor fields stay disabled until hydration',
     );
     const buttons = [...markup.matchAll(/<button\b[^>]*>/g)].map(
       ([tag]) => tag,
@@ -260,12 +189,12 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     );
     assert.match(
       markup,
-      /<noscript>[\s\S]*?These forms need JavaScript[\s\S]*?href="mailto:owner@example.com"[\s\S]*?<\/noscript>/,
+      /<noscript>[\s\S]*?This form needs JavaScript[\s\S]*?href="mailto:owner@example.com"[\s\S]*?<\/noscript>/,
     );
     assert.doesNotMatch(
       markup,
       /action="\/api\/contact"/,
-      'No live native submission path exists for the demo',
+      'Submission requires hydration and the inbox adapter',
     );
     assert.equal((markup.match(/<textarea\b/g) || []).length, 1);
     assert.match(markup, /<textarea[^>]*name="message"/);

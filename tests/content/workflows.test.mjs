@@ -195,7 +195,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
             ...original.draft,
             interfaceText: {
               ...original.draft.interfaceText,
-              'Schedule a call': 'Fixture edited contact action',
+              'Send message': 'Fixture edited contact action',
               'Read project: {title}': 'Fixture read {title}',
             },
           });

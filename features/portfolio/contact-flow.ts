@@ -1,21 +1,14 @@
 import { interfaceText as copy } from '../../lib/content/interface-text.ts';
-export type ContactMode = 'call' | 'message';
 export type ContactDraft = {
-  // null records an explicit return to the chooser across view remounts.
-  mode?: ContactMode | null;
   name?: string;
   company?: string;
   email?: string;
   subject?: string;
   message?: string;
-  date?: string;
-  time?: string;
-  timeZone?: string;
 };
 export type ContactSubmission = {
-  status: 'idle' | 'sending' | 'sent' | 'demo';
+  status: 'idle' | 'sending' | 'sent';
   error: string;
-  mode?: ContactMode;
 };
 
 export const CONTACT_MESSAGE_LIMIT = 5000;
@@ -39,8 +32,6 @@ export function validateContactDraft(
   draft: ContactDraft,
   site: Record<string, any> = {},
 ): string | null {
-  if (draft.mode !== 'call' && draft.mode !== 'message')
-    return copy(site, 'Choose Schedule a call or Send a message first.');
   if (text(draft.name).length > 120)
     return copy(site, 'Keep your name under 121 characters.');
   if (text(draft.company).length > 160)
@@ -61,44 +52,19 @@ export function validateContactDraft(
       'Your message, company and subject together must fit within 5,000 characters. Please shorten them before sending.',
     );
   }
-  if (draft.mode !== 'message') {
-    const date = text(draft.date);
-    const parsed = new Date(`${date}T12:00:00Z`);
-    if (
-      !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
-      !Number.isFinite(parsed.getTime()) ||
-      parsed.toISOString().slice(0, 10) !== date
-    ) {
-      return copy(site, 'Choose a valid preferred date.');
-    }
-    if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(text(draft.time)))
-      return copy(site, 'Choose a valid preferred time.');
-    try {
-      if (!draft.timeZone)
-        return copy(site, 'Your time zone is not ready. Please try again.');
-      new Intl.DateTimeFormat('en', { timeZone: draft.timeZone }).format(
-        parsed,
-      );
-    } catch {
-      return copy(site, 'Your time zone could not be recognized.');
-    }
-  }
   return null;
 }
 
 export type ContactTransport = (body: FormData) => Promise<void>;
 
-/** Call requests have no supported backend. Keep the demo branch before payload
- * creation/transport so it can never reach the working message endpoint. */
 export async function submitContactDraft(
   draft: ContactDraft,
   transport: ContactTransport,
   website = '',
   site: Record<string, any> = {},
-): Promise<'sent' | 'demo'> {
+): Promise<'sent'> {
   const error = validateContactDraft(draft, site);
   if (error) throw new Error(error);
-  if (draft.mode !== 'message') return 'demo';
 
   const body = new FormData();
   body.set('name', text(draft.name) || 'Name not provided');

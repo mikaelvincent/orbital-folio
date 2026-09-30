@@ -1,15 +1,7 @@
 'use client';
 import { interfaceText as copy } from '@/lib/content/interface-text';
 import { useEffect, useId, useRef, useState, type RefObject } from 'react';
-import {
-  ArrowUpRight,
-  CalendarDays,
-  Check,
-  Copy,
-  Mail,
-  Send,
-  X,
-} from 'lucide-react';
+import { ArrowUpRight, Check, Copy, Mail, Send, X } from 'lucide-react';
 import { pathFor } from '@/lib/paths';
 import { copyContactEmail } from './contact-clipboard';
 import { ContactMessageField } from './contact-form-message';
@@ -18,7 +10,6 @@ import {
   submitContactDraft,
   validateContactDraft,
   type ContactDraft,
-  type ContactMode,
   type ContactSubmission,
 } from './contact-flow';
 import './contact-form.css';
@@ -61,35 +52,18 @@ export function ContactForm({
   const values = draft ?? localDraft;
   const latestDraft = useRef(values);
   latestDraft.current = values;
-  const mode =
-    values.mode === undefined
-      ? initialSent && !initialNoticeDismissed
-        ? 'message'
-        : undefined
-      : (values.mode ?? undefined);
   const current = submission ?? localSubmission;
   const status =
-    initialSent && !initialNoticeDismissed && mode === 'message'
-      ? 'sent'
-      : !current.mode || current.mode === mode
-        ? current.status
-        : 'idle';
+    initialSent && !initialNoticeDismissed ? 'sent' : current.status;
   const error =
-    (!current.mode || current.mode === mode ? current.error : '') ||
+    current.error ||
     (initialError && !initialNoticeDismissed
       ? copy(s, 'Your message could not be saved. Please try again.')
       : '');
   const updateDraft = (patch: Partial<ContactDraft>) => {
     // Autofill and rapid input events can arrive before the parent has rendered
     // its controlled draft. Compose against pending edits, not stale props.
-    const next = {
-      ...latestDraft.current,
-      mode:
-        latestDraft.current.mode === undefined
-          ? mode
-          : latestDraft.current.mode,
-      ...patch,
-    };
+    const next = { ...latestDraft.current, ...patch };
     latestDraft.current = next;
     setLocalDraft(next);
     onDraftChange?.(next);
@@ -98,34 +72,16 @@ export function ContactForm({
     setLocalSubmission(value);
     onSubmissionChange?.(value);
   };
-  // No native submission fallback: the call preview must remain inert before
-  // hydration, and the working message path requires its compatibility adapter.
+  // No native submission fallback: messages require the compatibility adapter
+  // after hydration so fields cannot leak through a browser's default GET.
   useEffect(() => setReady(true), []);
   useEffect(() => {
     if (ready && error)
       errorNotice.current?.scrollIntoView({ block: 'nearest' });
   }, [ready, error]);
-  // Resolve on the client to avoid server/device time-zone hydration differences.
-  useEffect(() => {
-    if (values.timeZone) return;
-    let timeZone = 'UTC';
-    try {
-      timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-    } catch {
-      /* UTC remains explicit. */
-    }
-    updateDraft({ timeZone });
-  }, [values.timeZone]); // eslint-disable-line react-hooks/exhaustive-deps
-  const chooseMode = (choice: ContactMode) => {
-    if (!ready || status === 'sending') return;
-    const next = mode === choice ? undefined : choice;
-    setInitialNoticeDismissed(true);
-    updateDraft({ mode: next ?? null });
-    updateSubmission({ status: 'idle', error: '', mode: next });
-  };
   const beginAgain = () => {
     setInitialNoticeDismissed(true);
-    updateSubmission({ status: 'idle', error: '', mode });
+    updateSubmission({ status: 'idle', error: '' });
   };
   const email = typeof s.email === 'string' ? s.email : '';
   const characters = contactInboxMessage(values).length;
@@ -154,7 +110,7 @@ export function ContactForm({
     </label>
   );
   return (
-    <div className="contact-app" data-contact-mode={mode ?? 'choose'}>
+    <div className="contact-app">
       <div className="contact-app-toolbar">
         <div>
           <p className="contact-app-eyebrow">OPEN A CONVERSATION</p>
@@ -222,43 +178,12 @@ export function ContactForm({
           </aside>
         )}
       </div>
-      <fieldset
-        className="contact-app-options"
-        disabled={!ready || status === 'sending'}
-      >
-        <legend className="sr-only">
-          {copy(s, 'How would you like to get in touch?')}
-        </legend>
-        {(
-          [
-            ['call', copy(s, 'Schedule a call'), CalendarDays],
-            ['message', copy(s, 'Send a message'), Mail],
-          ] as const
-        ).map(([value, label, Icon]) => (
-          <button
-            key={value}
-            type="button"
-            aria-pressed={mode === value}
-            disabled={!ready || status === 'sending'}
-            onClick={() => chooseMode(value)}
-          >
-            <Icon size={18} aria-hidden="true" />
-            {label}
-          </button>
-        ))}
-      </fieldset>
-      {mode && (
-        <div className="contact-app-context" id={`${id}-context`}>
-          <p>
-            {mode === 'call'
-              ? copy(s, 'Choose your preferred time to talk.')
-              : copy(s, 'Your message goes to my private inbox.')}
-          </p>
-        </div>
-      )}
+      <div className="contact-app-context" id={`${id}-context`}>
+        <p>{copy(s, 'Your message goes to my private inbox.')}</p>
+      </div>
       <noscript>
         <p className="contact-app-context">
-          {copy(s, 'These forms need JavaScript and cannot submit without it.')}
+          {copy(s, 'This form needs JavaScript and cannot submit without it.')}
           {email && (
             <>
               {' '}
@@ -268,29 +193,18 @@ export function ContactForm({
           )}
         </p>
       </noscript>
-      {!mode ? null : status === 'sent' || status === 'demo' ? (
+      {status === 'sent' ? (
         <div className="contact-app-result" role="status">
           <Check size={28} />
-          <h3>
-            {status === 'demo'
-              ? copy(s, 'Preview complete.')
-              : copy(s, 'Message received.')}
-          </h3>
+          <h3>{copy(s, 'Message received.')}</h3>
           <p>
-            {status === 'demo'
-              ? copy(
-                  s,
-                  'Nothing was sent or saved, and no call was booked. You can still edit the details or use email to get in touch.',
-                )
-              : copy(
-                  s,
-                  'Your message was saved to my private inbox. Thank you for getting in touch.',
-                )}
+            {copy(
+              s,
+              'Your message was saved to my private inbox. Thank you for getting in touch.',
+            )}
           </p>
           <button type="button" disabled={!ready} onClick={beginAgain}>
-            {status === 'demo'
-              ? copy(s, 'Edit request')
-              : copy(s, 'Back to form')}
+            {copy(s, 'Back to form')}
             <ArrowUpRight size={16} />
           </button>
         </div>
@@ -301,19 +215,17 @@ export function ContactForm({
           aria-describedby={`${id}-context`}
           onSubmit={async (event) => {
             event.preventDefault();
-            if (!ready || !mode || status === 'sending') return;
+            if (!ready || status === 'sending') return;
             const formData = new FormData(event.currentTarget);
-            const submitted = { ...latestDraft.current, mode };
+            const submitted = { ...latestDraft.current };
             // Some browsers autofill without an input event. The mounted form
-            // is authoritative at submission, including native date/time fields.
+            // is authoritative at submission.
             for (const key of [
               'name',
               'company',
               'email',
               'subject',
               'message',
-              'date',
-              'time',
             ] as const) {
               const value = formData.get(key);
               if (typeof value === 'string') submitted[key] = value;
@@ -321,12 +233,12 @@ export function ContactForm({
             updateDraft(submitted);
             const validation = validateContactDraft(submitted, s);
             if (validation) {
-              updateSubmission({ status: 'idle', error: validation, mode });
+              updateSubmission({ status: 'idle', error: validation });
               return;
             }
             const website = formData.get('website');
             setInitialNoticeDismissed(true);
-            updateSubmission({ status: 'sending', error: '', mode });
+            updateSubmission({ status: 'sending', error: '' });
             try {
               const result = await submitContactDraft(
                 submitted,
@@ -360,8 +272,8 @@ export function ContactForm({
                 typeof website === 'string' ? website : '',
                 s,
               );
-              updateSubmission({ status: result, error: '', mode });
-              if (result === 'sent') onSent?.();
+              updateSubmission({ status: result, error: '' });
+              onSent?.();
             } catch (failure) {
               updateSubmission({
                 status: 'idle',
@@ -377,7 +289,6 @@ export function ContactForm({
                         s,
                         'Your message could not be saved. Please try again or use email.',
                       ),
-                mode,
               });
             }
           }}
@@ -386,31 +297,8 @@ export function ContactForm({
             className="contact-app-fields"
             disabled={!ready || status === 'sending'}
           >
-            <legend className="sr-only">
-              {mode === 'call'
-                ? copy(s, 'Call request details')
-                : copy(s, 'Message details')}
-            </legend>
+            <legend className="sr-only">{copy(s, 'Message details')}</legend>
             <div className="contact-app-grid">
-              {mode === 'call' && (
-                <>
-                  {field('date', copy(s, 'Preferred date'), {
-                    type: 'date',
-                    required: true,
-                  })}
-                  {field('time', copy(s, 'Preferred time'), {
-                    type: 'time',
-                    required: true,
-                  })}
-                  <p className="contact-app-timezone contact-app-wide">
-                    {copy(s, 'Time zone:')}{' '}
-                    <strong>
-                      {values.timeZone || copy(s, 'Detecting your time zone…')}
-                    </strong>
-                    {values.timeZone && copy(s, ' · your device’s time zone')}
-                  </p>
-                </>
-              )}
               {field('name', s.nameLabel, {
                 autoComplete: 'name',
                 maxLength: 120,
@@ -456,17 +344,8 @@ export function ContactForm({
           )}
           <div className="contact-app-submit-row">
             <p>
-              {mode === 'call' ? (
-                copy(
-                  s,
-                  'Call requests aren’t sent yet. Use email to arrange a time.',
-                )
-              ) : (
-                <>
-                  {copy(s, 'Only used to respond to your inquiry.')}{' '}
-                  <a href={pathFor('/privacy', s)}>{s.privacyLabel}</a>
-                </>
-              )}
+              {copy(s, 'Only used to respond to your inquiry.')}{' '}
+              <a href={pathFor('/privacy', s)}>{s.privacyLabel}</a>
             </p>
             <button
               className="contact-app-submit"
@@ -475,9 +354,7 @@ export function ContactForm({
             >
               {status === 'sending'
                 ? copy(s, 'Sending…')
-                : mode === 'call'
-                  ? copy(s, 'Request a call')
-                  : copy(s, 'Send message')}
+                : copy(s, 'Send message')}
               <Send size={16} />
             </button>
           </div>

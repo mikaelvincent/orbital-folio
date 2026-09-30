@@ -146,10 +146,6 @@
   border-radius: 0;
   padding: 18px;
 }
-.contact-computer-desktop:has([data-contact-mode='choose'])
-  .contact-computer-window {
-  height: auto;
-}
 .world-computer-screen {
   border: 0;
   cursor: pointer;

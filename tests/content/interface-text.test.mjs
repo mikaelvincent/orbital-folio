@@ -64,7 +64,7 @@ test('interface overrides are optional, plain text, and retain complete substitu
   assert.equal(interfaceText(site, 'Unedited message'), 'Unedited message');
   assert.equal(notebookPageLabel(2, 6, site), 'Page 2 / 6');
   assert.equal(
-    validateContactDraft({ mode: 'message', email: 'bad' }, site),
+    validateContactDraft({ email: 'bad' }, site),
     'Please check your email.',
   );
   assert.equal(site.interfaceText[' Unattributed: {calls} calls.'][0], ' ');
@@ -90,7 +90,7 @@ test('generated catalog covers content messages and excludes fixed tools and dec
   const keys = new Set(Object.values(interfaceTextCatalog).flat());
   for (const message of [
     'Watch video',
-    'Schedule a call',
+    'Send message',
     'Let’s connect.',
     'Systems',
   ])
@@ -106,6 +106,8 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'context-lost',
     'Rendering',
     'Unassigned',
+    'Schedule a call',
+    'Send a message',
   ])
     assert.ok(!keys.has(message), message);
   assert.equal(
@@ -141,10 +143,18 @@ test('generated catalog covers content messages and excludes fixed tools and dec
 test('inactive text overrides remain portable without returning to the Studio catalog', () => {
   const site = validateContent('site', {
     ...seedSite,
-    interfaceText: { Unassigned: 'Saved legacy screen text' },
+    interfaceText: {
+      Unassigned: 'Saved legacy screen text',
+      'Schedule a call': 'Saved legacy call label',
+    },
   });
   assert.equal(site.interfaceText.Unassigned, 'Saved legacy screen text');
   assert.equal(interfaceText(site, 'Unassigned'), 'Unassigned');
+  assert.equal(
+    site.interfaceText['Schedule a call'],
+    'Saved legacy call label',
+  );
+  assert.equal(interfaceText(site, 'Schedule a call'), 'Schedule a call');
 });
 
 test('Studio omits legacy heading controls and navigation for Markdown stories, including search results', async () => {
@@ -326,7 +336,7 @@ test('reading Contact exposes only the same assigned social screens and shared f
     ...seedSite,
     contactHeading: 'Retired oversized heading',
     contactIntro: 'Retired form introduction',
-    interfaceText: { 'Schedule a call': 'Discuss a project' },
+    interfaceText: { 'Send message': 'Discuss a project' },
   };
   const links = ['Left profile', 'Right profile', 'Hidden overflow'].map(
     (title, index) => ({
@@ -346,8 +356,14 @@ test('reading Contact exposes only the same assigned social screens and shared f
     journal: [],
   };
   const markup = render(ContactView, { data });
-  assert.ok(markup.includes(render(ContactForm, { site })));
-  assert.match(markup, /Left profile|Right profile|Discuss a project/);
+  // React useId values depend on where the shared form sits in the tree.
+  const normalizeIds = (html) => html.replace(/_R_[a-zA-Z0-9]+_/g, '_R_id_');
+  assert.ok(
+    normalizeIds(markup).includes(normalizeIds(render(ContactForm, { site }))),
+  );
+  assert.match(markup, /Left profile/);
+  assert.match(markup, /Right profile/);
+  assert.match(markup, /Discuss a project/);
   assert.match(markup, /<h1>Let’s connect\.<\/h1>/);
   assert.doesNotMatch(markup, /Hidden overflow|Retired oversized|Retired form/);
 });
