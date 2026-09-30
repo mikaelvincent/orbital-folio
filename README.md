@@ -34,10 +34,11 @@ sections support safe Markdown; raw HTML and executable embeds are unavailable.
 Optional project resource links open independent HTTPS sites. Project ZIP packages
 and whole-content JSON backups serve different portability needs.
 
-Sample metadata keeps indexing off until the owner replaces the examples; public
-sample badges/notices are intentionally omitted. Guarded local demo tools populate
-only exact known untouched samples. Relay remains the browsable reference for
-supported project presentation/media features. See the relevant
+**Keep search indexing off** and per-entry sample flags control search metadata
+only. Seeded content uses the same presentation and interactions as owner-authored
+content; public sample badges/notices are intentionally omitted. Guarded local demo
+tools populate only exact known untouched samples. Relay remains the browsable
+reference for supported project presentation/media features. See the relevant
 [authoring and operations sections](docs/OPERATIONS.md).
 
 Visitors can enter through rooms, doorways or navigation, or use `?view=reading`.

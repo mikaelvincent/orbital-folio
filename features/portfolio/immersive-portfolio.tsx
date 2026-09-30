@@ -943,7 +943,7 @@ export function ImmersivePortfolio({
             <span>{reading ? s.sceneLabel : s.readLabel}</span>
           </button>
         </div>
-        {immersive && !s.sampleMode && (
+        {immersive && (
           <div className="flight-status">
             <span className="status-dot" />
             {s.availability}

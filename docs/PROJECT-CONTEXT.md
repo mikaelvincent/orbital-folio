@@ -215,8 +215,10 @@ collection cards, ivory articles and bounded prose. It shares collection, story
 and contact renderers with the interactive applications. It adds no exclusive
 introductions, invitations, stories or social links. About uses the same notebook
 sections and opening biography; Contact uses the same form and two assigned links. Visitor-facing sample/demo badges and notices are intentionally
-absent, including private preview. Keep sample metadata, indexing protection and
-studio controls. Nonfunctional actions must still say nothing was sent/booked.
+absent, including private preview. Sample flags control search metadata only;
+seeded content uses the same presentation and visitor functionality as
+owner-authored content. Keep indexing protection and studio controls.
+Nonfunctional actions must still say nothing was sent/booked.
 
 ## Content studio
 
@@ -238,8 +240,9 @@ remove unused field definitions and overrides rather than hiding their controls.
 Explicit saves and imports discard unsupported fields and overrides; existing
 stored snapshots are not rewritten. Legacy story headings remain supported for
 structured stories; Markdown entries own their headings in the body.
-Availability appears only in Interactive view with sample mode off, and remains
-editable in Studio. About and Contact introductions serve page metadata.
+Availability appears in Interactive view regardless of the search-indexing
+setting, and remains editable in Studio. About and Contact introductions serve
+page metadata.
 Keep template placeholders intact and regenerate
 `lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
 after changing editable render-site messages. Browser-owned media/date controls

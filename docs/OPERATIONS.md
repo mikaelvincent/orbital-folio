@@ -128,10 +128,11 @@ the provider's exact DNS records; verify TLS and the canonical host before publi
 launch. Redirect aliases at the edge. A private preview may use the eventual
 canonical domain without claiming it is live.
 
-Replace fictional entries, mailbox, biography and metadata before disabling
-sample mode, which controls `noindex` and crawler exclusion. Admin/preview
-responses remain private and unindexed. Independent demo applications must be
-hosted separately, with their own secrets and storage; put their HTTPS URL in a
+Replace fictional entries, mailbox, biography and metadata before allowing search
+indexing. **Keep search indexing off** controls `noindex` and crawler exclusion
+without changing visible content. Admin/preview responses remain private and
+unindexed. Independent demo applications must be hosted separately, with their
+own secrets and storage; put their HTTPS URL in a
 project's **Independent demo URL**. The portfolio does not proxy or execute them.
 Keep admin cookies host-only rather than sharing them across demo subdomains.
 
@@ -148,7 +149,7 @@ workflow. Keep placeholders such as `{title}` and `{number}` when editing.
 **Reset text** removes an override. Both views share the same content; empty
 categories are hidden. Explicit saves and imports discard unsupported settings
 and obsolete overrides. Supported legacy story headings remain editable;
-availability is shown in Interactive view when sample mode is off.
+availability is shown in Interactive view independently of search indexing.
 
 Migration `0005_studio_rooms_and_inbox.sql` separates legacy social links used in
 both rooms without publishing their drafts. Each snapshot is copied independently;

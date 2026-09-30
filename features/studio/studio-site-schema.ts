@@ -59,7 +59,7 @@ export const siteSections: SiteSection[] = [
     area: 'general',
     title: 'Search & sharing',
     description:
-      'Page metadata, language and the image shown when someone shares your portfolio.',
+      'Page metadata, language and the image shown when someone shares your portfolio. Search indexing does not change visible content.',
     keys: [
       'seoTitle',
       'seoDescription',
@@ -188,7 +188,7 @@ export const siteFieldLabels: Record<string, string> = {
   seoDescription: 'Search & social description',
   seoImageId: 'Social preview image',
   language: 'Language tag',
-  sampleMode: 'Keep search indexing off while using sample content',
+  sampleMode: 'Keep search indexing off',
   privacyLabel: 'Privacy page name',
   privacyText: 'Privacy policy',
   notFoundEyebrow: 'Missing page label',
