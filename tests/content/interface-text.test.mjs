@@ -366,6 +366,43 @@ test('project and case study renderers share authored text and safe overrides in
   );
 });
 
+test('reading overview uses authored room headings and retains reading and preview links', async () => {
+  const { HomeView } = await components('features/portfolio/home-view.tsx');
+  const site = {
+    ...seedSite,
+    domain: 'https://owner.example',
+    title: 'An authored role',
+    readLabel: 'A quiet view',
+    projectsHeading: 'Owner projects',
+    experienceHeading: 'Owner stories',
+    aboutHeading: 'Owner notebook',
+    interfaceText: { 'Let’s connect.': 'Owner conversation' },
+  };
+  const markup = render(HomeView, { data: { site } });
+  for (const text of [
+    'owner.example',
+    site.title,
+    site.readLabel,
+    site.projectsHeading,
+    site.experienceHeading,
+    site.aboutHeading,
+    'Owner conversation',
+  ])
+    assert.ok(markup.includes(text), text);
+  for (const path of ['projects', 'case-studies', 'about', 'contact']) {
+    assert.ok(markup.includes(`href="/${path}?view=reading"`));
+  }
+  assert.doesNotMatch(markup, /Let’s connect\./);
+  const preview = render(HomeView, {
+    data: { site: { ...site, _preview: true } },
+  });
+  assert.match(
+    preview,
+    /href="\/admin\/preview\?view=reading&amp;section=experience"/,
+  );
+  assert.doesNotMatch(preview, /href="\/(projects|case-studies|about|contact)/);
+});
+
 test('reading Contact exposes only the same assigned social screens and shared form', async () => {
   const { ContactView } = await components('features/portfolio/room-views.tsx');
   const { ContactForm } = await components(

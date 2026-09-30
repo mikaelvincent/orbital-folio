@@ -100,9 +100,13 @@ export function AboutView({
     <div className="journal">
       <aside className="journal-cover">
         <div>
-          <AboutPortrait data={data} />
-          <p className="eyebrow">{s.journalLabel}</p>
-          <h1>{s.name}</h1>
+          <div className="reading-profile-identity">
+            <AboutPortrait data={data} />
+            <div>
+              <p className="eyebrow">{s.journalLabel}</p>
+              <h1>{s.name}</h1>
+            </div>
+          </div>
           <AboutSocialLinks data={data} />
           {!!data.journal.length && (
             <nav aria-label={copy(s, 'Notebook sections')}>

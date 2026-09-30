@@ -211,9 +211,12 @@ floating tools. Keep native selection inside editable fields and throughout
 Reading view and the studio. Do not show a floating availability message or
 status dot.
 
-Semantic Reading view is the readable alternative to projected displays: carbon
-collection cards, ivory articles and bounded prose. It shares collection, story
-and contact renderers with the interactive applications. It adds no exclusive
+Semantic Reading view uses an ivory canvas, carbon panels and restrained bronze
+details from the spacecraft palette. Its four-room overview, collection side
+indexes, bounded articles and profile/console layouts have their own composition;
+reading styles stay scoped to `.is-readable` and never alter Interactive view.
+It shares collection, story and contact renderers with the interactive applications
+and uses their existing editable headings and content. It adds no exclusive
 introductions, invitations, stories or social links. About uses the same notebook
 sections and opening biography; Contact uses the same form and two assigned links. Visitor-facing sample/demo badges and notices are intentionally
 absent, including private preview. Sample flags control search metadata only;
