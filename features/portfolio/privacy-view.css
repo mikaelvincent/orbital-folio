@@ -1,0 +1,32 @@
+.privacy-page .privacy-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: 12px;
+  color: inherit;
+  font-size: 14px;
+  text-decoration: none;
+}
+.privacy-page .privacy-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.contact-computer-window .privacy-page {
+  max-width: 72ch;
+  padding: 18px 24px 28px;
+}
+.contact-computer-window .privacy-page h1 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  line-height: 1.2;
+  outline: none;
+}
+.contact-computer-window .privacy-page .text-block {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.contact-computer-window .privacy-page a {
+  color: var(--bronze-light);
+  overflow-wrap: anywhere;
+}

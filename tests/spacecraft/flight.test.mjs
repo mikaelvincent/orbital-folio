@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  applicationDestination,
   destinationFromURL,
   destinationHref,
   flightEase,
@@ -9,6 +10,44 @@ import {
   damping,
 } from '../../features/spacecraft/navigation/flight.ts';
 import { pageMetadata } from '../../lib/metadata.ts';
+
+test('Privacy URLs keep their identity while targeting the open Contact monitor', () => {
+  for (const preview of [false, true]) {
+    for (const reading of [false, true]) {
+      const site = { _preview: preview };
+      const href = destinationHref({ section: 'privacy' }, site, reading);
+      const url = new URL(href, 'https://portfolio.example');
+      const destination = destinationFromURL(url, preview);
+      assert.equal(destination.section, 'privacy');
+      assert.equal(url.searchParams.get('view'), reading ? 'reading' : null);
+      assert.deepEqual(applicationDestination(destination), {
+        section: 'contact',
+        open: true,
+      });
+      assert.equal(
+        destination.section,
+        'privacy',
+        'The public route is not mutated',
+      );
+      const back = destinationFromURL(
+        new URL(
+          destinationHref(applicationDestination(destination), site, reading),
+          url,
+        ),
+        preview,
+      );
+      assert.equal(back.section, 'contact');
+      assert.equal(back.open, true, 'Back returns to the form, not the room');
+    }
+  }
+  for (const destination of [
+    { section: 'contact' },
+    { section: 'contact', open: true, sent: true },
+    { section: 'projects', slug: 'relay' },
+    { section: 'about', slug: 'story', page: 2 },
+  ])
+    assert.equal(applicationDestination(destination), destination);
+});
 
 test('Flight destinations preserve public and private readable URLs', () => {
   const url = (path) => new URL(path, 'https://portfolio.example');

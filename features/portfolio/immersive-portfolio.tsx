@@ -19,6 +19,7 @@ import { projectCategoryCount } from '@/lib/content/project-content';
 import { CaseStudyLibraryWindow } from './case-study-library-window';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
+  applicationDestination,
   destinationFromURL,
   destinationHref,
   rooms,
@@ -176,9 +177,10 @@ export function ImmersivePortfolio({
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
   latest.current = destination;
-  const immersive = enhanced && !reading && destination.section !== 'privacy';
+  const immersive = enhanced && !reading;
+  const sceneDestination = applicationDestination(destination);
   const readingSurface =
-    !!(destination.slug || destination.open) &&
+    !!(sceneDestination.slug || sceneDestination.open) &&
     (destination.section !== 'projects' || data.projects.length > 0);
   const project =
     destination.section === 'projects'
@@ -246,11 +248,13 @@ export function ImmersivePortfolio({
           navigationToggle.current?.focus({ preventScroll: true });
         return true;
       }
+      const currentApplication = applicationDestination(latest.current);
+      const nextApplication = applicationDestination(next);
       const withinApplication =
-        ['projects', 'experience', 'about'].includes(latest.current.section) &&
-        next.section === latest.current.section &&
-        !!(latest.current.slug || latest.current.open) &&
-        !!(next.slug || next.open);
+        rooms.includes(currentApplication.section as (typeof rooms)[number]) &&
+        nextApplication.section === currentApplication.section &&
+        !!(currentApplication.slug || currentApplication.open) &&
+        !!(nextApplication.slug || nextApplication.open);
       setArrived(withinApplication);
       setTravel(!reading && !withinApplication);
       returnToNotebook.current =
@@ -365,9 +369,11 @@ export function ImmersivePortfolio({
       event.preventDefault();
       const previous = latest.current.section;
       go(
-        latest.current.slug || latest.current.open
-          ? { section: previous }
-          : { section: 'home' },
+        previous === 'privacy'
+          ? { section: 'contact', open: true }
+          : latest.current.slug || latest.current.open
+            ? { section: previous }
+            : { section: 'home' },
       );
       (immersive
         ? navigationToggle.current
@@ -481,7 +487,7 @@ export function ImmersivePortfolio({
     if (readingSurface) {
       // The notebook owns focus on the visible spread; its title may be off-page.
       if (destination.section === 'about') return;
-      const appHeading = ['projects', 'experience'].includes(
+      const appHeading = ['projects', 'experience', 'privacy'].includes(
         destination.section,
       )
         ? document.querySelector<HTMLElement>('#world-reader h1')
@@ -561,7 +567,10 @@ export function ImmersivePortfolio({
         onDraftChange={setContactDraft}
       />
     ) : destination.section === 'privacy' ? (
-      <PrivacyView data={data} />
+      <PrivacyView
+        data={data}
+        backHref={hrefFor({ section: 'contact', open: true })}
+      />
     ) : (
       <HomeView data={data} />
     );
@@ -675,7 +684,7 @@ export function ImmersivePortfolio({
             onCloseNotebook={() => go({ section: 'about' })}
             links={data.links}
             media={data.media}
-            section={destination.section}
+            section={sceneDestination.section}
             slug={destination.slug}
             readingSurface={readingSurface}
             projectPage={0}
@@ -779,13 +788,15 @@ export function ImmersivePortfolio({
             ) : (
               <ContactComputerWindow
                 site={s}
+                privacy={destination.section === 'privacy'}
+                backHref={hrefFor({ section: 'contact', open: true })}
                 initialSent={destination.sent}
                 initialError={destination.error}
                 submission={contactSubmission}
                 onSubmissionChange={setContactSubmission}
                 draft={contactDraft}
                 onDraftChange={setContactDraft}
-                onClose={() => go({ section: destination.section })}
+                onClose={() => go({ section: 'contact' })}
               />
             ),
             surface,

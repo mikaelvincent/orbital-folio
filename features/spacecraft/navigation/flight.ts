@@ -17,6 +17,14 @@ export type Destination = {
   sent?: boolean;
   error?: boolean;
 };
+
+/** Privacy is a page of the Contact computer, with its own public URL. */
+export function applicationDestination(destination: Destination): Destination {
+  return destination.section === 'privacy'
+    ? { section: 'contact', open: true }
+    : destination;
+}
+
 export function destinationFromURL(
   url: URL,
   preview = false,

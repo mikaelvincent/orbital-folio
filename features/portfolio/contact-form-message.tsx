@@ -109,25 +109,25 @@ export function ContactMessageField({
       }}
     >
       <div className="contact-app-field contact-app-wide">
-        <div className="contact-message-label">
-          <label htmlFor={`${id}-message`}>{site.messageLabel}</label>
+        <label htmlFor={`${id}-message`}>{site.messageLabel}</label>
+        <div className="contact-message-input">
+          <textarea
+            {...inputProps}
+            ref={compactInput}
+            name="message"
+            id={`${id}-message`}
+            rows={3}
+            aria-describedby={`${id}-length`}
+          />
           <Dialog.Trigger
             className="contact-message-expand"
             disabled={disabled}
             aria-label={copy(site, 'Expand message')}
+            title={copy(site, 'Expand message')}
           >
-            <Maximize2 size={14} aria-hidden="true" />
-            {copy(site, 'Expand')}
+            <Maximize2 size={18} aria-hidden="true" />
           </Dialog.Trigger>
         </div>
-        <textarea
-          {...inputProps}
-          ref={compactInput}
-          name="message"
-          id={`${id}-message`}
-          rows={3}
-          aria-describedby={`${id}-length`}
-        />
         {limit('length')}
       </div>
       <Dialog.Portal

@@ -201,7 +201,8 @@
   gap: 6px;
   min-width: 0;
 }
-.contact-app-field > span {
+.contact-app-field > span,
+.contact-app-field > label {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -230,7 +231,7 @@
   border-color: var(--alloy);
 }
 .contact-app-field textarea {
-  resize: vertical;
+  resize: none;
   min-height: 78px;
 }
 .contact-app-field input::-webkit-calendar-picker-indicator {
