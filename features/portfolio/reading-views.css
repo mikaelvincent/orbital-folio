@@ -1,13 +1,14 @@
 /* A separate reading surface. Every rule is bounded by .is-readable so the
    spacecraft, projected applications and studio retain their authored design. */
 .orbital-experience.is-readable {
-  --reading-line: color-mix(in srgb, var(--carbon) 20%, transparent);
+  --reading-line: color-mix(in srgb, var(--alloy) 24%, transparent);
   --reading-measure: 68ch;
-  --accent-text: var(--bronze-dark);
-  --focus-color: var(--bronze-dark);
+  --accent-text: var(--bronze-light);
+  --focus-color: var(--bronze-light);
   --ring: var(--focus-color);
-  color: var(--carbon);
-  background: var(--ivory);
+  color: var(--ivory);
+  background: var(--carbon-deep);
+  color-scheme: dark;
   min-height: 100svh;
 }
 .orbital-experience.is-readable .flight-header {
@@ -33,7 +34,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  color: var(--carbon);
+  color: var(--ivory);
   font-size: 12px;
   line-height: 1.5;
   letter-spacing: 0.12em;
@@ -48,9 +49,9 @@
   height: 26px;
   border: 1px solid var(--bronze);
   border-radius: 50%;
-  background: radial-gradient(circle, var(--carbon) 3px, transparent 4px);
+  background: radial-gradient(circle, var(--ivory) 3px, transparent 4px);
   box-shadow:
-    inset 0 0 0 5px var(--ivory),
+    inset 0 0 0 5px var(--carbon-deep),
     inset 0 0 0 6px var(--reading-line);
 }
 .is-readable .flight-header nav {
@@ -65,15 +66,15 @@
   min-height: 44px;
   padding: 12px 14px;
   border-radius: 4px;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.5;
   white-space: normal;
   overflow-wrap: anywhere;
 }
 .is-readable .flight-header nav a:is(:hover, :focus-visible, [aria-current]) {
-  color: var(--carbon);
-  background: var(--ivory-shade);
+  color: var(--ivory);
+  background: var(--carbon-raised);
   box-shadow: inset 0 -2px var(--bronze);
 }
 .orbital-experience.is-readable .reader-stage {
@@ -83,7 +84,7 @@
   width: min(1280px, 100%);
   max-width: none;
   padding: 0;
-  color: var(--carbon);
+  color: var(--ivory);
 }
 .is-readable .flight-tools .flight-view-toggle {
   gap: 10px;
@@ -102,7 +103,7 @@
 .is-readable
   .room-reader
   :is(.project-library-eyebrow, .case-study-story-kicker) {
-  color: var(--bronze-dark);
+  color: var(--bronze-light);
   font:
     500 11px/1.6 ui-monospace,
     monospace;
@@ -131,7 +132,7 @@
 .is-readable .reading-masthead .hero-role {
   margin: 0;
   max-width: 60ch;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: clamp(16px, 1.5vw, 20px);
   line-height: 1.6;
 }
@@ -142,7 +143,7 @@
   stroke-width: 1;
 }
 .is-readable .reading-orbit rect {
-  fill: var(--carbon);
+  fill: var(--ivory);
   stroke: none;
 }
 .is-readable .reading-orbit-point {
@@ -153,10 +154,10 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   padding: 12px;
-  border: 1px solid color-mix(in srgb, var(--carbon) 25%, transparent);
+  border: 1px solid var(--reading-line);
   border-radius: 42px;
-  background: var(--ivory-shade);
-  box-shadow: inset 0 0 0 4px var(--ivory-soft);
+  background: var(--carbon-raised);
+  box-shadow: inset 0 0 0 4px var(--carbon);
 }
 .is-readable .reading-room-links a {
   position: relative;
@@ -248,20 +249,20 @@
   padding: 12px;
   border: 1px solid transparent;
   border-radius: 5px;
-  color: var(--carbon-muted);
+  color: var(--ivory-shade);
   font-size: 13px;
   text-align: left;
   line-height: 1.5;
 }
 .is-readable .room-reader .project-category-controls button:hover {
-  background: var(--ivory-soft);
+  background: var(--carbon-raised);
 }
 .is-readable
   .room-reader
   .project-category-controls
   button[aria-pressed='true'] {
   background: var(--carbon);
-  border-color: var(--carbon);
+  border-color: var(--bronze);
   color: var(--ivory);
 }
 .is-readable .room-reader .project-category-controls small {
@@ -303,7 +304,7 @@
   .room-reader
   :is(.project-gallery-count, .case-study-collection-count) {
   padding-top: 28px;
-  color: var(--carbon);
+  color: var(--ivory);
   font:
     300 36px/1 ui-monospace,
     monospace;
@@ -311,7 +312,7 @@
 .is-readable
   .room-reader
   :is(.project-gallery-count > span, .case-study-collection-count small) {
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font: 12px/1.5 var(--font-sans);
 }
 .is-readable
@@ -319,7 +320,7 @@
   :is(.project-gallery-intro, .case-study-collection-intro) {
   max-width: 60ch;
   margin: 22px 0 38px;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 17px;
   line-height: 1.75;
 }
@@ -369,11 +370,11 @@
 }
 .is-readable .room-reader .case-study-archive-list {
   --archive-line: var(--reading-line);
-  --archive-kicker: var(--bronze-dark);
-  --archive-title: var(--carbon);
-  --archive-copy: var(--carbon-muted);
-  --archive-meta: var(--ink-muted);
-  --archive-hover: var(--ivory-soft);
+  --archive-kicker: var(--bronze-light);
+  --archive-title: var(--ivory);
+  --archive-copy: var(--ivory-shade);
+  --archive-meta: var(--text-muted);
+  --archive-hover: var(--carbon);
 }
 .is-readable .room-reader .case-study-archive-entry {
   grid-template-columns: 36px minmax(0, 1fr) 24px;
@@ -397,22 +398,33 @@
   font-size: 12px;
 }
 .is-readable .room-reader .case-study-archive-arrow {
-  color: var(--bronze-dark);
+  color: var(--bronze-light);
 }
 .is-readable .room-reader :is(.project-app-empty, .case-study-empty) {
-  color: var(--ink-muted);
+  color: var(--text-muted);
   border-color: var(--reading-line);
 }
 .is-readable .room-reader .project-app-empty :is(h2, svg) {
-  color: var(--carbon);
+  color: var(--ivory);
 }
 
 /* Stories stay in document flow, with the same media and Markdown renderer. */
+.is-readable .room-reader :is(.dossier-paper, .journal-pages) {
+  --accent-text: var(--bronze-light);
+  --focus-color: var(--bronze-light);
+}
+.is-readable .dossier-paper .project-library-links {
+  --source-background: var(--carbon);
+  --source-ink: var(--ivory-soft);
+  --source-hover-background: var(--carbon-raised);
+  --source-hover-border: var(--alloy);
+  --source-active-background: var(--carbon-deep);
+}
 .is-readable .room-reader > .back-link {
   display: inline-flex;
   min-height: 44px;
   margin: -16px 0 28px;
-  color: var(--carbon-muted);
+  color: var(--ivory-shade);
   font-size: 14px;
 }
 .is-readable .room-reader .dossier-paper {
@@ -422,9 +434,10 @@
   border: 1px solid var(--reading-line);
   border-top: 3px solid var(--bronze);
   border-radius: 4px 4px 24px 24px;
-  background: var(--ivory);
-  color: var(--carbon);
-  box-shadow: 0 12px 36px color-mix(in srgb, var(--carbon) 4%, transparent);
+  background: var(--carbon);
+  color: var(--ivory);
+  box-shadow: 0 12px 36px
+    color-mix(in srgb, var(--carbon-deep) 45%, transparent);
 }
 .is-readable .room-reader .project-window-detail {
   max-width: none;
@@ -442,7 +455,7 @@
   .room-reader
   :is(.project-detail-subtitle, .case-study-story-subtitle) {
   margin: 0 0 20px;
-  color: var(--carbon-muted);
+  color: var(--ivory-shade);
   font-size: 24px;
   line-height: 1.45;
 }
@@ -451,7 +464,7 @@
   :is(.project-detail-summary, .case-study-story-summary) {
   max-width: 60ch;
   margin-bottom: 30px;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 19px;
   line-height: 1.75;
 }
@@ -465,19 +478,19 @@
   .room-reader
   :is(.project-library-meta, .case-study-story-meta)
   dt {
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 12px;
 }
 .is-readable
   .room-reader
   :is(.project-library-meta, .case-study-story-meta)
   dd {
-  color: var(--carbon);
+  color: var(--ivory);
   font-size: 15px;
   line-height: 1.7;
 }
 .is-readable .room-reader :is(.project-markdown, .dossier-paper .text-block) {
-  color: var(--carbon-raised);
+  color: var(--ivory-shade);
   font-size: 17px;
   line-height: 1.85;
 }
@@ -485,7 +498,7 @@
   max-width: var(--reading-measure);
 }
 .is-readable .room-reader .project-markdown :is(h2, h3, h4, h5, h6) {
-  color: var(--carbon);
+  color: var(--ivory);
   scroll-margin-top: 32px;
   letter-spacing: -0.03em;
 }
@@ -493,10 +506,10 @@
   font-size: 29px;
 }
 .is-readable .room-reader .project-markdown a {
-  color: var(--bronze-dark);
+  color: var(--bronze-light);
 }
 .is-readable .room-reader .project-story-pending {
-  color: var(--ink-muted);
+  color: var(--text-muted);
 }
 
 /* About: a carbon profile panel beside the unabridged notebook. */
@@ -583,7 +596,7 @@
 .is-readable .room-reader .journal-pages {
   min-width: 0;
   padding: 4px 0 0;
-  color: var(--carbon);
+  color: var(--ivory);
   background: transparent;
 }
 .is-readable .room-reader .journal-pages article {
@@ -597,7 +610,7 @@
 }
 .is-readable .room-reader .journal-pages h2 {
   margin: 0 0 24px;
-  color: var(--carbon);
+  color: var(--ivory);
   font-size: clamp(30px, 3.5vw, 48px);
   font-weight: 400;
   line-height: 1.15;
@@ -610,13 +623,13 @@
 }
 .is-readable .journal-pages article > p {
   max-width: var(--reading-measure);
-  color: var(--carbon-muted);
+  color: var(--ivory-shade);
   font-size: 17px;
   line-height: 1.85;
 }
 .is-readable .room-reader .journal-subtitle {
   margin: -8px 0 24px;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 21px;
   line-height: 1.6;
 }
@@ -632,7 +645,7 @@
   border: 1px solid var(--carbon-muted);
   border-radius: 28px 28px 8px 8px;
   background: var(--carbon);
-  box-shadow: 0 0 0 8px var(--ivory-shade);
+  box-shadow: 0 0 0 8px var(--carbon-raised);
 }
 .is-readable .reading-contact-form .contact-app-toolbar {
   align-items: flex-start;
@@ -679,24 +692,24 @@
   min-height: 64px;
   padding: 20px 0;
   border-block: 1px solid var(--reading-line);
-  color: var(--carbon);
+  color: var(--ivory);
   font-size: 18px;
 }
 .is-readable .reading-contact-form .social-links small {
   display: block;
   margin-top: 4px;
-  color: var(--ink-muted);
+  color: var(--text-muted);
   font-size: 13px;
 }
 .is-readable .reading-contact-form .social-links a:hover {
-  color: var(--bronze-dark);
+  color: var(--bronze-light);
 }
 .is-readable .room-reader .privacy-page {
   width: min(760px, 100%);
   max-width: none;
   margin: auto;
   padding: 0;
-  color: var(--carbon);
+  color: var(--ivory);
 }
 .is-readable .room-reader .privacy-page h1 {
   margin: 22px 0 32px;
@@ -709,7 +722,7 @@
   line-height: 1.85;
 }
 .is-readable .room-reader .privacy-page a {
-  color: var(--bronze-dark);
+  color: var(--bronze-light);
 }
 
 @media (max-width: 1000px) {
