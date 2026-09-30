@@ -32,8 +32,7 @@ export const siteSections: SiteSection[] = [
     id: 'identity',
     area: 'general',
     title: 'Identity',
-    description:
-      'Your name, role and website identity. These settings are shared by both views.',
+    description: 'Your name, role and website identity.',
     keys: ['name', 'title', 'domain', 'availability', 'accent'],
   },
   {
@@ -176,11 +175,16 @@ const legacyCaseStudyHeadings: Record<string, string> = {
   Impact: 'impact',
 };
 
-/** Markdown owns its headings; retain controls only for legacy story sections
- * still used by a saved draft or the independently published snapshot. */
+/** Show conditional copy when an edited/saved draft or published snapshot uses it.
+ * Markdown owns its headings instead of using legacy story-heading settings. */
 export function availableSiteSections(
   records: readonly Content[],
+  siteDraft?: Record<string, any>,
 ): SiteSection[] {
+  const site = records.find((record) => record.kind === 'site');
+  const usesAvailability = [siteDraft, site?.draft, site?.published].some(
+    (snapshot) => snapshot && !snapshot.sampleMode,
+  );
   const usesLegacyField = (kind: Content['kind'], key: string) =>
     records.some(
       (record) =>
@@ -197,12 +201,13 @@ export function availableSiteSections(
   return siteSections
     .map((section) => ({
       ...section,
-      keys:
-        section.id === 'project-headings'
-          ? section.keys.filter((key) =>
-              usesLegacyField('project', key.slice(0, -'Label'.length)),
-            )
-          : section.keys,
+      keys: section.keys.filter((key) => {
+        if (key === 'availability') return usesAvailability;
+        return (
+          section.id !== 'project-headings' ||
+          usesLegacyField('project', key.slice(0, -'Label'.length))
+        );
+      }),
       messages:
         section.area === 'experience'
           ? section.messages?.filter(
@@ -220,7 +225,7 @@ export const siteFieldLabels: Record<string, string> = {
   title: 'Role / subtitle',
   domain: 'Website address (HTTPS)',
   initials: 'Initials',
-  availability: 'Availability message',
+  availability: 'Availability message (interactive view)',
   accent: 'Accent color',
   homeLabel: 'Overview name',
   sectionLabel: 'Navigation label',

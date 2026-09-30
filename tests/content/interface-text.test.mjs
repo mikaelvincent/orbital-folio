@@ -209,6 +209,66 @@ test('Studio omits legacy heading controls and navigation for Markdown stories, 
   assert.match(navigation, /Page &amp; interface/);
 });
 
+test('availability editing follows sample mode in drafts and publication without losing stored text', async () => {
+  const { availableSiteSections } = await components(
+    'features/studio/studio-site-schema.ts',
+  );
+  const { StudioSiteFields } = await components(
+    'features/studio/studio-site-fields.tsx',
+  );
+  const sample = { ...seedSite, availability: 'Retained availability text' };
+  const active = { ...sample, sampleMode: false };
+  for (const [draft, published, editing, expected] of [
+    [sample, sample, undefined, false],
+    [sample, null, undefined, false],
+    [active, sample, undefined, true],
+    [sample, active, undefined, true],
+    [sample, sample, active, true],
+    [active, sample, sample, true],
+  ]) {
+    const sections = availableSiteSections(
+      [{ kind: 'site', draft, published }],
+      editing,
+    );
+    assert.equal(
+      sections
+        .find((section) => section.id === 'identity')
+        .keys.includes('availability'),
+      expected,
+    );
+  }
+  const records = [{ kind: 'site', draft: sample, published: sample }];
+  const props = {
+    data: sample,
+    records,
+    siteGroup: 'identity',
+    search: '',
+    busy: false,
+    setData() {},
+  };
+  assert.doesNotMatch(
+    render(StudioSiteFields, props),
+    /Retained availability text/,
+  );
+  assert.doesNotMatch(
+    render(StudioSiteFields, {
+      ...props,
+      search: 'Retained availability text',
+    }),
+    /<(?:input|textarea)\b/,
+  );
+  assert.match(
+    render(StudioSiteFields, { ...props, data: active }),
+    /Availability message \(interactive view\)/,
+  );
+  assert.equal(
+    validateContent('site', sample).availability,
+    sample.availability,
+  );
+  assert.equal(records[0].draft.sampleMode, true);
+  assert.equal(records[0].published.sampleMode, true);
+});
+
 test('legacy heading controls follow both saved snapshots without altering either', async () => {
   const { availableSiteSections } = await components(
     'features/studio/studio-site-schema.ts',

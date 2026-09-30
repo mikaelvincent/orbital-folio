@@ -38,7 +38,7 @@ export function StudioSiteFields({
   records: Content[];
 } & PhotoMediaActions) {
   const query = search.trim().toLowerCase();
-  const siteSections = availableSiteSections(records);
+  const siteSections = availableSiteSections(records, data);
   const groups = query
     ? siteSections
     : siteSections.filter((section) => section.id === siteGroup);

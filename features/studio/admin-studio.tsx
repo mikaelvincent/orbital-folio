@@ -56,12 +56,15 @@ export function AdminStudio({
   email: string;
 }) {
   const [records, setRecords] = useState(initialRecords);
-  const siteSections = availableSiteSections(records);
   const [kind, setKind] = useState<Kind>('site');
   const [selected, setSelected] = useState('site');
   const [editorReset, setEditorReset] = useState(0);
   const [data, setData] = useState<Record<string, any>>(
     initialRecords.find((r) => r.id === 'site')!.draft,
+  );
+  const siteSections = availableSiteSections(
+    records,
+    kind === 'site' ? data : undefined,
   );
   const [tab, setTab] = useState('content');
   const [siteGroup, setSiteGroup] = useState('identity');
