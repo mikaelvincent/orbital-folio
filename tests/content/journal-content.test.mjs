@@ -485,7 +485,6 @@ test('mounted notebook shows page controls only for sections with multiple pages
       domain: 'https://example.com',
       aboutLabel: 'About',
       journalLabel: 'Personal log',
-      inviteLabel: 'Contact me',
     },
     journal: [{ id: 'story', ...chapter }],
     links: [],
@@ -577,7 +576,6 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
       aboutLabel: 'About',
       journalLabel: 'Personal log',
       biography: 'A brief introduction.',
-      inviteLabel: 'Contact me',
     },
     journal: [
       {

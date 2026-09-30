@@ -14,7 +14,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { StudioNavigation } from './studio-navigation';
-import { availableSiteSections, type StudioArea } from './studio-site-schema';
+import { siteSections, type StudioArea } from './studio-site-schema';
 import {
   NativeSelect,
   NativeSelectOption,
@@ -61,10 +61,6 @@ export function AdminStudio({
   const [editorReset, setEditorReset] = useState(0);
   const [data, setData] = useState<Record<string, any>>(
     initialRecords.find((r) => r.id === 'site')!.draft,
-  );
-  const siteSections = availableSiteSections(
-    records,
-    kind === 'site' ? data : undefined,
   );
   const [tab, setTab] = useState('content');
   const [siteGroup, setSiteGroup] = useState('identity');
@@ -540,7 +536,6 @@ export function AdminStudio({
         area={area}
         kind={kind}
         siteGroup={siteGroup}
-        siteSections={siteSections}
         inboxCount={
           inbox.filter((item) => !item.read_at && !item.archived_at).length
         }

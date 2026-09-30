@@ -1,5 +1,5 @@
-import { retiredInterfaceText } from './retired-interface-text.ts';
-const retired = new Set(retiredInterfaceText);
+import { interfaceTextCatalog } from './interface-text-catalog.ts';
+const activeMessages = new Set(Object.values(interfaceTextCatalog).flat());
 // These defaults already have a dedicated field in the site record. The Studio
 // omits duplicate message inputs so there is one authoritative setting.
 export const interfaceTextSiteFields: Record<string, string> = {
@@ -27,7 +27,7 @@ export function interfaceText(
   const overrides = site?.interfaceText;
   const template =
     overrides &&
-    !retired.has(message) &&
+    activeMessages.has(message) &&
     Object.hasOwn(overrides, message) &&
     typeof overrides[message] === 'string'
       ? overrides[message]

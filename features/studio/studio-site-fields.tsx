@@ -13,11 +13,7 @@ import {
   PhotoMediaFields,
   type PhotoMediaActions,
 } from './about-photo-fields';
-import {
-  availableSiteSections,
-  fieldLabel,
-  messageLabel,
-} from './studio-site-schema';
+import { fieldLabel, messageLabel, siteSections } from './studio-site-schema';
 
 export function StudioSiteFields({
   data,
@@ -38,7 +34,6 @@ export function StudioSiteFields({
   records: Content[];
 } & PhotoMediaActions) {
   const query = search.trim().toLowerCase();
-  const siteSections = availableSiteSections(records, data);
   const groups = query
     ? siteSections
     : siteSections.filter((section) => section.id === siteGroup);
@@ -160,9 +155,8 @@ export function StudioSiteFields({
                     </PhotoMediaFields>
                   );
                 const long =
-                  /Intro|Text|Message|Description|biography|headline/.test(
-                    key,
-                  ) || String(value).length > 100;
+                  /Intro|Text|Message|Description|biography/.test(key) ||
+                  String(value).length > 100;
                 return (
                   <label
                     className={`studio-field ${long ? 'wide-field' : ''}`}

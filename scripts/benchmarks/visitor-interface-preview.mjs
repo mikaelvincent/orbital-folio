@@ -31,9 +31,8 @@ const temporary = await realpath(
   await mkdtemp(resolve(tmpdir(), 'visitor-interface-preview-')),
 );
 const states = {
-  'contact-chooser': 'Contact chooser',
+  'contact-form': 'Contact message form',
   'contact-error': 'Contact failed message with retained draft',
-  'contact-call-ack': 'Contact unsent call acknowledgement',
   'empty-projects': 'Whole-empty Projects collection',
   'empty-case-studies': 'Whole-empty Case studies collection',
   'long-projects': 'Long Projects titles',
@@ -54,16 +53,15 @@ import { ProjectsView, ExperienceView, DossierView, CaseStudyView, ContactView }
 const site = {
   name: 'Review Fixture', email: 'review-owner@example.com',
   backHomeLabel: 'Back to overview', backLabel: 'Back to projects',
-  projectsRoom: 'Workshop', projectsHeading: 'Projects',
+  projectsHeading: 'Projects',
   projectsIntro: 'Synthetic public content for reviewing collection presentation.',
-  allProjectsLabel: 'projects', experienceRoom: 'Archive',
+  allProjectsLabel: 'projects',
   experienceHeading: 'Case studies',
   experienceIntro: 'Synthetic public content for reviewing the archive presentation.',
-  contactRoom: 'Communications', contactHeading: 'Let’s talk.',
   contactIntro: 'Synthetic public data. This fixture cannot send or save anything.',
   emailLabelCta: 'Email', availability: 'Presentation fixture only',
-  roleLabel: 'Role', stackLabel: 'Built with', dossierLabel: 'Project contents',
-  emptyLabel: 'No entries are available yet.', inviteLabel: 'Get in touch',
+  roleLabel: 'Role', stackLabel: 'Built with',
+  emptyLabel: 'No entries are available yet.',
 };
 const body = '## Purpose\\n\\nThis is synthetic review content, not a claim about real work. Its longer prose checks comfortable reading width and wrapping.\\n\\n## Construction notes\\n\\nA very long reference: https://example.com/documentation/InteroperabilityAcrossDistributedWorkflowsWithoutWhitespaceForWrappingReviewOnly\\n\\n> Review content deliberately exercises a long title and mixed paragraph lengths.\\n\\n## Outcome\\n\\nNo service was called and no information was saved.';
 const titles = [
@@ -83,11 +81,10 @@ const empty = { site, projects: [], experience: [], journal: [], links: [], medi
 const populated = { ...empty, projects: entries, experience: entries };
 const noop = () => {};
 const draft = {
-  mode: 'message', name: 'Synthetic Visitor', email: 'visitor@example.com',
+  name: 'Synthetic Visitor', email: 'visitor@example.com',
   company: 'A synthetic organisation with a deliberately longer display name',
   subject: 'A synthetic draft retained after a message error',
   message: 'This is synthetic review text. Nothing has been submitted, stored or sent.',
-  timeZone: 'UTC',
 };
 export function renderState(state, surface) {
   const native = surface === 'native';
@@ -98,9 +95,7 @@ export function renderState(state, surface) {
     room = 'contact';
     const props = state === 'contact-error'
       ? { draft, initialError: true }
-      : state === 'contact-call-ack'
-        ? { draft: { ...draft, mode: 'call', date: '2026-10-20', time: '14:30' }, submission: { mode: 'call', status: 'demo', error: '' } }
-        : { draft: { timeZone: 'UTC' } };
+      : { draft: {} };
     content = native
       ? <ContactComputerWindow site={site} onClose={noop} {...props}/>
       : <ContactView data={empty} error={!!props.initialError} draft={props.draft} submission={props.submission}/>;

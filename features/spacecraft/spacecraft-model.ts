@@ -85,7 +85,6 @@ export type SpacecraftProject = {
   slug: string;
   category?: string | null;
   categories?: string[];
-  sample?: boolean;
 };
 export type SpacecraftState = {
   activeRoom?: string;
@@ -136,7 +135,6 @@ export function createSpacecraft(
     journal?: { title: string; pageCount?: number }[];
     aboutPhotos?: AboutPhotos;
     onAboutPhotoChange?: () => void;
-    sampleLabel?: string;
     projectPageSize?: number;
     screenLabels?: boolean;
     layout?: 'wide' | 'compact';

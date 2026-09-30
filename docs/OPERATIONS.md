@@ -146,7 +146,9 @@ labels such as UPLINK, VOICE and keyboard legends are fixed, not content setting
 Interface messages share the site record's Save draft, Preview draft and Publish
 workflow. Keep placeholders such as `{title}` and `{number}` when editing.
 **Reset text** removes an override. Both views share the same content; empty
-categories are hidden. Retired settings remain portable but are not active edits.
+categories are hidden. Explicit saves and imports discard unsupported settings
+and obsolete overrides. Supported legacy story headings remain editable;
+availability is shown in Interactive view when sample mode is off.
 
 Migration `0005_studio_rooms_and_inbox.sql` separates legacy social links used in
 both rooms without publishing their drafts. Each snapshot is copied independently;
@@ -185,9 +187,9 @@ clear/change and publish the parent references first. Draft assets return 404 to
 visitors. Private previews remain authenticated.
 
 Project dates are retired; old v1 packages may contain `period`, which imports
-ignore. Site-level `periodLabel` remains optional round-trip metadata for old
-owner-authored copy. Case studies retain their period and use whole-content JSON
-backup; standalone ZIP packages apply only to Projects.
+ignore, as they do the obsolete site-level `periodLabel`. Case studies retain
+their period and use whole-content JSON backup; standalone ZIP packages apply
+only to Projects.
 
 ## Authoring notebook sections
 

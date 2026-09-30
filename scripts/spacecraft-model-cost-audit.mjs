@@ -66,7 +66,6 @@ async function make(path) {
         contact: 'Contact',
       },
       vesselName: 'portfolio.example',
-      sampleLabel: 'Concept',
     },
   );
   return { model: m, sources };

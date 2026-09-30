@@ -1,4 +1,3 @@
-import { retiredInterfaceText } from './retired-interface-text.ts';
 import { interfaceTextCatalog } from './interface-text-catalog.ts';
 import { PROJECT_CATEGORIES } from './project-content.ts';
 import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
@@ -7,12 +6,9 @@ import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
 import { HttpError } from '../http-error.ts';
 const fields: Record<Kind, string[]> = {
-  // Retired presentation copy is no longer seeded or edited, but existing
-  // identity exports must round-trip without silently discarding owner text.
   site: [
     ...Object.keys(seedSite),
     'interfaceText',
-    'periodLabel',
     'portraitCrop',
     'portraitReadingCrop',
   ],
@@ -112,28 +108,18 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
     const value = data[key];
     if (value === undefined) continue;
     if (kind === 'site' && key === 'interfaceText') {
-      const allowed = new Set([
-        ...Object.values(interfaceTextCatalog).flat(),
-        ...retiredInterfaceText,
-      ]);
-      if (
-        !value ||
-        Array.isArray(value) ||
-        typeof value !== 'object' ||
-        Object.keys(value).length > allowed.size
-      )
+      const allowed = new Set(Object.values(interfaceTextCatalog).flat());
+      if (!value || Array.isArray(value) || typeof value !== 'object')
         throw new HttpError(
           400,
           'Interface text must be a collection of supported messages.',
         );
       const overrides: Record<string, string> = Object.create(null);
       for (const [message, text] of Object.entries(value)) {
-        if (
-          !allowed.has(message) ||
-          typeof text !== 'string' ||
-          !text.trim() ||
-          text.length > 2000
-        )
+        // Old drafts/backups can contain removed messages. Keep only active
+        // keys, without maintaining a second catalog of obsolete copy.
+        if (!allowed.has(message)) continue;
+        if (typeof text !== 'string' || !text.trim() || text.length > 2000)
           throw new HttpError(
             400,
             'Interface messages must use supported keys and contain 1–2,000 characters.',
@@ -218,8 +204,8 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       if (!(key in clean))
         throw new HttpError(400, `Missing site field: ${key}`);
     }
-    if (!clean.name || !clean.headline || !clean.seoTitle)
-      throw new HttpError(400, 'Name, headline and SEO title are required.');
+    if (!clean.name || !clean.seoTitle)
+      throw new HttpError(400, 'Name and SEO title are required.');
     if (!/^#[0-9a-f]{6}$/i.test(clean.accent))
       throw new HttpError(400, 'Use a six-digit hex accent color.');
     const luminance = (hex: string) => {
@@ -241,7 +227,6 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       'aboutLabel',
       'contactLabel',
       'skipLabel',
-      'sendLabel',
       'nameLabel',
       'emailLabel',
       'messageLabel',

@@ -484,7 +484,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
       },
     );
     await t.test(
-      'another owner can replace every site field through the authenticated content interface',
+      'site save and import keep active owner copy and discard obsolete fields without publishing',
       async () => {
         const original = baseline.find((r) => r.id === 'site');
         const replacement = {};
@@ -499,22 +499,35 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
           language: 'en',
           seoImageId: '',
           portraitMediaId: '',
-          headline: 'A different owner.\nA different story.',
           seoTitle: 'Rowan Aster — Sample portfolio',
           sampleMode: true,
-          // Retain old identity copy through backup/import despite retiring
-          // project dates and their authoring control.
-          periodLabel: 'Aster legacy period label',
+          interfaceText: { 'Send message': 'Start a discussion' },
         });
+        const oldDraft = {
+          ...replacement,
+          headline: 'Obsolete hero heading',
+          sceneHelp: 'Obsolete scene instructions',
+          periodLabel: 'Obsolete project period label',
+          interfaceText: {
+            ...replacement.interfaceText,
+            Unassigned: 'Obsolete screen label',
+            'Schedule a call': 'Obsolete call label',
+          },
+        };
+        await save(await record('site'), oldDraft);
+        const saved = await record('site');
+        assert.deepEqual(saved.draft, replacement);
+        assert.deepEqual(saved.published, original.published);
         await api({
           action: 'import',
           payload: {
             format: 'orbital-folio/v1',
-            records: [{ ...original, draft: replacement }],
+            records: [{ ...saved, draft: oldDraft }],
           },
         });
         const privateData = await record('site');
         assert.deepEqual(privateData.draft, replacement);
+        assert.deepEqual(privateData.published, original.published);
         assert.ok(
           (await (await req('/')).text()).includes(original.published.name),
         );
@@ -524,7 +537,9 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         assert.ok(!home.includes('Mikael Vincent'));
         assert.ok(home.includes('rowan.example.com'));
         assert.ok(home.includes('Aster copy for projectsLabel'));
-        assert.ok(home.includes('Aster copy for sceneHelp'));
+        assert.ok(home.includes('Aster copy for sceneLoading'));
+        assert.ok(!home.includes('Obsolete hero heading'));
+        assert.ok(!home.includes('Obsolete scene instructions'));
         assert.ok(home.includes('#80d7de'));
         const missing = await (await req('/missing-test-route')).text();
         assert.ok(missing.includes(replacement.notFoundHeading));

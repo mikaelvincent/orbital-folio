@@ -1,6 +1,5 @@
 import { interfaceTextSiteFields } from '@/lib/content/interface-text';
 import { interfaceTextCatalog } from '@/lib/content/interface-text-catalog';
-import type { Content } from '@/lib/content/types';
 
 export type StudioArea =
   | 'general'
@@ -163,68 +162,16 @@ export const siteSections: SiteSection[] = [
     area: 'contact',
     title: 'Form & messages',
     description:
-      'Contact choices, field labels, validation, sending and confirmation messages in both views. Call requests are previews; they do not book or send.',
+      'Field labels, validation, sending and confirmation messages in both views.',
     keys: ['nameLabel', 'emailLabel', 'messageLabel'],
     messages: messages('contact-form'),
   },
 ];
 
-const legacyCaseStudyHeadings: Record<string, string> = {
-  Context: 'context',
-  'Key decisions': 'decisions',
-  Impact: 'impact',
-};
-
-/** Show conditional copy when an edited/saved draft or published snapshot uses it.
- * Markdown owns its headings instead of using legacy story-heading settings. */
-export function availableSiteSections(
-  records: readonly Content[],
-  siteDraft?: Record<string, any>,
-): SiteSection[] {
-  const site = records.find((record) => record.kind === 'site');
-  const usesAvailability = [siteDraft, site?.draft, site?.published].some(
-    (snapshot) => snapshot && !snapshot.sampleMode,
-  );
-  const usesLegacyField = (kind: Content['kind'], key: string) =>
-    records.some(
-      (record) =>
-        record.kind === kind &&
-        [record.draft, record.published].some(
-          (snapshot) =>
-            snapshot &&
-            typeof snapshot.body !== 'string' &&
-            typeof snapshot[key] === 'string' &&
-            snapshot[key].trim(),
-        ),
-    );
-
-  return siteSections
-    .map((section) => ({
-      ...section,
-      keys: section.keys.filter((key) => {
-        if (key === 'availability') return usesAvailability;
-        return (
-          section.id !== 'project-headings' ||
-          usesLegacyField('project', key.slice(0, -'Label'.length))
-        );
-      }),
-      messages:
-        section.area === 'experience'
-          ? section.messages?.filter(
-              (message) =>
-                !legacyCaseStudyHeadings[message] ||
-                usesLegacyField('experience', legacyCaseStudyHeadings[message]),
-            )
-          : section.messages,
-    }))
-    .filter((section) => section.keys.length || section.messages?.length);
-}
-
 export const siteFieldLabels: Record<string, string> = {
   name: 'Owner name',
   title: 'Role / subtitle',
   domain: 'Website address (HTTPS)',
-  initials: 'Initials',
   availability: 'Availability message (interactive view)',
   accent: 'Accent color',
   homeLabel: 'Overview name',
@@ -267,19 +214,11 @@ export const siteFieldLabels: Record<string, string> = {
   nextPageLabel: 'Next page button',
   portraitMediaId: 'Portrait image',
   contactLabel: 'Room & navigation name',
-  contactRoom: 'Contact display label',
-  contactHeading: 'Form heading',
-  contactIntro: 'Form introduction',
   email: 'Public email address',
   emailLabelCta: 'Email alternative label',
   nameLabel: 'Name field',
   emailLabel: 'Email field',
   messageLabel: 'Message field',
-  sendLabel: 'Send message button',
-  sendingLabel: 'Sending status',
-  sentHeading: 'Success heading',
-  sentMessage: 'Success message',
-  contactPrivacy: 'Form privacy note',
 };
 export const messageLabels: Record<string, string> = {
   project: 'Count label: one project',
@@ -295,9 +234,6 @@ export const messageLabels: Record<string, string> = {
   'THE DECISIONS BEHIND THE WORK': 'Collection label',
   'LET’S CONNECT': 'Monitor heading',
   'Start a conversation': 'Monitor subtitle',
-  'COM / 01': 'Main monitor identifier',
-  'OPEN TO CONNECT': 'Monitor status',
-  STANDBY: 'Empty monitor label (shared)',
   'Click wall to return': 'Return to room hint',
   'No projects here yet': 'Empty collection heading',
   'More details about this project will be added here.':
@@ -315,10 +251,6 @@ export const messageLabels: Record<string, string> = {
     'Send failure message',
   'Too many messages were sent recently. Please try again later or use email.':
     'Rate limit message',
-  'Nothing was sent or saved, and no call was booked. You can still edit the details or use email to get in touch.':
-    'Call preview confirmation',
-  'Call requests aren’t sent yet. Use email to arrange a time.':
-    'Call preview explanation',
 };
 export function fieldLabel(key: string) {
   return (

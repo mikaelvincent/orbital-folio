@@ -233,13 +233,14 @@ Site copy has one authoritative field per setting. Optional `site.interfaceText`
 overrides cover meaningful visitor content and interface messages. Developer
 tools and decorative labels (equipment markings, keyboard legends, book artwork,
 cartridge numbers) use fixed text. Keep the tools available; hiding them from
-visitors is a separate change. Retired overrides round-trip through backups but
-are neither editable nor rendered. Legacy story-heading controls appear only
-when a saved draft or published entry still uses that structured section;
-Markdown entries own their headings in the body. Availability appears only in
-Interactive view with sample mode off; hide its Studio control unless an edited
-or saved draft or published snapshot uses it. Keep template placeholders intact and
-regenerate
+visitors is a separate change. The generated catalog defines active overrides;
+remove unused field definitions and overrides rather than hiding their controls.
+Explicit saves and imports discard unsupported fields and overrides; existing
+stored snapshots are not rewritten. Legacy story headings remain supported for
+structured stories; Markdown entries own their headings in the body.
+Availability appears only in Interactive view with sample mode off, and remains
+editable in Studio. About and Contact introductions serve page metadata.
+Keep template placeholders intact and regenerate
 `lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
 after changing editable render-site messages. Browser-owned media/date controls
 retain native behavior and localization.

@@ -385,9 +385,9 @@ export function buildContactFlightConsole(
       ctx.fillText('COM / 01', 69, ch - 89, 380);
       ctx.textAlign = 'right';
       ctx.fillText('OPEN TO CONNECT', 952, ch - 89, 450);
-    } else {
+    } else if (link) {
       const side = kind === 'link' ? 'left' : 'right';
-      drawSocialChannel(ctx, cw, ch, link || null, side, options.site);
+      drawSocialChannel(ctx, cw, ch, link, side, options.site);
     }
     const texture = new THREE.CanvasTexture(canvas);
     texture.name = `contact-flight-${kind}-display`;

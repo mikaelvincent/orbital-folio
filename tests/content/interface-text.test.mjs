@@ -11,6 +11,7 @@ import { interfaceText } from '../../lib/content/interface-text.ts';
 import { interfaceTextCatalog } from '../../lib/content/interface-text-catalog.ts';
 import { validateContactDraft } from '../../features/portfolio/contact-flow.ts';
 import { notebookPageLabel } from '../../lib/content/notebook-pages.ts';
+import { pageMetadata } from '../../lib/metadata.ts';
 
 async function components(entryPoint) {
   const result = await build({
@@ -54,7 +55,6 @@ test('interface overrides are optional, plain text, and retain complete substitu
       'Read project: {title}': 'Inspect {title} <script>literal</script>',
       'Enter a valid email address.': 'Please check your email.',
       '{number} of {total}': 'Page {number} / {total}',
-      ' Unattributed: {calls} calls.': ' Extra: {calls} draws.',
     },
   });
   assert.equal(
@@ -67,14 +67,15 @@ test('interface overrides are optional, plain text, and retain complete substitu
     validateContactDraft({ email: 'bad' }, site),
     'Please check your email.',
   );
-  assert.equal(site.interfaceText[' Unattributed: {calls} calls.'][0], ' ');
   for (const overrides of [
-    { 'Unknown message': 'Not allowed' },
+    null,
+    [],
+    'Not an object',
+    { 'Enter a valid email address.': 1 },
     { 'Read project: {title}': 'Missing title' },
     { 'Read project: {title}': '{title} {extra}' },
     { 'Enter a valid email address.': '' },
     { 'Enter a valid email address.': 'x'.repeat(2001) },
-    JSON.parse('{"__proto__":"unsafe"}'),
   ])
     assert.throws(
       () => validateContent('site', { ...seedSite, interfaceText: overrides }),
@@ -140,27 +141,101 @@ test('generated catalog covers content messages and excludes fixed tools and dec
   );
 });
 
-test('inactive text overrides remain portable without returning to the Studio catalog', () => {
-  const site = validateContent('site', {
+test('obsolete fields are removed from old site records while active metadata and copy survive', () => {
+  const obsoleteFields = [
+    'headline',
+    'intro',
+    'location',
+    'brand',
+    'sampleNotice',
+    'exploreLabel',
+    'inviteLabel',
+    'projectCta',
+    'heroEyebrow',
+    'shipCaption',
+    'sceneHelp',
+    'pauseLabel',
+    'resumeLabel',
+    'resetLabel',
+    'contactHeading',
+    'projectsRoom',
+    'experienceRoom',
+    'aboutRoom',
+    'contactRoom',
+    'sampleLabel',
+    'featuredLabel',
+    'dossierLabel',
+    'closeReaderLabel',
+    'interviewLabel',
+    'inquiryLabel',
+    'sendLabel',
+    'sendingLabel',
+    'sentHeading',
+    'sentMessage',
+    'contactError',
+    'contactPrivacy',
+    'sampleContact',
+    'footerText',
+    'connectionLabel',
+    'readAllLabel',
+    'periodLabel',
+  ];
+  const original = {
     ...seedSite,
-    interfaceText: {
-      Unassigned: 'Saved legacy screen text',
-      'Schedule a call': 'Saved legacy call label',
-    },
-  });
-  assert.equal(site.interfaceText.Unassigned, 'Saved legacy screen text');
-  assert.equal(interfaceText(site, 'Unassigned'), 'Unassigned');
-  assert.equal(
-    site.interfaceText['Schedule a call'],
-    'Saved legacy call label',
-  );
-  assert.equal(interfaceText(site, 'Schedule a call'), 'Schedule a call');
+    ...Object.fromEntries(obsoleteFields.map((key) => [key, 'Removed copy'])),
+    availability: 'Available for a new project',
+    aboutIntro: 'Description used when sharing About',
+    contactIntro: 'Description used when sharing Contact',
+  };
+  const before = structuredClone(original);
+  const site = validateContent('site', original);
+  for (const key of obsoleteFields) {
+    assert.ok(!Object.hasOwn(seedSite, key), key);
+    assert.ok(!Object.hasOwn(site, key), key);
+  }
+  assert.equal(site.availability, original.availability);
+  const data = { site, media: [] };
+  for (const section of ['about', 'contact']) {
+    const metadata = pageMetadata(data, section);
+    assert.equal(metadata.description, original[section + 'Intro']);
+    assert.equal(metadata.openGraph.description, original[section + 'Intro']);
+    assert.equal(metadata.robots.index, false);
+  }
+  assert.deepEqual(original, before);
 });
 
-test('Studio omits legacy heading controls and navigation for Markdown stories, including search results', async () => {
-  const { availableSiteSections } = await components(
-    'features/studio/studio-site-schema.ts',
+test('old and unknown overrides are discarded without mutating the original record', () => {
+  const original = {
+    ...seedSite,
+    interfaceText: JSON.parse(`{
+      "Unassigned": "Saved legacy screen text",
+      "Schedule a call": "Saved legacy call label",
+      "Unknown message": 42,
+      "__proto__": {"polluted": true},
+      "constructor": "Unsupported",
+      "Send message": "Discuss a project"
+    }`),
+  };
+  const before = structuredClone(original);
+  const site = validateContent('site', original);
+  assert.deepEqual(Object.entries(site.interfaceText), [
+    ['Send message', 'Discuss a project'],
+  ]);
+  assert.equal(Object.getPrototypeOf(site.interfaceText), null);
+  assert.equal(interfaceText(site, 'Send message'), 'Discuss a project');
+  assert.equal(interfaceText(original, 'Unassigned'), 'Unassigned');
+  assert.equal(interfaceText(original, 'Schedule a call'), 'Schedule a call');
+  assert.deepEqual(original, before);
+  assert.equal(
+    validateContent('site', {
+      ...seedSite,
+      interfaceText: { Unassigned: 'Old copy' },
+    }).interfaceText,
+    undefined,
   );
+});
+
+test('Studio keeps conditional availability and supported legacy headings editable', async () => {
   const { StudioSiteFields } = await components(
     'features/studio/studio-site-fields.tsx',
   );
@@ -170,149 +245,54 @@ test('Studio omits legacy heading controls and navigation for Markdown stories, 
   const records = [
     {
       kind: 'project',
-      draft: { body: '## Authored heading', problem: 'Old problem' },
-      published: { body: '', problem: 'Old public problem' },
-    },
-    {
-      kind: 'experience',
-      draft: { body: '', context: 'Old context' },
-      published: { body: '## Authored context', impact: 'Old impact' },
+      draft: { body: '## Authored heading' },
+      published: null,
     },
   ];
-  const siteSections = availableSiteSections(records);
-  assert.ok(!siteSections.some((section) => section.id === 'project-headings'));
-  const messages = siteSections.flatMap((section) => section.messages || []);
-  for (const message of ['Context', 'Key decisions', 'Impact', 'Unassigned'])
-    assert.ok(!messages.includes(message), message);
-  assert.ok(messages.includes('No case studies are available yet.'));
-  assert.ok(messages.includes('Close notebook'));
-  const markup = render(StudioSiteFields, {
-    data: { ...seedSite, problemLabel: 'Dormant legacy heading' },
-    records,
-    siteGroup: 'projects',
-    search: 'Dormant legacy heading',
-    busy: false,
-    setData() {},
-  });
-  assert.doesNotMatch(markup, /<(?:input|textarea)\b/);
-  assert.match(markup, /No settings match/);
-  const navigation = render(StudioNavigation, {
-    site: seedSite,
-    area: 'projects',
-    kind: 'site',
-    siteGroup: 'projects',
-    siteSections,
-    inboxCount: 0,
-    onSelect() {},
-  });
-  assert.doesNotMatch(navigation, /Legacy section headings/);
-  assert.match(navigation, /Page &amp; interface/);
-});
-
-test('availability editing follows sample mode in drafts and publication without losing stored text', async () => {
-  const { availableSiteSections } = await components(
-    'features/studio/studio-site-schema.ts',
-  );
-  const { StudioSiteFields } = await components(
-    'features/studio/studio-site-fields.tsx',
-  );
-  const sample = { ...seedSite, availability: 'Retained availability text' };
-  const active = { ...sample, sampleMode: false };
-  for (const [draft, published, editing, expected] of [
-    [sample, sample, undefined, false],
-    [sample, null, undefined, false],
-    [active, sample, undefined, true],
-    [sample, active, undefined, true],
-    [sample, sample, active, true],
-    [active, sample, sample, true],
-  ]) {
-    const sections = availableSiteSections(
-      [{ kind: 'site', draft, published }],
-      editing,
-    );
-    assert.equal(
-      sections
-        .find((section) => section.id === 'identity')
-        .keys.includes('availability'),
-      expected,
-    );
-  }
-  const records = [{ kind: 'site', draft: sample, published: sample }];
   const props = {
-    data: sample,
     records,
     siteGroup: 'identity',
     search: '',
     busy: false,
     setData() {},
   };
-  assert.doesNotMatch(
-    render(StudioSiteFields, props),
-    /Retained availability text/,
-  );
-  assert.doesNotMatch(
-    render(StudioSiteFields, {
-      ...props,
-      search: 'Retained availability text',
-    }),
-    /<(?:input|textarea)\b/,
-  );
-  assert.match(
-    render(StudioSiteFields, { ...props, data: active }),
-    /Availability message \(interactive view\)/,
-  );
-  assert.equal(
-    validateContent('site', sample).availability,
-    sample.availability,
-  );
-  assert.equal(records[0].draft.sampleMode, true);
-  assert.equal(records[0].published.sampleMode, true);
-});
-
-test('legacy heading controls follow both saved snapshots without altering either', async () => {
-  const { availableSiteSections } = await components(
-    'features/studio/studio-site-schema.ts',
-  );
-  const records = [
-    {
-      kind: 'project',
-      draft: { body: '', problem: 'Superseded draft' },
-      published: { problem: 'Live problem', next: '   ' },
-    },
-    {
-      kind: 'project',
-      draft: { approach: 'Private approach' },
-      published: null,
-    },
-    {
-      kind: 'experience',
-      draft: { body: 'Authored story', context: 'Superseded context' },
-      published: { context: 'Live context', decisions: '\n' },
-    },
-    {
-      kind: 'experience',
-      draft: { impact: 'Private impact' },
-      published: null,
-    },
-  ];
-  const before = structuredClone(records);
-  const sections = availableSiteSections(records);
-  assert.deepEqual(
-    [...sections.find((section) => section.id === 'project-headings').keys],
-    ['problemLabel', 'approachLabel'],
-  );
-  const messages = sections.find(
-    (section) => section.id === 'experience',
-  ).messages;
-  assert.ok(messages.includes('Context'));
-  assert.ok(messages.includes('Impact'));
-  assert.ok(!messages.includes('Key decisions'));
-  assert.deepEqual(records, before);
-  assert.ok(
-    !availableSiteSections([]).some(
-      (section) => section.id === 'project-headings',
-    ),
-  );
+  for (const sampleMode of [true, false]) {
+    const data = {
+      ...seedSite,
+      sampleMode,
+      availability: 'Editable availability',
+      problemLabel: 'Editable legacy heading',
+    };
+    assert.match(
+      render(StudioSiteFields, { ...props, data }),
+      /Availability message \(interactive view\)/,
+    );
+    assert.match(
+      render(StudioSiteFields, {
+        ...props,
+        data,
+        search: 'Editable availability',
+      }),
+      /value="Editable availability"/,
+    );
+    assert.match(
+      render(StudioSiteFields, {
+        ...props,
+        data,
+        siteGroup: 'project-headings',
+      }),
+      /value="Editable legacy heading"/,
+    );
+  }
+  const navigation = render(StudioNavigation, {
+    site: seedSite,
+    area: 'projects',
+    kind: 'site',
+    siteGroup: 'projects',
+    inboxCount: 0,
+    onSelect() {},
+  });
+  assert.match(navigation, /Legacy section headings/);
 });
 
 test('project and case study renderers share authored text and safe overrides in both views', async () => {
@@ -395,7 +375,7 @@ test('reading Contact exposes only the same assigned social screens and shared f
   const site = {
     ...seedSite,
     contactHeading: 'Retired oversized heading',
-    contactIntro: 'Retired form introduction',
+    contactIntro: 'Metadata-only contact description',
     interfaceText: { 'Send message': 'Discuss a project' },
   };
   const links = ['Left profile', 'Right profile', 'Hidden overflow'].map(
@@ -425,7 +405,10 @@ test('reading Contact exposes only the same assigned social screens and shared f
   assert.match(markup, /Right profile/);
   assert.match(markup, /Discuss a project/);
   assert.match(markup, /<h1>Let’s connect\.<\/h1>/);
-  assert.doesNotMatch(markup, /Hidden overflow|Retired oversized|Retired form/);
+  assert.doesNotMatch(
+    markup,
+    /Hidden overflow|Retired oversized|Metadata-only contact/,
+  );
 });
 
 test('Studio registers every supported message and exposes project subtitles and printed captions', async () => {

@@ -128,7 +128,7 @@ await test('retired project dates are omitted while older packages and experienc
       ...seedSite,
       periodLabel: 'Owner-authored legacy label',
     }).periodLabel,
-    'Owner-authored legacy label',
+    undefined,
   );
   assert.equal(validateContent('site', seedSite).periodLabel, undefined);
   const legacy = {

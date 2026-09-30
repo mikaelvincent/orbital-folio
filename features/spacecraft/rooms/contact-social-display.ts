@@ -11,7 +11,7 @@ export function drawSocialChannel(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
-  link: SocialLink | null,
+  link: SocialLink,
   side: 'left' | 'right',
   site?: Record<string, any>,
 ) {
@@ -19,7 +19,7 @@ export function drawSocialChannel(
   const pad = width * 0.1;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
-  ctx.fillStyle = link ? PALETTE.ivory : PALETTE.textMuted;
+  ctx.fillStyle = PALETTE.ivory;
   ctx.font = `500 ${width * 0.037}px monospace`;
   ctx.fillText(
     formatText('COM / {number}', { number: side === 'left' ? '02' : '03' }),
@@ -27,11 +27,11 @@ export function drawSocialChannel(
     height * 0.082,
     width - pad * 2 - width * 0.03,
   );
-  ctx.fillStyle = link ? PALETTE.bronzeLight : PALETTE.alloy;
+  ctx.fillStyle = PALETTE.bronzeLight;
   ctx.beginPath();
   ctx.arc(width - pad, height * 0.082, width * 0.009, 0, Math.PI * 2);
   ctx.fill();
-  const icon = socialIcon(link?.platform || 'custom');
+  const icon = socialIcon(link.platform);
   const iconSize = width * 0.3;
   ctx.save();
   ctx.translate((width - iconSize) / 2, height * 0.16);
@@ -82,19 +82,12 @@ export function drawSocialChannel(
       ),
     );
   };
+  text(link.title, height * 0.56, width * 0.148, PALETTE.ivory, 600);
   text(
-    link?.title || copy(site, 'Unassigned'),
-    height * 0.56,
-    width * 0.148,
-    PALETTE.ivory,
-    600,
-  );
-  text(
-    link?.description ||
-      (link ? copy(site, 'Connect with me') : 'Channel standby'),
+    link.description || copy(site, 'Connect with me'),
     height * 0.75,
     width * 0.061,
-    link ? PALETTE.ivory : PALETTE.textMuted,
+    PALETTE.ivory,
     400,
   );
   ctx.strokeStyle = PALETTE.bronze;
@@ -104,26 +97,24 @@ export function drawSocialChannel(
   ctx.lineTo(width - pad, height * 0.815);
   ctx.stroke();
   text(
-    link ? copy(site, 'Open link') : 'NO LINK ASSIGNED',
+    copy(site, 'Open link'),
     height * 0.905,
-    width * (link ? 0.071 : 0.038),
+    width * 0.071,
     PALETTE.ivory,
     500,
     1,
   );
-  if (link) {
-    const size = width * 0.06,
-      x = width * 0.77,
-      y = height * 0.905;
-    ctx.strokeStyle = PALETTE.bronzeLight;
-    ctx.lineWidth = width * 0.005;
-    ctx.beginPath();
-    ctx.moveTo(x, y + size / 2);
-    ctx.lineTo(x + size, y - size / 2);
-    ctx.moveTo(x, y - size / 2);
-    ctx.lineTo(x + size, y - size / 2);
-    ctx.lineTo(x + size, y + size / 2);
-    ctx.stroke();
-  }
+  const size = width * 0.06,
+    x = width * 0.77,
+    y = height * 0.905;
+  ctx.strokeStyle = PALETTE.bronzeLight;
+  ctx.lineWidth = width * 0.005;
+  ctx.beginPath();
+  ctx.moveTo(x, y + size / 2);
+  ctx.lineTo(x + size, y - size / 2);
+  ctx.moveTo(x, y - size / 2);
+  ctx.lineTo(x + size, y - size / 2);
+  ctx.lineTo(x + size, y + size / 2);
+  ctx.stroke();
   ctx.restore();
 }

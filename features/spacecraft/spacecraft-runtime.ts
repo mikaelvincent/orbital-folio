@@ -364,14 +364,12 @@ export function mountSpacecraftScene({
             slug: String(p.slug),
             category: p.category,
             categories: p.categories,
-            sample: p.sample && (s.sampleMode || s._preview),
           }));
         const caseStudyItems = () =>
           latest.current.caseStudies.map((item) => ({
             title: String(item.title),
             slug: String(item.slug),
             categories: item.categories,
-            sample: item.sample && (s.sampleMode || s._preview),
           }));
         const modelOptions = {
           site: s,
@@ -399,7 +397,6 @@ export function mountSpacecraftScene({
           // cabin walls or rescale their contents before portrait rotation.
           layout: 'wide' as const,
           geometryCompaction: audit?.geometryCompaction,
-          sampleLabel: s.sampleLabel,
           projects: projectItems(),
           caseStudies: caseStudyItems(),
           labels: {
