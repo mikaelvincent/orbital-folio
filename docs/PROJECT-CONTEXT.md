@@ -33,23 +33,23 @@ custom accents remain exceptions. See `lib/palette.ts` and `app/globals.css`.
 Primary room labels, door signs and interactive text must be immediately legible.
 Passive decoration must not look selectable. Keep exactly two header-side vents
 per cabin, flush and aligned with the header, centered between it and the wall.
-Center doors horizontally and vertically in the *visible* wall after curved
+Center doors horizontally and vertically in the _visible_ wall after curved
 returns; center signs on doors. Window edges are flush and continuous without
 protruding trim or cream slivers. Floors are continuous matte dark surfaces,
 including the coves and front throat, without inset patches or extra rails.
 
 The current arrangements matter more than the old numbered design stages:
 
-| Area | Preserve |
-| --- | --- |
-| Projects workshop | Four removable monitors on a bench-supported instrument bridge; thin inset carbon worktop, grounded supports, clear working plane and one sheltered diffuser. No floating rear-wall braces. |
-| Case-study archive | Four cartridges above the fixed 16:9 raked terminal in a shared floor-mounted dock. Formed cheeks and shoes meet the flat deck ahead of the rear cove. No fifth Field notes cartridge or lower runners. |
-| Contact console | Thin rounded carbon console, conventional 82-key keyboard, fitted main/social glass, independently mounted social screens, outboard microphone and headset on an underslung hanger. Keep knee space and keyboard/display clearance. |
-| About study | Rest-left/study-right layout, wood writing insert, real notebook/paper, bedding, photo and personal objects. Open book cradle with visible covers; square photograph and three equal clipped social prints. |
-| Ladder bay | Dark seamless backing, legible alloy treads, small bronze rail clamps/end caps. Paired stowed maintenance spanners and two grab bars at each end, with intervening spaces empty. The existing paired guarded worklights illuminate the bay; do not add another lamp object. Keep the ends free of angled fixtures, reels and decorative landing slabs. |
-| Exterior access | Full matching upper/lower ladders, including the underside route. Match rail ends, rung spacing, mounting feet and supported tether eyes. Keep the rear shell quiet. |
-| Docking assembly | Ivory pressure barrel, dark seal, satin flange, connected wheel spokes and seated handles. The small service cover uses one continuous pull; paired circular ports and a separate latch were rejected as face-like. |
-| Service assembly | Fixed blue solar wings with supported booms/bearings and enclosed raceways; connected dish cradle/feed supports. Keep dark central fittings behind the reflector and bronze limited to small functional joints. |
+| Area               | Preserve                                                                                                                                                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Projects workshop  | Four removable monitors on a bench-supported instrument bridge; thin inset carbon worktop, grounded supports, clear working plane and one sheltered diffuser. No floating rear-wall braces.                                                                                                                                                            |
+| Case-study archive | Four cartridges above the fixed 16:9 raked terminal in a shared floor-mounted dock. Formed cheeks and shoes meet the flat deck ahead of the rear cove. No fifth Field notes cartridge or lower runners.                                                                                                                                                |
+| Contact console    | Thin rounded carbon console, conventional 82-key keyboard, fitted main/social glass, independently mounted social screens, outboard microphone and headset on an underslung hanger. Keep knee space and keyboard/display clearance.                                                                                                                    |
+| About study        | Rest-left/study-right layout, wood writing insert, real notebook/paper, bedding, photo and personal objects. Open book cradle with visible covers; square photograph and three equal clipped social prints.                                                                                                                                            |
+| Ladder bay         | Dark seamless backing, legible alloy treads, small bronze rail clamps/end caps. Paired stowed maintenance spanners and two grab bars at each end, with intervening spaces empty. The existing paired guarded worklights illuminate the bay; do not add another lamp object. Keep the ends free of angled fixtures, reels and decorative landing slabs. |
+| Exterior access    | Full matching upper/lower ladders, including the underside route. Match rail ends, rung spacing, mounting feet and supported tether eyes. Keep the rear shell quiet.                                                                                                                                                                                   |
+| Docking assembly   | Ivory pressure barrel, dark seal, satin flange, connected wheel spokes and seated handles. The small service cover uses one continuous pull; paired circular ports and a separate latch were rejected as face-like.                                                                                                                                    |
+| Service assembly   | Fixed blue solar wings with supported booms/bearings and enclosed raceways; connected dish cradle/feed supports. Keep dark central fittings behind the reflector and bronze limited to small functional joints.                                                                                                                                        |
 
 Use the existing hardware-finish profiles rather than independently restyling
 matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
@@ -221,22 +221,27 @@ studio controls. Nonfunctional actions must still say nothing was sent/booked.
 ## Content studio
 
 Use the interactive palette: ivory authoring surfaces, carbon navigation and
-bronze accents. General contains shared identity, navigation/messages, metadata,
-privacy and tool panels. Room groups use their editable names and contain their
-entries, page/interface text and physical labels. Shared resources contains social
-links and media; Management contains the inbox, access and backups. Search spans
-all site settings. Avoid numbered room names, metaphorical editor labels and a
-separate Content dropdown.
+bronze accents. General contains shared identity, navigation/messages, metadata
+and privacy. Room groups use their editable names and contain their entries and
+page/interface text. About and Contact have separate social-link editors and
+records; choosing the same platform never couples their destinations. Media is
+managed inside each entry, portrait or icon editor, with no global media library.
+Management contains the inbox, access and backups. Avoid numbered room names,
+metaphorical editor labels and a separate Content dropdown.
 
 Site copy has one authoritative field per setting. Optional `site.interfaceText`
-overrides cover authored interface messages, accessibility text, canvas print,
-keyboard legends and diagnostics; measurement values and stable IDs stay automatic.
-Keep template placeholders intact. Regenerate `lib/content/interface-text-catalog.ts`
-with `node scripts/sync-interface-text.mjs` after changing render-site messages.
-Message keys are stable storage identifiers: preserve or migrate saved overrides
-before renaming a source key. The catalog check is part of the tests. Older backups omit this optional field;
-retired site copy remains round-trip metadata without appearing as active settings.
-Browser-owned media/date controls retain native behavior and localization.
+overrides cover meaningful visitor content and interface messages. Developer
+tools and decorative labels (equipment markings, keyboard legends, book artwork,
+cartridge numbers) use fixed text. Keep the tools available; hiding them from
+visitors is a separate change. Retired overrides round-trip through backups but
+are neither editable nor rendered. Keep template placeholders intact and regenerate
+`lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
+after changing editable render-site messages. Browser-owned media/date controls
+retain native behavior and localization.
+
+The signed-out entrance explains that the Studio is for authorized owners while
+visitors can return to the public portfolio without signing in. Do not address
+every visitor as the owner. Authentication and owner authorization remain separate.
 
 Desktop uses a collection rail; narrow layouts use an Entry selector and collapsible
 section navigation. Save, private Preview and Publish are separate actions;
@@ -356,7 +361,8 @@ links leave inert plain-dark STANDBY hardware. Landscape frames glass and keyboa
 portrait crops to a tall app inside the same glass. Native inputs never start a
 drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL keys.
 
-Both views share an in-memory draft. **Schedule a call** comes first; initially
+Both views use the compact “OPEN A CONVERSATION” / “Let’s connect.” form header
+and share an in-memory draft. **Schedule a call** comes first; initially
 neither choice is selected. Clicking the selected choice returns to the chooser
 without losing fields, including across view remounts after a prior success. Call
 mode asks date/time/device zone, then name/company/email/subject/message. Message

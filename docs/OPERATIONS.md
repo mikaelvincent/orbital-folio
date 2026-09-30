@@ -137,18 +137,22 @@ Keep admin cookies host-only rather than sharing them across demo subdomains.
 
 ## Finding editable text
 
-Use **General** for shared identity, navigation, loading/error messages, privacy,
-metadata and tool panels. Open a room by its current name for its entries, page
-text and physical labels. The site-settings search finds labels or displayed text
-across rooms. About also contains portrait crops and printed book/note text;
-Contact separates form messages, displays and keyboard legends.
+Use **General** for shared identity, navigation, loading/error messages, privacy
+and metadata. Open a room by its current name for entries and page text. About
+also contains portrait crops and its own social links; Contact contains its form,
+screen headings and separate social links. Developer-tool text and decorative
+labels such as UPLINK, VOICE and keyboard legends are fixed, not content settings.
 
 Interface messages share the site record's Save draft, Preview draft and Publish
-workflow. Placeholders such as `{title}` and `{number}` insert content automatically;
-keep them when editing. **Reset text** removes that override. Both views share the
-same content, and empty project/case-study categories are hidden. Published text
-remains unchanged until the site record is explicitly published. Existing backups
-remain valid; no content or storage migration is required.
+workflow. Keep placeholders such as `{title}` and `{number}` when editing.
+**Reset text** removes an override. Both views share the same content; empty
+categories are hidden. Retired settings remain portable but are not active edits.
+
+Migration `0005_studio_rooms_and_inbox.sql` separates legacy social links used in
+both rooms without publishing their drafts. Each snapshot is copied independently;
+original IDs remain Contact records and About copies retain `legacyLinkId` for
+repeatable old-backup imports. It also adds nullable inbox status timestamps.
+Apply it through the normal migration command; never reset an existing store.
 
 ## Authoring projects and case studies
 
@@ -160,8 +164,19 @@ to 100,000 characters, including media-reference rewriting during ZIP transfer.
 Legacy structured stories remain fallbacks until a Markdown body is authored.
 Slugs remain stable after first save.
 
+Save a new entry before uploading. Uploads retain their parent `ownerId` (and a
+site `ownerField` for portrait/sharing images), so unused private attachments
+survive a reload. The local list includes owned files and references from both
+draft and published snapshots. **Attachment details** edits descriptions, video
+posters and captions. Upload poster images/VTT files in the same entry, then select
+them on the video. Save attachment details before navigating or publishing.
+Publication follows actual dependencies, never all owned uploads. ZIP imports
+assign their media to the new project; deleting a parent does not delete shared
+files. Legacy files with no owner and no remaining references stay in backups,
+not in a global editor.
+
 Media limits are 5 MiB for PNG/JPEG/WebP/GIF, 12 MiB for MP4/WebM and 256 KiB for
-WebVTT. Attach posters/captions through Media library. Upload/import does not
+WebVTT. Attach posters/captions through each entry’s Attachment details. Upload/import does not
 publish: **Publish referenced media** explicitly publishes the story's media and
 poster/caption dependencies, including pending metadata edits. Those bytes become
 public even while the parent remains a draft. Publishing a parent refuses missing
@@ -194,8 +209,8 @@ continuous document flow.
 
 In **About → Portrait**, the About frame and Reading view crop are
 independent; resetting a crop leaves the original intact. Clearing the image
-restores the decorative defaults. In **Social links**, About position (Left,
-Center, Right or Off) is independent of Contact console placement. To replace an
+restores the decorative defaults. In **About → Social links**, each record chooses Left, Center, Right or Off.
+**Contact → Social links** owns separate records and destinations. To replace an
 occupied live About position, change and publish its existing link first.
 
 About custom icons accept static self-contained SVG (1 MiB) or PNG (5 MiB, at
@@ -216,7 +231,7 @@ they are editable demonstration content, not seeded into every installation.
 Explicit Left/Right placements take priority; remaining screens take Automatic
 links in display order. Conflicts choose the first record by order, then ID;
 both views show only these two resolved links. **Hidden from Contact** excludes a
-link from both Contact views; its About placement remains independent.
+link from both Contact views. About links are separate records.
 Platform changes preserve custom display names and URLs. An unassigned monitor
 is inert. Sample GitHub/LinkedIn URLs are platform homepages, not owner profiles;
 replace them before launch. Existing databases are not automatically backfilled.
@@ -272,6 +287,7 @@ media:
     alt: The tool's overview
     title: Optional display caption
 ---
+
 ![Overview](assets/overview.webp)
 ```
 
@@ -310,8 +326,14 @@ private temporary files must be removed after inspection.
 
 ## Inquiry handling and maintenance
 
-Contact success means durable receipt in D1, not email delivery. Owners reply
-with their email client and control retention by deleting inbox messages. There
+Contact success means durable receipt in D1. **Reply by email** opens the owner's
+email app with the original message quoted line by line (`> `). It does not send
+or mark the inquiry replied; use **Mark replied** after sending. Read/unread,
+replied and archived statuses are explicit, reversible actions. Archive retains
+the message; Delete removes it. Status changes require owner authorization and
+same-origin requests. Inbox paging uses received-time/ID cursors so status changes
+do not skip older messages. Contact submissions are limited to five attempts per
+IP per hourly bucket; status mutations have a separate 120-per-minute limit. There
 is no mail provider or analytics tracker; owner-entered remote images can contact
 their hosts. Preserve bounded request bodies, expiring rate limits and media
 signature checks; public delivery requires published media. Deleting a media
