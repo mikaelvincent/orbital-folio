@@ -326,6 +326,7 @@ export const retiredInterfaceText: readonly string[] = [
   'Turn shadows on to compare their detail.',
   'U',
   'UPLINK',
+  'Unassigned',
   'Unavailable',
   'Unavailable in this browser’s graphics context.',
   'Unavailable with cabin shadow lights.',

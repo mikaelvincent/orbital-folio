@@ -10,7 +10,7 @@ import {
   Shield,
   SlidersHorizontal,
 } from 'lucide-react';
-import { siteSections, type StudioArea } from './studio-site-schema';
+import type { SiteSection, StudioArea } from './studio-site-schema';
 import type { Kind } from '@/lib/content/types';
 export const areaKinds: Partial<Record<StudioArea, Kind>> = {
   projects: 'project',
@@ -22,6 +22,7 @@ export function StudioNavigation({
   area,
   kind,
   siteGroup,
+  siteSections,
   inboxCount,
   onSelect,
 }: {
@@ -29,6 +30,7 @@ export function StudioNavigation({
   area: StudioArea;
   kind: Kind;
   siteGroup: string;
+  siteSections: SiteSection[];
   inboxCount: number;
   onSelect: (area: StudioArea, kind?: Kind, group?: string) => void;
 }) {

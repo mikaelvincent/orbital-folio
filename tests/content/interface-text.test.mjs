@@ -19,7 +19,7 @@ async function components(entryPoint) {
     write: false,
     platform: 'node',
     format: 'cjs',
-    external: ['react', 'react/jsx-runtime', '@base-ui/react/dialog'],
+    external: ['react', 'react/jsx-runtime', '@base-ui/react/*'],
     loader: { '.css': 'empty' },
     logLevel: 'silent',
   });
@@ -105,6 +105,7 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'Navigation',
     'context-lost',
     'Rendering',
+    'Unassigned',
   ])
     assert.ok(!keys.has(message), message);
   assert.equal(
@@ -134,6 +135,113 @@ test('generated catalog covers content messages and excludes fixed tools and dec
   assert.ok(
     !keys.has('All projects'),
     'dedicated site fields must not have competing message controls',
+  );
+});
+
+test('inactive text overrides remain portable without returning to the Studio catalog', () => {
+  const site = validateContent('site', {
+    ...seedSite,
+    interfaceText: { Unassigned: 'Saved legacy screen text' },
+  });
+  assert.equal(site.interfaceText.Unassigned, 'Saved legacy screen text');
+  assert.equal(interfaceText(site, 'Unassigned'), 'Unassigned');
+});
+
+test('Studio omits legacy heading controls and navigation for Markdown stories, including search results', async () => {
+  const { availableSiteSections } = await components(
+    'features/studio/studio-site-schema.ts',
+  );
+  const { StudioSiteFields } = await components(
+    'features/studio/studio-site-fields.tsx',
+  );
+  const { StudioNavigation } = await components(
+    'features/studio/studio-navigation.tsx',
+  );
+  const records = [
+    {
+      kind: 'project',
+      draft: { body: '## Authored heading', problem: 'Old problem' },
+      published: { body: '', problem: 'Old public problem' },
+    },
+    {
+      kind: 'experience',
+      draft: { body: '', context: 'Old context' },
+      published: { body: '## Authored context', impact: 'Old impact' },
+    },
+  ];
+  const siteSections = availableSiteSections(records);
+  assert.ok(!siteSections.some((section) => section.id === 'project-headings'));
+  const messages = siteSections.flatMap((section) => section.messages || []);
+  for (const message of ['Context', 'Key decisions', 'Impact', 'Unassigned'])
+    assert.ok(!messages.includes(message), message);
+  assert.ok(messages.includes('No case studies are available yet.'));
+  assert.ok(messages.includes('Close notebook'));
+  const markup = render(StudioSiteFields, {
+    data: { ...seedSite, problemLabel: 'Dormant legacy heading' },
+    records,
+    siteGroup: 'projects',
+    search: 'Dormant legacy heading',
+    busy: false,
+    setData() {},
+  });
+  assert.doesNotMatch(markup, /<(?:input|textarea)\b/);
+  assert.match(markup, /No settings match/);
+  const navigation = render(StudioNavigation, {
+    site: seedSite,
+    area: 'projects',
+    kind: 'site',
+    siteGroup: 'projects',
+    siteSections,
+    inboxCount: 0,
+    onSelect() {},
+  });
+  assert.doesNotMatch(navigation, /Legacy section headings/);
+  assert.match(navigation, /Page &amp; interface/);
+});
+
+test('legacy heading controls follow both saved snapshots without altering either', async () => {
+  const { availableSiteSections } = await components(
+    'features/studio/studio-site-schema.ts',
+  );
+  const records = [
+    {
+      kind: 'project',
+      draft: { body: '', problem: 'Superseded draft' },
+      published: { problem: 'Live problem', next: '   ' },
+    },
+    {
+      kind: 'project',
+      draft: { approach: 'Private approach' },
+      published: null,
+    },
+    {
+      kind: 'experience',
+      draft: { body: 'Authored story', context: 'Superseded context' },
+      published: { context: 'Live context', decisions: '\n' },
+    },
+    {
+      kind: 'experience',
+      draft: { impact: 'Private impact' },
+      published: null,
+    },
+  ];
+  const before = structuredClone(records);
+  const sections = availableSiteSections(records);
+  assert.deepEqual(
+    [...sections.find((section) => section.id === 'project-headings').keys],
+    ['problemLabel', 'approachLabel'],
+  );
+  const messages = sections.find(
+    (section) => section.id === 'experience',
+  ).messages;
+  assert.ok(messages.includes('Context'));
+  assert.ok(messages.includes('Impact'));
+  assert.ok(!messages.includes('Key decisions'));
+  assert.deepEqual(records, before);
+  assert.ok(
+    !availableSiteSections([]).some(
+      (section) => section.id === 'project-headings',
+    ),
   );
 });
 
@@ -244,7 +352,7 @@ test('reading Contact exposes only the same assigned social screens and shared f
   assert.doesNotMatch(markup, /Hidden overflow|Retired oversized|Retired form/);
 });
 
-test('Studio exposes every registered message and the project subtitle and printed caption', async () => {
+test('Studio registers every supported message and exposes project subtitles and printed captions', async () => {
   const { siteSections } = await components(
     'features/studio/studio-site-schema.ts',
   );

@@ -2,12 +2,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 import { interfaceTextSiteFields } from '../lib/content/interface-text.ts';
+import { retiredInterfaceText } from '../lib/content/retired-interface-text.ts';
 
 // The catalog is generated from literal message keys at their render sites.
 // Dynamic category labels are registered explicitly below.
 const groups = new Map();
+const retired = new Set(retiredInterfaceText);
 const add = (group, value) => {
-  if (!value || Object.hasOwn(interfaceTextSiteFields, value)) return;
+  if (
+    !value ||
+    retired.has(value) ||
+    Object.hasOwn(interfaceTextSiteFields, value)
+  )
+    return;
   if (!groups.has(group)) groups.set(group, new Set());
   groups.get(group).add(value);
 };

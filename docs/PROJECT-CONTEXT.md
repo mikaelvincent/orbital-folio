@@ -234,7 +234,10 @@ overrides cover meaningful visitor content and interface messages. Developer
 tools and decorative labels (equipment markings, keyboard legends, book artwork,
 cartridge numbers) use fixed text. Keep the tools available; hiding them from
 visitors is a separate change. Retired overrides round-trip through backups but
-are neither editable nor rendered. Keep template placeholders intact and regenerate
+are neither editable nor rendered. Legacy story-heading controls appear only
+when a saved draft or published entry still uses that structured section;
+Markdown entries own their headings in the body. Keep template placeholders intact
+and regenerate
 `lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
 after changing editable render-site messages. Browser-owned media/date controls
 retain native behavior and localization.

@@ -13,7 +13,11 @@ import {
   PhotoMediaFields,
   type PhotoMediaActions,
 } from './about-photo-fields';
-import { fieldLabel, messageLabel, siteSections } from './studio-site-schema';
+import {
+  availableSiteSections,
+  fieldLabel,
+  messageLabel,
+} from './studio-site-schema';
 
 export function StudioSiteFields({
   data,
@@ -34,6 +38,7 @@ export function StudioSiteFields({
   records: Content[];
 } & PhotoMediaActions) {
   const query = search.trim().toLowerCase();
+  const siteSections = availableSiteSections(records);
   const groups = query
     ? siteSections
     : siteSections.filter((section) => section.id === siteGroup);

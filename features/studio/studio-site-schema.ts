@@ -1,5 +1,6 @@
 import { interfaceTextSiteFields } from '@/lib/content/interface-text';
 import { interfaceTextCatalog } from '@/lib/content/interface-text-catalog';
+import type { Content } from '@/lib/content/types';
 
 export type StudioArea =
   | 'general'
@@ -168,6 +169,52 @@ export const siteSections: SiteSection[] = [
     messages: messages('contact-form'),
   },
 ];
+
+const legacyCaseStudyHeadings: Record<string, string> = {
+  Context: 'context',
+  'Key decisions': 'decisions',
+  Impact: 'impact',
+};
+
+/** Markdown owns its headings; retain controls only for legacy story sections
+ * still used by a saved draft or the independently published snapshot. */
+export function availableSiteSections(
+  records: readonly Content[],
+): SiteSection[] {
+  const usesLegacyField = (kind: Content['kind'], key: string) =>
+    records.some(
+      (record) =>
+        record.kind === kind &&
+        [record.draft, record.published].some(
+          (snapshot) =>
+            snapshot &&
+            typeof snapshot.body !== 'string' &&
+            typeof snapshot[key] === 'string' &&
+            snapshot[key].trim(),
+        ),
+    );
+
+  return siteSections
+    .map((section) => ({
+      ...section,
+      keys:
+        section.id === 'project-headings'
+          ? section.keys.filter((key) =>
+              usesLegacyField('project', key.slice(0, -'Label'.length)),
+            )
+          : section.keys,
+      messages:
+        section.area === 'experience'
+          ? section.messages?.filter(
+              (message) =>
+                !legacyCaseStudyHeadings[message] ||
+                usesLegacyField('experience', legacyCaseStudyHeadings[message]),
+            )
+          : section.messages,
+    }))
+    .filter((section) => section.keys.length || section.messages?.length);
+}
+
 export const siteFieldLabels: Record<string, string> = {
   name: 'Owner name',
   title: 'Role / subtitle',

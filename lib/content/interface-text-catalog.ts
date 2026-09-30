@@ -22,8 +22,7 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Contact computer",
     "LET’S CONNECT",
     "Open link",
-    "Start a conversation",
-    "Unassigned"
+    "Start a conversation"
   ],
   "contact-form": [
     " · your device’s time zone",
