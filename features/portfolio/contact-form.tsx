@@ -1,6 +1,6 @@
 'use client';
 import { interfaceText as copy } from '@/lib/content/interface-text';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type RefObject } from 'react';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -12,8 +12,8 @@ import {
 } from 'lucide-react';
 import { pathFor } from '@/lib/paths';
 import { copyContactEmail } from './contact-clipboard';
+import { ContactMessageField } from './contact-form-message';
 import {
-  CONTACT_MESSAGE_LIMIT,
   contactInboxMessage,
   submitContactDraft,
   validateContactDraft,
@@ -33,6 +33,7 @@ export function ContactForm({
   onSent,
   submission,
   onSubmissionChange,
+  expandedMessageContainer,
 }: {
   site: Record<string, any>;
   initialSent?: boolean;
@@ -42,6 +43,7 @@ export function ContactForm({
   draft?: ContactDraft;
   onDraftChange?: (draft: ContactDraft) => void;
   onSent?: () => void;
+  expandedMessageContainer?: RefObject<HTMLDivElement | null>;
 }) {
   const id = useId();
   const [ready, setReady] = useState(false);
@@ -424,39 +426,15 @@ export function ContactForm({
                 required: true,
               })}
               {field('subject', copy(s, 'Subject'), { maxLength: 200 })}
-              <label
-                className="contact-app-field contact-app-wide"
-                htmlFor={`${id}-message`}
-              >
-                <span>{s.messageLabel}</span>
-                <textarea
-                  name="message"
-                  id={`${id}-message`}
-                  value={values.message ?? ''}
-                  onChange={(event) =>
-                    updateDraft({ message: event.target.value })
-                  }
-                  rows={3}
-                  minLength={10}
-                  maxLength={CONTACT_MESSAGE_LIMIT}
-                  required
-                  aria-describedby={`${id}-length`}
-                />
-                <small
-                  className={
-                    characters > CONTACT_MESSAGE_LIMIT
-                      ? 'contact-app-limit exceeded'
-                      : 'contact-app-limit'
-                  }
-                  id={`${id}-length`}
-                >
-                  {copy(
-                    s,
-                    'At least 10 characters · {count} / 5,000 including company and subject',
-                    { count: characters.toLocaleString('en-US') },
-                  )}
-                </small>
-              </label>
+              <ContactMessageField
+                site={s}
+                id={id}
+                value={values.message ?? ''}
+                characters={characters}
+                disabled={!ready || status === 'sending'}
+                onChange={(message) => updateDraft({ message })}
+                expandedContainer={expandedMessageContainer}
+              />
             </div>
           </fieldset>
           <div className="honeypot" aria-hidden="true">

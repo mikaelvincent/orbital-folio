@@ -183,7 +183,7 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     write: false,
     platform: 'node',
     format: 'cjs',
-    external: ['react', 'react/jsx-runtime'],
+    external: ['react', 'react/jsx-runtime', '@base-ui/react/dialog'],
     loader: { '.css': 'empty' },
     logLevel: 'silent',
   });
@@ -267,5 +267,9 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
       /action="\/api\/contact"/,
       'No live native submission path exists for the demo',
     );
+    assert.equal((markup.match(/<textarea\b/g) || []).length, 1);
+    assert.match(markup, /<textarea[^>]*name="message"/);
+    assert.match(markup, /aria-label="Expand message"/);
+    assert.doesNotMatch(markup, /role="dialog"/);
   }
 });

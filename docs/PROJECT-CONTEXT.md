@@ -371,6 +371,12 @@ the draft. Contact's app has a persistent draggable/keyboard scrollbar on overfl
 Reading view uses page flow. Mobile viewport changes resize the inner scroll area
 without altering the camera.
 
+The message field expands into a modal editor with the form dimly visible behind
+it. Reading view uses the viewport; Interactive mode confines the editor and its
+backdrop to the virtual monitor. Expansion shares the same draft and character
+limit. Done, Collapse, backdrop dismissal or Escape retains edits; Escape closes
+the editor before room navigation, and focus returns to the compact message field.
+
 **Send a message** stores through `/api/contact` in the private inbox. Optional
 name is adapted to the legacy backend and company/subject count toward the total
 message limit. **Schedule a call** validates locally but sends and saves nothing;

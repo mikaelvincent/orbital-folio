@@ -1,6 +1,6 @@
 'use client';
 import { interfaceText as copy } from '@/lib/content/interface-text';
-import type { ComponentProps } from 'react';
+import { useRef, type ComponentProps } from 'react';
 import { Radio, X } from 'lucide-react';
 import { ContactForm } from './contact-form';
 import { ContactScrollArea } from './contact-scroll-area';
@@ -11,8 +11,9 @@ export function ContactComputerWindow({
   onClose,
   ...form
 }: ComponentProps<typeof ContactForm> & { onClose: () => void }) {
+  const desktop = useRef<HTMLDivElement>(null);
   return (
-    <div className="contact-computer-desktop">
+    <div className="contact-computer-desktop" ref={desktop}>
       <article
         className="contact-computer-window"
         id="world-reader"
@@ -36,7 +37,7 @@ export function ContactComputerWindow({
           </button>
         </header>
         <ContactScrollArea site={form.site}>
-          <ContactForm {...form} />
+          <ContactForm {...form} expandedMessageContainer={desktop} />
         </ContactScrollArea>
       </article>
     </div>

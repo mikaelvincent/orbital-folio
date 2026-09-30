@@ -1,0 +1,167 @@
+.contact-message-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+  font-size: 13px;
+  color: var(--ivory);
+}
+.contact-app .contact-message-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  margin: -5px -4px -5px 0;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ivory-shade);
+  font-size: 12px;
+}
+.contact-message-expand:hover {
+  border-color: var(--line-strong);
+  color: var(--bronze-light);
+  background: var(--carbon);
+}
+.contact-message-portal {
+  position: fixed;
+  inset: var(--message-viewport-top, 0px) 0 auto;
+  height: var(--message-viewport-height, 100dvh);
+  z-index: 110;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 36px);
+  isolation: isolate;
+  container-type: size;
+  color: var(--ivory);
+  color-scheme: dark;
+  font-family: var(--font-sans, Arial, sans-serif);
+  line-height: 1.45;
+  text-align: left;
+}
+.contact-message-portal,
+.contact-message-portal * {
+  box-sizing: border-box;
+}
+.contact-message-portal[data-scoped='screen'] {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  padding: 24px;
+  border-radius: inherit;
+}
+.contact-message-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--carbon-deep) 68%, transparent);
+  backdrop-filter: blur(4px);
+  border-radius: inherit;
+}
+.contact-message-editor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 960px);
+  height: 100%;
+  max-height: 860px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--carbon-deep);
+  box-shadow: 0 16px 64px #0006;
+  outline: none;
+}
+.contact-message-editor-bar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px 10px 22px;
+  background: var(--carbon);
+  border-bottom: 1px solid var(--line-strong);
+}
+.contact-message-editor-bar h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+.contact-message-editor button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--carbon);
+  color: var(--ivory);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.contact-message-editor .contact-message-collapse {
+  width: 44px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+}
+.contact-message-editor button:hover {
+  border-color: var(--bronze);
+  color: var(--bronze-light);
+}
+.contact-message-editor :is(button, textarea):focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: -3px;
+}
+.contact-message-editor textarea {
+  flex: 1 1 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 22px;
+  resize: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ivory);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.65;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--alloy) var(--carbon-deep);
+}
+.contact-message-editor-footer {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--line-strong);
+}
+.contact-message-editor-footer small {
+  max-width: 52ch;
+}
+
+/* Query the editor's available space, including a reduced visual viewport. */
+@container (max-height: 280px) {
+  .contact-message-editor-bar {
+    padding: 0 8px 0 14px;
+  }
+  .contact-message-editor textarea {
+    padding: 6px 14px;
+    line-height: 1.5;
+  }
+  .contact-message-editor-footer {
+    padding: 0 10px;
+  }
+}
