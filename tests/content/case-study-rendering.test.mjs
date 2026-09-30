@@ -15,7 +15,7 @@ async function loadComponent(entryPoint) {
     write: false,
     platform: 'node',
     format: 'cjs',
-    external: ['react', 'react/jsx-runtime'],
+    external: ['react', 'react/jsx-runtime', '@base-ui/react/dialog'],
     loader: { '.css': 'empty' },
     logLevel: 'silent',
   });
