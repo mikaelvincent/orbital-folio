@@ -943,12 +943,6 @@ export function ImmersivePortfolio({
             <span>{reading ? s.sceneLabel : s.readLabel}</span>
           </button>
         </div>
-        {immersive && (
-          <div className="flight-status">
-            <span className="status-dot" />
-            {s.availability}
-          </div>
-        )}
         <span className="sr-only" aria-live="polite">
           {arrived && destination.section !== 'home'
             ? s[destination.section + 'Label']

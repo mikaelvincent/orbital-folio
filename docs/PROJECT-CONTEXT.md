@@ -208,7 +208,8 @@ legacy data and package contracts.
 
 Text is not selectable anywhere in Interactive mode, including the notebook and
 floating tools. Keep native selection inside editable fields and throughout
-Reading view and the studio.
+Reading view and the studio. Do not show a floating availability message or
+status dot.
 
 Semantic Reading view is the readable alternative to projected displays: carbon
 collection cards, ivory articles and bounded prose. It shares collection, story
@@ -240,10 +241,8 @@ remove unused field definitions and overrides rather than hiding their controls.
 Explicit saves and imports discard unsupported fields and overrides; existing
 stored snapshots are not rewritten. Legacy story headings remain supported for
 structured stories; Markdown entries own their headings in the body.
-Availability appears in Interactive view regardless of the search-indexing
-setting, and remains editable in Studio. About and Contact introductions serve
-page metadata.
-Keep template placeholders intact and regenerate
+About and Contact introductions serve page metadata. Keep template placeholders
+intact and regenerate
 `lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
 after changing editable render-site messages. Browser-owned media/date controls
 retain native behavior and localization.

@@ -148,8 +148,7 @@ Interface messages share the site record's Save draft, Preview draft and Publish
 workflow. Keep placeholders such as `{title}` and `{number}` when editing.
 **Reset text** removes an override. Both views share the same content; empty
 categories are hidden. Explicit saves and imports discard unsupported settings
-and obsolete overrides. Supported legacy story headings remain editable;
-availability is shown in Interactive view independently of search indexing.
+and obsolete overrides. Supported legacy story headings remain editable.
 
 Migration `0005_studio_rooms_and_inbox.sql` separates legacy social links used in
 both rooms without publishing their drafts. Each snapshot is copied independently;

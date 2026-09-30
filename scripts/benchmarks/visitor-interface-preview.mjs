@@ -59,7 +59,7 @@ const site = {
   experienceHeading: 'Case studies',
   experienceIntro: 'Synthetic public content for reviewing the archive presentation.',
   contactIntro: 'Synthetic public data. This fixture cannot send or save anything.',
-  emailLabelCta: 'Email', availability: 'Presentation fixture only',
+  emailLabelCta: 'Email',
   roleLabel: 'Role', stackLabel: 'Built with',
   emptyLabel: 'No entries are available yet.',
 };

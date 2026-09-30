@@ -277,16 +277,6 @@ svg {
   text-transform: uppercase;
   color: var(--subtle);
 }
-.status-dot {
-  display: inline-block;
-  flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 14px color-mix(in srgb, var(--bronze) 20.8%, transparent);
-  margin-right: 3px;
-}
 .hero-copy h1 {
   font-size: clamp(38px, 4.2vw, 64px);
   font-weight: 500;
@@ -3032,21 +3022,6 @@ body:has(.orbital-experience.is-immersive)
   color: var(--ivory);
   background: var(--carbon);
 }
-.flight-status {
-  position: fixed;
-  z-index: 10;
-  left: 26px;
-  bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--ivory);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  padding: 9px 12px;
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--carbon-deep) 92.2%, transparent);
-}
 .flight-hint {
   position: absolute;
   pointer-events: none;
@@ -3376,16 +3351,6 @@ body:has(.orbital-experience.is-immersive)
     min-height: 40px;
     font-size: 0.8125rem;
   }
-  .flight-status {
-    left: 18px;
-    bottom: 28px;
-    gap: 7px;
-    font-size: 0.75rem;
-    letter-spacing: 0;
-  }
-  .flight-status a {
-    display: none;
-  }
   .flight-hint {
     bottom: 84px;
     width: 100%;
@@ -3699,17 +3664,6 @@ body:has(#room-reader:target) .boot-loader {
   outline: 2px solid var(--focus-color);
   outline-offset: 2px;
 }
-@media (max-width: 380px) {
-  .flight-status {
-    max-width: 100px;
-    font-size: 0.625rem;
-    line-height: 1.25;
-  }
-  .flight-status .status-dot {
-    flex-shrink: 0;
-  }
-}
-
 @media (max-width: 699px) {
   .flight-header nav {
     display: flex;
@@ -3864,15 +3818,6 @@ body:has(#room-reader:target) .boot-loader {
 .is-immersive .flight-tools {
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
-.is-immersive .flight-status {
-  left: auto;
-  right: calc(24px + env(safe-area-inset-right, 0px));
-  top: calc(16px + env(safe-area-inset-top, 0px));
-  bottom: auto;
-  max-width: min(360px, calc(100vw - 48px));
-  font-size: 0.6875rem;
-  background: color-mix(in srgb, var(--carbon-deep) 65.1%, transparent);
-}
 @media (max-width: 699px) {
   .is-immersive .flight-tools {
     right: calc(12px + env(safe-area-inset-right, 0px));
@@ -3901,9 +3846,6 @@ body:has(#room-reader:target) .boot-loader {
   }
   .is-immersive .flight-tools .flight-view-toggle span {
     display: none;
-  }
-  .is-immersive .flight-status {
-    right: calc(12px + env(safe-area-inset-right, 0px));
   }
   .dev-audit {
     top: 10px;
@@ -3961,9 +3903,7 @@ body:has(#room-reader:target) .boot-loader {
   color: var(--bronze-light);
   border-color: var(--bronze-light);
 }
-.is-immersive
-  :is(.flight-home, .flight-navigation-toggle, .flight-tools, .flight-status)
-  svg {
+.is-immersive :is(.flight-home, .flight-navigation-toggle, .flight-tools) svg {
   stroke-width: 1.4;
 }
 .is-immersive .flight-destinations {
@@ -4002,20 +3942,6 @@ body:has(#room-reader:target) .boot-loader {
 }
 .is-immersive .flight-destinations a[aria-current] {
   border-color: var(--bronze-light);
-}
-.is-immersive .flight-status {
-  padding: 6px 0 6px 12px;
-  border-radius: 0;
-  background: transparent;
-  color: var(--ivory-shade);
-  font-size: clamp(0.75rem, 0.55rem + 0.25vw, 0.95rem);
-  letter-spacing: 0.09em;
-}
-.is-immersive .flight-status .status-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--bronze);
-  box-shadow: 0 0 9px color-mix(in srgb, var(--bronze) 43.9%, transparent);
 }
 .overview-callout:focus-visible,
 .is-immersive

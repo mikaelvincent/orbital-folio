@@ -14,7 +14,6 @@ export const seedSite = {
   title: 'Full-stack developer & systems thinker',
   biography:
     'Sample biography — ready for the owner to rewrite. I enjoy turning complicated problems into products that feel simple. My interests sit where thoughtful interfaces meet dependable backend services.',
-  availability: 'Open to the next good conversation',
   email: 'hello@example.com',
   accent: '#AA8054',
   seoTitle: 'Mikael Vincent — Developer portfolio · Sample content',

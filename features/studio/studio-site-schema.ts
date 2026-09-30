@@ -32,7 +32,7 @@ export const siteSections: SiteSection[] = [
     area: 'general',
     title: 'Identity',
     description: 'Your name, role and website identity.',
-    keys: ['name', 'title', 'domain', 'availability', 'accent'],
+    keys: ['name', 'title', 'domain', 'accent'],
   },
   {
     id: 'navigation',
@@ -172,7 +172,6 @@ export const siteFieldLabels: Record<string, string> = {
   name: 'Owner name',
   title: 'Role / subtitle',
   domain: 'Website address (HTTPS)',
-  availability: 'Availability message (interactive view)',
   accent: 'Accent color',
   homeLabel: 'Overview name',
   sectionLabel: 'Navigation label',

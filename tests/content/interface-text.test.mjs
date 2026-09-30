@@ -143,6 +143,7 @@ test('generated catalog covers content messages and excludes fixed tools and dec
 
 test('obsolete fields are removed from old site records while active metadata and copy survive', () => {
   const obsoleteFields = [
+    'availability',
     'headline',
     'intro',
     'location',
@@ -183,7 +184,6 @@ test('obsolete fields are removed from old site records while active metadata an
   const original = {
     ...seedSite,
     ...Object.fromEntries(obsoleteFields.map((key) => [key, 'Removed copy'])),
-    availability: 'Available for a new project',
     aboutIntro: 'Description used when sharing About',
     contactIntro: 'Description used when sharing Contact',
   };
@@ -193,7 +193,6 @@ test('obsolete fields are removed from old site records while active metadata an
     assert.ok(!Object.hasOwn(seedSite, key), key);
     assert.ok(!Object.hasOwn(site, key), key);
   }
-  assert.equal(site.availability, original.availability);
   const data = { site, media: [] };
   for (const section of ['about', 'contact']) {
     const metadata = pageMetadata(data, section);
@@ -235,7 +234,7 @@ test('old and unknown overrides are discarded without mutating the original reco
   );
 });
 
-test('Studio keeps conditional availability and supported legacy headings editable', async () => {
+test('Studio omits removed availability fields while keeping supported legacy headings editable', async () => {
   const { StudioSiteFields } = await components(
     'features/studio/studio-site-fields.tsx',
   );
@@ -260,20 +259,20 @@ test('Studio keeps conditional availability and supported legacy headings editab
     const data = {
       ...seedSite,
       sampleMode,
-      availability: 'Editable availability',
+      availability: 'Obsolete availability',
       problemLabel: 'Editable legacy heading',
     };
-    assert.match(
+    assert.doesNotMatch(
       render(StudioSiteFields, { ...props, data }),
-      /Availability message \(interactive view\)/,
+      /Availability message|Obsolete availability/,
     );
-    assert.match(
+    assert.doesNotMatch(
       render(StudioSiteFields, {
         ...props,
         data,
-        search: 'Editable availability',
+        search: 'Obsolete availability',
       }),
-      /value="Editable availability"/,
+      /<(?:input|textarea)\b/,
     );
     assert.match(
       render(StudioSiteFields, {

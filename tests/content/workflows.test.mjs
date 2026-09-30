@@ -505,6 +505,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         });
         const oldDraft = {
           ...replacement,
+          availability: 'Obsolete availability message',
           headline: 'Obsolete hero heading',
           sceneHelp: 'Obsolete scene instructions',
           periodLabel: 'Obsolete project period label',
@@ -540,6 +541,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         assert.ok(home.includes('Aster copy for sceneLoading'));
         assert.ok(!home.includes('Obsolete hero heading'));
         assert.ok(!home.includes('Obsolete scene instructions'));
+        assert.ok(!home.includes('Obsolete availability message'));
         assert.ok(home.includes('#80d7de'));
         const missing = await (await req('/missing-test-route')).text();
         assert.ok(missing.includes(replacement.notFoundHeading));
