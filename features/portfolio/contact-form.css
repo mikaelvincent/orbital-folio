@@ -1,6 +1,5 @@
 .contact-app {
   --contact-ink: var(--ivory);
-  --contact-muted: var(--ivory-shade);
   --contact-edge: var(--line-strong);
   container-type: inline-size;
   min-width: 0;
@@ -134,12 +133,6 @@
   align-items: flex-start;
   gap: 9px;
   margin: 14px 0 18px;
-}
-.contact-app-context p {
-  font-size: 13px;
-  color: var(--contact-muted);
-  margin: 0;
-  line-height: 1.5;
 }
 .contact-app-fields {
   padding: 0;

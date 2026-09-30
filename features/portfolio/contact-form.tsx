@@ -178,9 +178,6 @@ export function ContactForm({
           </aside>
         )}
       </div>
-      <div className="contact-app-context" id={`${id}-context`}>
-        <p>{copy(s, 'Your message goes to my private inbox.')}</p>
-      </div>
       <noscript>
         <p className="contact-app-context">
           {copy(s, 'This form needs JavaScript and cannot submit without it.')}
@@ -212,7 +209,6 @@ export function ContactForm({
         <form
           noValidate
           className="contact-app-form"
-          aria-describedby={`${id}-context`}
           onSubmit={async (event) => {
             event.preventDefault();
             if (!ready || status === 'sending') return;

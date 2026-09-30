@@ -54,7 +54,6 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "You can still",
     "Your message could not be saved. Please try again or use email.",
     "Your message could not be saved. Please try again.",
-    "Your message goes to my private inbox.",
     "Your message was saved to my private inbox. Thank you for getting in touch.",
     "Your message, company and subject together must fit within 5,000 characters. Please shorten them before sending."
   ],
