@@ -112,8 +112,8 @@ test('missing names, invalid email, short text and oversized fields cannot submi
         ['x'.repeat(63), 'y'.repeat(63), 'z'.repeat(63)].join('.'),
     },
     { ...message, message: '   short  ' },
-    { ...message, name: 'x'.repeat(61) },
-    { ...message, company: 'x'.repeat(81) },
+    { ...message, name: 'x'.repeat(51) },
+    { ...message, company: 'x'.repeat(51) },
     { ...message, subject: 'x'.repeat(101) },
   ];
   let calls = 0;
@@ -142,14 +142,14 @@ test('valid email syntax and exact field limits reach only the provided transpor
       {
         ...message,
         email,
-        name: 'x'.repeat(60),
-        company: 'x'.repeat(80),
+        name: 'x'.repeat(50),
+        company: 'x'.repeat(50),
         subject: 'x'.repeat(100),
       },
       async (body) => {
         calls++;
         assert.equal(body.get('email'), email.trim());
-        assert.equal(body.get('name').length, 60);
+        assert.equal(body.get('name').length, 50);
       },
     );
     assert.equal(calls, 1);
@@ -229,8 +229,8 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     assert.match(markup, /<label[^>]*>Your name<\/label>/);
     assert.doesNotMatch(markup, /including company and subject/);
     for (const [name, limit, required] of [
-      ['name', 60, true],
-      ['company', 80, false],
+      ['name', 50, true],
+      ['company', 50, false],
       ['subject', 100, false],
       ['email', 254, true],
     ]) {
@@ -303,8 +303,8 @@ test('counters appear at 80 percent of each independent field limit with accessi
       }),
     );
   const below = {
-    name: 'n'.repeat(47),
-    company: 'c'.repeat(63),
+    name: 'n'.repeat(39),
+    company: 'c'.repeat(39),
     subject: 's'.repeat(79),
     message: 'm'.repeat(3999),
   };
@@ -313,8 +313,8 @@ test('counters appear at 80 percent of each independent field limit with accessi
     /class="contact-app-limit|aria-describedby=/,
   );
   for (const [name, count, limit] of [
-    ['name', 48, 60],
-    ['company', 64, 80],
+    ['name', 40, 50],
+    ['company', 40, 50],
     ['subject', 80, 100],
     ['message', 4000, 5000],
   ]) {
@@ -339,7 +339,7 @@ test('counters appear at 80 percent of each independent field limit with accessi
   }
   const metadataAtLimit = render({
     ...below,
-    company: 'c'.repeat(80),
+    company: 'c'.repeat(50),
     subject: 's'.repeat(100),
   });
   assert.doesNotMatch(metadataAtLimit, /of 5,000/);

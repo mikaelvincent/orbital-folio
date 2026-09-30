@@ -156,8 +156,8 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
       { email: 'visitor..name@example.com' },
       { email: 'visitor@-example.com' },
       { email: 'visitor@example.com/path' },
-      { name: 'n'.repeat(61) },
-      { company: 'c'.repeat(81) },
+      { name: 'n'.repeat(51) },
+      { company: 'c'.repeat(51) },
       { subject: 's'.repeat(101) },
       { message: 'm'.repeat(5001) },
     ].entries()) {
@@ -213,7 +213,7 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
 });
 
 await test('the API accepts and preserves a full message plus independently bounded company and subject', async () => {
-  const company = 'c'.repeat(80);
+  const company = 'c'.repeat(50);
   const subject = 's'.repeat(100);
   const message = ('Independent message allowance ' + Date.now()).padEnd(
     5000,
@@ -221,7 +221,7 @@ await test('the API accepts and preserves a full message plus independently boun
   );
   const body = new FormData();
   for (const [key, value] of Object.entries({
-    name: 'n'.repeat(60),
+    name: 'n'.repeat(50),
     email: 'visitor@example.com',
     company,
     subject,
@@ -251,7 +251,7 @@ await test('the API accepts and preserves a full message plus independently boun
     );
     id = received?.id;
     assert.ok(received, 'The full message must be saved without truncation');
-    assert.equal(received.name.length, 60);
+    assert.equal(received.name.length, 50);
     assert.equal(
       received.message,
       `Company: ${company}\nSubject: ${subject}\n\n${message}`,

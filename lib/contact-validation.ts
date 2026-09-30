@@ -1,5 +1,5 @@
-export const CONTACT_NAME_LIMIT = 60;
-export const CONTACT_COMPANY_LIMIT = 80;
+export const CONTACT_NAME_LIMIT = 50;
+export const CONTACT_COMPANY_LIMIT = 50;
 export const CONTACT_SUBJECT_LIMIT = 100;
 export const CONTACT_EMAIL_LIMIT = 254;
 export const CONTACT_MESSAGE_LIMIT = 5000;

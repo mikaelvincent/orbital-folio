@@ -377,7 +377,7 @@ drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL k
 Both views use the compact “OPEN A CONVERSATION” / “Let’s connect.” form header
 and share an in-memory draft. The message form opens immediately with no contact
 method chooser or call scheduling. It asks name/company/email/subject/message;
-name, email and message are required. Name/company/subject are capped at 60/80/100
+name, email and message are required. Name/company/subject are capped at 50/50/100
 characters; message has its own 5,000-character limit. Counters appear only at 80%
 of each field's limit, including in the expanded message editor. Email syntax is
 checked before submission and again at the API, without sending a verification
