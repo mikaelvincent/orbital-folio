@@ -63,6 +63,59 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
       'interview',
       'project',
     ]);
+    const changeStatus = (id, action, extraHeaders = {}) =>
+      fetch(base + '/api/admin/inbox', {
+        method: 'PATCH',
+        headers: {
+          Cookie: cookie,
+          Origin: base,
+          'Content-Type': 'application/json',
+          ...extraHeaders,
+        },
+        body: JSON.stringify({ id, action }),
+      });
+    const first = messages[0];
+    assert.equal(first.read_at, null);
+    assert.equal(first.replied_at, null);
+    assert.equal(
+      (await changeStatus(first.id, 'read', { Cookie: '' })).status,
+      403,
+    );
+    assert.equal(
+      (await changeStatus(first.id, 'read', { Origin: 'https://example.com' }))
+        .status,
+      403,
+    );
+    assert.equal((await changeStatus(first.id, 'unknown')).status, 400);
+    assert.equal((await changeStatus('missing-message', 'read')).status, 404);
+    for (const [action, field, expected] of [
+      ['read', 'read_at', true],
+      ['replied', 'replied_at', true],
+      ['unread', 'read_at', false],
+      ['archive', 'archived_at', true],
+      ['unarchive', 'archived_at', false],
+      ['unreplied', 'replied_at', false],
+    ]) {
+      const response = await changeStatus(first.id, action);
+      assert.equal(response.status, 200);
+      const item = (await response.json()).inquiry;
+      assert.equal(!!item[field], expected);
+      assert.equal(item.message, first.message);
+    }
+    const olderResponse = await fetch(
+      base +
+        '/api/admin/inbox?before=' +
+        encodeURIComponent(first.created_at + '|' + first.id),
+      { headers: { Cookie: cookie } },
+    );
+    assert.equal(olderResponse.status, 200);
+    const older = (await olderResponse.json()).inquiries;
+    assert.ok(older.some((item) => item.id === messages[1].id));
+    assert.ok(!older.some((item) => item.id === first.id));
+    const malformed = await fetch(base + '/api/admin/inbox?before=invalid', {
+      headers: { Cookie: cookie },
+    });
+    assert.equal(malformed.status, 400);
     const streamedStatus = await new Promise((resolve, reject) => {
       const r = http.request(
         base + '/api/contact',

@@ -1,6 +1,4 @@
-import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
-
 /** Physical ANSI 75% layout, keyed by KeyboardEvent.code rather than typed text.
  * This lets Shift+A, held modifiers and non-US input keep their physical position.
  */
@@ -12,12 +10,10 @@ export type ContactKey = {
   width: number;
   height: number;
 };
-
 export const CONTACT_KEY_TRAVEL = 0.012;
 const UNIT = 0.109;
 const ROW_PITCH = 0.103;
 const ROW_WIDTH = 16.25;
-
 function keyboardLayout(): ContactKey[] {
   const keys: ContactKey[] = [];
   const row = (index: number, values: Array<[string, string, number?]>) => {
@@ -114,9 +110,7 @@ function keyboardLayout(): ContactKey[] {
   ]);
   return keys;
 }
-
 export const CONTACT_KEY_LAYOUT = keyboardLayout();
-
 /** Two draw submissions: rounded keycaps and one shared label atlas. Keys never
  * cast into the cached static shadow map, and their dynamic matrices are excluded
  * from static instance coalescing. No listeners or browser state live here.
@@ -126,7 +120,7 @@ export function buildContactKeyboard(
   h: any,
   deck: any,
   materials: any,
-  site?: Record<string, any>,
+  _site?: Record<string, any>,
 ) {
   const root = new THREE.Group();
   root.name = 'contact-keyboard';
@@ -185,7 +179,6 @@ export function buildContactKeyboard(
     );
     caps.setColorAt(index, color);
   });
-
   let legends: any = null;
   if (typeof document !== 'undefined') {
     const canvas = document.createElement('canvas');
@@ -199,7 +192,7 @@ export function buildContactKeyboard(
       CONTACT_KEY_LAYOUT.forEach((key, index) => {
         ctx.font = `${key.label.length > 2 ? 15 : 25}px system-ui, sans-serif`;
         ctx.fillText(
-          copy(site, key.label),
+          key.label,
           (index % 16) * 64 + 32,
           Math.floor(index / 16) * 64 + 32,
           60,

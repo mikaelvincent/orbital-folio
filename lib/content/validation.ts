@@ -1,3 +1,4 @@
+import { retiredInterfaceText } from './retired-interface-text.ts';
 import { interfaceTextCatalog } from './interface-text-catalog.ts';
 import { PROJECT_CATEGORIES } from './project-content.ts';
 import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
@@ -60,6 +61,8 @@ const fields: Record<Kind, string[]> = {
   ],
   journal: ['slug', 'title', 'subtitle', 'body', 'order', 'sample'],
   link: [
+    'room',
+    'legacyLinkId',
     'title',
     'url',
     'order',
@@ -72,6 +75,8 @@ const fields: Record<Kind, string[]> = {
     'photoCrop',
   ],
   media: [
+    'ownerId',
+    'ownerField',
     'title',
     'alt',
     'url',
@@ -107,7 +112,10 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
     const value = data[key];
     if (value === undefined) continue;
     if (kind === 'site' && key === 'interfaceText') {
-      const allowed = new Set(Object.values(interfaceTextCatalog).flat());
+      const allowed = new Set([
+        ...Object.values(interfaceTextCatalog).flat(),
+        ...retiredInterfaceText,
+      ]);
       if (
         !value ||
         Array.isArray(value) ||
@@ -277,6 +285,12 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
     )
       throw new HttpError(400, `${key} must be a safe HTTPS URL.`);
   if (kind === 'link') {
+    if (clean.room && !['about', 'contact'].includes(clean.room))
+      throw new HttpError(400, 'Choose About or Contact for this link.');
+    if (clean.room === 'about') clean.screen = 'list';
+    if (clean.room === 'contact') clean.aboutSlot = 'off';
+    if (clean.legacyLinkId && !/^[a-zA-Z0-9-]{1,100}$/.test(clean.legacyLinkId))
+      throw new HttpError(400, 'Invalid original link ID.');
     if (clean.platform && !socialPlatforms.some((p) => p.id === clean.platform))
       throw new HttpError(400, 'Choose a social platform or Custom.');
     if (clean.screen && !socialScreens.some((s) => s.id === clean.screen))
@@ -311,6 +325,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       'Add a short description and at least one category.',
     );
   for (const key of [
+    'ownerId',
     'mediaId',
     'portraitMediaId',
     'iconMediaId',
@@ -320,6 +335,11 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
   ])
     if (clean[key] && !/^[a-zA-Z0-9-]{1,100}$/.test(clean[key]))
       throw new HttpError(400, `Choose a valid ${key}.`);
+  if (
+    clean.ownerField &&
+    !['portraitMediaId', 'seoImageId'].includes(clean.ownerField)
+  )
+    throw new HttpError(400, 'Invalid media attachment field.');
   if (kind === 'media' && !clean.alt)
     throw new HttpError(400, 'Add descriptive alternative text for the media.');
   return clean;

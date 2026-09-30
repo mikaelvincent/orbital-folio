@@ -264,7 +264,7 @@ test('Studio journal editing uses shared Markdown preview and managed media cont
   assert.match(markup, /    keep this code indentation/);
   assert.match(markup, /Preview/);
   assert.match(markup, /Upload to this section/);
-  assert.match(markup, /Use existing media/);
+  assert.match(markup, /Attachments in this entry/);
   assert.match(markup, /Subtitle · optional/);
   assert.match(markup, /Display order/);
   assert.match(markup, /Sample content metadata/);

@@ -13,10 +13,18 @@ import {
   NativeSelectOption,
 } from '@/components/ui/native-select';
 import './about-photo-fields.css';
+import { attachmentPublication } from './entry-media';
+import { LocalMediaEditor, type MediaAction } from './local-media-editor';
 
 export type PhotoMediaActions = {
   busy: boolean;
-  onUpload: (file: File, alt: string) => Promise<Record<string, any> | null>;
+  onMediaAction?: MediaAction;
+  onMediaDirtyChange?: (key: string, dirty: boolean) => void;
+  onUpload: (
+    file: File,
+    alt: string,
+    ownerField?: string,
+  ) => Promise<Record<string, any> | null>;
   onPublishAssets: (assets: Content[]) => Promise<void>;
 };
 
@@ -106,6 +114,8 @@ export function PhotoMediaFields({
   busy,
   onUpload,
   onPublishAssets,
+  onMediaAction,
+  onMediaDirtyChange,
   children,
 }: PhotoMediaActions & {
   title: string;
@@ -126,17 +136,15 @@ export function PhotoMediaFields({
       record.kind === 'media' &&
       String(record.draft.mime).startsWith('image/'),
   );
+  const publication = attachmentPublication(mediaId, records);
   const unpublished = media && !media.published;
-  const changed =
-    media &&
-    !!media.published &&
-    JSON.stringify(media.draft) !== JSON.stringify(media.published);
+  const changed = publication.pending.length > 0;
   return (
     <section className="about-photo-fields wide-field" aria-label={title}>
       <h3>{title}</h3>
       <p>{description}</p>
       <label className="studio-field">
-        Choose from library
+        Photos attached here
         <NativeSelect
           value={mediaId}
           onChange={(event) => {
@@ -230,7 +238,8 @@ export function PhotoMediaFields({
         <>
           <p className="photo-alt-description">
             <strong>Image description:</strong>{' '}
-            {media.draft.alt || 'No description. Add one in the Media library.'}
+            {media.draft.alt ||
+              'Add a description in Attachment details below.'}
           </p>
           <div className="photo-crop-grid">{children(media)}</div>
           {(unpublished || changed) && (
@@ -245,8 +254,10 @@ export function PhotoMediaFields({
               <button
                 className="button"
                 type="button"
-                disabled={busy}
-                onClick={() => void onPublishAssets([media])}
+                disabled={
+                  busy || !!publication.error || !publication.pending.length
+                }
+                onClick={() => void onPublishAssets(publication.pending)}
               >
                 {unpublished
                   ? 'Publish selected image'
@@ -260,10 +271,22 @@ export function PhotoMediaFields({
           This image is unavailable. Choose another image before publishing.
         </p>
       ) : null}
+      {publication.error && (
+        <p className="form-error" role="status">
+          {publication.error}
+        </p>
+      )}
       <p className="photo-field-help">
         Cropping changes the display only. The original image stays in your
-        library.
+        attachments.
       </p>
+      <LocalMediaEditor
+        records={records.filter((r) => r.kind === 'media')}
+        busy={busy}
+        onAction={onMediaAction}
+        onDirtyChange={onMediaDirtyChange}
+        onPublishAssets={onPublishAssets}
+      />
     </section>
   );
 }

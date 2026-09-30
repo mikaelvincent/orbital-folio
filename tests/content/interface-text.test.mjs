@@ -82,24 +82,55 @@ test('interface overrides are optional, plain text, and retain complete substitu
     );
 });
 
-test('generated catalog includes dynamic printed labels and diagnostics and stays synchronized', () => {
+test('generated catalog covers content messages and excludes fixed tools and decorative labels', () => {
   execFileSync(process.execPath, [
     'scripts/sync-interface-text.mjs',
     '--check',
   ]);
   const keys = new Set(Object.values(interfaceTextCatalog).flat());
   for (const message of [
-    'Small',
-    'Stay',
     'Watch video',
-    'FR–{number}',
-    'COM / {number}',
-    'workshop furniture',
-    'Ao camera position',
-    'Navigation',
-    'context-lost',
+    'Schedule a call',
+    'Let’s connect.',
+    'Systems',
   ])
     assert.ok(keys.has(message), message);
+  for (const message of [
+    'Small',
+    'Stay',
+    'FR–{number}',
+    'COM / {number}',
+    'UPLINK',
+    'VOICE',
+    'Navigation',
+    'context-lost',
+    'Rendering',
+  ])
+    assert.ok(!keys.has(message), message);
+  assert.equal(
+    interfaceText(
+      {
+        interfaceText: {
+          UPLINK: 'Edited equipment',
+          ' Unattributed: {calls} calls.': ' Extra: {calls} draws.',
+        },
+      },
+      'UPLINK',
+    ),
+    'UPLINK',
+  );
+  assert.equal(
+    interfaceText(
+      {
+        interfaceText: {
+          ' Unattributed: {calls} calls.': ' Extra: {calls} draws.',
+        },
+      },
+      ' Unattributed: {calls} calls.',
+      { calls: 4 },
+    ),
+    ' Unattributed: 4 calls.',
+  );
   assert.ok(
     !keys.has('All projects'),
     'dedicated site fields must not have competing message controls',
@@ -185,6 +216,8 @@ test('reading Contact exposes only the same assigned social screens and shared f
   );
   const site = {
     ...seedSite,
+    contactHeading: 'Retired oversized heading',
+    contactIntro: 'Retired form introduction',
     interfaceText: { 'Schedule a call': 'Discuss a project' },
   };
   const links = ['Left profile', 'Right profile', 'Hidden overflow'].map(
@@ -207,7 +240,8 @@ test('reading Contact exposes only the same assigned social screens and shared f
   const markup = render(ContactView, { data });
   assert.ok(markup.includes(render(ContactForm, { site })));
   assert.match(markup, /Left profile|Right profile|Discuss a project/);
-  assert.doesNotMatch(markup, /Hidden overflow/);
+  assert.match(markup, /<h1>Let’s connect\.<\/h1>/);
+  assert.doesNotMatch(markup, /Hidden overflow|Retired oversized|Retired form/);
 });
 
 test('Studio exposes every registered message and the project subtitle and printed caption', async () => {

@@ -7,8 +7,6 @@ export type StudioArea =
   | 'experience'
   | 'about'
   | 'contact'
-  | 'links'
-  | 'media'
   | 'inbox'
   | 'settings';
 export type SiteSection = {
@@ -86,40 +84,6 @@ export const siteSections: SiteSection[] = [
     ],
   },
   {
-    id: 'tools',
-    area: 'general',
-    title: 'Tools menu',
-    description: 'The menu at the bottom right of the interactive view.',
-    keys: [],
-    messages: messages('tools'),
-  },
-  {
-    id: 'rendering',
-    area: 'general',
-    title: 'Rendering controls',
-    description:
-      'Labels and explanations in the Rendering panel. These fields change text, not rendering settings.',
-    keys: [],
-    messages: messages('rendering'),
-  },
-  {
-    id: 'earth',
-    area: 'general',
-    title: 'Earth playback',
-    description: 'Playback controls, timeline labels and loading messages.',
-    keys: [],
-    messages: messages('earth'),
-  },
-  {
-    id: 'diagnostics',
-    area: 'general',
-    title: 'Scene diagnostics',
-    description:
-      'Diagnostic controls, reports, status messages and workload labels. Measurements and internal identifiers stay automatic.',
-    keys: [],
-    messages: messages('diagnostics'),
-  },
-  {
     id: 'projects',
     area: 'projects',
     title: 'Page & interface',
@@ -187,28 +151,11 @@ export const siteSections: SiteSection[] = [
     keys: ['portraitMediaId'],
   },
   {
-    id: 'about-art',
-    area: 'about',
-    title: 'Printed text',
-    description:
-      'Text printed on the books and notes in this room. Keep each line short enough to fit its physical object.',
-    keys: [],
-    messages: messages('about-art'),
-  },
-  {
     id: 'contact',
     area: 'contact',
     title: 'Page & displays',
-    description:
-      'The room name, contact heading and text on the room’s screens and equipment.',
-    keys: [
-      'contactLabel',
-      'contactRoom',
-      'contactHeading',
-      'contactIntro',
-      'email',
-      'emailLabelCta',
-    ],
+    description: 'The room name, email address and contact screen headings.',
+    keys: ['contactLabel', 'email', 'emailLabelCta'],
     messages: messages('contact'),
   },
   {
@@ -217,26 +164,8 @@ export const siteSections: SiteSection[] = [
     title: 'Form & messages',
     description:
       'Contact choices, field labels, validation, sending and confirmation messages in both views. Call requests are previews; they do not book or send.',
-    keys: [
-      'nameLabel',
-      'emailLabel',
-      'messageLabel',
-      'sendLabel',
-      'sendingLabel',
-      'sentHeading',
-      'sentMessage',
-      'contactPrivacy',
-    ],
+    keys: ['nameLabel', 'emailLabel', 'messageLabel'],
     messages: messages('contact-form'),
-  },
-  {
-    id: 'keyboard',
-    area: 'contact',
-    title: 'Keyboard labels',
-    description:
-      'Printed key legends on the physical keyboard. Editing a label does not change the key’s behavior.',
-    keys: [],
-    messages: messages('keyboard'),
   },
 ];
 export const siteFieldLabels: Record<string, string> = {

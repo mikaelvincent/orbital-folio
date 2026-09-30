@@ -1,6 +1,5 @@
 'use client';
-import { interfaceText as copy } from '@/lib/content/interface-text';
-
+import { formatText } from '@/lib/content/interface-text';
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { RotateCcw, X } from 'lucide-react';
@@ -11,15 +10,12 @@ import {
   type RenderingSettings,
 } from '../spacecraft/rendering-settings';
 import './rendering-controls.css';
-
 export function RenderingControls({
-  site,
   settings,
   observer,
   onChange,
   onClose,
 }: {
-  site: Record<string, any>;
   settings: RenderingSettings;
   observer: RenderingObserver;
   onChange: (settings: RenderingSettings) => void;
@@ -57,15 +53,15 @@ export function RenderingControls({
     >
       <header>
         <h2 id="rendering-controls-title" ref={heading} tabIndex={-1}>
-          {copy(site, 'Rendering')}
+          {'Rendering'}
         </h2>
         <button
           type="button"
           className="rendering-icon-button"
           aria-label={
             collapsed
-              ? copy(site, 'Expand rendering controls')
-              : copy(site, 'Collapse rendering controls')
+              ? 'Expand rendering controls'
+              : 'Collapse rendering controls'
           }
           aria-expanded={!collapsed}
           aria-controls="rendering-controls-body"
@@ -76,7 +72,7 @@ export function RenderingControls({
         <button
           type="button"
           className="rendering-icon-button"
-          aria-label={copy(site, 'Close rendering controls')}
+          aria-label={'Close rendering controls'}
           onClick={onClose}
         >
           <X size={18} aria-hidden="true" />
@@ -84,27 +80,26 @@ export function RenderingControls({
       </header>
       <div id="rendering-controls-body" hidden={collapsed}>
         <p className="rendering-intro">
-          {copy(
-            site,
-            'Compare the appearance live. Changes stay when you close this panel.',
-          )}
+          {
+            'Compare the appearance live. Changes stay when you close this panel.'
+          }
         </p>
         {(
           [
             [
               'exteriorLight',
-              copy(site, 'Exterior light'),
-              copy(site, 'Sunlight on the hull and through the openings.'),
+              'Exterior light',
+              'Sunlight on the hull and through the openings.',
             ],
             [
               'roomLight',
-              copy(site, 'Room lights'),
-              copy(site, 'The warm fixtures in all four rooms.'),
+              'Room lights',
+              'The warm fixtures in all four rooms.',
             ],
             [
               'ladderLight',
-              copy(site, 'Ladder lights'),
-              copy(site, 'The existing worklights in the ladder bay.'),
+              'Ladder lights',
+              'The existing worklights in the ladder bay.',
             ],
           ] as const
         ).map(([key, label, hint]) => {
@@ -119,7 +114,7 @@ export function RenderingControls({
                   type="range"
                   aria-label={label}
                   aria-describedby={`${id}-hint`}
-                  aria-valuetext={copy(site, '{percent} percent', { percent })}
+                  aria-valuetext={formatText('{percent} percent', { percent })}
                   min={0}
                   max={5}
                   step={0.05}
@@ -134,25 +129,22 @@ export function RenderingControls({
               </span>
               <small id={`${id}-hint`}>
                 {hint}
-                {copy(site, '100% is the default.')}
+                {'100% is the default.'}
               </small>
             </label>
           );
         })}
         <label className="rendering-toggle">
           <span>
-            <strong>{copy(site, 'Shadows')}</strong>
+            <strong>{'Shadows'}</strong>
             <small>
-              {copy(
-                site,
-                'Cast shadows inside the cabins and across the hull.',
-              )}
+              {'Cast shadows inside the cabins and across the hull.'}
             </small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label={copy(site, 'Shadows')}
+            aria-label={'Shadows'}
             checked={settings.shadows}
             aria-checked={settings.shadows}
             onChange={(event) =>
@@ -161,9 +153,9 @@ export function RenderingControls({
           />
         </label>
         <label className="rendering-field">
-          <span>{copy(site, 'Shadow detail')}</span>
+          <span>{'Shadow detail'}</span>
           <select
-            aria-label={copy(site, 'Shadow detail')}
+            aria-label={'Shadow detail'}
             value={settings.shadowSize}
             disabled={!settings.shadows}
             onChange={(event) =>
@@ -175,30 +167,29 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">{copy(site, 'Automatic')}</option>
-            <option value="512">{copy(site, 'Low · 512')}</option>
-            <option value="1024">{copy(site, 'Medium · 1024')}</option>
-            <option value="2048">{copy(site, 'High · 2048')}</option>
+            <option value="auto">{'Automatic'}</option>
+            <option value="512">{'Low · 512'}</option>
+            <option value="1024">{'Medium · 1024'}</option>
+            <option value="2048">{'High · 2048'}</option>
           </select>
           <small>
             {settings.shadows
-              ? copy(
-                  site,
+              ? formatText(
                   '{size} × {size}. Lower detail gives coarser shadow edges.',
                   { size: state.shadowSize },
                 )
-              : copy(site, 'Turn shadows on to compare their detail.')}
+              : 'Turn shadows on to compare their detail.'}
           </small>
         </label>
         <label className="rendering-field" htmlFor={softnessId}>
-          <span>{copy(site, 'Shadow softness')}</span>
+          <span>{'Shadow softness'}</span>
           <span className="rendering-range">
             <input
               id={softnessId}
               type="range"
-              aria-label={copy(site, 'Shadow softness')}
+              aria-label={'Shadow softness'}
               aria-describedby={`${softnessId}-hint`}
-              aria-valuetext={copy(site, '{value} times', {
+              aria-valuetext={formatText('{value} times', {
                 value: state.shadowSoftness,
               })}
               min={0}
@@ -216,18 +207,17 @@ export function RenderingControls({
           </span>
           <small id={`${softnessId}-hint`}>
             {settings.shadows
-              ? copy(
-                  site,
+              ? formatText(
                   'Higher values soften shadow edges. {value}× is the default.',
                   { value: DEFAULT_RENDERING_SETTINGS.shadowSoftness },
                 )
-              : copy(site, 'Turn shadows on to adjust their softness.')}
+              : 'Turn shadows on to adjust their softness.'}
           </small>
         </label>
         <label className="rendering-field">
-          <span>{copy(site, 'Pixel density')}</span>
+          <span>{'Pixel density'}</span>
           <select
-            aria-label={copy(site, 'Pixel density')}
+            aria-label={'Pixel density'}
             value={settings.pixelDensity}
             onChange={(event) =>
               change({
@@ -238,7 +228,7 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">{copy(site, 'Automatic')}</option>
+            <option value="auto">{'Automatic'}</option>
             {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((density) => (
               <option key={density} value={density}>
                 {density}×
@@ -246,8 +236,7 @@ export function RenderingControls({
             ))}
           </select>
           <small>
-            {copy(
-              site,
+            {formatText(
               'Drawing at {density}× · {size} pixels. Interface text stays sharp.',
               {
                 density: Number(state.pixelDensity.toFixed(2)),
@@ -257,9 +246,9 @@ export function RenderingControls({
           </small>
         </label>
         <label className="rendering-field">
-          <span>{copy(site, 'Contact shading')}</span>
+          <span>{'Contact shading'}</span>
           <select
-            aria-label={copy(site, 'Contact shading')}
+            aria-label={'Contact shading'}
             value={settings.contactShading}
             disabled={!state.contactShadingSupported}
             onChange={(event) =>
@@ -269,35 +258,30 @@ export function RenderingControls({
               })
             }
           >
-            <option value="auto">{copy(site, 'Automatic')}</option>
-            <option value="on">{copy(site, 'On')}</option>
-            <option value="off">{copy(site, 'Off')}</option>
+            <option value="auto">{'Automatic'}</option>
+            <option value="on">{'On'}</option>
+            <option value="off">{'Off'}</option>
           </select>
           <small>
             {state.contactShadingSupported
-              ? copy(
-                  site,
+              ? formatText(
                   '{state} · Soft darkness at corners and where surfaces meet.',
                   {
-                    state: state.contactShading
-                      ? copy(site, 'On')
-                      : copy(site, 'Off'),
+                    state: state.contactShading ? 'On' : 'Off',
                   },
                 )
-              : copy(site, 'Unavailable in this browser’s graphics context.')}
+              : 'Unavailable in this browser’s graphics context.'}
           </small>
         </label>
         <label className="rendering-toggle">
           <span>
-            <strong>{copy(site, 'Earth and sky')}</strong>
-            <small>
-              {copy(site, 'The animated background behind the spacecraft.')}
-            </small>
+            <strong>{'Earth and sky'}</strong>
+            <small>{'The animated background behind the spacecraft.'}</small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label={copy(site, 'Earth and sky')}
+            aria-label={'Earth and sky'}
             checked={settings.background}
             aria-checked={settings.background}
             onChange={(event) =>
@@ -307,25 +291,19 @@ export function RenderingControls({
         </label>
         <label className="rendering-toggle">
           <span>
-            <strong>{copy(site, 'Spacecraft caching')}</strong>
+            <strong>{'Spacecraft caching'}</strong>
             <small>
               {state.cacheAvailable
-                ? copy(
-                    site,
-                    'Reuse stationary pixels while moving parts stay live.',
-                  )
+                ? 'Reuse stationary pixels while moving parts stay live.'
                 : !state.cacheLightingSupported
-                  ? copy(site, 'Unavailable with cabin shadow lights.')
-                  : copy(
-                      site,
-                      'Available on wider screens with shadows and contact shading on.',
-                    )}
+                  ? 'Unavailable with cabin shadow lights.'
+                  : 'Available on wider screens with shadows and contact shading on.'}
             </small>
           </span>
           <input
             type="checkbox"
             role="switch"
-            aria-label={copy(site, 'Spacecraft caching')}
+            aria-label={'Spacecraft caching'}
             checked={settings.spacecraftCache && state.cacheAvailable}
             aria-checked={settings.spacecraftCache && state.cacheAvailable}
             disabled={!state.cacheAvailable}
@@ -341,11 +319,9 @@ export function RenderingControls({
             onClick={() => onChange({ ...DEFAULT_RENDERING_SETTINGS })}
           >
             <RotateCcw size={15} aria-hidden="true" />
-            {copy(site, 'Reset defaults')}
+            {'Reset defaults'}
           </button>
-          <small>
-            {copy(site, 'Temporary for this visit. Reload restores defaults.')}
-          </small>
+          <small>{'Temporary for this visit. Reload restores defaults.'}</small>
         </footer>
       </div>
     </section>,

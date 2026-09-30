@@ -58,7 +58,11 @@ export async function POST(req: Request) {
             .prepare(
               "INSERT INTO content (id,kind,draft,published,revision,updated_at) VALUES (?,'media',?,NULL,1,?)",
             )
-            .bind(asset.id, JSON.stringify(asset.data), now),
+            .bind(
+              asset.id,
+              JSON.stringify({ ...asset.data, ownerId: id }),
+              now,
+            ),
         ),
         db
           .prepare(

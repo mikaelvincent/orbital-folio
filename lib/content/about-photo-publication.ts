@@ -9,7 +9,9 @@ export function directAboutPhotoMediaIds(
   const id =
     kind === 'site'
       ? data.portraitMediaId
-      : kind === 'link' && ['left', 'center', 'right'].includes(data.aboutSlot)
+      : kind === 'link' &&
+          data.room !== 'contact' &&
+          ['left', 'center', 'right'].includes(data.aboutSlot)
         ? data.iconMediaId
         : undefined;
   if (!id) return [];
@@ -60,11 +62,16 @@ export function validateAboutPhotoPublication(
           : 'Choose image media for the About photograph.',
       );
   }
-  if (kind === 'link' && ['left', 'center', 'right'].includes(data.aboutSlot)) {
+  if (
+    kind === 'link' &&
+    data.room !== 'contact' &&
+    ['left', 'center', 'right'].includes(data.aboutSlot)
+  ) {
     const occupied = records.find(
       (record) =>
         record.kind === 'link' &&
         record.id !== id &&
+        record.published?.room !== 'contact' &&
         record.published?.aboutSlot === data.aboutSlot,
     );
     if (occupied)

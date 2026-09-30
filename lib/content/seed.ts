@@ -121,6 +121,7 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
       data: {
         title: 'GitHub',
         platform: 'github',
+        room: 'contact',
         screen: 'left',
         description: 'Code & projects',
         url: 'https://github.com',
@@ -133,6 +134,7 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
       data: {
         title: 'LinkedIn',
         platform: 'linkedin',
+        room: 'contact',
         screen: 'right',
         description: 'Work & connections',
         url: 'https://www.linkedin.com',

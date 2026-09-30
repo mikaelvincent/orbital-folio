@@ -884,3 +884,94 @@
     scroll-behavior: auto;
   }
 }
+
+/* Private inbox */
+.studio-inbox .studio-panel-header p {
+  margin: 8px 0 0;
+}
+.inbox-filters {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+.inbox-filters button {
+  border: 1px solid var(--studio-line);
+  background: transparent;
+  color: var(--carbon);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.inbox-filters button[aria-pressed='true'] {
+  background: var(--carbon);
+  border-color: var(--carbon);
+  color: var(--ivory);
+}
+.studio-inbox .inquiry {
+  border: 1px solid var(--studio-line);
+  border-left: 3px solid transparent;
+  border-radius: 8px;
+  padding: 22px;
+  margin: 14px 0;
+}
+.studio-inbox .inquiry[data-unread='true'] {
+  border-left-color: var(--bronze);
+  background: color-mix(in srgb, var(--bronze) 4%, var(--ivory));
+}
+.inquiry-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+}
+.inquiry-meta time {
+  margin-left: auto;
+}
+.studio-inbox .inquiry h3 {
+  margin: 17px 0 4px;
+}
+.studio-inbox .inquiry-email {
+  margin: 0 0 18px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.inquiry details summary {
+  cursor: pointer;
+  width: fit-content;
+  font-size: 14px;
+}
+.studio-inbox .inquiry-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 18px;
+  line-height: 1.7;
+}
+.inquiry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 16px;
+  margin-top: 20px;
+  align-items: center;
+}
+.inquiry-actions .button {
+  font-size: 13px;
+}
+.inquiry-actions .delete-button {
+  margin-left: auto;
+}
+@media (max-width: 700px) {
+  .studio-inbox .inquiry {
+    padding: 17px;
+  }
+  .inquiry-meta time {
+    width: 100%;
+    margin: 0;
+  }
+  .inquiry-actions .delete-button {
+    margin: 0;
+  }
+}

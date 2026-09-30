@@ -21,6 +21,30 @@ export async function POST(req: Request) {
     const form = await readForm(req, MEDIA_LIMITS.video + 65536);
     const file = form.get('file');
     const alt = formText(form, 'alt').trim();
+    const ownerId = formText(form, 'ownerId');
+    const ownerField = formText(form, 'ownerField');
+    if (ownerId) {
+      if (!/^[a-zA-Z0-9-]{1,100}$/.test(ownerId))
+        throw new HttpError(400, 'Invalid media owner.');
+      const parent = await database()
+        .prepare('SELECT kind FROM content WHERE id=?')
+        .bind(ownerId)
+        .first<{ kind: string }>();
+      if (
+        !parent ||
+        !['site', 'project', 'experience', 'journal', 'link'].includes(
+          parent.kind,
+        )
+      )
+        throw new HttpError(400, 'Save the entry before attaching media.');
+      if (
+        ownerField &&
+        (parent.kind !== 'site' ||
+          !['portraitMediaId', 'seoImageId'].includes(ownerField))
+      )
+        throw new HttpError(400, 'Invalid media attachment field.');
+    } else if (ownerField)
+      throw new HttpError(400, 'Choose an entry for this upload.');
     if (!(file instanceof File))
       throw new HttpError(400, 'Choose a media file.');
     if (!alt || alt.length > 1000)
@@ -32,6 +56,8 @@ export async function POST(req: Request) {
     validateMediaBytes(bytes, mime);
     const id = crypto.randomUUID();
     const data = {
+      ...(ownerId ? { ownerId } : {}),
+      ...(ownerField ? { ownerField } : {}),
       title: file.name.slice(0, 150),
       alt,
       url: '/media/' + id,

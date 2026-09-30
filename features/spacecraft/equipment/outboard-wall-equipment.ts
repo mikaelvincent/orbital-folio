@@ -1,14 +1,12 @@
-import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
-
 /** Wall-mounted equipment. Local XY follows the wall; +Z faces the cabin. */
 export function buildOutboardWallEquipment(
   THREE: any,
   h: any,
   root: any,
   kind: 'communications' | 'recorder',
-  site?: Record<string, any>,
+  _site?: Record<string, any>,
 ) {
   const prefix = `outboard-${kind}-`;
   const material = (
@@ -117,7 +115,6 @@ export function buildOutboardWallEquipment(
     plane.position.set(x, y, z);
     plane.castShadow = false;
   };
-
   // Four feet touch the pressure wall; separated rails avoid an extra wall skin.
   for (const x of [-0.56, 0.56]) {
     for (const y of [-0.76, 0.78]) {
@@ -145,7 +142,7 @@ export function buildOutboardWallEquipment(
         0.009,
       );
       label(
-        index === 0 ? copy(site, 'UPLINK') : copy(site, 'VOICE'),
+        index === 0 ? 'UPLINK' : 'VOICE',
         0.32,
         0.041,
         -0.2,
@@ -403,14 +400,12 @@ export function buildOutboardWallEquipment(
       }
     }
   }
-
   if (kind === 'communications') {
     // The radio stack retains its service light; the passive thermal loop has
     // no illuminated header that could be mistaken for an interface.
     box(1.15, 0.06, 0.1, m.dark, 0, 0.797, 0.075, 'lamp-hood');
     box(0.86, 0.014, 0.027, m.light, 0, 0.766, 0.097, 'lamp-diffuser', 0.005);
   }
-
   const bolt = new THREE.CylinderGeometry(0.013, 0.013, 0.004, 12);
   bolt.rotateX(Math.PI / 2);
   h.instances(

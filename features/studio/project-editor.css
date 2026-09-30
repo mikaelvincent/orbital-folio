@@ -337,3 +337,45 @@
     flex: 1 1 140px;
   }
 }
+.local-media-editor {
+  margin-top: 20px;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 20px;
+}
+.local-media-editor > summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.local-media-editor > p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.local-media-list {
+  display: grid;
+  gap: 18px;
+}
+.local-media-item {
+  min-width: 0;
+  border: 1px solid var(--studio-line);
+  padding: 18px;
+  border-radius: 8px;
+}
+.local-media-item legend {
+  padding: 0 5px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.local-media-item .studio-field {
+  margin-bottom: 14px;
+}
+.local-media-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.local-media-confirm {
+  margin-top: 18px;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 12px;
+}

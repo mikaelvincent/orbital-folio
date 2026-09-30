@@ -1,6 +1,5 @@
 'use client';
-import { interfaceText as copy } from '@/lib/content/interface-text';
-
+import { formatText } from '@/lib/content/interface-text';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Pause, Play, RotateCcw, X } from 'lucide-react';
@@ -13,27 +12,22 @@ import {
   MAX_EARTH_PLAYBACK_SPEED,
 } from './earth-playback';
 import './earth-playback-controls.css';
-
 function timestamp(seconds: number) {
   const value = Math.max(0, Math.round(seconds));
   return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`;
 }
-
 /** Temporary, local-only inspection controls; no saved settings or global clock edits. */
 export function EarthPlaybackControls({
-  site,
   controller,
   motionPaused,
   onClose,
 }: {
-  site: Record<string, any>;
   controller: EarthPlaybackController | null;
   motionPaused: boolean;
   onClose: () => void;
 }) {
   const [state, setState] = useState(() => controller?.getEarthPlayback());
   const heading = useRef<HTMLHeadingElement>(null);
-
   useEffect(() => {
     if (!controller) return;
     controller.setEarthPlayback({ type: 'open' });
@@ -46,7 +40,6 @@ export function EarthPlaybackControls({
       controller.setEarthPlayback({ type: 'close' });
     };
   }, [controller]);
-
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
     const escape = (event: KeyboardEvent) => {
@@ -58,14 +51,12 @@ export function EarthPlaybackControls({
     document.addEventListener('keydown', escape);
     return () => document.removeEventListener('keydown', escape);
   }, [onClose]);
-
   const command = (value: EarthPlaybackCommand) => {
     if (!controller) return;
     controller.setEarthPlayback(value);
     setState(controller.getEarthPlayback());
   };
   const ready = !!state?.ready;
-
   if (!state) return null;
   return createPortal(
     <section
@@ -78,32 +69,25 @@ export function EarthPlaybackControls({
     >
       <header>
         <div>
-          <span className="earth-playback-eyebrow">
-            {copy(site, 'EUROPE AT NIGHT')}
-          </span>
+          <span className="earth-playback-eyebrow">{'EUROPE AT NIGHT'}</span>
           <h2 id="earth-playback-title" ref={heading} tabIndex={-1}>
-            {copy(site, 'Earth playback')}
+            {'Earth playback'}
           </h2>
         </div>
         <button
           type="button"
           className="earth-playback-close"
-          aria-label={copy(site, 'Close playback panel')}
+          aria-label={'Close playback panel'}
           onClick={onClose}
         >
           <X size={19} aria-hidden="true" />
         </button>
       </header>
       <p id="earth-playback-description">
-        {copy(
-          site,
-          'Explore one seamless loop. Drag the timeline to pause at any point.',
-        )}
+        {'Explore one seamless loop. Drag the timeline to pause at any point.'}
       </p>
       <div className="earth-playback-label">
-        <label htmlFor="earth-loop-position">
-          {copy(site, 'Loop position')}
-        </label>
+        <label htmlFor="earth-loop-position">{'Loop position'}</label>
         <output htmlFor="earth-loop-position" aria-live="off">
           {timestamp(state.time)} <span>/ {timestamp(state.duration)}</span>
         </output>
@@ -116,7 +100,7 @@ export function EarthPlaybackControls({
         step={0.1}
         value={state.time}
         disabled={!ready}
-        aria-valuetext={copy(site, '{time} of {duration}', {
+        aria-valuetext={formatText('{time} of {duration}', {
           time: timestamp(state.time),
           duration: timestamp(state.duration),
         })}
@@ -139,24 +123,20 @@ export function EarthPlaybackControls({
           ) : (
             <Play size={16} aria-hidden="true" />
           )}
-          {state.playing && !motionPaused
-            ? copy(site, 'Pause')
-            : copy(site, 'Play')}
+          {state.playing && !motionPaused ? 'Pause' : 'Play'}
         </button>
         <button
           type="button"
           disabled={!ready}
           onClick={() => command({ type: 'reset' })}
-          title={copy(site, 'Restart at normal speed')}
+          title={'Restart at normal speed'}
         >
           <RotateCcw size={15} aria-hidden="true" />
-          {copy(site, 'Restart')}
+          {'Restart'}
         </button>
       </div>
       <div className="earth-playback-label">
-        <label htmlFor="earth-playback-speed">
-          {copy(site, 'Playback speed')}
-        </label>
+        <label htmlFor="earth-playback-speed">{'Playback speed'}</label>
         <output htmlFor="earth-playback-speed" aria-live="off">
           {state.speed}×
         </output>
@@ -175,28 +155,24 @@ export function EarthPlaybackControls({
             speed: Number(event.currentTarget.value),
           })
         }
-        aria-valuetext={copy(site, '{speed} times the normal site speed', {
+        aria-valuetext={formatText('{speed} times the normal site speed', {
           speed: state.speed,
         })}
       />
       <p className="earth-playback-note">
         {!ready
-          ? copy(site, 'Loading Earth…')
+          ? 'Loading Earth…'
           : motionPaused
-            ? copy(
-                site,
-                'Reduced motion is on. Use the timeline to preview still frames.',
-              )
-            : copy(site, 'Full loop in {time} at {speed}×.', {
+            ? 'Reduced motion is on. Use the timeline to preview still frames.'
+            : formatText('Full loop in {time} at {speed}×.', {
                 time: timestamp(state.duration / state.speed),
                 speed: state.speed,
               })}
       </p>
       <footer>
-        {copy(
-          site,
-          '1× is the current site speed. Closing restores 1× from this point. Nothing is saved.',
-        )}
+        {
+          '1× is the current site speed. Closing restores 1× from this point. Nothing is saved.'
+        }
       </footer>
     </section>,
     document.body,

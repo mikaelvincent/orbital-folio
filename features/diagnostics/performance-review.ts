@@ -1,30 +1,43 @@
-import { interfaceText as copy } from '../../lib/content/interface-text.ts';
-type Sample = { mean: number; p95: number; samples: number } | null;
-type Frame = { rafNow: number; cpuTotalMs: number; intervalMs: number | null };
-
+import { formatText } from '../../lib/content/interface-text.ts';
+type Sample = {
+  mean: number;
+  p95: number;
+  samples: number;
+} | null;
+type Frame = {
+  rafNow: number;
+  cpuTotalMs: number;
+  intervalMs: number | null;
+};
 export type ReviewCapture = {
   kind?: 'baseline' | 'comparison' | 'confirmation' | 'custom';
   actualDurationMs: number;
   requestedDurationMs: number;
   settings: Record<string, unknown>;
   report: {
-    window: { frames: number; durationMs: number; renderedFps: number | null };
+    window: {
+      frames: number;
+      durationMs: number;
+      renderedFps: number | null;
+    };
     cpuTotal: Sample;
     frameInterval: Sample;
-    gpu: { status: string; phases: Record<string, Sample> };
+    gpu: {
+      status: string;
+      phases: Record<string, Sample>;
+    };
     activity?: Record<string, unknown>;
     frames?: Frame[];
   };
 };
-
 /** First and last windows are disjoint, including for a ten-second capture. */
 export function captureTrend(capture: ReviewCapture) {
   const frames = capture.report.frames || [];
   if (frames.length < 4) return null;
   const start = frames[0].rafNow;
   const end = frames[frames.length - 1].rafNow;
-  const span = Math.min(5_000, (end - start) / 2);
-  if (span < 1_000) return null;
+  const span = Math.min(5000, (end - start) / 2);
+  if (span < 1000) return null;
   const average = (values: Array<number | null>) => {
     const valid = values.filter(
       (value): value is number => value !== null && Number.isFinite(value),
@@ -43,7 +56,6 @@ export function captureTrend(capture: ReviewCapture) {
     lateFrameMs: average(late.map((frame) => frame.intervalMs)),
   };
 }
-
 function sameValue(a: unknown, b: unknown, tolerance = 0) {
   if (Array.isArray(a) && Array.isArray(b))
     return (
@@ -56,11 +68,9 @@ function sameValue(a: unknown, b: unknown, tolerance = 0) {
     );
   return a === b;
 }
-
 export function comparisonWarnings(
   baseline: ReviewCapture,
   comparison: ReviewCapture,
-  site: Record<string, any> = {},
 ) {
   const warnings: string[] = [];
   const source = baseline.settings;
@@ -102,18 +112,13 @@ export function comparisonWarnings(
     source.aoEnabled === true &&
     target.aoEnabled === false;
   if (sourceExperiment !== 'normal' || sourceFilter.mode !== 'all')
-    warnings.push(
-      copy(site, 'The reference capture did not use the full normal scene.'),
-    );
+    warnings.push('The reference capture did not use the full normal scene.');
   if (
     comparison.kind === 'confirmation' &&
     (targetExperiment !== 'normal' || targetFilter.mode !== 'all')
   )
     warnings.push(
-      copy(
-        site,
-        'The repeated baseline has not restored the full normal scene.',
-      ),
+      'The repeated baseline has not restored the full normal scene.',
     );
   if (
     comparison.kind === 'comparison' &&
@@ -121,37 +126,34 @@ export function comparisonWarnings(
     targetFilter.mode !== 'all'
   )
     warnings.push(
-      copy(
-        site,
-        'More than one rendering change is active. Compare one change at a time.',
-      ),
+      'More than one rendering change is active. Compare one change at a time.',
     );
   for (const [key, label, tolerance] of [
-    ['viewport', copy(site, 'viewport size'), 0],
-    ['room', copy(site, 'room'), 0],
-    ['cameraPosition', copy(site, 'camera position'), 0.002],
-    ['cameraQuaternion', copy(site, 'camera angle'), 0.001],
-    ['build', copy(site, 'build'), 0],
-    ['threeRevision', copy(site, 'renderer version'), 0],
-    ['userAgent', copy(site, 'browser'), 0],
-    ['nativePixelRatio', copy(site, 'display scaling'), 0],
-    ['reducedMotion', copy(site, 'motion setting'), 0],
-    ['hardwareConcurrency', copy(site, 'reported CPU thread count'), 0],
-    ['drawingBuffer', copy(site, 'drawing buffer size'), 0],
-    ['pixelRatio', copy(site, 'render pixel ratio'), 1e-6],
-    ['aoEnabled', copy(site, 'contact shading setting'), 0],
-    ['aoBuffer', copy(site, 'contact shading resolution'), 0],
-    ['aoSamples', copy(site, 'contact shading sample count'), 0],
-    ['denoiseSamples', copy(site, 'denoising sample count'), 0],
-    ['shadowsEnabled', copy(site, 'shadow setting'), 0],
-    ['shadowMap', copy(site, 'shadow resolution'), 0],
-    ['shadowSoftness', copy(site, 'shadow softness'), 0],
-    ['exteriorLight', copy(site, 'exterior light brightness'), 0],
-    ['roomLight', copy(site, 'room light brightness'), 0],
-    ['ladderLight', copy(site, 'ladder light brightness'), 0],
-    ['backgroundEnabled', copy(site, 'background setting'), 0],
-    ['spacecraftCacheEnabled', copy(site, 'spacecraft caching setting'), 0],
-    ['quality', copy(site, 'render quality setting'), 0],
+    ['viewport', 'viewport size', 0],
+    ['room', 'room', 0],
+    ['cameraPosition', 'camera position', 0.002],
+    ['cameraQuaternion', 'camera angle', 0.001],
+    ['build', 'build', 0],
+    ['threeRevision', 'renderer version', 0],
+    ['userAgent', 'browser', 0],
+    ['nativePixelRatio', 'display scaling', 0],
+    ['reducedMotion', 'motion setting', 0],
+    ['hardwareConcurrency', 'reported CPU thread count', 0],
+    ['drawingBuffer', 'drawing buffer size', 0],
+    ['pixelRatio', 'render pixel ratio', 1e-6],
+    ['aoEnabled', 'contact shading setting', 0],
+    ['aoBuffer', 'contact shading resolution', 0],
+    ['aoSamples', 'contact shading sample count', 0],
+    ['denoiseSamples', 'denoising sample count', 0],
+    ['shadowsEnabled', 'shadow setting', 0],
+    ['shadowMap', 'shadow resolution', 0],
+    ['shadowSoftness', 'shadow softness', 0],
+    ['exteriorLight', 'exterior light brightness', 0],
+    ['roomLight', 'room light brightness', 0],
+    ['ladderLight', 'ladder light brightness', 0],
+    ['backgroundEnabled', 'background setting', 0],
+    ['spacecraftCacheEnabled', 'spacecraft caching setting', 0],
+    ['quality', 'render quality setting', 0],
   ] as const) {
     if (key === 'drawingBuffer' && halfResolution && expectedHalfBuffer)
       continue;
@@ -172,26 +174,18 @@ export function comparisonWarnings(
     )
       continue;
     if (!sameValue(source[key], target[key], tolerance))
-      warnings.push(copy(site, 'The {value1} changed.', { value1: label }));
+      warnings.push(formatText('The {value1} changed.', { value1: label }));
   }
   if (halfResolution && sameValue(source.drawingBuffer, target.drawingBuffer))
     warnings.push(
-      copy(
-        site,
-        'The half-resolution experiment did not change the drawing buffer.',
-      ),
+      'The half-resolution experiment did not change the drawing buffer.',
     );
   if (baseline.requestedDurationMs !== comparison.requestedDurationMs)
-    warnings.push(
-      copy(site, 'Capture lengths differ. Use the same length for both runs.'),
-    );
+    warnings.push('Capture lengths differ. Use the same length for both runs.');
   for (const capture of [baseline, comparison]) {
     if (capture.report.window.durationMs < capture.actualDurationMs * 0.9) {
       warnings.push(
-        copy(
-          site,
-          'At least one result covers only part of its recording. Check the retained window.',
-        ),
+        'At least one result covers only part of its recording. Check the retained window.',
       );
       break;
     }
@@ -202,21 +196,14 @@ export function comparisonWarnings(
     );
   if (active(baseline).length || active(comparison).length)
     warnings.push(
-      copy(
-        site,
-        'Movement or interaction occurred. Repeat the same action, or compare two still views.',
-      ),
+      'Movement or interaction occurred. Repeat the same action, or compare two still views.',
     );
   if (!baseline.report.window.frames || !comparison.report.window.frames)
     warnings.push(
-      copy(
-        site,
-        'A capture has no rendered frames; the comparison is inconclusive.',
-      ),
+      'A capture has no rendered frames; the comparison is inconclusive.',
     );
   return warnings;
 }
-
 /** Drift is a reason to repeat the test, not evidence of a thermal cause. */
 export function baselineDrift(
   baseline: ReviewCapture,

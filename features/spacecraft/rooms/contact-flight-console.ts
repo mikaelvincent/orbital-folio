@@ -341,16 +341,11 @@ export function buildContactFlightConsole(
       ctx.textAlign = 'center';
       ctx.fillStyle = PALETTE.textMuted;
       ctx.font = '500 48px sans-serif';
-      ctx.fillText(copy(options.site, 'STANDBY'), cw / 2, ch * 0.73, cw * 0.8);
+      ctx.fillText('STANDBY', cw / 2, ch * 0.73, cw * 0.8);
     } else if (kind === 'contact') {
       ctx.font = '500 24px sans-serif';
       ctx.fillStyle = PALETTE.ivory;
-      ctx.fillText(
-        options.site?.contactRoom || copy(options.site, 'COMMUNICATIONS'),
-        67,
-        61,
-        cw - 134,
-      );
+      ctx.fillText('COMMUNICATIONS', 67, 61, cw - 134);
       ctx.fillStyle = PALETTE.ivory;
       ctx.font = '600 92px sans-serif';
       ctx.textAlign = 'center';
@@ -387,9 +382,9 @@ export function buildContactFlightConsole(
       ctx.fillStyle = PALETTE.ivory;
       ctx.font = '500 21px monospace';
       ctx.textAlign = 'left';
-      ctx.fillText(copy(options.site, 'COM / 01'), 69, ch - 89, 380);
+      ctx.fillText('COM / 01', 69, ch - 89, 380);
       ctx.textAlign = 'right';
-      ctx.fillText(copy(options.site, 'OPEN TO CONNECT'), 952, ch - 89, 450);
+      ctx.fillText('OPEN TO CONNECT', 952, ch - 89, 450);
     } else {
       const side = kind === 'link' ? 'left' : 'right';
       drawSocialChannel(ctx, cw, ch, link || null, side, options.site);

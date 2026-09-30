@@ -71,7 +71,7 @@ export function useStudioModelTools({
         });
         if (!result)
           throw new Error('Draft validation or authorization failed.');
-        onSaved(r);
+        onSaved(result.records.find((record: Content) => record.id === r.id));
         return { id: r.id, status: 'draft_saved' };
       },
     });

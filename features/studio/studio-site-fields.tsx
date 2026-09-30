@@ -1,9 +1,6 @@
 'use client';
+import { entryMedia } from './entry-media';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from '@/components/ui/native-select';
 import { interfaceText } from '@/lib/content/interface-text';
 import type { Content } from '@/lib/content/types';
 import { seedSite } from '@/lib/content/seed';
@@ -27,6 +24,8 @@ export function StudioSiteFields({
   busy,
   onUpload,
   onPublishAssets,
+  onMediaAction,
+  onMediaDirtyChange,
 }: {
   data: Record<string, any>;
   setData: (data: Record<string, any>) => void;
@@ -85,9 +84,11 @@ export function StudioSiteFields({
                       description="Used in the room frame and reading view."
                       emptyLabel="Use the default artwork"
                       mediaId={value}
-                      records={records}
+                      records={entryMedia(records, 'site', data, 'site', key)}
                       busy={busy}
-                      onUpload={onUpload}
+                      onUpload={(file, alt) => onUpload(file, alt, key)}
+                      onMediaAction={onMediaAction}
+                      onMediaDirtyChange={onMediaDirtyChange}
                       onPublishAssets={onPublishAssets}
                       onSelect={(id) =>
                         setData({
@@ -136,34 +137,22 @@ export function StudioSiteFields({
                   );
                 if (key === 'seoImageId')
                   return (
-                    <label className="studio-field" key={key}>
-                      {fieldLabel(key)}
-                      <NativeSelect
-                        value={value}
-                        onChange={(event) =>
-                          setData({ ...data, [key]: event.target.value })
-                        }
-                      >
-                        <NativeSelectOption value="">
-                          No image
-                        </NativeSelectOption>
-                        {records
-                          .filter(
-                            (record) =>
-                              record.kind === 'media' &&
-                              String(record.draft.mime).startsWith('image/'),
-                          )
-                          .map((record) => (
-                            <NativeSelectOption
-                              key={record.id}
-                              value={record.id}
-                            >
-                              {record.draft.title}
-                              {record.published ? '' : ' (draft)'}
-                            </NativeSelectOption>
-                          ))}
-                      </NativeSelect>
-                    </label>
+                    <PhotoMediaFields
+                      key={key}
+                      title="Social preview image"
+                      description="The image used when this portfolio is shared."
+                      emptyLabel="No image"
+                      mediaId={value}
+                      records={entryMedia(records, 'site', data, 'site', key)}
+                      busy={busy}
+                      onUpload={(file, alt) => onUpload(file, alt, key)}
+                      onPublishAssets={onPublishAssets}
+                      onMediaAction={onMediaAction}
+                      onMediaDirtyChange={onMediaDirtyChange}
+                      onSelect={(id) => setData({ ...data, [key]: id })}
+                    >
+                      {() => null}
+                    </PhotoMediaFields>
                   );
                 const long =
                   /Intro|Text|Message|Description|biography|headline/.test(

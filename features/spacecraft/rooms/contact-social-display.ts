@@ -1,3 +1,4 @@
+import { formatText } from '../../../lib/content/interface-text.ts';
 import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import {
@@ -21,7 +22,7 @@ export function drawSocialChannel(
   ctx.fillStyle = link ? PALETTE.ivory : PALETTE.textMuted;
   ctx.font = `500 ${width * 0.037}px monospace`;
   ctx.fillText(
-    copy(site, 'COM / {number}', { number: side === 'left' ? '02' : '03' }),
+    formatText('COM / {number}', { number: side === 'left' ? '02' : '03' }),
     pad,
     height * 0.082,
     width - pad * 2 - width * 0.03,
@@ -90,7 +91,7 @@ export function drawSocialChannel(
   );
   text(
     link?.description ||
-      (link ? copy(site, 'Connect with me') : copy(site, 'Channel standby')),
+      (link ? copy(site, 'Connect with me') : 'Channel standby'),
     height * 0.75,
     width * 0.061,
     link ? PALETTE.ivory : PALETTE.textMuted,
@@ -103,7 +104,7 @@ export function drawSocialChannel(
   ctx.lineTo(width - pad, height * 0.815);
   ctx.stroke();
   text(
-    link ? copy(site, 'Open link') : copy(site, 'NO LINK ASSIGNED'),
+    link ? copy(site, 'Open link') : 'NO LINK ASSIGNED',
     height * 0.905,
     width * (link ? 0.071 : 0.038),
     PALETTE.ivory,

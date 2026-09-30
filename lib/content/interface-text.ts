@@ -1,3 +1,5 @@
+import { retiredInterfaceText } from './retired-interface-text.ts';
+const retired = new Set(retiredInterfaceText);
 // These defaults already have a dedicated field in the site record. The Studio
 // omits duplicate message inputs so there is one authoritative setting.
 export const interfaceTextSiteFields: Record<string, string> = {
@@ -7,7 +9,6 @@ export const interfaceTextSiteFields: Record<string, string> = {
   'Built with': 'stackLabel',
   'Open live project': 'demoLabel',
   'View source code': 'codeLabel',
-  COMMUNICATIONS: 'contactRoom',
   'Previous page in section': 'previousPageLabel',
   'Next page in section': 'nextPageLabel',
   'A little about me': 'aboutHeading',
@@ -26,10 +27,19 @@ export function interfaceText(
   const overrides = site?.interfaceText;
   const template =
     overrides &&
+    !retired.has(message) &&
     Object.hasOwn(overrides, message) &&
     typeof overrides[message] === 'string'
       ? overrides[message]
       : message;
+  return formatText(template, values);
+}
+
+/** Plain interpolation for fixed developer controls and decorative labels. */
+export function formatText(
+  template: string,
+  values: Record<string, string | number> = {},
+) {
   return template.replace(
     /\{([a-zA-Z][a-zA-Z0-9]*)\}/g,
     (token: string, key: string) =>

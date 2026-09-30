@@ -18,6 +18,7 @@ export const aboutSlots = [
 export type AboutSlot = (typeof aboutSlots)[number]['id'];
 export type SocialLink = {
   id: string;
+  room?: 'about' | 'contact';
   title: string;
   url: string;
   platform: SocialPlatform;
@@ -76,6 +77,8 @@ export function socialIcon(id: string) {
 }
 export function socialLinkDraft(data: Record<string, any>) {
   return {
+    ...(data.room ? { room: data.room } : {}),
+    ...(data.legacyLinkId ? { legacyLinkId: data.legacyLinkId } : {}),
     title: data.title || '',
     url: data.url || '',
     order: data.order ?? 0,
@@ -135,7 +138,9 @@ function normalizedSocialLinks(records: Record<string, any>[]): SocialLink[] {
 export function resolveSocialScreens(
   records: Record<string, any>[],
 ): SocialScreenLinks {
-  const links = normalizedSocialLinks(records);
+  const links = normalizedSocialLinks(records).filter(
+    (link) => link.room !== 'about',
+  );
   const result: SocialScreenLinks = { left: null, right: null };
   for (const side of ['left', 'right'] as const)
     result[side] = links.find((l) => l.screen === side) || null;
@@ -150,7 +155,9 @@ export function resolveSocialScreens(
 export function resolveAboutSocials(
   records: Record<string, any>[],
 ): AboutSocialLinks {
-  const links = normalizedSocialLinks(records);
+  const links = normalizedSocialLinks(records).filter(
+    (link) => link.room !== 'contact',
+  );
   return {
     left: links.find((link) => link.aboutSlot === 'left') || null,
     center: links.find((link) => link.aboutSlot === 'center') || null,

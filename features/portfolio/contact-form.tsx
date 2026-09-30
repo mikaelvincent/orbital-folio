@@ -155,9 +155,8 @@ export function ContactForm({
     <div className="contact-app" data-contact-mode={mode ?? 'choose'}>
       <div className="contact-app-toolbar">
         <div>
-          <p className="contact-app-eyebrow">{s.contactRoom}</p>
-          <h1>{s.contactHeading}</h1>
-          <p className="contact-app-intro">{s.contactIntro}</p>
+          <p className="contact-app-eyebrow">OPEN A CONVERSATION</p>
+          <h1>{copy(s, 'Let’s connect.')}</h1>
         </div>
         {!emailOpen && email && (
           <button
@@ -271,7 +270,9 @@ export function ContactForm({
         <div className="contact-app-result" role="status">
           <Check size={28} />
           <h3>
-            {status === 'demo' ? copy(s, 'Preview complete.') : s.sentHeading}
+            {status === 'demo'
+              ? copy(s, 'Preview complete.')
+              : copy(s, 'Message received.')}
           </h3>
           <p>
             {status === 'demo'
@@ -279,7 +280,10 @@ export function ContactForm({
                   s,
                   'Nothing was sent or saved, and no call was booked. You can still edit the details or use email to get in touch.',
                 )
-              : s.sentMessage}
+              : copy(
+                  s,
+                  'Your message was saved to my private inbox. Thank you for getting in touch.',
+                )}
           </p>
           <button type="button" disabled={!ready} onClick={beginAgain}>
             {status === 'demo'
@@ -457,7 +461,7 @@ export function ContactForm({
           </fieldset>
           <div className="honeypot" aria-hidden="true">
             <label htmlFor={`${id}-website`}>
-              {copy(s, 'Website')}
+              Website
               <input
                 id={`${id}-website`}
                 name="website"
@@ -481,7 +485,7 @@ export function ContactForm({
                 )
               ) : (
                 <>
-                  {s.contactPrivacy}{' '}
+                  {copy(s, 'Only used to respond to your inquiry.')}{' '}
                   <a href={pathFor('/privacy', s)}>{s.privacyLabel}</a>
                 </>
               )}
@@ -492,10 +496,10 @@ export function ContactForm({
               type="submit"
             >
               {status === 'sending'
-                ? s.sendingLabel
+                ? copy(s, 'Sending…')
                 : mode === 'call'
                   ? copy(s, 'Request a call')
-                  : s.sendLabel}
+                  : copy(s, 'Send message')}
               <Send size={16} />
             </button>
           </div>

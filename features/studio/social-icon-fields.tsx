@@ -11,6 +11,8 @@ import {
 import type { PhotoMediaActions } from './about-photo-fields';
 import { prepareSocialIconUpload } from './social-icon-upload';
 import './social-icon-fields.css';
+import { attachmentPublication } from './entry-media';
+import { LocalMediaEditor } from './local-media-editor';
 
 export function SocialIconMark({ platform }: { platform: string }) {
   const icon = socialIcon(platform);
@@ -39,6 +41,8 @@ export function SocialIconFields({
   busy,
   onUpload,
   onPublishAssets,
+  onMediaAction,
+  onMediaDirtyChange,
   onPreparingChange,
 }: PhotoMediaActions & {
   mediaId: string;
@@ -69,8 +73,8 @@ export function SocialIconFields({
       record.draft.mime === 'image/png',
   );
   const src = media ? projectContentUrl(media.draft.url, 'media') : '';
-  const pending =
-    media && JSON.stringify(media.draft) !== JSON.stringify(media.published);
+  const publication = attachmentPublication(mediaId, records);
+  const pending = media && publication.pending.length > 0;
   const preset = socialIcon(platform);
   return (
     <fieldset
@@ -98,7 +102,7 @@ export function SocialIconFields({
         </div>
         <div>
           <label className="studio-field">
-            Custom icon from library (optional)
+            Attached custom icon (optional)
             <NativeSelect
               value={mediaId}
               onChange={(event) => {
@@ -127,10 +131,7 @@ export function SocialIconFields({
                   </NativeSelectOption>
                 ))}
             </NativeSelect>
-            <small>
-              A custom PNG replaces this About card’s preset. Contact keeps its
-              platform icon.
-            </small>
+            <small>A custom PNG replaces this About card’s preset.</small>
           </label>
           {mediaId && (
             <button
@@ -144,7 +145,8 @@ export function SocialIconFields({
           {media && (
             <p className="social-icon-description">
               <strong>Description:</strong>{' '}
-              {media.draft.alt || 'Add a description in the Media library.'}
+              {media.draft.alt ||
+                'Add a description in Attachment details below.'}
             </p>
           )}
           {mediaId && !media && (
@@ -244,12 +246,24 @@ export function SocialIconFields({
           <button
             type="button"
             className="button"
-            onClick={() => void onPublishAssets([media])}
+            onClick={() => void onPublishAssets(publication.pending)}
           >
             {media.published ? 'Publish icon changes' : 'Publish selected icon'}
           </button>
         </div>
       )}
+      {publication.error && (
+        <p className="form-error" role="status">
+          {publication.error}
+        </p>
+      )}
+      <LocalMediaEditor
+        records={records}
+        busy={busy}
+        onAction={onMediaAction}
+        onDirtyChange={onMediaDirtyChange}
+        onPublishAssets={onPublishAssets}
+      />
     </fieldset>
   );
 }

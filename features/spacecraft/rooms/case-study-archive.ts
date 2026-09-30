@@ -1,3 +1,4 @@
+import { formatText } from '../../../lib/content/interface-text.ts';
 import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
@@ -496,7 +497,7 @@ export function buildCaseStudyArchive(
   const categories = CASE_STUDY_CATEGORIES.map(({ id, label }, index) => ({
     title: copy(options.site, label),
     kind: id,
-    code: copy(options.site, 'FR–{number}', {
+    code: formatText('FR–{number}', {
       number: String(index + 1).padStart(2, '0'),
     }),
     active: false,
@@ -840,9 +841,7 @@ export function buildCaseStudyArchive(
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
-        terminalAvailable
-          ? copy(options.site, 'Ideas. Systems. People. Progress.')
-          : copy(options.site, 'STANDBY'),
+        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
         cw / 2,
         ch * 0.62,
         cw - 150,
@@ -856,12 +855,7 @@ export function buildCaseStudyArchive(
       ctx.textAlign = 'left';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '500 26px monospace';
-      ctx.fillText(
-        copy(options.site, 'FLIGHT RECORDS'),
-        85,
-        ch * 0.88,
-        cw - 280,
-      );
+      ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88, cw - 280);
       ctx.textAlign = 'right';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.bronzeLight;
       ctx.font = '500 38px Arial, sans-serif';

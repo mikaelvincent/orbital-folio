@@ -33,14 +33,21 @@ export const admins = sqliteTable('admins', {
   email: text('email').notNull(),
   createdAt: text('created_at').notNull(),
 });
-export const inquiries = sqliteTable('inquiries', {
-  id: text('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull(),
-  intent: text('intent').notNull(),
-  message: text('message').notNull(),
-  createdAt: text('created_at').notNull(),
-});
+export const inquiries = sqliteTable(
+  'inquiries',
+  {
+    id: text('id').primaryKey(),
+    name: text('name').notNull(),
+    email: text('email').notNull(),
+    intent: text('intent').notNull(),
+    message: text('message').notNull(),
+    readAt: text('read_at'),
+    repliedAt: text('replied_at'),
+    archivedAt: text('archived_at'),
+    createdAt: text('created_at').notNull(),
+  },
+  (table) => [index('idx_inquiries_received').on(table.createdAt, table.id)],
+);
 export const rateLimits = sqliteTable('rate_limits', {
   key: text('key').primaryKey(),
   count: integer('count').notNull(),

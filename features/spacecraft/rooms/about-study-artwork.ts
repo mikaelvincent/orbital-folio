@@ -1,11 +1,9 @@
-import { interfaceText as copy } from '../../../lib/content/interface-text.ts';
 import { PALETTE } from '../../../lib/palette.ts';
-
 /** Original, static artwork for the personal study. No images or font downloads. */
 export function drawStudyArtwork(
   ctx: any,
   kind: string,
-  site?: Record<string, any>,
+  _site?: Record<string, any>,
 ) {
   const landscape = kind === 'landscape-postcard';
   const width = landscape ? 512 : 768;
@@ -261,7 +259,6 @@ export function drawStudyArtwork(
     }
     ctx.restore();
   };
-
   if (kind === 'landscape-postcard') {
     const sky = ctx.createLinearGradient(0, 0, 0, 240);
     sky.addColorStop(0, '#547a99');
@@ -432,7 +429,11 @@ export function drawStudyArtwork(
   } else if (kind.startsWith('book-')) {
     const variants: Record<
       string,
-      { color: string; title: string[]; subtitle: string }
+      {
+        color: string;
+        title: string[];
+        subtitle: string;
+      }
     > = {
       'book-one': {
         color: PALETTE.carbon,
@@ -483,11 +484,11 @@ export function drawStudyArtwork(
       1.5,
     );
     book.title.forEach((word, i) =>
-      lettering(copy(site, word), 120, 284 + i * 95, 70, '500', coverInk, 517),
+      lettering(word, 120, 284 + i * 95, 70, '500', coverInk, 517),
     );
     ctx.fillStyle = coverInk;
     ctx.font = '17px "Helvetica Neue", Arial, sans-serif';
-    ctx.fillText(copy(site, book.subtitle), 122, 862, 517);
+    ctx.fillText(book.subtitle, 122, 862, 517);
     path(
       [
         [122, 891],
@@ -510,15 +511,15 @@ export function drawStudyArtwork(
       );
       ctx.fillStyle = ink;
       ctx.font = 'italic 30px Georgia, serif';
-      ctx.fillText(copy(site, 'Look a little closer.'), 101, 811, 550);
+      ctx.fillText('Look a little closer.', 101, 811, 550);
     } else if (kind === 'curiosity-note') {
       ctx.save();
       ctx.translate(95, 260);
       ctx.rotate(0.018);
       ctx.fillStyle = ink;
       ctx.font = 'italic 85px Georgia, serif';
-      ctx.fillText(copy(site, 'Stay'), 36, 164, 500);
-      ctx.fillText(copy(site, 'curious.'), 36, 286, 500);
+      ctx.fillText('Stay', 36, 164, 500);
+      ctx.fillText('curious.', 36, 286, 500);
       path(
         [
           [49, 331],
@@ -535,9 +536,9 @@ export function drawStudyArtwork(
       ctx.rotate(-0.025);
       ctx.fillStyle = ink;
       ctx.font = 'italic 85px Georgia, serif';
-      ctx.fillText(copy(site, 'Make'), 36, 102, 500);
-      ctx.fillText(copy(site, 'useful'), 36, 224, 500);
-      ctx.fillText(copy(site, 'things.'), 36, 346, 500);
+      ctx.fillText('Make', 36, 102, 500);
+      ctx.fillText('useful', 36, 224, 500);
+      ctx.fillText('things.', 36, 346, 500);
       path(
         [
           [49, 391],

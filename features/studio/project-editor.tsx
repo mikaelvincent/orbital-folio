@@ -28,6 +28,8 @@ import {
   insertNotebookPageBreak,
   normalizeNotebookBody,
 } from '@/lib/content/notebook-pages';
+import { entryMedia } from './entry-media';
+import { LocalMediaEditor, type MediaAction } from './local-media-editor';
 import { JournalPagePreview } from './journal-page-preview';
 import {
   ProjectMarkdown,
@@ -42,6 +44,9 @@ import './project-editor.css';
 
 export type ProjectEditorProps = {
   kind?: 'project' | 'experience' | 'journal';
+  recordId?: string;
+  onMediaAction?: MediaAction;
+  onMediaDirtyChange?: (key: string, dirty: boolean) => void;
   data: Record<string, any>;
   records: Content[];
   busy: boolean;
@@ -53,6 +58,9 @@ export type ProjectEditorProps = {
 
 export function ProjectEditor({
   kind = 'project',
+  recordId,
+  onMediaAction,
+  onMediaDirtyChange,
   data,
   records,
   busy,
@@ -112,13 +120,15 @@ export function ProjectEditor({
           ['role', 'Role'],
           ['stack', 'Tools'],
         ];
-  const media: Record<string, any>[] = useMemo(
-    () =>
-      records
-        .filter((r) => r.kind === 'media')
-        .map((r) => ({ ...r.draft, id: r.id, published: !!r.published })),
-    [records],
+  const attachments = useMemo(
+    () => entryMedia(records, recordId, data, kind),
+    [records, recordId, data, kind],
   );
+  const media: Record<string, any>[] = attachments.map((record) => ({
+    ...record.draft,
+    id: record.id,
+    published: !!record.published,
+  }));
   const visualMedia = media.filter((m) => /^image\/|^video\//.test(m.mime));
   const cover = media.find((m) => m.id === data.mediaId);
   const { pending: pendingAssets, error: assetError } = projectAssetPublication(
@@ -513,6 +523,9 @@ export function ProjectEditor({
             <div className="project-media-upload">
               <label className="studio-field">
                 Upload to this {noun}
+                {recordId === 'new' && (
+                  <small>Save this entry’s draft before uploading files.</small>
+                )}
                 <input
                   ref={uploadInput}
                   type="file"
@@ -554,7 +567,7 @@ export function ProjectEditor({
                   if (uploaded.mime !== 'text/vtt') insert(uploaded);
                   setFeedback(
                     uploaded.mime === 'text/vtt'
-                      ? 'Captions uploaded privately. Attach this file to a video in the Media library.'
+                      ? 'Captions uploaded privately. Select this file in the video’s Attachment details below.'
                       : `Uploaded privately and inserted into your story. Save the ${noun} draft when ready.`,
                   );
                   setFile(null);
@@ -569,7 +582,7 @@ export function ProjectEditor({
             </div>
             <div className="project-media-existing">
               <label className="studio-field">
-                Use existing media
+                Attachments in this entry
                 <select
                   value={mediaId}
                   onChange={(e) => setMediaId(e.target.value)}
@@ -595,9 +608,9 @@ export function ProjectEditor({
                 Insert into story
               </button>
               <p className="editor-hint">
-                Insertion uses the last cursor position. Manage video posters
-                and captions in the Media library. Media publication is a
-                separate, explicit step.
+                Insertion uses the last cursor position. Set video posters and
+                captions in Attachment details below. Upload a poster or caption
+                file here first.
               </p>
             </div>
           </div>
@@ -607,6 +620,13 @@ export function ProjectEditor({
             </p>
           )}
         </details>
+        <LocalMediaEditor
+          records={attachments}
+          busy={busy}
+          onAction={onMediaAction}
+          onDirtyChange={onMediaDirtyChange}
+          onPublishAssets={onPublishAssets}
+        />
       </section>
       <section
         className="project-media-publication"

@@ -6,8 +6,6 @@ import {
   Archive,
   BookOpen,
   MessageSquare,
-  Image,
-  Link2,
   Inbox,
   Shield,
   SlidersHorizontal,
@@ -18,8 +16,6 @@ export const areaKinds: Partial<Record<StudioArea, Kind>> = {
   projects: 'project',
   experience: 'experience',
   about: 'journal',
-  links: 'link',
-  media: 'media',
 };
 export function StudioNavigation({
   site,
@@ -53,13 +49,6 @@ export function StudioNavigation({
         { id: 'experience', label: site.experienceLabel, Icon: Archive },
         { id: 'about', label: site.aboutLabel, Icon: BookOpen },
         { id: 'contact', label: site.contactLabel, Icon: MessageSquare },
-      ],
-    },
-    {
-      label: 'Shared resources',
-      items: [
-        { id: 'links', label: 'Social links', Icon: Link2 },
-        { id: 'media', label: 'Media library', Icon: Image },
       ],
     },
     {
@@ -112,11 +101,22 @@ export function StudioNavigation({
                     <div className="studio-section-links">
                       {areaKinds[id] && (
                         <button
-                          className={kind !== 'site' ? 'active' : ''}
-                          aria-current={kind !== 'site' ? 'page' : undefined}
+                          className={kind === areaKinds[id] ? 'active' : ''}
+                          aria-current={
+                            kind === areaKinds[id] ? 'page' : undefined
+                          }
                           onClick={() => select(id, areaKinds[id])}
                         >
                           {id === 'about' ? 'Notebook sections' : 'Entries'}
+                        </button>
+                      )}
+                      {(id === 'about' || id === 'contact') && (
+                        <button
+                          className={kind === 'link' ? 'active' : ''}
+                          aria-current={kind === 'link' ? 'page' : undefined}
+                          onClick={() => select(id, 'link')}
+                        >
+                          Social links
                         </button>
                       )}
                       {sections.map((section) => (

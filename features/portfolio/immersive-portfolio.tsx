@@ -731,8 +731,8 @@ export function ImmersivePortfolio({
         </div>
         {immersive && !readingSurface && destination.section !== 'home' && (
           <h1 className="sr-only">
-            {destination.section === 'home'
-              ? `${s.name} — ${s.title}`
+            {destination.section === 'contact'
+              ? copy(s, 'Let’s connect.')
               : s[destination.section + 'Heading'] ||
                 s[destination.section + 'Label']}
           </h1>
@@ -904,7 +904,6 @@ export function ImmersivePortfolio({
               motionPaused={reduced}
               diagnosticsEnabled={diagnosticsEnabled}
               onDiagnosticsChange={setDiagnosticsEnabled}
-              site={s}
               studioLabel={s.studioLabel}
               renderingSettings={renderingSettings}
               renderingObserver={renderingObserver}

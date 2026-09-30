@@ -7,7 +7,6 @@ import {
   Plus,
   Save,
   Eye,
-  Upload,
   Download,
   LogOut,
   Trash2,
@@ -68,6 +67,16 @@ export function AdminStudio({
   const [area, setArea] = useState<StudioArea>('general');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  const [mediaEdits, setMediaEdits] = useState<Record<string, boolean>>({});
+  const mediaDirty = Object.values(mediaEdits).some(Boolean);
+  const markMediaDirty = useCallback((key: string, dirty: boolean) => {
+    setMediaEdits((previous) => {
+      const next = { ...previous };
+      if (dirty) next[key] = true;
+      else delete next[key];
+      return next;
+    });
+  }, []);
   const [error, setError] = useState('');
   const [pending, setPending] = useState<{
     action: string;
@@ -106,10 +115,34 @@ export function AdminStudio({
           : kind === 'link'
             ? 'social link'
             : 'project';
+  const entryTemplate = useCallback(
+    (entryKind: Kind, entryArea = area) => ({
+      ...templates[entryKind],
+      ...(entryKind === 'link'
+        ? {
+            room: entryArea,
+            screen: entryArea === 'about' ? 'list' : 'auto',
+            aboutSlot: 'off',
+          }
+        : {}),
+    }),
+    [area],
+  );
+  const inArea = useCallback(
+    (record: Content, entryArea = area) =>
+      record.kind !== 'link' ||
+      record.draft.room === entryArea ||
+      (!record.draft.room &&
+        (entryArea === 'contact' ||
+          (record.draft.aboutSlot && record.draft.aboutSlot !== 'off'))),
+    [area],
+  );
   const dirty =
-    JSON.stringify(data) !== JSON.stringify(current?.draft ?? templates[kind]);
+    mediaDirty ||
+    JSON.stringify(data) !==
+      JSON.stringify(current?.draft ?? entryTemplate(kind));
   const visible = records
-    .filter((r) => r.kind === kind)
+    .filter((r) => r.kind === kind && inArea(r))
     .sort((a, b) => (a.draft.order || 0) - (b.draft.order || 0));
   useEffect(() => {
     const warn = (e: BeforeUnloadEvent) => {
@@ -128,7 +161,11 @@ export function AdminStudio({
   const canLeave = () => {
     if (busy) return false;
     if (!dirty) return true;
-    setError('Save or discard your unsaved edits before changing records.');
+    setError(
+      mediaDirty
+        ? 'Save or discard the attachment details before changing records.'
+        : 'Save or discard your unsaved edits before changing records.',
+    );
     return false;
   };
   const selectArea = (
@@ -148,7 +185,8 @@ export function AdminStudio({
       tab === 'content' &&
       nextTab === 'content' &&
       kind === 'site' &&
-      targetKind === 'site';
+      targetKind === 'site' &&
+      !mediaDirty;
     if (busy || (!sameSite && !canLeave())) return;
     setArea(nextArea);
     setTab(nextTab);
@@ -159,10 +197,12 @@ export function AdminStudio({
     if (nextTab !== 'content' || sameSite) return;
     setKind(targetKind);
     const record = records
-      .filter((record) => record.kind === targetKind)
+      .filter(
+        (record) => record.kind === targetKind && inArea(record, nextArea),
+      )
       .sort((a, b) => (a.draft.order || 0) - (b.draft.order || 0))[0];
     setSelected(record?.id || 'new');
-    setData(record ? { ...record.draft } : { ...templates[targetKind] });
+    setData(record ? { ...record.draft } : entryTemplate(targetKind, nextArea));
   };
   const choose = (id: string) => {
     if (!canLeave()) return;
@@ -195,7 +235,7 @@ export function AdminStudio({
         }
         if (payload.action === 'delete') {
           const next = b.records
-            .filter((r: Content) => r.kind === kind)
+            .filter((r: Content) => r.kind === kind && inArea(r))
             .sort(
               (a: Content, b: Content) =>
                 (a.draft.order || 0) - (b.draft.order || 0),
@@ -205,7 +245,7 @@ export function AdminStudio({
             setData(next.draft);
           } else {
             setSelected('new');
-            setData({ ...templates[kind] });
+            setData(entryTemplate(kind));
           }
         }
         if (payload.action === 'inquiryDelete')
@@ -233,30 +273,44 @@ export function AdminStudio({
         setBusy(false);
       }
     },
-    [inbox, kind, selected],
+    [inbox, kind, selected, inArea, entryTemplate],
   );
   useStudioModelTools({
     records,
     act,
     canEdit: canLeave,
-    onSaved: (record) => {
+    onSaved: (saved) => {
+      const record =
+        saved.kind === 'media'
+          ? records.find((r) => r.id === saved.draft.ownerId) ||
+            records.find((r) => r.kind === 'site')!
+          : saved;
       const areas: Record<Kind, StudioArea> = {
         site: 'general',
         project: 'projects',
         experience: 'experience',
         journal: 'about',
-        link: 'links',
-        media: 'media',
+        link: record.draft.room === 'about' ? 'about' : 'contact',
+        media: 'general',
       };
       setKind(record.kind);
       setSelected(record.id);
+      setData(record.draft);
       setArea(areas[record.kind]);
       setTab('content');
       setSearch('');
       if (record.kind === 'site') setSiteGroup('identity');
     },
   });
-  const uploadProjectMedia = async (file: File, alt: string) => {
+  const uploadProjectMedia = async (
+    file: File,
+    alt: string,
+    ownerField?: string,
+  ) => {
+    if (selected === 'new') {
+      setError(`Save the ${storyNoun} draft before attaching media.`);
+      return null;
+    }
     const invalid = projectUploadError(file);
     if (invalid) {
       setError(invalid);
@@ -269,6 +323,8 @@ export function AdminStudio({
       const body = new FormData();
       body.set('file', file);
       body.set('alt', alt);
+      body.set('ownerId', selected);
+      if (ownerField) body.set('ownerField', ownerField);
       const response = await fetch('/api/admin/upload', {
         method: 'POST',
         body,
@@ -283,7 +339,7 @@ export function AdminStudio({
       const all = (await refreshed.json()) as any;
       if (!refreshed.ok)
         throw new Error(
-          `Media was uploaded, but the library could not refresh. Save your ${storyNoun} and reload the studio before uploading again.`,
+          `Media was uploaded, but the attachments could not refresh. Save your ${storyNoun} and reload the studio before uploading again.`,
         );
       setRecords(all.records);
       const uploaded = all.records.find((r: Content) => r.id === result.id);
@@ -295,7 +351,53 @@ export function AdminStudio({
       setBusy(false);
     }
   };
+  const mutateMedia = async (
+    record: Content,
+    action: 'save' | 'delete' | 'unpublish',
+    mediaData?: Record<string, any>,
+  ) => {
+    setBusy(true);
+    setError('');
+    setMessage('');
+    try {
+      const response = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action,
+          id: record.id,
+          kind: 'media',
+          revision: record.revision,
+          ...(mediaData ? { data: mediaData } : {}),
+        }),
+      });
+      const result = (await response.json()) as any;
+      if (!response.ok)
+        throw new Error(result.error || 'Could not update this attachment.');
+      setRecords(result.records);
+      return true;
+    } catch (failure) {
+      setError(
+        failure instanceof Error
+          ? failure.message
+          : 'Could not update this attachment.',
+      );
+      return false;
+    } finally {
+      setBusy(false);
+    }
+  };
   const publishProjectAssets = async (assets: Content[]) => {
+    if (!assets.length) {
+      setError(
+        'No attachment changes are ready to publish. Check the selected file and its references.',
+      );
+      return;
+    }
+    if (mediaDirty) {
+      setError('Save or discard attachment details before publishing media.');
+      return;
+    }
     setBusy(true);
     setError('');
     setMessage('');
@@ -401,7 +503,7 @@ export function AdminStudio({
                 ? area
                 : 'home',
               journal: 'about',
-              link: 'contact',
+              link: data.room === 'about' ? 'about' : 'contact',
               media: 'projects',
             }[kind] || 'home');
   return (
@@ -434,7 +536,9 @@ export function AdminStudio({
         area={area}
         kind={kind}
         siteGroup={siteGroup}
-        inboxCount={inbox.length}
+        inboxCount={
+          inbox.filter((item) => !item.read_at && !item.archived_at).length
+        }
         onSelect={selectArea}
       />
       <main id="main" className="studio-main">
@@ -448,27 +552,19 @@ export function AdminStudio({
                   ? 'Inbox'
                   : area === 'settings'
                     ? 'Access & backups'
-                    : area === 'links'
-                      ? 'Social links'
-                      : area === 'media'
-                        ? 'Media library'
-                        : (kind === 'site'
-                            ? data
-                            : records.find((record) => record.kind === 'site')!
-                                .draft)[area + 'Label']}
+                    : (kind === 'site'
+                        ? data
+                        : records.find((record) => record.kind === 'site')!
+                            .draft)[area + 'Label']}
             </h1>
             <p>
               {area === 'general'
                 ? 'Identity, navigation and settings shared across your portfolio.'
-                : area === 'links'
-                  ? 'Manage destinations and their placement in the rooms.'
-                  : area === 'media'
-                    ? 'Upload and publish images, videos and captions.'
-                    : area === 'inbox'
-                      ? 'Private messages submitted through your contact form.'
-                      : area === 'settings'
-                        ? 'Manage owner access, content backups and activity.'
-                        : 'Edit the content and interface visitors see in this room.'}
+                : area === 'inbox'
+                  ? 'Private messages submitted through your contact form.'
+                  : area === 'settings'
+                    ? 'Manage owner access, content backups and activity.'
+                    : 'Edit the content and interface visitors see in this room.'}
             </p>
           </div>
         </div>
@@ -539,7 +635,10 @@ export function AdminStudio({
                     onClick={() => {
                       if (!canLeave()) return;
                       setSelected('new');
-                      setData({ ...templates[kind], order: visible.length });
+                      setData({
+                        ...entryTemplate(kind),
+                        order: visible.length,
+                      });
                       setMessage('');
                       setError('');
                     }}
@@ -550,11 +649,9 @@ export function AdminStudio({
                       ? 'case study'
                       : kind === 'journal'
                         ? 'section'
-                        : kind === 'media'
-                          ? 'media'
-                          : kind === 'link'
-                            ? 'link'
-                            : 'project'}
+                        : kind === 'link'
+                          ? 'link'
+                          : 'project'}
                   </button>
                 }
                 {kind === 'project' && (
@@ -614,66 +711,20 @@ export function AdminStudio({
                   Search all site settings
                   <input
                     type="search"
+                    disabled={mediaDirty}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search by label, room, or text shown on the site"
                   />
                 </label>
               )}
-              {kind === 'media' && (
-                <form
-                  className="upload-box"
-                  onSubmit={async (e) => {
-                    e.preventDefault();
-                    if (!canLeave()) return;
-                    setBusy(true);
-                    setError('');
-                    try {
-                      const r = await fetch('/api/admin/upload', {
-                        method: 'POST',
-                        body: new FormData(e.currentTarget),
-                      });
-                      const b: any = await r.json();
-                      if (!r.ok) throw new Error(b.error);
-                      const rr = await fetch('/api/admin');
-                      const all = ((await rr.json()) as any).records;
-                      setRecords(all);
-                      setSelected(b.id);
-                      setData(all.find((r: Content) => r.id === b.id).draft);
-                      setMessage(
-                        'Media uploaded as a private draft. Publish it to use it on the public site.',
-                      );
-                    } catch (e: any) {
-                      setError(e.message);
-                    } finally {
-                      setBusy(false);
-                    }
-                  }}
-                >
-                  <strong>Upload media</strong>
-                  <label className="studio-field">
-                    PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT ·
-                    256 KiB
-                    <input
-                      type="file"
-                      name="file"
-                      accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,text/vtt,.vtt"
-                      required
-                    />
-                  </label>
-                  <label className="studio-field">
-                    Description / alternative text
-                    <input name="alt" required maxLength={1000} />
-                  </label>
-                  <button className="button" disabled={busy}>
-                    <Upload size={16} />
-                    Upload to media library
-                  </button>
-                </form>
-              )}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+                  if (mediaDirty) {
+                    setError('Save or discard attachment details first.');
+                    return;
+                  }
                   void act({
                     action: 'save',
                     id: selected === 'new' ? undefined : selected,
@@ -745,9 +796,7 @@ export function AdminStudio({
                       onClick={() => {
                         setEditorReset((value) => value + 1);
                         setData(
-                          current
-                            ? { ...current.draft }
-                            : { ...templates[kind] },
+                          current ? { ...current.draft } : entryTemplate(kind),
                         );
                         setError('');
                       }}
@@ -755,7 +804,13 @@ export function AdminStudio({
                       Discard changes
                     </button>
                   )}
-                  {dirty && current && (
+                  {mediaDirty && (
+                    <p className="editor-hint">
+                      Save or discard attachment details below before saving or
+                      publishing this entry.
+                    </p>
+                  )}
+                  {dirty && !mediaDirty && current && (
                     <p className="editor-hint">
                       Save the draft to enable preview and publishing.
                     </p>
@@ -766,12 +821,15 @@ export function AdminStudio({
                   <ProjectEditor
                     key={`${selected}:${editorReset}`}
                     kind={kind}
+                    recordId={selected}
                     data={data}
                     records={records}
                     busy={busy}
                     onChange={editData}
                     onUpload={uploadProjectMedia}
                     onPublishAssets={publishProjectAssets}
+                    onMediaAction={mutateMedia}
+                    onMediaDirtyChange={markMediaDirty}
                   />
                 ) : (
                   <StudioContentFields
@@ -786,6 +844,8 @@ export function AdminStudio({
                     busy={busy}
                     onUpload={uploadProjectMedia}
                     onPublishAssets={publishProjectAssets}
+                    onMediaAction={mutateMedia}
+                    onMediaDirtyChange={markMediaDirty}
                   />
                 )}
                 <a className="studio-return-actions" href="#draft-actions">

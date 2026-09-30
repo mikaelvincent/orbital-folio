@@ -1,3 +1,4 @@
+import { splitImportedSocialLinks } from '@/lib/content/social-link-migration';
 import {
   database,
   getRecords,
@@ -157,11 +158,12 @@ export async function POST(req: Request) {
       const claimsAboutSlot =
         b.action === 'publish' &&
         old.kind === 'link' &&
+        old.draft.room !== 'contact' &&
         ['left', 'center', 'right'].includes(old.draft.aboutSlot);
       const query =
         b.action === 'delete'
           ? 'DELETE FROM content WHERE id=? AND revision=?'
-          : `UPDATE content SET published=${b.action === 'publish' ? 'draft' : 'NULL'},revision=revision+1,updated_at=? WHERE id=? AND revision=?${claimsAboutSlot ? " AND NOT EXISTS (SELECT 1 FROM content AS occupied WHERE occupied.kind='link' AND occupied.id<>content.id AND json_extract(occupied.published,'$.aboutSlot')=json_extract(content.draft,'$.aboutSlot'))" : ''}`;
+          : `UPDATE content SET published=${b.action === 'publish' ? 'draft' : 'NULL'},revision=revision+1,updated_at=? WHERE id=? AND revision=?${claimsAboutSlot ? " AND NOT EXISTS (SELECT 1 FROM content AS occupied WHERE occupied.kind='link' AND occupied.id<>content.id AND coalesce(json_extract(occupied.published,'$.room'),'about')<>'contact' AND json_extract(occupied.published,'$.aboutSlot')=json_extract(content.draft,'$.aboutSlot'))" : ''}`;
       const statement =
         b.action === 'delete'
           ? db.prepare(query).bind(b.id, b.revision)
@@ -229,7 +231,9 @@ export async function POST(req: Request) {
         return { id: r.id, kind: r.kind, data };
       });
       await db.batch(
-        imported.map((r: any) =>
+        splitImportedSocialLinks(imported, existing, () =>
+          crypto.randomUUID(),
+        ).map((r: any) =>
           db
             .prepare(
               'INSERT INTO content (id,kind,draft,published,revision,updated_at) VALUES (?,?,?,NULL,1,?) ON CONFLICT(id) DO UPDATE SET draft=excluded.draft,revision=content.revision+1,updated_at=excluded.updated_at',

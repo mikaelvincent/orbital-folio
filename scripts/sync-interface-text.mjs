@@ -2,10 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 import { interfaceTextSiteFields } from '../lib/content/interface-text.ts';
-import { CONTACT_KEY_LAYOUT } from '../features/spacecraft/rooms/contact-keyboard.ts';
 
 // The catalog is generated from literal message keys at their render sites.
-// Dynamic category/key/diagnostic labels are registered explicitly below.
+// Dynamic category labels are registered explicitly below.
 const groups = new Map();
 const add = (group, value) => {
   if (!value || Object.hasOwn(interfaceTextSiteFields, value)) return;
@@ -74,76 +73,7 @@ for (const value of [
   'Impact',
 ])
   add('experience', value);
-for (const value of [
-  'Small',
-  'systems',
-  'A WORKING NOTEBOOK',
-  'Design',
-  'notes',
-  'OBSERVATIONS & IDEAS',
-  'Field',
-  'journal',
-  'NOTES FROM THE EVERYDAY',
-])
-  add('about-art', value);
-for (const { label } of CONTACT_KEY_LAYOUT) add('keyboard', label);
 add('contact', 'Contact application');
-// Register collector display labels while preserving stable exported IDs.
-const phaseName = (value) =>
-  value.replace(/[._-]+/g, ' ').replace(/^./, (c) => c.toUpperCase());
-const strings = (node, visit) => {
-  if (ts.isStringLiteral(node)) visit(node.text);
-  ts.forEachChild(node, (child) => strings(child, visit));
-};
-for (const file of [
-  'features/diagnostics/spacecraft-performance.ts',
-  'features/spacecraft/spacecraft-runtime.ts',
-  'features/diagnostics/scene-performance.ts',
-]) {
-  const source = fs.readFileSync(file, 'utf8');
-  const tree = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true);
-  const visit = (node) => {
-    if (file.endsWith('spacecraft-performance.ts')) {
-      if (
-        ts.isVariableDeclaration(node) &&
-        ['roomLabels', 'label'].includes(node.name.getText(tree)) &&
-        node.initializer
-      )
-        strings(node.initializer, (value) => add('diagnostics', value));
-      if (
-        ts.isBinaryExpression(node) &&
-        node.operatorToken.kind === ts.SyntaxKind.EqualsToken &&
-        node.left.getText(tree) === 'label'
-      )
-        strings(node.right, (value) => add('diagnostics', value));
-    }
-    if (
-      ts.isCallExpression(node) &&
-      ts.isPropertyAccessExpression(node.expression) &&
-      ['mark', 'count', 'beginPass', 'endPass'].includes(
-        node.expression.name.text,
-      ) &&
-      node.arguments[0] &&
-      ts.isStringLiteral(node.arguments[0])
-    )
-      add('diagnostics', phaseName(node.arguments[0].text));
-    if (
-      ts.isVariableDeclaration(node) &&
-      node.name.getText(tree) === 'gpuStatus' &&
-      node.initializer
-    )
-      strings(node.initializer, (value) => add('diagnostics', value));
-    if (
-      ts.isBinaryExpression(node) &&
-      node.operatorToken.kind === ts.SyntaxKind.EqualsToken &&
-      node.left.getText(tree) === 'gpuStatus'
-    )
-      strings(node.right, (value) => add('diagnostics', value));
-    ts.forEachChild(node, visit);
-  };
-  visit(tree);
-}
-add('diagnostics', 'Frame');
 // A message shared by multiple areas appears in each relevant editor section;
 // they edit one dictionary key, so changes cannot diverge.
 const catalog = Object.fromEntries(
