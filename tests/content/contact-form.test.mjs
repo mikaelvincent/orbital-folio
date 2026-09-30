@@ -8,6 +8,7 @@ import {
 } from '../../features/portfolio/contact-flow.ts';
 
 const message = {
+  name: 'A Visitor',
   email: 'visitor@example.com',
   message: 'A useful message about working together.',
 };
@@ -26,7 +27,7 @@ test('messages need no mode selection and preserve the existing inbox contract a
     'sent',
   );
   assert.deepEqual(Object.fromEntries(body), {
-    name: 'Name not provided',
+    name: 'A Visitor',
     email: 'visitor@example.com',
     intent: 'project',
     message:
@@ -36,7 +37,7 @@ test('messages need no mode selection and preserve the existing inbox contract a
   assert.equal(
     validateContactDraft(message),
     null,
-    'Name, company and subject are genuinely optional',
+    'Company and subject are optional',
   );
   assert.equal(contactInboxMessage(message), message.message);
 });
@@ -70,9 +71,34 @@ test('optional metadata is counted in the existing inbox limit and never silentl
   );
 });
 
-test('invalid email, short text and oversized fields cannot submit', async () => {
+test('missing names, invalid email, short text and oversized fields cannot submit', async () => {
   const invalid = [
+    { ...message, name: undefined },
+    { ...message, name: '' },
+    { ...message, name: '  \t\n ' },
+    { ...message, email: '' },
     { ...message, email: 'missing-at' },
+    { ...message, email: 'visitor@@example.com' },
+    { ...message, email: 'visitor name@example.com' },
+    { ...message, email: 'visitor<name>@example.com' },
+    { ...message, email: '.visitor@example.com' },
+    { ...message, email: 'visitor.@example.com' },
+    { ...message, email: 'visitor..name@example.com' },
+    { ...message, email: 'visitor@example' },
+    { ...message, email: 'visitor@example..com' },
+    { ...message, email: 'visitor@-example.com' },
+    { ...message, email: 'visitor@example-.com' },
+    { ...message, email: 'visitor@exam_ple.com' },
+    { ...message, email: 'visitor@example.com/path' },
+    { ...message, email: 'x'.repeat(65) + '@example.com' },
+    { ...message, email: 'visitor@' + 'x'.repeat(64) + '.com' },
+    {
+      ...message,
+      email:
+        'x'.repeat(64) +
+        '@' +
+        ['x'.repeat(63), 'y'.repeat(63), 'z'.repeat(63)].join('.'),
+    },
     { ...message, message: '   short  ' },
     { ...message, name: 'x'.repeat(121) },
     { ...message, company: 'x'.repeat(161) },
@@ -87,6 +113,35 @@ test('invalid email, short text and oversized fields cannot submit', async () =>
     );
   }
   assert.equal(calls, 0);
+});
+
+test('valid email syntax and exact field limits reach only the provided transport', async () => {
+  for (const email of [
+    'visitor@example.com',
+    'Visitor.Name+portfolio@sub.example.com',
+    "o'connor@my-studio.example",
+    '  visitor@example.com  ',
+    'x'.repeat(64) +
+      '@' +
+      ['x'.repeat(63), 'y'.repeat(63), 'z'.repeat(61)].join('.'),
+  ]) {
+    let calls = 0;
+    await submitContactDraft(
+      {
+        ...message,
+        email,
+        name: 'x'.repeat(120),
+        company: 'x'.repeat(160),
+        subject: 'x'.repeat(200),
+      },
+      async (body) => {
+        calls++;
+        assert.equal(body.get('email'), email.trim());
+        assert.equal(body.get('name').length, 120);
+      },
+    );
+    assert.equal(calls, 1);
+  }
 });
 
 test('working submission retains honeypot and rejects delivery failures without mutating input', async () => {
@@ -149,13 +204,38 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     // protection against leaking fields through the browser's default GET.
     const markup = renderToStaticMarkup(
       createElement(ContactForm, {
-        site: { email: 'owner@example.com' },
+        site: {
+          email: 'owner@example.com',
+          nameLabel: 'Your name',
+          emailLabel: 'Your email',
+        },
         draft,
       }),
     );
     assert.match(markup, /<form\b/);
     assert.match(markup, /<input[^>]*name="email"/);
     assert.match(markup, /Send message/);
+    assert.match(markup, /<label[^>]*>Your name<\/label>/);
+    assert.doesNotMatch(markup, /including company and subject/);
+    for (const [name, limit, required] of [
+      ['name', 120, true],
+      ['company', 160, false],
+      ['subject', 200, false],
+      ['email', 254, true],
+    ]) {
+      const input = markup.match(
+        new RegExp(`<input[^>]*name="${name}"[^>]*>`),
+      )?.[0];
+      assert.ok(input, name);
+      assert.match(input, new RegExp(`maxLength="${limit}"`, 'i'));
+      assert.equal(/\brequired=""/.test(input), required, name);
+      if (name !== 'email') {
+        const descriptionId = input.match(/aria-describedby="([^"]+)"/)?.[1];
+        assert.ok(descriptionId, name);
+        assert.ok(markup.includes(`id="${descriptionId}"`));
+        assert.ok(markup.includes(`/ ${limit} characters`));
+      }
+    }
     assert.doesNotMatch(
       markup,
       /Schedule a call|Send a message|aria-pressed|name="(?:date|time)"/,

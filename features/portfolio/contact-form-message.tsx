@@ -69,13 +69,9 @@ export function ContactMessageField({
       }
       id={`${id}-${suffix}`}
     >
-      {copy(
-        site,
-        'At least 10 characters · {count} / 5,000 including company and subject',
-        {
-          count: characters.toLocaleString('en-US'),
-        },
-      )}
+      {copy(site, 'At least 10 characters · {count} / 5,000', {
+        count: characters.toLocaleString('en-US'),
+      })}
     </small>
   );
   const inputProps = {

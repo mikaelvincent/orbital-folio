@@ -557,8 +557,8 @@
 }
 .is-readable .journal-cover .about-social-links {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
   gap: 8px;
   margin: 24px 0;
 }
@@ -568,6 +568,9 @@
   padding: 8px 10px;
   border: 1px solid var(--ink-muted);
   font-size: 12px;
+}
+.is-readable .journal-cover .about-social-links a svg:last-child {
+  margin-left: auto;
 }
 .is-readable .journal-cover nav:not(.about-social-links) {
   margin: 28px 0 0;
@@ -891,8 +894,7 @@
   }
   .is-readable .journal-cover nav:not(.about-social-links) {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 16px;
+    grid-template-columns: minmax(0, 1fr);
   }
   .is-readable .journal-cover nav:not(.about-social-links) a {
     gap: 8px;

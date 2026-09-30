@@ -151,6 +151,32 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
       body: invalid,
     });
     assert.equal(invalidResponse.status, 400);
+    for (const [index, fields] of [
+      { name: ' \t ' },
+      { email: 'visitor..name@example.com' },
+      { email: 'visitor@-example.com' },
+      { email: 'visitor@example.com/path' },
+    ].entries()) {
+      const invalidFields = new FormData();
+      for (const [key, value] of Object.entries({
+        name: 'Test visitor',
+        email: 'visitor@example.com',
+        message: marker + ' invalid submission',
+        intent: 'project',
+        ...fields,
+      }))
+        invalidFields.set(key, value);
+      const response = await fetch(base + '/api/contact', {
+        method: 'POST',
+        headers: {
+          Origin: base,
+          Accept: 'application/json',
+          'cf-connecting-ip': `${testIp}-invalid-${index}`,
+        },
+        body: invalidFields,
+      });
+      assert.equal(response.status, 400);
+    }
     let limited = false;
     for (let i = 0; i < 4; i++) {
       const r = await fetch(base + '/api/contact', {

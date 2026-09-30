@@ -163,7 +163,8 @@
   font-size: 13px;
   color: var(--ivory);
 }
-.contact-app-field > span small {
+.contact-app-field > span small,
+.contact-app-field > label small {
   font-size: 12px;
   color: var(--text-muted);
   font-weight: 400;

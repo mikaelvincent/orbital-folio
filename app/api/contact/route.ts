@@ -1,5 +1,10 @@
 import { database } from '@/lib/content/repository';
 import {
+  CONTACT_NAME_LIMIT,
+  CONTACT_MESSAGE_LIMIT,
+  isValidContactEmail,
+} from '@/lib/contact-validation';
+import {
   sameOrigin,
   rateLimit,
   readForm,
@@ -21,11 +26,10 @@ export async function POST(req: Request) {
       return Response.redirect(new URL('/contact?sent=1', req.url), 303);
     if (
       !name ||
-      name.length > 120 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-      email.length > 254 ||
+      name.length > CONTACT_NAME_LIMIT ||
+      !isValidContactEmail(email) ||
       message.length < 10 ||
-      message.length > 5000 ||
+      message.length > CONTACT_MESSAGE_LIMIT ||
       !['interview', 'project'].includes(intent)
     )
       throw new HttpError(

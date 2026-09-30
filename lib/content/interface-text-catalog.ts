@@ -25,7 +25,8 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Start a conversation"
   ],
   "contact-form": [
-    "At least 10 characters · {count} / 5,000 including company and subject",
+    "{count} / {limit} characters",
+    "At least 10 characters · {count} / 5,000",
     "Back to form",
     "Collapse message",
     "Company",
@@ -45,6 +46,7 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Message received.",
     "Only used to respond to your inquiry.",
     "Optional",
+    "Please enter your name.",
     "Please write a message of at least 10 characters.",
     "Send message",
     "Sending…",

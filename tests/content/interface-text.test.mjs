@@ -64,7 +64,7 @@ test('interface overrides are optional, plain text, and retain complete substitu
   assert.equal(interfaceText(site, 'Unedited message'), 'Unedited message');
   assert.equal(notebookPageLabel(2, 6, site), 'Page 2 / 6');
   assert.equal(
-    validateContactDraft({ email: 'bad' }, site),
+    validateContactDraft({ name: 'A Visitor', email: 'bad' }, site),
     'Please check your email.',
   );
   for (const overrides of [

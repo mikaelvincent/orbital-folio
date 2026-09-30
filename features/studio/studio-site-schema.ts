@@ -242,8 +242,8 @@ export const messageLabels: Record<string, string> = {
     'Empty category message',
   'More details about this case study will be added here.':
     'Empty case study body message',
-  'At least 10 characters · {count} / 5,000 including company and subject':
-    'Message length hint',
+  'At least 10 characters · {count} / 5,000': 'Message length hint',
+  '{count} / {limit} characters': 'Field length hint',
   'Email address copied.': 'Email copy confirmation',
   'Copy unavailable. Select the address to copy it.': 'Email copy failure',
   'Your message could not be saved. Please try again or use email.':

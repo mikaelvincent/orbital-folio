@@ -3,6 +3,12 @@ import { interfaceText as copy } from '@/lib/content/interface-text';
 import { useEffect, useId, useRef, useState, type RefObject } from 'react';
 import { ArrowUpRight, Check, Copy, Mail, Send, X } from 'lucide-react';
 import { pathFor } from '@/lib/paths';
+import {
+  CONTACT_NAME_LIMIT,
+  CONTACT_COMPANY_LIMIT,
+  CONTACT_SUBJECT_LIMIT,
+  CONTACT_EMAIL_LIMIT,
+} from '@/lib/contact-validation';
 import { copyContactEmail } from './contact-clipboard';
 import { ContactMessageField } from './contact-form-message';
 import {
@@ -95,19 +101,32 @@ export function ContactForm({
       required?: boolean;
     } = {},
   ) => (
-    <label className="contact-app-field" htmlFor={`${id}-${name}`}>
-      <span>
+    <div className="contact-app-field">
+      <label htmlFor={`${id}-${name}`}>
         {label}
         {!props.required && <small>{copy(s, 'Optional')}</small>}
-      </span>
+      </label>
       <input
         {...props}
         name={name}
         id={`${id}-${name}`}
+        aria-describedby={
+          props.maxLength && name !== 'email'
+            ? `${id}-${name}-length`
+            : undefined
+        }
         value={values[name] ?? ''}
         onChange={(event) => updateDraft({ [name]: event.target.value })}
       />
-    </label>
+      {props.maxLength && name !== 'email' && (
+        <small className="contact-app-limit" id={`${id}-${name}-length`}>
+          {copy(s, '{count} / {limit} characters', {
+            count: (values[name] ?? '').length,
+            limit: props.maxLength,
+          })}
+        </small>
+      )}
+    </div>
   );
   return (
     <div className="contact-app">
@@ -297,19 +316,22 @@ export function ContactForm({
             <div className="contact-app-grid">
               {field('name', s.nameLabel, {
                 autoComplete: 'name',
-                maxLength: 120,
+                maxLength: CONTACT_NAME_LIMIT,
+                required: true,
               })}
               {field('company', copy(s, 'Company'), {
                 autoComplete: 'organization',
-                maxLength: 160,
+                maxLength: CONTACT_COMPANY_LIMIT,
               })}
               {field('email', s.emailLabel, {
                 type: 'email',
                 autoComplete: 'email',
-                maxLength: 254,
+                maxLength: CONTACT_EMAIL_LIMIT,
                 required: true,
               })}
-              {field('subject', copy(s, 'Subject'), { maxLength: 200 })}
+              {field('subject', copy(s, 'Subject'), {
+                maxLength: CONTACT_SUBJECT_LIMIT,
+              })}
               <ContactMessageField
                 site={s}
                 id={id}

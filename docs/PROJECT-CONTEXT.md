@@ -219,8 +219,9 @@ reading styles stay scoped to `.is-readable` and never alter Interactive view.
 It shares collection, story and contact renderers with the interactive applications
 and uses their existing editable headings and content. It adds no exclusive
 introductions, invitations, stories or social links. About uses the same notebook
-sections and opening biography; Contact uses the same form and two assigned links. Visitor-facing sample/demo badges and notices are intentionally
-absent, including private preview. Sample flags control search metadata only;
+sections and opening biography, with each profile and section link on its own
+row; Contact uses the same form and two assigned links. Visitor-facing sample/demo
+badges and notices are intentionally absent, including private preview. Sample flags control search metadata only;
 seeded content uses the same presentation and visitor functionality as
 owner-authored content. Keep indexing protection and studio controls.
 Nonfunctional actions must still say nothing was sent/booked.
@@ -376,8 +377,11 @@ drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL k
 Both views use the compact “OPEN A CONVERSATION” / “Let’s connect.” form header
 and share an in-memory draft. The message form opens immediately with no contact
 method chooser or call scheduling. It asks name/company/email/subject/message;
-only email/message are required. Failed sends retain the draft. Contact's app has
-a persistent draggable/keyboard scrollbar on overflow; Reading view uses page
+name, email and message are required. Name/company/subject show character counts
+and are capped at 120/160/200 characters. Email syntax is checked before submission
+and again at the API, without sending a verification email or checking delivery.
+Failed sends retain the draft. Contact's app has a persistent draggable/keyboard
+scrollbar on overflow; Reading view uses page
 flow. Mobile viewport changes resize the inner scroll area
 without altering the camera.
 
@@ -393,9 +397,9 @@ backdrop to the virtual monitor. Expansion shares the same draft and character
 limit. Done, Collapse, backdrop dismissal or Escape retains edits; Escape closes
 the editor before room navigation, and focus returns to the compact message field.
 
-**Send message** stores through `/api/contact` in the private inbox. Optional
-name is adapted to the legacy backend and company/subject count toward the total
-message limit. Success acknowledges that the message was saved. Without hydration,
+**Send message** stores through `/api/contact` in the private inbox. Company and
+subject count toward the total message limit. Success acknowledges that the
+message was saved. Without hydration,
 controls fail closed and the configured email alternative remains available.
 
 The email callout supports dismissal, copy and a mail draft. Clipboard fallbacks
