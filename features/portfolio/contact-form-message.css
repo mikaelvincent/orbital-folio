@@ -166,6 +166,9 @@
 .contact-message-editor-footer small {
   max-width: 52ch;
 }
+.contact-message-done {
+  margin-left: auto;
+}
 
 /* Query the editor's available space, including a reduced visual viewport. */
 @container (max-height: 280px) {

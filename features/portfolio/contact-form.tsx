@@ -8,11 +8,11 @@ import {
   CONTACT_COMPANY_LIMIT,
   CONTACT_SUBJECT_LIMIT,
   CONTACT_EMAIL_LIMIT,
+  isNearContactLimit,
 } from '@/lib/contact-validation';
 import { copyContactEmail } from './contact-clipboard';
 import { ContactMessageField } from './contact-form-message';
 import {
-  contactInboxMessage,
   submitContactDraft,
   validateContactDraft,
   type ContactDraft,
@@ -90,7 +90,6 @@ export function ContactForm({
     updateSubmission({ status: 'idle', error: '' });
   };
   const email = typeof s.email === 'string' ? s.email : '';
-  const characters = contactInboxMessage(values).length;
   const field = (
     name: keyof ContactDraft,
     label: string,
@@ -100,34 +99,38 @@ export function ContactForm({
       maxLength?: number;
       required?: boolean;
     } = {},
-  ) => (
-    <div className="contact-app-field">
-      <label htmlFor={`${id}-${name}`}>
-        {label}
-        {!props.required && <small>{copy(s, 'Optional')}</small>}
-      </label>
-      <input
-        {...props}
-        name={name}
-        id={`${id}-${name}`}
-        aria-describedby={
-          props.maxLength && name !== 'email'
-            ? `${id}-${name}-length`
-            : undefined
-        }
-        value={values[name] ?? ''}
-        onChange={(event) => updateDraft({ [name]: event.target.value })}
-      />
-      {props.maxLength && name !== 'email' && (
-        <small className="contact-app-limit" id={`${id}-${name}-length`}>
-          {copy(s, '{count} / {limit} characters', {
-            count: (values[name] ?? '').length,
-            limit: props.maxLength,
-          })}
-        </small>
-      )}
-    </div>
-  );
+  ) => {
+    const characters = (values[name] ?? '').length;
+    const characterLimit = props.maxLength ?? 0;
+    const showCount =
+      name !== 'email' &&
+      characterLimit > 0 &&
+      isNearContactLimit(characters, characterLimit);
+    return (
+      <div className="contact-app-field">
+        <label htmlFor={`${id}-${name}`}>
+          {label}
+          {!props.required && <small>{copy(s, 'Optional')}</small>}
+        </label>
+        <input
+          {...props}
+          name={name}
+          id={`${id}-${name}`}
+          aria-describedby={showCount ? `${id}-${name}-length` : undefined}
+          value={values[name] ?? ''}
+          onChange={(event) => updateDraft({ [name]: event.target.value })}
+        />
+        {showCount && (
+          <small className="contact-app-limit" id={`${id}-${name}-length`}>
+            {copy(s, '{count} / {limit} characters', {
+              count: characters,
+              limit: characterLimit,
+            })}
+          </small>
+        )}
+      </div>
+    );
+  };
   return (
     <div className="contact-app">
       <div className="contact-app-toolbar">
@@ -336,7 +339,6 @@ export function ContactForm({
                 site={s}
                 id={id}
                 value={values.message ?? ''}
-                characters={characters}
                 disabled={!ready || status === 'sending'}
                 onChange={(message) => updateDraft({ message })}
                 expandedContainer={expandedMessageContainer}

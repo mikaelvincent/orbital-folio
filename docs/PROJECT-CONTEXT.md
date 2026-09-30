@@ -377,13 +377,14 @@ drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL k
 Both views use the compact “OPEN A CONVERSATION” / “Let’s connect.” form header
 and share an in-memory draft. The message form opens immediately with no contact
 method chooser or call scheduling. It asks name/company/email/subject/message;
-name, email and message are required. Name/company/subject show character counts
-and are capped at 120/160/200 characters. Email syntax is checked before submission
-and again at the API, without sending a verification email or checking delivery.
+name, email and message are required. Name/company/subject are capped at 60/80/100
+characters; message has its own 5,000-character limit. Counters appear only at 80%
+of each field's limit, including in the expanded message editor. Email syntax is
+checked before submission and again at the API, without sending a verification
+email or checking delivery.
 Failed sends retain the draft. Contact's app has a persistent draggable/keyboard
-scrollbar on overflow; Reading view uses page
-flow. Mobile viewport changes resize the inner scroll area
-without altering the camera.
+scrollbar on overflow; Reading view uses page flow. Mobile viewport changes resize
+the inner scroll area without altering the camera.
 
 Privacy opens inside the Contact monitor in Interactive mode and in page flow in
 Reading view. Both provide Back to the contact form and preserve its draft;
@@ -397,10 +398,11 @@ backdrop to the virtual monitor. Expansion shares the same draft and character
 limit. Done, Collapse, backdrop dismissal or Escape retains edits; Escape closes
 the editor before room navigation, and focus returns to the compact message field.
 
-**Send message** stores through `/api/contact` in the private inbox. Company and
-subject count toward the total message limit. Success acknowledges that the
-message was saved. Without hydration,
-controls fail closed and the configured email alternative remains available.
+**Send message** stores through `/api/contact` in the private inbox. The API
+validates name, company, subject and message against their independent limits,
+then combines company/subject and message in the existing inbox format. Success
+acknowledges that the message was saved. Without hydration, controls fail closed
+and the configured email alternative remains available.
 
 The email callout supports dismissal, copy and a mail draft. Clipboard fallbacks
 must remain within the original user gesture and restore focus/selection. Physical

@@ -1,6 +1,9 @@
 import { database } from '@/lib/content/repository';
+import { contactInboxMessage } from '@/lib/content/inquiries';
 import {
   CONTACT_NAME_LIMIT,
+  CONTACT_COMPANY_LIMIT,
+  CONTACT_SUBJECT_LIMIT,
   CONTACT_MESSAGE_LIMIT,
   isValidContactEmail,
 } from '@/lib/contact-validation';
@@ -19,7 +22,9 @@ export async function POST(req: Request) {
     await rateLimit(req, 'contact', 5, 3600);
     const form = await readForm(req, 30000);
     const name = formText(form, 'name').trim(),
+      company = formText(form, 'company').trim(),
       email = formText(form, 'email').trim(),
+      subject = formText(form, 'subject').trim(),
       message = formText(form, 'message').trim(),
       intent = formText(form, 'intent');
     if (form.get('website'))
@@ -27,6 +32,8 @@ export async function POST(req: Request) {
     if (
       !name ||
       name.length > CONTACT_NAME_LIMIT ||
+      company.length > CONTACT_COMPANY_LIMIT ||
+      subject.length > CONTACT_SUBJECT_LIMIT ||
       !isValidContactEmail(email) ||
       message.length < 10 ||
       message.length > CONTACT_MESSAGE_LIMIT ||
@@ -45,7 +52,7 @@ export async function POST(req: Request) {
         name,
         email,
         intent,
-        message,
+        contactInboxMessage({ company, subject, message }),
         new Date().toISOString(),
       )
       .run();

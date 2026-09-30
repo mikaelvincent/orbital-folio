@@ -4,7 +4,10 @@ import { useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { Maximize2, Minimize2 } from 'lucide-react';
 import { interfaceText as copy } from '@/lib/content/interface-text';
-import { CONTACT_MESSAGE_LIMIT } from './contact-flow';
+import {
+  CONTACT_MESSAGE_LIMIT,
+  isNearContactLimit,
+} from '@/lib/contact-validation';
 import './contact-form-message.css';
 
 /** One draft, with a larger editor scoped to the reading viewport or monitor. */
@@ -12,7 +15,6 @@ export function ContactMessageField({
   site,
   id,
   value,
-  characters,
   disabled,
   onChange,
   expandedContainer,
@@ -20,7 +22,6 @@ export function ContactMessageField({
   site: Record<string, any>;
   id: string;
   value: string;
-  characters: number;
   disabled: boolean;
   onChange: (value: string) => void;
   expandedContainer?: RefObject<HTMLDivElement | null>;
@@ -60,20 +61,24 @@ export function ContactMessageField({
     };
   }, [portal, expandedContainer]);
 
-  const limit = (suffix: string) => (
-    <small
-      className={
-        characters > CONTACT_MESSAGE_LIMIT
-          ? 'contact-app-limit exceeded'
-          : 'contact-app-limit'
-      }
-      id={`${id}-${suffix}`}
-    >
-      {copy(site, 'At least 10 characters · {count} / 5,000', {
-        count: characters.toLocaleString('en-US'),
-      })}
-    </small>
-  );
+  const characters = value.length;
+  const showCount = isNearContactLimit(characters, CONTACT_MESSAGE_LIMIT);
+  const limit = (suffix: string) =>
+    showCount ? (
+      <small
+        className={
+          characters > CONTACT_MESSAGE_LIMIT
+            ? 'contact-app-limit exceeded'
+            : 'contact-app-limit'
+        }
+        id={`${id}-${suffix}`}
+      >
+        {copy(site, '{count} / {limit} characters', {
+          count: characters.toLocaleString('en-US'),
+          limit: CONTACT_MESSAGE_LIMIT.toLocaleString('en-US'),
+        })}
+      </small>
+    ) : null;
   const inputProps = {
     value,
     onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -113,7 +118,7 @@ export function ContactMessageField({
             name="message"
             id={`${id}-message`}
             rows={3}
-            aria-describedby={`${id}-length`}
+            aria-describedby={showCount ? `${id}-length` : undefined}
           />
           <Dialog.Trigger
             className="contact-message-expand"
@@ -168,7 +173,7 @@ export function ContactMessageField({
             {...inputProps}
             ref={expandedInput}
             aria-label={site.messageLabel}
-            aria-describedby={`${id}-expanded-length`}
+            aria-describedby={showCount ? `${id}-expanded-length` : undefined}
           />
           <footer className="contact-message-editor-footer">
             {limit('expanded-length')}

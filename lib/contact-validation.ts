@@ -1,8 +1,12 @@
-export const CONTACT_NAME_LIMIT = 120;
-export const CONTACT_COMPANY_LIMIT = 160;
-export const CONTACT_SUBJECT_LIMIT = 200;
+export const CONTACT_NAME_LIMIT = 60;
+export const CONTACT_COMPANY_LIMIT = 80;
+export const CONTACT_SUBJECT_LIMIT = 100;
 export const CONTACT_EMAIL_LIMIT = 254;
 export const CONTACT_MESSAGE_LIMIT = 5000;
+
+export function isNearContactLimit(length: number, limit: number): boolean {
+  return length >= Math.ceil(limit * 0.8);
+}
 
 /** Syntax only: never look up a domain or send a verification email. */
 export function isValidContactEmail(email: string): boolean {

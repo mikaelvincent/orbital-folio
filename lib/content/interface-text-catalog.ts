@@ -26,7 +26,6 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
   ],
   "contact-form": [
     "{count} / {limit} characters",
-    "At least 10 characters · {count} / 5,000",
     "Back to form",
     "Collapse message",
     "Company",
@@ -38,9 +37,10 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "email me directly",
     "Enter a valid email address.",
     "Expand message",
-    "Keep the subject under 201 characters.",
-    "Keep your company name under 161 characters.",
-    "Keep your name under 121 characters.",
+    "Keep the subject within {limit} characters.",
+    "Keep your company name within {limit} characters.",
+    "Keep your message within {limit} characters.",
+    "Keep your name within {limit} characters.",
     "Let’s connect.",
     "Message details",
     "Message received.",
@@ -56,8 +56,7 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "You can still",
     "Your message could not be saved. Please try again or use email.",
     "Your message could not be saved. Please try again.",
-    "Your message was saved to my private inbox. Thank you for getting in touch.",
-    "Your message, company and subject together must fit within 5,000 characters. Please shorten them before sending."
+    "Your message was saved to my private inbox. Thank you for getting in touch."
   ],
   "experience": [
     "All case studies",

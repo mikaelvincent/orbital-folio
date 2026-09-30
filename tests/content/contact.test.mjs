@@ -156,6 +156,10 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
       { email: 'visitor..name@example.com' },
       { email: 'visitor@-example.com' },
       { email: 'visitor@example.com/path' },
+      { name: 'n'.repeat(61) },
+      { company: 'c'.repeat(81) },
+      { subject: 's'.repeat(101) },
+      { message: 'm'.repeat(5001) },
     ].entries()) {
       const invalidFields = new FormData();
       for (const [key, value] of Object.entries({
@@ -196,6 +200,64 @@ await test('Contact messages are durable, private, honest, bounded, and rate lim
     assert.ok(limited, 'Public contact rate limit must activate');
   } finally {
     for (const id of ids)
+      await fetch(base + '/api/admin', {
+        method: 'POST',
+        headers: {
+          Cookie: cookie,
+          Origin: base,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'inquiryDelete', id }),
+      });
+  }
+});
+
+await test('the API accepts and preserves a full message plus independently bounded company and subject', async () => {
+  const company = 'c'.repeat(80);
+  const subject = 's'.repeat(100);
+  const message = ('Independent message allowance ' + Date.now()).padEnd(
+    5000,
+    'm',
+  );
+  const body = new FormData();
+  for (const [key, value] of Object.entries({
+    name: 'n'.repeat(60),
+    email: 'visitor@example.com',
+    company,
+    subject,
+    message,
+    intent: 'project',
+  }))
+    body.set(key, value);
+  let id;
+  try {
+    const response = await fetch(base + '/api/contact', {
+      method: 'POST',
+      headers: {
+        Origin: base,
+        Accept: 'application/json',
+        'cf-connecting-ip': testIp + '-independent-limits',
+      },
+      body,
+    });
+    assert.equal(response.status, 200, await response.text());
+    const inbox = await (
+      await fetch(base + '/api/admin/inbox', {
+        headers: { Cookie: cookie },
+      })
+    ).json();
+    const received = inbox.inquiries.find((inquiry) =>
+      inquiry.message.endsWith(message),
+    );
+    id = received?.id;
+    assert.ok(received, 'The full message must be saved without truncation');
+    assert.equal(received.name.length, 60);
+    assert.equal(
+      received.message,
+      `Company: ${company}\nSubject: ${subject}\n\n${message}`,
+    );
+  } finally {
+    if (id)
       await fetch(base + '/api/admin', {
         method: 'POST',
         headers: {
