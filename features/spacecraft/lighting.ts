@@ -5,7 +5,7 @@ import {
   type RenderingSettings,
 } from './rendering-settings.ts';
 
-// Each fixture combines a defined main beam with a weaker, feathered wide beam.
+// Each fixture combines a defined main beam with a feathered wide beam.
 // Both share a source and aim; restrained ambient fill preserves their shadows.
 export const VESSEL_LIGHTING = {
   sunIntensity: 3.2,
@@ -16,6 +16,23 @@ export const VESSEL_LIGHTING = {
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
+
+// Calibrated appearance at 100% on each brightness control. Keep ratios/angles
+// (warmth, ambient fill, spill, inactive brightness and beam width) in real units.
+// These factors preserve the owner's chosen balance, including fill and diffusers.
+export const LIGHTING_BASELINE = {
+  exterior: 0.25,
+  rooms: 1.25,
+  ladder: 1.5,
+  key: 0.5,
+  fill: 0.8,
+};
+
+// Compare captures across authored calibrations even when the controls match.
+export const LIGHTING_CALIBRATION_SIGNATURE = JSON.stringify({
+  reference: VESSEL_LIGHTING,
+  baseline: LIGHTING_BASELINE,
+});
 
 export function roomLightColor(T: typeof Three, warmth: number) {
   return new T.Color(0xffffff).lerp(new T.Color(0xffb85f), warmth);
@@ -31,6 +48,8 @@ export function createCabinLight(
   const light = new T.SpotLight(
     roomLightColor(T, DEFAULT_ROOM_LIGHTING.roomWarmth),
     VESSEL_LIGHTING.cabinIntensity *
+      LIGHTING_BASELINE.rooms *
+      LIGHTING_BASELINE[beam] *
       (wide
         ? DEFAULT_ROOM_LIGHTING.roomFillLight
         : DEFAULT_ROOM_LIGHTING.roomKeyLight),
@@ -58,14 +77,17 @@ export function createCabinLight(
 export function createLadderLight(T: typeof Three, index: number) {
   const light = createCabinLight(T, 'walkway');
   light.name = `ladder-worklight-${index + 1}`;
-  light.intensity = VESSEL_LIGHTING.ladderIntensity;
+  light.intensity = VESSEL_LIGHTING.ladderIntensity * LIGHTING_BASELINE.ladder;
   light.angle = Math.PI * 0.4;
   light.penumbra = 0.55;
   return light;
 }
 
 export function createExteriorLight(T: typeof Three) {
-  const light = new T.DirectionalLight(0xddeaff, VESSEL_LIGHTING.sunIntensity);
+  const light = new T.DirectionalLight(
+    0xddeaff,
+    VESSEL_LIGHTING.sunIntensity * LIGHTING_BASELINE.exterior,
+  );
   light.name = 'exterior-sun';
   light.position.set(-7, 9, 12);
   light.castShadow = VESSEL_LIGHTING.sunIntensity > 0;
@@ -144,10 +166,26 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
   const roomFill = {
     value: fillColor
       .clone()
-      .multiplyScalar(Math.PI * DEFAULT_ROOM_LIGHTING.roomFill),
+      .multiplyScalar(
+        Math.PI * DEFAULT_ROOM_LIGHTING.roomFill * LIGHTING_BASELINE.rooms,
+      ),
   };
-  const ladderFill = { value: roomFill.value.clone() };
-  const sharedFill = { value: roomFill.value.clone() };
+  const ladderFill = {
+    value: fillColor
+      .clone()
+      .multiplyScalar(
+        Math.PI * DEFAULT_ROOM_LIGHTING.roomFill * LIGHTING_BASELINE.ladder,
+      ),
+  };
+  const sharedFill = {
+    value: fillColor
+      .clone()
+      .multiplyScalar(
+        Math.PI *
+          DEFAULT_ROOM_LIGHTING.roomFill *
+          Math.max(LIGHTING_BASELINE.rooms, LIGHTING_BASELINE.ladder),
+      ),
+  };
   const applied = new Map<Three.Material, Three.SpotLight[]>();
   // Preserve authored caster/receiver flags, including iris masks and glass.
   root.traverse((object) => {
@@ -216,6 +254,8 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       >,
     ) {
       const color = roomLightColor(T, settings.roomWarmth);
+      const roomLevel = LIGHTING_BASELINE.rooms * settings.roomLight;
+      const ladderLevel = LIGHTING_BASELINE.ladder * settings.ladderLight;
       for (const { light } of allLamps) {
         light.color.copy(color);
         if (light.userData.section !== 'walkway')
@@ -227,16 +267,14 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       }
       roomFill.value
         .copy(color)
-        .multiplyScalar(Math.PI * settings.roomFill * settings.roomLight);
+        .multiplyScalar(Math.PI * settings.roomFill * roomLevel);
       ladderFill.value
         .copy(color)
-        .multiplyScalar(Math.PI * settings.roomFill * settings.ladderLight);
+        .multiplyScalar(Math.PI * settings.roomFill * ladderLevel);
       sharedFill.value
         .copy(color)
         .multiplyScalar(
-          Math.PI *
-            settings.roomFill *
-            Math.max(settings.roomLight, settings.ladderLight),
+          Math.PI * settings.roomFill * Math.max(roomLevel, ladderLevel),
         );
       sunlight.value = settings.exteriorSpill;
       // Uniform-only changes must recapture color while preserving valid depth/AO.

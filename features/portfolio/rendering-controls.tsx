@@ -81,7 +81,7 @@ export function RenderingControls({
       <div id="rendering-controls-body" hidden={collapsed}>
         <p className="rendering-intro">
           {
-            'Fine-tune the lighting live. Room settings apply equally to all four rooms and stay when you close this panel.'
+            'Fine-tune the lighting live. Brightness and beam strength use 100% for the authored balance. Room settings apply equally to all four rooms and stay when you close this panel.'
           }
         </p>
         {(
@@ -109,7 +109,7 @@ export function RenderingControls({
             [
               'roomKeyLight',
               'Main beam strength',
-              'The stronger beam that defines furniture shadows.',
+              'The focused beam that defines furniture shadows.',
             ],
             [
               'roomSpread',
@@ -119,7 +119,7 @@ export function RenderingControls({
             [
               'roomFillLight',
               'Wide beam strength',
-              'Gentle light around the main beam. Keep weaker for visible shadows.',
+              'Feathered light around the main beam. Lower values reveal stronger shadows.',
             ],
             [
               'roomFillSpread',

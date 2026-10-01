@@ -21,9 +21,9 @@ export type RenderingSettings = {
 
 export const DEFAULT_ROOM_LIGHTING = {
   roomWarmth: 0.6,
-  roomKeyLight: 0.75,
+  roomKeyLight: 1,
   roomSpread: 45,
-  roomFillLight: 0.25,
+  roomFillLight: 1,
   roomFillSpread: 74,
   roomFill: 0.05,
   roomIdleLevel: 0.75,
@@ -34,7 +34,7 @@ export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   shadows: true,
   shadowSize: 512,
   shadowSoftness: 4,
-  exteriorLight: 0.2,
+  exteriorLight: 1,
   roomLight: 1,
   ladderLight: 1,
   ...DEFAULT_ROOM_LIGHTING,

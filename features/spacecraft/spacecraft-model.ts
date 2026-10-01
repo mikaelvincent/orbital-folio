@@ -3,6 +3,7 @@ import {
   createCabinLight,
   createLadderLight,
   roomLightColor,
+  LIGHTING_BASELINE,
   VESSEL_LIGHTING,
 } from './lighting.ts';
 import { DEFAULT_ROOM_LIGHTING } from './rendering-settings.ts';
@@ -3766,13 +3767,15 @@ export function createSpacecraft(
     for (const section of Object.keys(roomMaterials)) {
       const level = roomDimmers[section];
       const lightLevel =
-        section === 'walkway' ? ladderLightLevel : roomLightLevel;
+        section === 'walkway'
+          ? ladderLightLevel * LIGHTING_BASELINE.ladder
+          : roomLightLevel * LIGHTING_BASELINE.rooms;
       const fixtureLevel =
         lightLevel *
         (section === 'walkway'
           ? 1
-          : (roomLightingProfile.roomKeyLight +
-              roomLightingProfile.roomFillLight) /
+          : (roomLightingProfile.roomKeyLight * LIGHTING_BASELINE.key +
+              roomLightingProfile.roomFillLight * LIGHTING_BASELINE.fill) /
             VESSEL_LIGHTING.cabinFixtureBeamReference);
       for (const material of roomMaterials[section]) {
         const exterior = !!material.userData.exterior;
@@ -3818,8 +3821,8 @@ export function createSpacecraft(
             : VESSEL_LIGHTING.cabinIntensity *
               lightLevel *
               (light.userData.cabinBeam === 'fill'
-                ? roomLightingProfile.roomFillLight
-                : roomLightingProfile.roomKeyLight);
+                ? roomLightingProfile.roomFillLight * LIGHTING_BASELINE.fill
+                : roomLightingProfile.roomKeyLight * LIGHTING_BASELINE.key);
       group.userData.lightingState ||= {};
       group.userData.lightingState[section] = {
         targetLevel: targetLevels[section],

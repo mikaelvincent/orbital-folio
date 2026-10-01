@@ -7,6 +7,7 @@ import {
   cabinLightingChunk,
   createExteriorLight,
   roomLightColor,
+  LIGHTING_BASELINE,
   VESSEL_LIGHTING,
 } from '../../features/spacecraft/lighting.ts';
 import { DEFAULT_RENDERING_SETTINGS } from '../../features/spacecraft/rendering-settings.ts';
@@ -74,7 +75,7 @@ test('aimed emitters follow their physical fixtures and targets in both asset la
         fill.shadow,
         'each beam needs its own shadow projection',
       );
-      assert.ok(key.intensity > fill.intensity && key.angle < fill.angle);
+      assert.ok(key.angle < fill.angle);
     }
     for (const light of lights.filter(
       (light) => light.userData.section !== 'walkway',
@@ -205,12 +206,15 @@ test('room and ladder brightness stay independent through navigation and do not 
       assert.equal(
         light.intensity,
         walkway
-          ? VESSEL_LIGHTING.ladderIntensity * ladder
+          ? VESSEL_LIGHTING.ladderIntensity * LIGHTING_BASELINE.ladder * ladder
           : VESSEL_LIGHTING.cabinIntensity *
+              LIGHTING_BASELINE.rooms *
               rooms *
               (light.userData.cabinBeam === 'fill'
-                ? DEFAULT_RENDERING_SETTINGS.roomFillLight
-                : DEFAULT_RENDERING_SETTINGS.roomKeyLight),
+                ? DEFAULT_RENDERING_SETTINGS.roomFillLight *
+                  LIGHTING_BASELINE.fill
+                : DEFAULT_RENDERING_SETTINGS.roomKeyLight *
+                  LIGHTING_BASELINE.key),
       );
     }
     for (const material of fixtures) {
@@ -238,20 +242,41 @@ test('room and ladder brightness stay independent through navigation and do not 
   );
 });
 
-test('screenshot defaults preserve the diffuser emission at those manually chosen values', () => {
+test('100% controls reproduce the chosen exterior, room, beam and ladder intensities', () => {
+  const sun = createExteriorLight(THREE);
+  assert.equal(sun.intensity, 0.8, 'previous exterior 25%');
   model.setLighting(1, 1);
-  model.update(2, '', true, { activeRoom: 'home', reducedMotion: true });
+  model.update(2, '', true, { activeRoom: 'projects', reducedMotion: true });
+  for (const light of lights)
+    assert.equal(
+      light.intensity,
+      light.userData.section === 'walkway'
+        ? 6.5625 // Previous ladder 150%.
+        : light.userData.cabinBeam === 'fill'
+          ? 13.75 // Previous room 125%, wide 80%.
+          : 8.59375, // Previous room 125%, main 50%.
+      light.name,
+    );
+});
+
+test('calibrated 100% defaults preserve the diffuser emission at the chosen values', () => {
+  model.setLighting(1, 1);
+  model.update(2, '', true, {
+    activeRoom: 'home',
+    reducedMotion: true,
+    travelling: false,
+    transitWalkway: false,
+    hoveredWalkway: false,
+  });
   const expectedColor = roomLightColor(THREE, 0.6);
   for (const material of meshes.flatMap((mesh) => [mesh.material].flat())) {
-    if (
-      !material.userData.lightFixture ||
-      material.userData.section === 'walkway'
-    )
-      continue;
+    if (!material.userData.lightFixture) continue;
+    const ladder = material.userData.section === 'walkway';
     const expected = expectedColor
       .clone()
       .multiplyScalar(
-        material.userData.baseIntensity * 0.75 * ((0.75 + 0.25) / 1.25),
+        material.userData.baseIntensity *
+          (ladder ? 0.5 * 1.5 : 0.75 * ((1.25 * (0.5 + 0.8)) / 1.25)),
       );
     for (const channel of ['r', 'g', 'b'])
       assert.ok(
@@ -284,11 +309,14 @@ test('independent beam strengths survive animation, navigation and zero settings
       for (const light of lights) {
         const ladder = light.userData.section === 'walkway';
         const expected = ladder
-          ? VESSEL_LIGHTING.ladderIntensity * 0.6
+          ? VESSEL_LIGHTING.ladderIntensity * LIGHTING_BASELINE.ladder * 0.6
           : VESSEL_LIGHTING.cabinIntensity *
+            LIGHTING_BASELINE.rooms *
             1.25 *
-            (light.userData.cabinBeam === 'fill' ? wide : key);
-        assert.equal(light.intensity, expected, light.name);
+            (light.userData.cabinBeam === 'fill'
+              ? wide * LIGHTING_BASELINE.fill
+              : key * LIGHTING_BASELINE.key);
+        assert.ok(Math.abs(light.intensity - expected) < 1e-12, light.name);
       }
       if (key === 0 && wide === 0) {
         for (const material of meshes.flatMap((mesh) => [mesh.material].flat()))
@@ -546,7 +574,9 @@ test('warmth, spread and fill stay shared across rooms and hatch faces without r
       ];
       const level = Math.max(
         ...rooms.map((room) =>
-          room === 'walkway' ? settings.ladderLight : settings.roomLight,
+          room === 'walkway'
+            ? settings.ladderLight * LIGHTING_BASELINE.ladder
+            : settings.roomLight * LIGHTING_BASELINE.rooms,
         ),
       );
       const expected = color

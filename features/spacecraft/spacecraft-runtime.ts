@@ -67,6 +67,8 @@ import { createShadowUpdates } from './shadow-updates';
 import {
   applyCabinLighting,
   createExteriorLight,
+  LIGHTING_BASELINE,
+  LIGHTING_CALIBRATION_SIGNATURE,
   VESSEL_LIGHTING,
 } from './lighting';
 import {
@@ -433,7 +435,9 @@ export function mountSpacecraftScene({
         const key = createExteriorLight(THREE);
         function applyLightLevels() {
           key.intensity =
-            VESSEL_LIGHTING.sunIntensity * rendering.exteriorLight;
+            VESSEL_LIGHTING.sunIntensity *
+            LIGHTING_BASELINE.exterior *
+            rendering.exteriorLight;
           model.setLighting(
             rendering.roomLight,
             rendering.ladderLight,
@@ -3598,6 +3602,7 @@ export function mountSpacecraftScene({
             getSettings: () => ({
               experiment,
               renderingSettings: { ...renderingSettings },
+              lightingCalibration: LIGHTING_CALIBRATION_SIGNATURE,
               backgroundEnabled: usesBackground(),
               spacecraftCacheEnabled:
                 renderingSettings.spacecraftCache &&
@@ -3776,6 +3781,7 @@ export function mountSpacecraftScene({
                 visible,
                 contactShading: usesContactShading(),
                 renderingSettings: { ...renderingSettings },
+                lightingCalibration: LIGHTING_CALIBRATION_SIGNATURE,
                 policy: aoPolicy,
                 pixelCache: pixelCache.stats(),
                 build: process.env.NODE_ENV,

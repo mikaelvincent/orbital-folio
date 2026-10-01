@@ -58,19 +58,19 @@ retain purposeful exceptions. Construction entry points are in
 
 Lighting retains the current materials' realistic furniture shadows with a
 warm tint. All four cabins share the same profile. Each visible
-swivel fixture combines a stronger, narrower main beam with a weaker, wider beam.
+swivel fixture combines a narrower main beam with a feathered, wider beam.
 The two sources occupy exactly the same position and share one target, so they
 read as a single lamp with one shadow direction. Each has its own shadow projection;
 never share a shadow object between different beam widths. Keep ambient fill low
 enough to preserve the furniture shadows. Bright cool exterior sunlight from
-above-left and in front shapes the hull, at 20% brightness by default. Interior
+above-left and in front shapes the hull at the calibrated 100% brightness. Interior
 materials admit only 5% by default, keeping exterior brightness from washing
 out the rooms.
 Each cabin has one offset swivel fixture aimed down and across its furnishings.
 Its ceiling shoe, stem, housing and luminous face must
 stay connected; preserve the assembly's proportions when changing room width and
 re-aim both beams with their fixture. Opposite lamp placement gives the rooms
-different shadow directions. The weak feathered wide beam reaches side walls and
+different shadow directions. The feathered wide beam reaches side walls and
 furniture while keeping floors and deep recesses darker.
 Contact shading preserves depth. Fill follows room/ladder brightness; shared
 hatch faces receive one contribution at the brighter adjoining level, not a sum.
@@ -513,19 +513,26 @@ Expose independent exterior, room and ladder brightness sliders, shared room
 warmth, main/wide beam strengths and widths, ambient fill, inactive room brightness
 and exterior spill indoors, plus shadows, shadow detail, shadow softness, pixel
 density, contact shading, Earth/sky
-and stationary spacecraft caching. Brightness spans 0–500% in 5% steps, with 100%
-restoring the authored values: sun intensity 3.2, main cabin beam 13.75 and each
-ladder worklight 4.375. Both cabin beam strength controls use 13.75 as their 100%
-baseline; the main defaults to 75% and the wide beam to 25%. Room brightness is
-their common multiplier. Exterior light defaults to 20%; room and ladder
-brightness default to 100%. Cabin and ladder diffuser base emission is 1.375
-and 2.125 respectively, before room feedback dimming. Cabin emission scales by
-combined beam strength divided by a fixed 1.25 reference; changing the default
-preset must not renormalize a chosen appearance. These settings apply on
-first load and reset. Exterior controls sunlight; room and ladder sliders also dim their
-fixture faces while leaving screens and status indicators legible. Cabin diffuser
-emission also follows the combined beam strength; switching both off extinguishes
-the diffuser. Warmth spans neutral white to amber, with a 60% default shared by
+and stationary spacecraft caching. Exterior, room, ladder and both beam-strength
+controls span 0–500% in 5% steps and default to **100% of their calibrated baseline**.
+The owner's chosen appearance defines that baseline; changing a default must
+preserve the actual light, ambient fill and diffuser emission at the chosen values.
+`LIGHTING_BASELINE` stores exterior 0.25, rooms 1.25, ladder 1.5, main 0.5 and
+wide 0.8 against the fixed `VESSEL_LIGHTING` references. At default controls, sun
+intensity is 0.8, each main beam is 8.59375, each wide beam is 13.75, and each
+ladder worklight is 6.5625. Room brightness multiplies both cabin beams.
+Diagnostic captures include a calibration signature so comparisons flag a changed
+baseline even when the normalized control values match.
+
+Cabin and ladder diffuser base emissions remain 1.375 and 2.125. Their calibrated
+multipliers are 1.3 and 1.5 respectively, before room feedback dimming. Cabin
+emission follows the weighted sum of the main/wide controls, using the fixed 1.25
+beam reference; both beams off extinguishes the diffuser. Ambient fill follows
+calibrated room/ladder levels, and shared hatch faces use the brighter adjoining
+level. A 100% reset must reproduce the chosen appearance in all these terms,
+without changing screens or status indicators. These settings apply on first
+load and reset. Exterior controls sunlight; room and ladder controls also dim
+fixture faces. Warmth spans neutral white to amber, with a 60% default shared by
 the interior lamps, their diffusers and fill. Main beam width spans 30–170° in
 2° steps, defaulting to 90°; the wide beam spans 70–170°, defaulting to 148°.
 Ambient fill spans 0–100% in 5% steps, defaulting to 5%; inactive room brightness

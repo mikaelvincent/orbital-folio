@@ -148,6 +148,7 @@ export function comparisonWarnings(
     ['shadowsEnabled', 'shadow setting', 0],
     ['shadowMap', 'shadow resolution', 0],
     ['shadowSoftness', 'shadow softness', 0],
+    ['lightingCalibration', 'authored lighting calibration', 0],
     ['exteriorLight', 'exterior light brightness', 0],
     ['roomLight', 'room light brightness', 0],
     ['ladderLight', 'ladder light brightness', 0],

@@ -25,13 +25,13 @@ const capture = (overrides = {}) => ({
     shadowsEnabled: true,
     shadowMap: [2048, 2048],
     shadowSoftness: 1,
-    exteriorLight: 0.2,
+    exteriorLight: 1,
     roomLight: 1,
     ladderLight: 1,
     roomWarmth: 0.6,
-    roomKeyLight: 0.75,
+    roomKeyLight: 1,
     roomSpread: 45,
-    roomFillLight: 0.25,
+    roomFillLight: 1,
     roomFillSpread: 74,
     roomFill: 0.05,
     roomIdleLevel: 0.75,
@@ -48,6 +48,20 @@ const capture = (overrides = {}) => ({
     activity: { idle: {} },
   },
   ...overrides,
+});
+
+test('matching controls with different or missing lighting calibrations warn', () => {
+  const baseline = capture();
+  const comparison = capture({ kind: 'confirmation' });
+  baseline.settings.lightingCalibration = 'chosen-calibration';
+  comparison.settings.lightingCalibration = 'chosen-calibration';
+  assert.deepEqual(comparisonWarnings(baseline, comparison), []);
+  for (const calibration of ['older-calibration', undefined]) {
+    comparison.settings.lightingCalibration = calibration;
+    assert.deepEqual(comparisonWarnings(baseline, comparison), [
+      'The authored lighting calibration changed.',
+    ]);
+  }
 });
 
 test('live background and cache overrides are recorded as changed settings', () => {
