@@ -254,10 +254,14 @@ test('the authored wide ship refreshes affected maps across light spreads, dish 
     renderer.shadowMap.needsUpdate = false;
     return dirty;
   }
-  for (const spread of [54, DEFAULT_RENDERING_SETTINGS.roomSpread, 85]) {
+  for (const spreads of [
+    { roomSpread: 15, roomFillSpread: 35 },
+    DEFAULT_RENDERING_SETTINGS,
+    { roomSpread: 85, roomFillSpread: 85 },
+  ]) {
     linked.setAppearance({
       ...DEFAULT_RENDERING_SETTINGS,
-      roomSpread: spread,
+      ...spreads,
     });
     cache.invalidate();
     assert.deepEqual(frame(0), lights);
@@ -266,7 +270,7 @@ test('the authored wide ship refreshes affected maps across light spreads, dish 
     const affected = lights.filter(
       (light) =>
         light === sun ||
-        (spread >= DEFAULT_RENDERING_SETTINGS.roomSpread &&
+        (light.angle >= T.MathUtils.degToRad(75) &&
           ['experience', 'contact'].includes(light.userData.section)),
     );
     let sunFrames = 0;

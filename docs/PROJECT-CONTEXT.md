@@ -56,17 +56,21 @@ matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
 retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
-Lighting follows the warm, broad illumination of the approved low-poly concepts
-while retaining the current model and materials. All four cabins share one
-brightness, warmth, beam-width and soft-fill profile. Bright cool exterior
-sunlight from above-left and in front shapes the hull; interior materials admit
-only 5% by default, keeping exterior brightness from washing out the warm rooms.
-Each cabin has one warm, offset swivel lamp aimed down and across its furnishings.
+Lighting retains the current materials' realistic furniture shadows with a
+restrained warm-white tint. All four cabins share the same profile. Each visible
+swivel fixture combines a stronger, narrower main beam with a weaker, wider beam.
+The two sources occupy exactly the same position and share one target, so they
+read as a single lamp with one shadow direction. Each has its own shadow projection;
+never share a shadow object between different beam widths. Keep ambient fill low
+enough to preserve the furniture shadows. Bright cool exterior sunlight from
+above-left and in front shapes the hull; interior materials admit only 5% by
+default, keeping exterior brightness from washing out the rooms.
+Each cabin has one offset swivel fixture aimed down and across its furnishings.
 Its ceiling shoe, stem, housing and luminous face must
 stay connected; preserve the assembly's proportions when changing room width and
-re-aim the actual light with its fixture. Opposite lamp placement gives the rooms
-different shadow directions. Broad feathered beams and warm diffuse fill reach
-the side walls and furniture while keeping floors and deep recesses darker.
+re-aim both beams with their fixture. Opposite lamp placement gives the rooms
+different shadow directions. The weak feathered wide beam reaches side walls and
+furniture while keeping floors and deep recesses darker.
 Contact shading preserves depth. Fill follows room/ladder brightness; shared
 hatch faces receive one contribution at the brighter adjoining level, not a sum.
 The ladder bay uses its two existing guarded rear worklights, with sources just
@@ -100,8 +104,11 @@ cached. A dirty or automatically updating interior map requires a complete,
 unmasked scene draw and color-cache reconstruction before reuse resumes. Keep
 the existing phone/AO-disabled fallback. Historical area-light timings do not
 apply to this rig. Room hover/selection changes material brightness without a
-second light dimmer. Overview entry and direct room-to-room travel keep the chosen
-destination bright from departure through arrival. Routes through intermediate
+second light dimmer. Inactive cabin materials default to 85% instead of half
+brightness, reducing the overview-to-room jump. The inactive-room control can
+raise this to 100% for steady brightness or lower it to 50% for stronger focus
+feedback. Ladder feedback remains 50–100%. Overview entry and direct room-to-room
+travel keep the chosen destination bright from departure through arrival. Routes through intermediate
 cabins retain sequential lighting based on the camera's current room. Keep labels
 and interactive objects readable, including on the phone's AO-free path.
 
@@ -497,17 +504,23 @@ must work; preserve the pointerdown/click intent guard against accidental reopen
 
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
 Expose independent exterior, room and ladder brightness sliders, shared room
-warmth, room light spread, soft interior fill and exterior spill indoors, plus
-shadows, shadow detail, shadow softness, pixel density, contact shading, Earth/sky
+warmth, main/wide beam strengths and widths, ambient fill, inactive room brightness
+and exterior spill indoors, plus shadows, shadow detail, shadow softness, pixel
+density, contact shading, Earth/sky
 and stationary spacecraft caching. Brightness spans 0–500% in 5% steps, with 100%
-restoring the authored values: sun intensity 3.2, each cabin lamp 18 and each ladder worklight
-4.375. Cabin and ladder diffuser emission is 1.375 and 2.125 respectively, before
-room feedback dimming. These values are the actual 100% baseline on first load
-and reset. Exterior controls sunlight; room and ladder sliders also dim their
-fixture faces while leaving screens and status indicators legible. Warmth spans
-neutral white to amber, with an 85% default shared by the interior lamps, their
-diffusers and fill. The room beam spans 70–170° in 2° steps, defaulting to 150°.
-Soft fill spans 0–100% in 5% steps, defaulting to 25%; sunlight spill spans 0–100%
+restoring the authored values: sun intensity 3.2, main cabin beam 13.75 and each
+ladder worklight 4.375. Both cabin beam strength controls use 13.75 as their 100%
+baseline; the main defaults to 100% and the wide beam to 25%. Room brightness is
+their common multiplier. Cabin and ladder diffuser emission is 1.375 and 2.125
+respectively, before room feedback dimming. These are the authored defaults on
+first load and reset. Exterior controls sunlight; room and ladder sliders also dim their
+fixture faces while leaving screens and status indicators legible. Cabin diffuser
+emission also follows the combined beam strength; switching both off extinguishes
+the diffuser. Warmth spans neutral white to amber, with a 20% default shared by
+the interior lamps, their diffusers and fill. Main beam width spans 30–170° in
+2° steps, defaulting to 108°; the wide beam spans 70–170°, defaulting to 150°.
+Ambient fill spans 0–100% in 5% steps, defaulting to 5%; inactive room brightness
+spans 50–100% in 5% steps, defaulting to 85%; sunlight spill spans 0–100%
 in 1% steps, defaulting to 5%. Brightness, warmth, fill and spill recapture color
 while reusing valid shadows and contact AO. Beam-width changes rebuild lamp shadow
 projections and receiver bounds before the next draw.

@@ -5,32 +5,45 @@ import {
   type RenderingSettings,
 } from './rendering-settings.ts';
 
-// Bright exterior sunlight is attenuated on interior materials. Broad warm
-// fixtures and room-local diffuse fill give every cabin the same authored profile.
+// Each fixture combines a defined main beam with a weaker, feathered wide beam.
+// Both share a source and aim; restrained ambient fill preserves their shadows.
 export const VESSEL_LIGHTING = {
   sunIntensity: 3.2,
-  cabinIntensity: 18,
+  cabinIntensity: 13.75,
   ladderIntensity: 4.375,
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
 
 export function roomLightColor(T: typeof Three, warmth: number) {
-  return new T.Color(0xfff4e5).lerp(new T.Color(0xffb85f), warmth);
+  return new T.Color(0xffffff).lerp(new T.Color(0xffb85f), warmth);
 }
 
-/** One aimed, warm lamp per cabin: a single shadow view, with a feathered beam. */
-export function createCabinLight(T: typeof Three, section: string) {
+/** Two concentric beams read as one fixture with one coherent shadow direction. */
+export function createCabinLight(
+  T: typeof Three,
+  section: string,
+  beam: 'key' | 'fill' = 'key',
+) {
+  const wide = beam === 'fill';
   const light = new T.SpotLight(
     roomLightColor(T, DEFAULT_ROOM_LIGHTING.roomWarmth),
-    VESSEL_LIGHTING.cabinIntensity,
+    VESSEL_LIGHTING.cabinIntensity *
+      (wide
+        ? DEFAULT_ROOM_LIGHTING.roomFillLight
+        : DEFAULT_ROOM_LIGHTING.roomKeyLight),
     7,
-    T.MathUtils.degToRad(DEFAULT_ROOM_LIGHTING.roomSpread),
-    0.55,
+    T.MathUtils.degToRad(
+      wide
+        ? DEFAULT_ROOM_LIGHTING.roomFillSpread
+        : DEFAULT_ROOM_LIGHTING.roomSpread,
+    ),
+    wide ? 0.8 : 0.48,
     2,
   );
-  light.name = `${section}-cabin-lamp`;
+  light.name = `${section}-cabin-lamp${wide ? '-wide' : ''}`;
   light.userData.section = section;
+  light.userData.cabinBeam = beam;
   light.castShadow = true;
   light.shadow.camera.near = 0.05;
   light.shadow.camera.far = 7;
@@ -195,6 +208,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         | 'ladderLight'
         | 'roomWarmth'
         | 'roomSpread'
+        | 'roomFillSpread'
         | 'roomFill'
         | 'exteriorSpill'
       >,
@@ -203,7 +217,11 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       for (const { light } of allLamps) {
         light.color.copy(color);
         if (light.userData.section !== 'walkway')
-          light.angle = T.MathUtils.degToRad(settings.roomSpread);
+          light.angle = T.MathUtils.degToRad(
+            light.userData.cabinBeam === 'fill'
+              ? settings.roomFillSpread
+              : settings.roomSpread,
+          );
       }
       roomFill.value
         .copy(color)

@@ -49,11 +49,33 @@ function compile(material) {
 }
 
 test('aimed emitters follow their physical fixtures and targets in both asset layouts', () => {
-  assert.equal(lights.length, 6);
+  assert.equal(lights.length, 10);
   assert.ok(lights.every((light) => light.isSpotLight && light.castShadow));
   for (const layout of ['compact', 'wide']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
+    for (const room of ['projects', 'experience', 'about', 'contact']) {
+      const pair = lights.filter((light) => light.userData.section === room);
+      assert.equal(pair.length, 2);
+      const key = pair.find((light) => light.userData.cabinBeam === 'key');
+      const fill = pair.find((light) => light.userData.cabinBeam === 'fill');
+      assert.equal(key.parent, fill.parent);
+      assert.equal(
+        key.target,
+        fill.target,
+        'both beams follow the same physical aim',
+      );
+      assert.ok(
+        key.position.equals(fill.position),
+        'no displaced second shadow',
+      );
+      assert.notEqual(
+        key.shadow,
+        fill.shadow,
+        'each beam needs its own shadow projection',
+      );
+      assert.ok(key.intensity > fill.intensity && key.angle < fill.angle);
+    }
     for (const light of lights.filter(
       (light) => light.userData.section !== 'walkway',
     )) {
@@ -184,7 +206,11 @@ test('room and ladder brightness stay independent through navigation and do not 
         light.intensity,
         walkway
           ? VESSEL_LIGHTING.ladderIntensity * ladder
-          : VESSEL_LIGHTING.cabinIntensity * rooms,
+          : VESSEL_LIGHTING.cabinIntensity *
+              rooms *
+              (light.userData.cabinBeam === 'fill'
+                ? DEFAULT_RENDERING_SETTINGS.roomFillLight
+                : DEFAULT_RENDERING_SETTINGS.roomKeyLight),
       );
     }
     for (const material of fixtures) {
@@ -210,6 +236,60 @@ test('room and ladder brightness stay independent through navigation and do not 
     lights.map((light) => light.intensity),
     intensities,
   );
+});
+
+test('independent beam strengths survive animation, navigation and zero settings without changing geometry', () => {
+  model.update(2, '', true, { activeRoom: 'home', reducedMotion: true });
+  const revision = model.group.userData.geometryRevision;
+  for (const [key, wide] of [
+    [1.6, 0.15],
+    [0, 1],
+    [1, 0],
+    [0, 0],
+  ]) {
+    model.setLighting(1.25, 0.6, DEFAULT_RENDERING_SETTINGS.roomWarmth, {
+      ...DEFAULT_RENDERING_SETTINGS,
+      roomKeyLight: key,
+      roomFillLight: wide,
+    });
+    for (const state of [
+      { activeRoom: 'home' },
+      { activeRoom: 'projects' },
+      { activeRoom: 'contact', travelling: true, transitRoom: 'about' },
+      { activeRoom: 'contact', travelling: false, transitRoom: '' },
+    ]) {
+      model.update(2, '', true, { reducedMotion: true, ...state });
+      for (const light of lights) {
+        const ladder = light.userData.section === 'walkway';
+        const expected = ladder
+          ? VESSEL_LIGHTING.ladderIntensity * 0.6
+          : VESSEL_LIGHTING.cabinIntensity *
+            1.25 *
+            (light.userData.cabinBeam === 'fill' ? wide : key);
+        assert.equal(light.intensity, expected, light.name);
+      }
+      if (key === 0 && wide === 0) {
+        for (const material of meshes.flatMap((mesh) => [mesh.material].flat()))
+          if (
+            material.userData.lightFixture &&
+            material.userData.section !== 'walkway'
+          )
+            assert.equal(
+              material.emissive.getHex(),
+              0,
+              'a switched-off fixture does not glow',
+            );
+      }
+    }
+    assert.equal(model.group.userData.geometryRevision, revision);
+  }
+  model.setLighting(1, 1);
+  model.update(2, '', true, {
+    activeRoom: 'home',
+    travelling: false,
+    transitRoom: '',
+    reducedMotion: true,
+  });
 });
 
 test('room and shared-door materials link fixtures, fill and attenuated sunlight while exterior materials retain the sun', () => {
@@ -394,6 +474,7 @@ test('warmth, spread and fill stay shared across rooms and hatch faces without r
       ...DEFAULT_RENDERING_SETTINGS,
       roomWarmth: 1,
       roomSpread: 85,
+      roomFillSpread: 55,
       roomFill: 0.8,
       exteriorSpill: 0,
       roomLight: 0,
@@ -403,6 +484,7 @@ test('warmth, spread and fill stay shared across rooms and hatch faces without r
       ...DEFAULT_RENDERING_SETTINGS,
       roomWarmth: 0,
       roomSpread: 35,
+      roomFillSpread: 85,
       roomFill: 0,
       exteriorSpill: 1,
       roomLight: 2,
@@ -426,7 +508,11 @@ test('warmth, spread and fill stay shared across rooms and hatch faces without r
           if (light.userData.section !== 'walkway')
             assert.equal(
               light.angle,
-              THREE.MathUtils.degToRad(settings.roomSpread),
+              THREE.MathUtils.degToRad(
+                light.userData.cabinBeam === 'fill'
+                  ? settings.roomFillSpread
+                  : settings.roomSpread,
+              ),
             );
         }
       }

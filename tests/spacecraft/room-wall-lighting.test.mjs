@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
+import { DEFAULT_ROOM_LIGHTING } from '../../features/spacecraft/rendering-settings.ts';
 
 const model = createSpacecraft(THREE);
 const sections = ['projects', 'experience', 'about', 'contact'];
@@ -69,7 +70,9 @@ for (const layout of ['wide', 'compact']) {
         for (const section of sections) {
           const expected = idle[section]
             .clone()
-            .multiplyScalar(section === target ? 2 : 1);
+            .multiplyScalar(
+              section === target ? 1 / DEFAULT_ROOM_LIGHTING.roomIdleLevel : 1,
+            );
           assert.ok(
             faces[section].color.equals(expected),
             `${target} ${mode} must ${section === target ? 'brighten' : 'leave unchanged'} ${section}'s wall`,
@@ -83,6 +86,39 @@ for (const layout of ['wide', 'compact']) {
         faces[section].color.equals(idle[section]),
         `${section}: leaving restores idle`,
       );
+  });
+
+  test(`${layout}: inactive brightness can soften or eliminate the overview-to-room change`, () => {
+    model.setLayout(layout);
+    const faces = wallFaces();
+    for (const idle of [0.5, DEFAULT_ROOM_LIGHTING.roomIdleLevel, 1]) {
+      model.setLighting(1, 1, DEFAULT_ROOM_LIGHTING.roomWarmth, {
+        ...DEFAULT_ROOM_LIGHTING,
+        roomIdleLevel: idle,
+      });
+      update();
+      for (const room of sections) {
+        assert.ok(
+          faces[room].color.equals(
+            faces[room].userData.baseColor.clone().multiplyScalar(idle),
+          ),
+        );
+      }
+      const overview = faces.projects.color.clone();
+      update('projects');
+      assert.ok(faces.projects.color.equals(faces.projects.userData.baseColor));
+      if (idle === 1) assert.ok(faces.projects.color.equals(overview));
+      update('', {
+        activeRoom: 'projects',
+        travelling: true,
+        directRoomTravel: true,
+      });
+      assert.ok(faces.projects.color.equals(faces.projects.userData.baseColor));
+      update('', { activeRoom: 'projects', travelling: false });
+      assert.ok(faces.projects.color.equals(faces.projects.userData.baseColor));
+    }
+    model.setLighting(1, 1);
+    update();
   });
 
   test(`${layout}: direct travel keeps destination walls and lamps bright from hover through arrival`, () => {
@@ -182,7 +218,8 @@ for (const layout of ['wide', 'compact']) {
           transitWalkway: transit === 'walkway',
         });
         for (const room of sections) {
-          const level = room === transit ? 1 : 0.5;
+          const level =
+            room === transit ? 1 : DEFAULT_ROOM_LIGHTING.roomIdleLevel;
           assert.ok(
             faces[room].color.equals(
               faces[room].userData.baseColor.clone().multiplyScalar(level),

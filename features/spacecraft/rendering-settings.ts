@@ -6,8 +6,12 @@ export type RenderingSettings = {
   roomLight: number;
   ladderLight: number;
   roomWarmth: number;
+  roomKeyLight: number;
   roomSpread: number;
+  roomFillLight: number;
+  roomFillSpread: number;
   roomFill: number;
+  roomIdleLevel: number;
   exteriorSpill: number;
   pixelDensity: 'auto' | number;
   contactShading: 'auto' | 'on' | 'off';
@@ -16,9 +20,13 @@ export type RenderingSettings = {
 };
 
 export const DEFAULT_ROOM_LIGHTING = {
-  roomWarmth: 0.85,
-  roomSpread: 75,
-  roomFill: 0.25,
+  roomWarmth: 0.2,
+  roomKeyLight: 1,
+  roomSpread: 54,
+  roomFillLight: 0.25,
+  roomFillSpread: 75,
+  roomFill: 0.05,
+  roomIdleLevel: 0.85,
   exteriorSpill: 0.05,
 };
 
@@ -103,8 +111,12 @@ export function resolveRenderingSettings(
     roomLight: brightness(settings.roomLight),
     ladderLight: brightness(settings.ladderLight),
     roomWarmth: lighting('roomWarmth'),
-    roomSpread: lighting('roomSpread', 35, 85),
+    roomKeyLight: lighting('roomKeyLight', 0, 5),
+    roomSpread: lighting('roomSpread', 15, 85),
+    roomFillLight: lighting('roomFillLight', 0, 5),
+    roomFillSpread: lighting('roomFillSpread', 35, 85),
     roomFill: lighting('roomFill'),
+    roomIdleLevel: lighting('roomIdleLevel', 0.5, 1),
     exteriorSpill: lighting('exteriorSpill'),
     contactShading,
     // The live-receiver cache is validated only for this rendering path.
@@ -122,8 +134,12 @@ export type RenderingState = {
   roomLight: number;
   ladderLight: number;
   roomWarmth: number;
+  roomKeyLight: number;
   roomSpread: number;
+  roomFillLight: number;
+  roomFillSpread: number;
   roomFill: number;
+  roomIdleLevel: number;
   exteriorSpill: number;
   contactShading: boolean;
   contactShadingSupported: boolean;

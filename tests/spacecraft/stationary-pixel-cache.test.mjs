@@ -183,8 +183,8 @@ function moveDish(f) {
   f.frames(1);
 }
 
-test('six cached interior maps coexist with regional sun, color and AO reuse', () => {
-  const f = fixture(true, undefined, false, 6);
+test('ten cached interior maps coexist with regional sun, color and AO reuse', () => {
+  const f = fixture(true, undefined, false, 10);
   f.frames();
   f.cache.occlusion(() => {}, true);
   const before = f.cache.stats();

@@ -44,11 +44,11 @@ reference for supported project presentation/media features. See the relevant
 Visitors can enter through rooms, doorways or navigation, or use `?view=reading`.
 The bottom-right **Tools** menu opens **Rendering**, **Scene diagnostics**,
 **Earth playback** and **Content studio**. Rendering changes exterior, room and
-ladder brightness, shared room warmth and beam width, soft interior fill, sunlight
-spill indoors, shadows, pixel density, contact shading, background and
-spacecraft caching immediately, without a recording. Choices last for the visit;
-Reset defaults or reload restores the site defaults. Opening the menu alone starts
-no instrumentation or polling.
+ladder brightness, shared room warmth, main/wide beam strengths and widths,
+ambient fill, inactive room brightness, sunlight spill indoors, shadows, pixel
+density, contact shading, background and spacecraft caching immediately, without
+a recording. Choices last for the visit; Reset defaults or reload restores the
+site defaults. Opening the menu alone starts no instrumentation or polling.
 
 ## Validate
 

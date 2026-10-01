@@ -181,7 +181,15 @@ export function createSpacecraft(
   setReading: (section: string, reading: boolean, instant?: boolean) => void;
   setLabelOrientation: (portrait: boolean) => void;
   setLayout: (layout: 'wide' | 'compact') => any;
-  setLighting: (rooms: number, ladder: number, warmth?: number) => void;
+  setLighting: (
+    rooms: number,
+    ladder: number,
+    warmth?: number,
+    profile?: Pick<
+      typeof DEFAULT_ROOM_LIGHTING,
+      'roomKeyLight' | 'roomFillLight' | 'roomIdleLevel'
+    >,
+  ) => void;
   portalTargets: Array<{
     object: any;
     section: string;
@@ -219,6 +227,7 @@ export function createSpacecraft(
   const roomLights: Record<string, any> = {};
   let roomLightLevel = 1,
     ladderLightLevel = 1;
+  let roomLightingProfile = { ...DEFAULT_ROOM_LIGHTING };
   const fixtureColor = roomLightColor(THREE, DEFAULT_ROOM_LIGHTING.roomWarmth);
   const cabinFixtures: Record<string, any> = {};
   const strengths: Record<string, number> = {};
@@ -685,7 +694,13 @@ export function createSpacecraft(
     lamp.add(ceilingLight);
     ceilingLight.target.position.copy(aim);
     mount.add(ceilingLight.target);
-    roomLights[section] = [ceilingLight];
+    const wideLight = createCabinLight(THREE, section, 'fill');
+    wideLight.position.copy(ceilingLight.position);
+    // Sharing the exact origin and target prevents two displaced shadow patterns
+    // and lets layout re-aiming move both beams with the single visible fixture.
+    wideLight.target = ceilingLight.target;
+    lamp.add(wideLight);
+    roomLights[section] = [ceilingLight, wideLight];
     cabinFixtures[section] = {
       mount,
       lamp,
@@ -3740,7 +3755,7 @@ export function createSpacecraft(
             ? 1
             : preview
               ? 1
-              : 0.5;
+              : roomLightingProfile.roomIdleLevel;
       targetLevels[section] = targetLevel;
       roomDimmers[section] += (targetLevel - roomDimmers[section]) * blend;
       if (Math.abs(roomDimmers[section] - targetLevel) < 0.002)
@@ -3752,6 +3767,14 @@ export function createSpacecraft(
       const level = roomDimmers[section];
       const lightLevel =
         section === 'walkway' ? ladderLightLevel : roomLightLevel;
+      const fixtureLevel =
+        lightLevel *
+        (section === 'walkway'
+          ? 1
+          : (roomLightingProfile.roomKeyLight +
+              roomLightingProfile.roomFillLight) /
+            (DEFAULT_ROOM_LIGHTING.roomKeyLight +
+              DEFAULT_ROOM_LIGHTING.roomFillLight));
       for (const material of roomMaterials[section]) {
         const exterior = !!material.userData.exterior;
         const linked = material.userData.linkedRooms as string[] | undefined;
@@ -3785,7 +3808,7 @@ export function createSpacecraft(
               ? 0
               : material.userData.baseIntensity *
                   materialLevel *
-                  (material.userData.lightFixture ? lightLevel : 1),
+                  (material.userData.lightFixture ? fixtureLevel : 1),
           );
         material.emissiveIntensity = 1;
       }
@@ -3793,7 +3816,11 @@ export function createSpacecraft(
         light.intensity =
           section === 'walkway'
             ? VESSEL_LIGHTING.ladderIntensity * lightLevel
-            : VESSEL_LIGHTING.cabinIntensity * lightLevel;
+            : VESSEL_LIGHTING.cabinIntensity *
+              lightLevel *
+              (light.userData.cabinBeam === 'fill'
+                ? roomLightingProfile.roomFillLight
+                : roomLightingProfile.roomKeyLight);
       group.userData.lightingState ||= {};
       group.userData.lightingState[section] = {
         targetLevel: targetLevels[section],
@@ -3802,7 +3829,7 @@ export function createSpacecraft(
         interiorColor: level,
         exteriorColor: 1,
         screenEmission: level,
-        fixtureEmission: level * lightLevel,
+        fixtureEmission: level * fixtureLevel,
         labels: level,
         exteriorLabels: 0,
         selected:
@@ -3822,7 +3849,7 @@ export function createSpacecraft(
           (light: any) => light.intensity,
         ),
         emitterPolicy:
-          'one aimed lamp per cabin and two existing guarded ladder worklights; room-linked light, material hover/selected/transit feedback',
+          'concentric main and wide beams per cabin fixture; two existing ladder worklights; room-linked light with subtle material focus feedback',
       };
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);
@@ -4009,9 +4036,15 @@ export function createSpacecraft(
     setReading,
     setLabelOrientation,
     setLayout,
-    setLighting(rooms, ladder, warmth = DEFAULT_ROOM_LIGHTING.roomWarmth) {
+    setLighting(
+      rooms,
+      ladder,
+      warmth = DEFAULT_ROOM_LIGHTING.roomWarmth,
+      profile = DEFAULT_ROOM_LIGHTING,
+    ) {
       roomLightLevel = rooms;
       ladderLightLevel = ladder;
+      roomLightingProfile = { ...DEFAULT_ROOM_LIGHTING, ...profile };
       fixtureColor.copy(roomLightColor(THREE, warmth));
     },
     portalTargets,

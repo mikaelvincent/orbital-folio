@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createObjectHighlight } from '../../features/spacecraft/navigation/interactable-object-highlight.ts';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
+import { DEFAULT_ROOM_LIGHTING } from '../../features/spacecraft/rendering-settings.ts';
 import { resolveSocialScreens } from '../../lib/content/social-links.ts';
 
 test('Object highlights isolate shared materials and do not accumulate brightness', () => {
@@ -178,7 +179,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
           preview: '',
           travelling: false,
           transitRoom: '',
-          roomLevel: 0.5,
+          roomLevel: DEFAULT_ROOM_LIGHTING.roomIdleLevel,
         },
         {
           name: 'overview room preview',
@@ -202,7 +203,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
           preview: '',
           travelling: true,
           transitRoom: otherRoom,
-          roomLevel: 0.5,
+          roomLevel: DEFAULT_ROOM_LIGHTING.roomIdleLevel,
         },
         {
           name: 'final travel frame',

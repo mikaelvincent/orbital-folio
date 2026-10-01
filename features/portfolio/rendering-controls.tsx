@@ -99,7 +99,7 @@ export function RenderingControls({
             [
               'roomLight',
               'Room lights',
-              'The warm fixtures in all four rooms.',
+              'Overall brightness of both beams in all four rooms.',
             ],
             [
               'roomWarmth',
@@ -107,14 +107,34 @@ export function RenderingControls({
               'Move from neutral white toward warm amber.',
             ],
             [
+              'roomKeyLight',
+              'Main beam strength',
+              'The stronger beam that defines furniture shadows.',
+            ],
+            [
               'roomSpread',
-              'Room light spread',
-              'Widen the beams across the walls and furniture.',
+              'Main beam width',
+              'Focus or widen the main pool of light.',
+            ],
+            [
+              'roomFillLight',
+              'Wide beam strength',
+              'Gentle light around the main beam. Keep weaker for visible shadows.',
+            ],
+            [
+              'roomFillSpread',
+              'Wide beam width',
+              'Extend the same fixture’s light across walls and furniture.',
             ],
             [
               'roomFill',
-              'Soft interior fill',
-              'Warm light in shaded corners. Follows room and ladder brightness.',
+              'Ambient fill',
+              'Lift the darkest corners. Keep low for stronger shadows; follows room and ladder brightness.',
+            ],
+            [
+              'roomIdleLevel',
+              'Inactive room brightness',
+              'Higher values soften the change on entry. At 100%, room brightness stays steady.',
             ],
             [
               'ladderLight',
@@ -124,10 +144,12 @@ export function RenderingControls({
           ] as const
         ).map(([key, label, hint]) => {
           const id = `${lightingId}-${key}`;
-          const angle = key === 'roomSpread';
+          const angle = key === 'roomSpread' || key === 'roomFillSpread';
           const brightness =
             key === 'exteriorLight' ||
             key === 'roomLight' ||
+            key === 'roomKeyLight' ||
+            key === 'roomFillLight' ||
             key === 'ladderLight';
           const value = Math.round(state[key] * (angle ? 2 : 100));
           const defaultValue = Math.round(
@@ -146,7 +168,15 @@ export function RenderingControls({
                   aria-valuetext={
                     angle ? `${value} degrees` : `${value} percent`
                   }
-                  min={angle ? 35 : 0}
+                  min={
+                    key === 'roomSpread'
+                      ? 15
+                      : key === 'roomFillSpread'
+                        ? 35
+                        : key === 'roomIdleLevel'
+                          ? 0.5
+                          : 0
+                  }
                   max={angle ? 85 : brightness ? 5 : 1}
                   step={angle ? 1 : key === 'exteriorSpill' ? 0.01 : 0.05}
                   value={settings[key]}
