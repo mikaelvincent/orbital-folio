@@ -24,6 +24,10 @@ test('site defaults use low detail and 4× softness while retaining device densi
     exteriorLight: 1,
     roomLight: 1,
     ladderLight: 1,
+    roomWarmth: 0.85,
+    roomSpread: 75,
+    roomFill: 0.25,
+    exteriorSpill: 0.05,
     contactShading: true,
     cacheAvailable: true,
   });
@@ -34,6 +38,10 @@ test('site defaults use low detail and 4× softness while retaining device densi
     exteriorLight: 1,
     roomLight: 1,
     ladderLight: 1,
+    roomWarmth: 0.85,
+    roomSpread: 75,
+    roomFill: 0.25,
+    exteriorSpill: 0.05,
     contactShading: false,
     cacheAvailable: false,
   });
@@ -179,6 +187,10 @@ test('each independent override is identified and reset without changing shared 
     exteriorLight: 0,
     roomLight: 0.5,
     ladderLight: 2,
+    roomWarmth: 0,
+    roomSpread: 50,
+    roomFill: 0,
+    exteriorSpill: 1,
     pixelDensity: 1,
     contactShading: 'off',
     background: false,
@@ -213,6 +225,40 @@ test('independent light levels include off and clamp invalid or excessive inputs
       );
       for (const name of ['exteriorLight', 'roomLight', 'ladderLight'])
         assert.equal(actual[name], name === key ? expected : 1);
+    }
+  }
+});
+
+test('the shared room profile is bounded, resettable and identical on desktop and phone', () => {
+  for (const [key, min, max] of [
+    ['roomWarmth', 0, 1],
+    ['roomSpread', 35, 85],
+    ['roomFill', 0, 1],
+    ['exteriorSpill', 0, 1],
+  ]) {
+    for (const [value, expected] of [
+      [min, min],
+      [max, max],
+      [-10, min],
+      [1000, max],
+      [NaN, defaults[key]],
+      [undefined, defaults[key]],
+      [Infinity, defaults[key]],
+    ]) {
+      for (const environment of [desktop, phone]) {
+        const resolved = resolveRenderingSettings(
+          { ...defaults, [key]: value },
+          environment,
+        );
+        assert.equal(resolved[key], expected, `${key}: ${value}`);
+        for (const other of [
+          'roomWarmth',
+          'roomSpread',
+          'roomFill',
+          'exteriorSpill',
+        ].filter((name) => name !== key))
+          assert.equal(resolved[other], defaults[other]);
+      }
     }
   }
 });

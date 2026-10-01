@@ -5,10 +5,21 @@ export type RenderingSettings = {
   exteriorLight: number;
   roomLight: number;
   ladderLight: number;
+  roomWarmth: number;
+  roomSpread: number;
+  roomFill: number;
+  exteriorSpill: number;
   pixelDensity: 'auto' | number;
   contactShading: 'auto' | 'on' | 'off';
   background: boolean;
   spacecraftCache: boolean;
+};
+
+export const DEFAULT_ROOM_LIGHTING = {
+  roomWarmth: 0.85,
+  roomSpread: 75,
+  roomFill: 0.25,
+  exteriorSpill: 0.05,
 };
 
 export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
@@ -18,6 +29,7 @@ export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   exteriorLight: 1,
   roomLight: 1,
   ladderLight: 1,
+  ...DEFAULT_ROOM_LIGHTING,
   pixelDensity: 'auto',
   contactShading: 'auto',
   background: true,
@@ -66,6 +78,14 @@ export function resolveRenderingSettings(
       (settings.contactShading === 'auto' && capableShading && !small));
   const brightness = (value: number) =>
     Number.isFinite(value) ? Math.min(5, Math.max(0, value)) : 1;
+  const lighting = (
+    key: keyof typeof DEFAULT_ROOM_LIGHTING,
+    min = 0,
+    max = 1,
+  ) =>
+    Number.isFinite(settings[key])
+      ? Math.min(max, Math.max(min, settings[key]))
+      : DEFAULT_ROOM_LIGHTING[key];
   return {
     pixelDensity: Math.min(
       density,
@@ -82,6 +102,10 @@ export function resolveRenderingSettings(
     exteriorLight: brightness(settings.exteriorLight),
     roomLight: brightness(settings.roomLight),
     ladderLight: brightness(settings.ladderLight),
+    roomWarmth: lighting('roomWarmth'),
+    roomSpread: lighting('roomSpread', 35, 85),
+    roomFill: lighting('roomFill'),
+    exteriorSpill: lighting('exteriorSpill'),
     contactShading,
     // The live-receiver cache is validated only for this rendering path.
     cacheAvailable:
@@ -97,6 +121,10 @@ export type RenderingState = {
   exteriorLight: number;
   roomLight: number;
   ladderLight: number;
+  roomWarmth: number;
+  roomSpread: number;
+  roomFill: number;
+  exteriorSpill: number;
   contactShading: boolean;
   contactShadingSupported: boolean;
   cacheAvailable: boolean;

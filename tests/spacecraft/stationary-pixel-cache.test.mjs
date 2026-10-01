@@ -320,6 +320,27 @@ test('capture preserves complete shadow casters and live children of cached mesh
   assert.equal(f.renderer.render, f.original);
 });
 
+test('uniform-only room fill and sunlight spill recapture color without discarding shadows or contact AO', () => {
+  const f = fixture(true, undefined, false, 6);
+  f.group.userData.lightingColorSignature = '1:1:0.85:0.25:0.05';
+  f.frames();
+  f.cache.occlusion(() => {}, true);
+  const shadowCount = f.shadowPasses.length;
+  const builds = f.cache.stats().builds;
+  f.group.userData.lightingColorSignature = '1:1:0.85:0.7:0';
+  f.frames(1);
+  assert.equal(
+    f.cache.stats().valid,
+    false,
+    'The very next frame uses the new uniforms',
+  );
+  assert.equal(f.cache.requiresOcclusion(), false);
+  assert.equal(f.shadowPasses.length, shadowCount);
+  f.frames();
+  assert.equal(f.cache.stats().builds, builds + 1);
+  disposeDishFixture(f);
+});
+
 test('an ineligible quality path draws normally, releases storage and rebuilds on return', () => {
   let eligible = false;
   const f = fixture(false, () => eligible);

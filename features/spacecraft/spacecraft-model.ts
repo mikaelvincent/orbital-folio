@@ -2,8 +2,10 @@ import { PALETTE } from '../../lib/palette.ts';
 import {
   createCabinLight,
   createLadderLight,
+  roomLightColor,
   VESSEL_LIGHTING,
 } from './lighting.ts';
+import { DEFAULT_ROOM_LIGHTING } from './rendering-settings.ts';
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
 import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
@@ -179,7 +181,7 @@ export function createSpacecraft(
   setReading: (section: string, reading: boolean, instant?: boolean) => void;
   setLabelOrientation: (portrait: boolean) => void;
   setLayout: (layout: 'wide' | 'compact') => any;
-  setLighting: (rooms: number, ladder: number) => void;
+  setLighting: (rooms: number, ladder: number, warmth?: number) => void;
   portalTargets: Array<{
     object: any;
     section: string;
@@ -217,6 +219,7 @@ export function createSpacecraft(
   const roomLights: Record<string, any> = {};
   let roomLightLevel = 1,
     ladderLightLevel = 1;
+  const fixtureColor = roomLightColor(THREE, DEFAULT_ROOM_LIGHTING.roomWarmth);
   const cabinFixtures: Record<string, any> = {};
   const strengths: Record<string, number> = {};
   const roomDimmers: Record<string, number> = {};
@@ -584,7 +587,7 @@ export function createSpacecraft(
     deck.position.set(x, 0, 0);
 
     // An offset swivel lamp directs light across the furnishings. Its ceiling
-    // shoe, stem and angled housing explain the source instead of a broad fill.
+    // shoe, stem and angled housing anchor the source above the shared soft fill.
     const lampSide = section === 'about' || section === 'experience' ? 1 : -1;
     const mount = new THREE.Group();
     mount.name = `${section}-lamp-mount`;
@@ -1176,6 +1179,7 @@ export function createSpacecraft(
     const material = m.wall.clone();
     material.userData.linkedRooms = [room, 'walkway'];
     material.userData.surfaceOnly = true;
+    material.userData.roomSurface = true;
     sharedWalkwayWalls[room] = material;
   }
   const walkwayRear = walkwayRearGeometry();
@@ -3771,7 +3775,11 @@ export function createSpacecraft(
             .lerp(paintedHover, contactWallHover * 0.6)
             .multiplyScalar(1 + contactWallHover * 0.07);
         material.emissive
-          .copy(material.userData.baseEmissive)
+          .copy(
+            material.userData.lightFixture
+              ? fixtureColor
+              : material.userData.baseEmissive,
+          )
           .multiplyScalar(
             material.userData.surfaceOnly
               ? 0
@@ -4001,9 +4009,10 @@ export function createSpacecraft(
     setReading,
     setLabelOrientation,
     setLayout,
-    setLighting(rooms, ladder) {
+    setLighting(rooms, ladder, warmth = DEFAULT_ROOM_LIGHTING.roomWarmth) {
       roomLightLevel = rooms;
       ladderLightLevel = ladder;
+      fixtureColor.copy(roomLightColor(THREE, warmth));
     },
     portalTargets,
     readerSurfaces,

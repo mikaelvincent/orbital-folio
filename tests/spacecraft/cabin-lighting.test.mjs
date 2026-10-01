@@ -6,8 +6,10 @@ import {
   applyCabinLighting,
   cabinLightingChunk,
   createExteriorLight,
+  roomLightColor,
   VESSEL_LIGHTING,
 } from '../../features/spacecraft/lighting.ts';
+import { DEFAULT_RENDERING_SETTINGS } from '../../features/spacecraft/rendering-settings.ts';
 const fixtures = [];
 class SourceMesh extends THREE.Mesh {
   removeFromParent() {
@@ -210,7 +212,7 @@ test('room and ladder brightness stay independent through navigation and do not 
   );
 });
 
-test('room and shared-door materials link fixture light and shadows together while retaining faint sunlight', () => {
+test('room and shared-door materials link fixtures, fill and attenuated sunlight while exterior materials retain the sun', () => {
   const checked = new Set();
   let shared = 0;
   for (const mesh of meshes) {
@@ -239,12 +241,23 @@ test('room and shared-door materials link fixture light and shadows together whi
       );
       if (!expected.length) {
         assert.equal(shader.uniforms.cabinEmitterPositions, undefined);
+        assert.equal(shader.uniforms.cabinSunlight, undefined);
+        assert.equal(shader.uniforms.cabinFill, undefined);
         assert.doesNotMatch(
           shader.fragmentShader,
           /getSpotLightInfo\( spotLight/,
         );
         continue;
       }
+      assert.equal(
+        shader.uniforms.cabinSunlight.value,
+        DEFAULT_RENDERING_SETTINGS.exteriorSpill,
+      );
+      assert.match(
+        shader.fragmentShader,
+        /directLight.color \*= cabinSunlight/,
+      );
+      assert.match(shader.fragmentShader, /irradiance \+= cabinFill/);
       assert.match(shader.fragmentShader, /getShadow\( spotShadowMap\[ i \]/);
       assert.ok(
         shader.fragmentShader.indexOf('if (distance(spotLight.position') <
@@ -340,10 +353,105 @@ test('light linking preserves authored shader hooks and separates programs by me
   assert.match(compile(material).fragmentShader, /authored iris mask/);
   assert.equal(
     material.customProgramCacheKey(),
-    'authored|cabin-lighting-v3:1',
+    'authored|cabin-lighting-v4:1',
   );
   assert.throws(
     () => cabinLightingChunk('changed upstream shader', 1),
     /Review cabin lighting/,
   );
+});
+
+test('cabin-facing ladder partitions receive the same interior profile as the cabin walls', () => {
+  for (const room of ['projects', 'about']) {
+    const name = `walkway-${room}-cabin-facing-wall`;
+    const faces = meshes.filter(
+      (mesh) => mesh.name === name || mesh.userData.parts?.includes(name),
+    );
+    assert.ok(faces.length, name);
+    for (const face of faces) {
+      for (const material of [face.material].flat()) {
+        assert.equal(material.userData.exterior, false, name);
+        assert.deepEqual(material.userData.linkedRooms, [room, 'walkway']);
+        const shader = compile(material);
+        assert.ok(shader.uniforms.cabinFill, name);
+        assert.equal(
+          shader.uniforms.cabinSunlight.value,
+          DEFAULT_RENDERING_SETTINGS.exteriorSpill,
+        );
+      }
+    }
+  }
+});
+
+test('warmth, spread and fill stay shared across rooms and hatch faces without recompilation', () => {
+  const uniforms = meshes
+    .flatMap((mesh) => [mesh.material].flat())
+    .filter((material) => material.isMeshStandardMaterial)
+    .map((material) => ({ material, uniforms: compile(material).uniforms }));
+  const revision = model.group.userData.geometryRevision;
+  for (const settings of [
+    {
+      ...DEFAULT_RENDERING_SETTINGS,
+      roomWarmth: 1,
+      roomSpread: 85,
+      roomFill: 0.8,
+      exteriorSpill: 0,
+      roomLight: 0,
+      ladderLight: 2,
+    },
+    {
+      ...DEFAULT_RENDERING_SETTINGS,
+      roomWarmth: 0,
+      roomSpread: 35,
+      roomFill: 0,
+      exteriorSpill: 1,
+      roomLight: 2,
+      ladderLight: 0,
+    },
+    DEFAULT_RENDERING_SETTINGS,
+  ]) {
+    const color = roomLightColor(THREE, settings.roomWarmth);
+    model.setLighting(
+      settings.roomLight,
+      settings.ladderLight,
+      settings.roomWarmth,
+    );
+    linked.setAppearance(settings);
+    for (const layout of ['compact', 'wide']) {
+      model.setLayout(layout);
+      for (const section of ['projects', 'experience', 'about', 'contact']) {
+        model.update(2, '', true, { activeRoom: section, reducedMotion: true });
+        for (const light of lights) {
+          assert.ok(light.color.equals(color));
+          if (light.userData.section !== 'walkway')
+            assert.equal(
+              light.angle,
+              THREE.MathUtils.degToRad(settings.roomSpread),
+            );
+        }
+      }
+    }
+    for (const { material, uniforms: shader } of uniforms) {
+      if (!shader.cabinFill) continue;
+      const rooms = material.userData.linkedRooms ?? [
+        material.userData.section,
+      ];
+      const level = Math.max(
+        ...rooms.map((room) =>
+          room === 'walkway' ? settings.ladderLight : settings.roomLight,
+        ),
+      );
+      const expected = color
+        .clone()
+        .multiplyScalar(Math.PI * settings.roomFill * level);
+      assert.ok(shader.cabinFill.value.equals(expected), material.name);
+      assert.equal(shader.cabinSunlight.value, settings.exteriorSpill);
+    }
+  }
+  // Layout changes may alter geometry; changing just the appearance must not.
+  const afterLayout = model.group.userData.geometryRevision;
+  linked.setAppearance({ ...DEFAULT_RENDERING_SETTINGS, roomFill: 0.6 });
+  assert.equal(model.group.userData.geometryRevision, afterLayout);
+  assert.ok(afterLayout >= revision);
+  linked.setAppearance(DEFAULT_RENDERING_SETTINGS);
 });

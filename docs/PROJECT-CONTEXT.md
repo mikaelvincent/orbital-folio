@@ -56,15 +56,19 @@ matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
 retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
-Lighting prioritizes an expressive, fixture-led cutaway style over physical
-realism. Keep exterior sunlight weak but visible: the cool directional source
-above-left and in front shapes the hull without flooding the cabins. Each cabin
-has one warm, offset swivel lamp aimed down and across its furnishings, replacing
-the paired ceiling strips. Its ceiling shoe, stem, housing and luminous face must
+Lighting follows the warm, broad illumination of the approved low-poly concepts
+while retaining the current model and materials. All four cabins share one
+brightness, warmth, beam-width and soft-fill profile. Bright cool exterior
+sunlight from above-left and in front shapes the hull; interior materials admit
+only 5% by default, keeping exterior brightness from washing out the warm rooms.
+Each cabin has one warm, offset swivel lamp aimed down and across its furnishings.
+Its ceiling shoe, stem, housing and luminous face must
 stay connected; preserve the assembly's proportions when changing room width and
 re-aim the actual light with its fixture. Opposite lamp placement gives the rooms
-different shadow directions. Keep ceilings, floors and recesses darker than the
-work surfaces; restrained reflected fill and contact shading preserve readability.
+different shadow directions. Broad feathered beams and warm diffuse fill reach
+the side walls and furniture while keeping floors and deep recesses darker.
+Contact shading preserves depth. Fill follows room/ladder brightness; shared
+hatch faces receive one contribution at the brighter adjoining level, not a sum.
 The ladder bay uses its two existing guarded rear worklights, with sources just
 ahead of their diffuser faces and broad beams across the bay. Preserve all existing
 fixture geometry and dark end recesses. Both lights follow their fixtures in each
@@ -72,8 +76,9 @@ asset layout, link to ladder surfaces and shared hatch reveals, and use the same
 shadow-map reuse.
 
 Each lamp casts furniture shadows. Material light linking admits a room's own
-lamps, or the lamps from both neighbors on shared hatch faces, while the faint sun
-reaches all surfaces. Preserve authored caster/receiver exceptions, especially shader-masked
+lamps, or the lamps from both neighbors on shared hatch faces. The cabin-facing
+ladder partitions are interior receivers too; only exterior materials receive
+unattenuated sun. Preserve authored caster/receiver exceptions, especially shader-masked
 iris leaves. Reuse each light's shadow map while its relevant geometry is unchanged;
 camera movement alone does not alter light-space depth. Dish-only movement
 refreshes the sun and any lamp whose padded receiver-ray volume intersects the
@@ -491,15 +496,21 @@ instrumentation nor playback polling. Escape/outside/focus dismissal and return 
 must work; preserve the pointerdown/click intent guard against accidental reopen.
 
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
-Expose independent exterior, room and ladder brightness sliders, shadows, shadow
-detail, shadow softness, pixel density, contact shading, Earth/sky and stationary
-spacecraft caching. Brightness spans 0–500% in 5% steps, with 100% restoring the
-authored values: sun intensity 0.96, each cabin lamp 13.75 and each ladder worklight
+Expose independent exterior, room and ladder brightness sliders, shared room
+warmth, room light spread, soft interior fill and exterior spill indoors, plus
+shadows, shadow detail, shadow softness, pixel density, contact shading, Earth/sky
+and stationary spacecraft caching. Brightness spans 0–500% in 5% steps, with 100%
+restoring the authored values: sun intensity 3.2, each cabin lamp 18 and each ladder worklight
 4.375. Cabin and ladder diffuser emission is 1.375 and 2.125 respectively, before
 room feedback dimming. These values are the actual 100% baseline on first load
 and reset. Exterior controls sunlight; room and ladder sliders also dim their
-fixture faces while leaving screens and status indicators legible. Brightness alone
-reuses shadow maps and contact AO because it does not change geometry.
+fixture faces while leaving screens and status indicators legible. Warmth spans
+neutral white to amber, with an 85% default shared by the interior lamps, their
+diffusers and fill. The room beam spans 70–170° in 2° steps, defaulting to 150°.
+Soft fill spans 0–100% in 5% steps, defaulting to 25%; sunlight spill spans 0–100%
+in 1% steps, defaulting to 5%. Brightness, warmth, fill and spill recapture color
+while reusing valid shadows and contact AO. Beam-width changes rebuild lamp shadow
+projections and receiver bounds before the next draw.
 
 Shadow softness adjusts the existing shadow filter independently of map resolution,
 from 0–4× in 0.25 steps. The authored

@@ -1,24 +1,32 @@
 import type * as Three from 'three';
 import { directLightWorkChunk } from './materials/direct-light-work.ts';
+import {
+  DEFAULT_ROOM_LIGHTING,
+  type RenderingSettings,
+} from './rendering-settings.ts';
 
-// Cabin fixtures supply the key light. A faint cool exterior wash and restrained
-// reflected fill keep the hull and unlit sides legible without flattening the rooms.
+// Bright exterior sunlight is attenuated on interior materials. Broad warm
+// fixtures and room-local diffuse fill give every cabin the same authored profile.
 export const VESSEL_LIGHTING = {
-  sunIntensity: 0.96,
-  cabinIntensity: 13.75,
+  sunIntensity: 3.2,
+  cabinIntensity: 18,
   ladderIntensity: 4.375,
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
 
+export function roomLightColor(T: typeof Three, warmth: number) {
+  return new T.Color(0xfff4e5).lerp(new T.Color(0xffb85f), warmth);
+}
+
 /** One aimed, warm lamp per cabin: a single shadow view, with a feathered beam. */
 export function createCabinLight(T: typeof Three, section: string) {
   const light = new T.SpotLight(
-    0xffe6c6,
+    roomLightColor(T, DEFAULT_ROOM_LIGHTING.roomWarmth),
     VESSEL_LIGHTING.cabinIntensity,
     7,
-    Math.PI * 0.3,
-    0.48,
+    T.MathUtils.degToRad(DEFAULT_ROOM_LIGHTING.roomSpread),
+    0.55,
     2,
   );
   light.name = `${section}-cabin-lamp`;
@@ -81,15 +89,23 @@ export function cabinLightingChunk(source: string, emitterCount: number) {
     (_, i) =>
       `distance(spotLight.position, cabinEmitterPositions[${i}]) < 0.001`,
   ).join(' || ');
-  return (
+  const linked =
     source.slice(0, spotStart) +
     (emitterCount
       ? spot
           .replace(assignment, `${assignment}\nif (${membership}) {`)
           .replace(direct, `${direct}\n}`)
       : '') +
-    source.slice(spotEnd)
-  );
+    source.slice(spotEnd);
+  if (!emitterCount) return linked;
+  const sun = 'getDirectionalLightInfo( directionalLight, directLight );';
+  const ambient =
+    'vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );';
+  if (!linked.includes(sun) || !linked.includes(ambient))
+    throw new Error('Review cabin lighting for this Three shader version');
+  return linked
+    .replace(sun, `${sun}\n directLight.color *= cabinSunlight;`)
+    .replace(ambient, `${ambient}\n irradiance += cabinFill;`);
 }
 
 export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
@@ -108,6 +124,15 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
     }
   });
   const allLamps = [...lamps.values()].flat();
+  const sunlight = { value: DEFAULT_ROOM_LIGHTING.exteriorSpill };
+  const fillColor = roomLightColor(T, DEFAULT_ROOM_LIGHTING.roomWarmth);
+  const roomFill = {
+    value: fillColor
+      .clone()
+      .multiplyScalar(Math.PI * DEFAULT_ROOM_LIGHTING.roomFill),
+  };
+  const ladderFill = { value: roomFill.value.clone() };
+  const sharedFill = { value: roomFill.value.clone() };
   const applied = new Map<Three.Material, Three.SpotLight[]>();
   // Preserve authored caster/receiver flags, including iris masks and glass.
   root.traverse((object) => {
@@ -138,8 +163,18 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         compile(shader, renderer);
         if (emitters.length) {
           shader.uniforms.cabinEmitterPositions = { value: emitters };
+          shader.uniforms.cabinSunlight = sunlight;
+          // Shared hatch faces receive one fill contribution, never one per lamp.
+          const hasRoom = admitted.some(
+            ({ light }) => light.userData.section !== 'walkway',
+          );
+          const hasLadder = admitted.some(
+            ({ light }) => light.userData.section === 'walkway',
+          );
+          shader.uniforms.cabinFill =
+            hasRoom && hasLadder ? sharedFill : hasRoom ? roomFill : ladderFill;
           shader.fragmentShader =
-            `uniform vec3 cabinEmitterPositions[${emitters.length}];\n` +
+            `uniform vec3 cabinEmitterPositions[${emitters.length}];\nuniform float cabinSunlight;\nuniform vec3 cabinFill;\n` +
             shader.fragmentShader;
         }
         shader.fragmentShader = shader.fragmentShader.replace(
@@ -148,11 +183,51 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         );
       };
       material.customProgramCacheKey = () =>
-        `${cacheKey}|cabin-lighting-v3:${exterior ? 'exterior' : emitters.length}`;
+        `${cacheKey}|cabin-lighting-v4:${exterior ? 'exterior' : emitters.length}`;
     }
   });
   return {
     lights: allLamps.map(({ light }) => light),
+    setAppearance(
+      settings: Pick<
+        RenderingSettings,
+        | 'roomLight'
+        | 'ladderLight'
+        | 'roomWarmth'
+        | 'roomSpread'
+        | 'roomFill'
+        | 'exteriorSpill'
+      >,
+    ) {
+      const color = roomLightColor(T, settings.roomWarmth);
+      for (const { light } of allLamps) {
+        light.color.copy(color);
+        if (light.userData.section !== 'walkway')
+          light.angle = T.MathUtils.degToRad(settings.roomSpread);
+      }
+      roomFill.value
+        .copy(color)
+        .multiplyScalar(Math.PI * settings.roomFill * settings.roomLight);
+      ladderFill.value
+        .copy(color)
+        .multiplyScalar(Math.PI * settings.roomFill * settings.ladderLight);
+      sharedFill.value
+        .copy(color)
+        .multiplyScalar(
+          Math.PI *
+            settings.roomFill *
+            Math.max(settings.roomLight, settings.ladderLight),
+        );
+      sunlight.value = settings.exteriorSpill;
+      // Uniform-only changes must recapture color while preserving valid depth/AO.
+      root.userData.lightingColorSignature = [
+        settings.roomLight,
+        settings.ladderLight,
+        settings.roomWarmth,
+        settings.roomFill,
+        settings.exteriorSpill,
+      ].join(':');
+    },
     shadowReceivers(this: void) {
       const receivers = new Map(
         allLamps.map(({ light }) => [light, new Set<Three.Mesh>()]),

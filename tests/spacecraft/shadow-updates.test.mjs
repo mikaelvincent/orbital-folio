@@ -7,6 +7,7 @@ import {
   applyCabinLighting,
   createExteriorLight,
 } from '../../features/spacecraft/lighting.ts';
+import { DEFAULT_RENDERING_SETTINGS } from '../../features/spacecraft/rendering-settings.ts';
 
 function fixture() {
   const root = new T.Group();
@@ -218,7 +219,7 @@ test('explicit quality/filter invalidation retains dirty flags until the maps ac
   assert.deepEqual(f.frame(), []);
 });
 
-test('the authored wide ship reuses cabin and ladder maps through a complete dish cycle and reduced-motion snap', () => {
+test('the authored wide ship refreshes affected maps across light spreads, dish cycles and reduced-motion snaps', () => {
   const model = createSpacecraft(T, { layout: 'wide' });
   const scene = new T.Scene();
   const linked = applyCabinLighting(T, model.group);
@@ -253,17 +254,32 @@ test('the authored wide ship reuses cabin and ladder maps through a complete dis
     renderer.shadowMap.needsUpdate = false;
     return dirty;
   }
-  assert.deepEqual(frame(0), lights);
-  let sunFrames = 0;
-  for (let i = 1; i <= 180; i++) {
-    const dirty = frame(i / 10);
-    assert.ok(dirty.every((light) => light === sun));
-    sunFrames += dirty.length;
+  for (const spread of [54, DEFAULT_RENDERING_SETTINGS.roomSpread, 85]) {
+    linked.setAppearance({
+      ...DEFAULT_RENDERING_SETTINGS,
+      roomSpread: spread,
+    });
+    cache.invalidate();
+    assert.deepEqual(frame(0), lights);
+    // Broad beams have larger shadow-filter footprints. Their right-hand room
+    // volumes conservatively include the dish; narrow beams and the ladder do not.
+    const affected = lights.filter(
+      (light) =>
+        light === sun ||
+        (spread >= DEFAULT_RENDERING_SETTINGS.roomSpread &&
+          ['experience', 'contact'].includes(light.userData.section)),
+    );
+    let sunFrames = 0;
+    for (let i = 1; i <= 180; i++) {
+      const dirty = frame(i / 10);
+      if (dirty.length) assert.deepEqual(dirty, affected);
+      sunFrames += Number(dirty.includes(sun));
+    }
+    assert.ok(sunFrames > 80);
+    assert.deepEqual(frame(3.25), affected);
+    assert.deepEqual(frame(3.25, true), affected);
+    assert.deepEqual(frame(3.25, true), []);
   }
-  assert.ok(sunFrames > 80);
-  assert.deepEqual(frame(3.25), [sun]);
-  assert.deepEqual(frame(3.25, true), [sun]);
-  assert.deepEqual(frame(3.25, true), []);
   model.setLayout('compact');
   assert.deepEqual(frame(3.25, true), lights);
 });

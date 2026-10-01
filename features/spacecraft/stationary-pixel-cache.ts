@@ -226,6 +226,7 @@ export function createStationaryPixelCache({
   function changed() {
     values.length = 0;
     colors.length = 0;
+    colors.push(model.group.userData.lightingColorSignature ?? '');
     values.push(
       model.group.userData.geometryRevision -
         (model.group.userData.dishGeometryRevision || 0),

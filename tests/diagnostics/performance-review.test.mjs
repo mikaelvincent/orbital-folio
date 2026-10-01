@@ -28,6 +28,10 @@ const capture = (overrides = {}) => ({
     exteriorLight: 1,
     roomLight: 1,
     ladderLight: 1,
+    roomWarmth: 0.85,
+    roomSpread: 75,
+    roomFill: 0.25,
+    exteriorSpill: 0.05,
     room: 'home',
     cameraPosition: [0, 0, 5],
     cameraQuaternion: [0, 0, 0, 1],
@@ -132,6 +136,10 @@ test('AO resolution, samples, shadows and other quality changes remain compariso
     ['exteriorLight', 0.5, 'exterior light brightness'],
     ['roomLight', 0, 'room light brightness'],
     ['ladderLight', 2, 'ladder light brightness'],
+    ['roomWarmth', 0.5, 'room light warmth'],
+    ['roomSpread', 55, 'room light spread'],
+    ['roomFill', 0.8, 'interior fill light'],
+    ['exteriorSpill', 0, 'exterior light spill indoors'],
     ['quality', 'lower', 'render quality setting'],
   ];
   for (const [key, value, label] of changes) {

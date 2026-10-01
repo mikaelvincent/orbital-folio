@@ -81,7 +81,7 @@ export function RenderingControls({
       <div id="rendering-controls-body" hidden={collapsed}>
         <p className="rendering-intro">
           {
-            'Compare the appearance live. Changes stay when you close this panel.'
+            'Fine-tune the lighting live. Room settings apply equally to all four rooms and stay when you close this panel.'
           }
         </p>
         {(
@@ -89,12 +89,32 @@ export function RenderingControls({
             [
               'exteriorLight',
               'Exterior light',
-              'Sunlight on the hull and through the openings.',
+              'Sunlight on the outside of the spacecraft.',
+            ],
+            [
+              'exteriorSpill',
+              'Exterior spill indoors',
+              'How much exterior sunlight reaches the interiors. Keep low for warm rooms and a bright hull.',
             ],
             [
               'roomLight',
               'Room lights',
               'The warm fixtures in all four rooms.',
+            ],
+            [
+              'roomWarmth',
+              'Room warmth',
+              'Move from neutral white toward warm amber.',
+            ],
+            [
+              'roomSpread',
+              'Room light spread',
+              'Widen the beams across the walls and furniture.',
+            ],
+            [
+              'roomFill',
+              'Soft interior fill',
+              'Warm light in shaded corners. Follows room and ladder brightness.',
             ],
             [
               'ladderLight',
@@ -104,7 +124,16 @@ export function RenderingControls({
           ] as const
         ).map(([key, label, hint]) => {
           const id = `${lightingId}-${key}`;
-          const percent = Math.round(state[key] * 100);
+          const angle = key === 'roomSpread';
+          const brightness =
+            key === 'exteriorLight' ||
+            key === 'roomLight' ||
+            key === 'ladderLight';
+          const value = Math.round(state[key] * (angle ? 2 : 100));
+          const defaultValue = Math.round(
+            DEFAULT_RENDERING_SETTINGS[key] * (angle ? 2 : 100),
+          );
+          const unit = angle ? '°' : '%';
           return (
             <label className="rendering-field" htmlFor={id} key={key}>
               <span>{label}</span>
@@ -114,22 +143,25 @@ export function RenderingControls({
                   type="range"
                   aria-label={label}
                   aria-describedby={`${id}-hint`}
-                  aria-valuetext={formatText('{percent} percent', { percent })}
-                  min={0}
-                  max={5}
-                  step={0.05}
+                  aria-valuetext={
+                    angle ? `${value} degrees` : `${value} percent`
+                  }
+                  min={angle ? 35 : 0}
+                  max={angle ? 85 : brightness ? 5 : 1}
+                  step={angle ? 1 : key === 'exteriorSpill' ? 0.01 : 0.05}
                   value={settings[key]}
                   onChange={(event) =>
                     change({ [key]: Number(event.currentTarget.value) })
                   }
                 />
                 <output htmlFor={id} aria-hidden="true">
-                  {percent}%
+                  {value}
+                  {unit}
                 </output>
               </span>
               <small id={`${id}-hint`}>
                 {hint}
-                {'100% is the default.'}
+                {` ${defaultValue}${unit} is the default.`}
               </small>
             </label>
           );

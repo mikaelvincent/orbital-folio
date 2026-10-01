@@ -431,7 +431,12 @@ export function mountSpacecraftScene({
         function applyLightLevels() {
           key.intensity =
             VESSEL_LIGHTING.sunIntensity * rendering.exteriorLight;
-          model.setLighting(rendering.roomLight, rendering.ladderLight);
+          model.setLighting(
+            rendering.roomLight,
+            rendering.ladderLight,
+            rendering.roomWarmth,
+          );
+          cabinLighting.setAppearance(rendering);
         }
         applyLightLevels();
         const shadowLights = [key, ...cabinLighting.lights];
@@ -2800,6 +2805,7 @@ export function mountSpacecraftScene({
         };
         function setRenderingSettings(settings = DEFAULT_RENDERING_SETTINGS) {
           if (destroyed) return;
+          const previousSpread = rendering.roomSpread;
           const qualityChanged = (
             [
               'shadows',
@@ -2814,6 +2820,9 @@ export function mountSpacecraftScene({
           renderingSettings = settings;
           rendering = resolveRendering();
           applyLightLevels();
+          // Beam width changes the spot shadow projection and its receiver bounds.
+          if (rendering.roomSpread !== previousSpread)
+            invalidateShadow('room-light-spread');
           if (renderer.shadowMap.enabled !== settings.shadows) {
             renderer.shadowMap.enabled = settings.shadows;
             // Shadow sampling is compiled into materials. Toggling the renderer
@@ -2829,7 +2838,7 @@ export function mountSpacecraftScene({
               material.needsUpdate = true;
             });
           }
-          // Brightness changes color, but not light-space depth or contact AO.
+          // Brightness, warmth, fill and spill change color, not depth/contact AO.
           // Quality changes still rebuild effects from the current pose.
           if (qualityChanged) {
             pixelCache.release();
@@ -3489,6 +3498,10 @@ export function mountSpacecraftScene({
             exteriorLight: rendering.exteriorLight,
             roomLight: rendering.roomLight,
             ladderLight: rendering.ladderLight,
+            roomWarmth: rendering.roomWarmth,
+            roomSpread: rendering.roomSpread,
+            roomFill: rendering.roomFill,
+            exteriorSpill: rendering.exteriorSpill,
             contactShading: usesContactShading(),
             contactShadingSupported,
             cacheAvailable: rendering.cacheAvailable && experiment === 'normal',
@@ -3605,6 +3618,10 @@ export function mountSpacecraftScene({
               exteriorLight: rendering.exteriorLight,
               roomLight: rendering.roomLight,
               ladderLight: rendering.ladderLight,
+              roomWarmth: rendering.roomWarmth,
+              roomSpread: rendering.roomSpread,
+              roomFill: rendering.roomFill,
+              exteriorSpill: rendering.exteriorSpill,
               resources: {
                 ...renderer.info.memory,
                 programs: renderer.info.programs?.length ?? null,
@@ -3764,6 +3781,10 @@ export function mountSpacecraftScene({
                 exteriorLight: rendering.exteriorLight,
                 roomLight: rendering.roomLight,
                 ladderLight: rendering.ladderLight,
+                roomWarmth: rendering.roomWarmth,
+                roomSpread: rendering.roomSpread,
+                roomFill: rendering.roomFill,
+                exteriorSpill: rendering.exteriorSpill,
                 shadowsEnabled: renderer.shadowMap.enabled,
                 orbitalCamera: background.getDiagnostics(),
                 resources: {
