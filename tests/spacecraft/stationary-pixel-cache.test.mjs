@@ -210,7 +210,7 @@ test('ten cached interior maps coexist with regional sun, color and AO reuse', (
   disposeDishFixture(f);
 });
 
-test('a dirty interior map restores all casters and rebuilds color and AO before reuse', () => {
+test('a dirty interior map restores all casters and recaptures color while retaining regional AO', () => {
   const f = fixture(true, undefined, false, 6);
   f.frames();
   f.cache.occlusion(() => {}, true);
@@ -219,7 +219,7 @@ test('a dirty interior map restores all casters and rebuilds color and AO before
   const shadowStart = f.shadowPasses.length;
   moveDish(f);
   assert.equal(f.cache.stats().valid, false);
-  assert.equal(f.cache.requiresOcclusion(), true);
+  assert.equal(f.cache.requiresOcclusion(), false);
   assert.equal(f.cache.stats().influence.shadowRepairs, 0);
   for (const pass of f.shadowPasses.slice(shadowStart)) {
     assert.ok(pass.casters.includes(f.hull));
@@ -231,7 +231,7 @@ test('a dirty interior map restores all casters and rebuilds color and AO before
     [f.light, f.lamps[4]],
   );
   f.cache.occlusion(() => {}, true);
-  assert.equal(f.cache.stats().influence.aoRepairs, 0);
+  assert.equal(f.cache.stats().influence.aoRepairs, 1);
   f.frames();
   assert.equal(f.cache.stats().builds, before.builds + 1);
   disposeDishFixture(f);
@@ -258,8 +258,12 @@ test('automatic or missing interior shadow maps fall back instead of freezing th
   }
 });
 
-test('interior shadow filtering and projection changes invalidate cached pixels', () => {
+test('interior beam and shadow projection edits recapture color and preserve AO', () => {
   for (const mutate of [
+    (light) => {
+      light.angle = Math.PI / 3;
+      light.shadow.updateMatrices(light);
+    },
     (light) => {
       light.shadow.radius = 4;
     },
@@ -273,10 +277,71 @@ test('interior shadow filtering and projection changes invalidate cached pixels'
   ]) {
     const f = fixture(true, undefined, false, 1);
     f.frames();
+    f.cache.occlusion(() => {}, true);
+    const builds = f.cache.stats().builds;
+    const shadowCount = f.shadowPasses.length;
     mutate(f.lamps[0]);
+    f.lamps[0].shadow.needsUpdate = true;
+    f.renderer.shadowMap.needsUpdate = true;
     f.frames(1);
     assert.equal(f.cache.stats().valid, false);
+    assert.equal(f.cache.requiresOcclusion(), false);
+    assert.equal(f.shadowPasses.length, shadowCount + 1);
+    assert.equal(f.shadowPasses.at(-1).source, f.lamps[0]);
+    assert.ok(f.shadowPasses.at(-1).casters.includes(f.hull));
+    assert.equal(f.shadowPasses.at(-1).scissor, false);
+    f.frames();
+    assert.equal(f.cache.stats().builds, builds + 1);
+    disposeDishFixture(f);
+  }
+});
+
+test('beam changes never conceal simultaneous geometry or camera changes from AO', () => {
+  for (const mutate of [
+    (f) => f.group.userData.geometryRevision++,
+    (f) => {
+      f.camera.position.x += 0.1;
+      f.camera.updateMatrixWorld();
+    },
+  ]) {
+    const f = fixture(true, undefined, false, 1);
+    f.frames();
+    f.cache.occlusion(() => {}, true);
+    f.lamps[0].angle *= 0.8;
+    f.lamps[0].shadow.needsUpdate = true;
+    f.renderer.shadowMap.needsUpdate = true;
+    mutate(f);
+    f.frames(1);
     assert.equal(f.cache.requiresOcclusion(), true);
+    assert.equal(f.cache.stats().valid, false);
+    assert.ok(f.shadowPasses.at(-1).casters.includes(f.hull));
+    disposeDishFixture(f);
+  }
+});
+
+test('idle-brightness easing and live color sliders retain regional AO through dish motion', () => {
+  for (const easing of [false, true]) {
+    const f = fixture(true, undefined, false, 1);
+    f.frames();
+    f.cache.occlusion(() => {}, true);
+    const builds = f.cache.stats().builds;
+    for (let i = 0; i < 4; i++) {
+      f.group.userData.transitionActive = easing;
+      f.hull.material.color.multiplyScalar(0.95);
+      f.lamps[0].color.setRGB(1, 0.9 - i * 0.05, 0.8);
+      moveDish(f);
+      assert.equal(f.cache.stats().valid, false);
+      assert.equal(f.cache.requiresOcclusion(), false);
+      assert.ok(f.passes.at(-1).meshes.includes(f.hull));
+      f.cache.occlusion(() => {}, true);
+      assert.equal(f.cache.stats().influence.aoRepairs, i + 1);
+    }
+    f.group.userData.geometryRevision++;
+    f.frames(1);
+    assert.equal(f.cache.requiresOcclusion(), true);
+    f.group.userData.transitionActive = false;
+    f.frames();
+    assert.equal(f.cache.stats().builds, builds + 1);
     disposeDishFixture(f);
   }
 });

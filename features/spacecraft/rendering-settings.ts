@@ -20,13 +20,13 @@ export type RenderingSettings = {
 };
 
 export const DEFAULT_ROOM_LIGHTING = {
-  roomWarmth: 0.2,
-  roomKeyLight: 1,
-  roomSpread: 54,
+  roomWarmth: 0.6,
+  roomKeyLight: 0.75,
+  roomSpread: 45,
   roomFillLight: 0.25,
-  roomFillSpread: 75,
+  roomFillSpread: 74,
   roomFill: 0.05,
-  roomIdleLevel: 0.85,
+  roomIdleLevel: 0.75,
   exteriorSpill: 0.05,
 };
 
@@ -34,7 +34,7 @@ export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   shadows: true,
   shadowSize: 512,
   shadowSoftness: 4,
-  exteriorLight: 1,
+  exteriorLight: 0.2,
   roomLight: 1,
   ladderLight: 1,
   ...DEFAULT_ROOM_LIGHTING,
@@ -84,8 +84,10 @@ export function resolveRenderingSettings(
     contactShadingSupported &&
     (settings.contactShading === 'on' ||
       (settings.contactShading === 'auto' && capableShading && !small));
-  const brightness = (value: number) =>
-    Number.isFinite(value) ? Math.min(5, Math.max(0, value)) : 1;
+  const brightness = (key: 'exteriorLight' | 'roomLight' | 'ladderLight') =>
+    Number.isFinite(settings[key])
+      ? Math.min(5, Math.max(0, settings[key]))
+      : DEFAULT_RENDERING_SETTINGS[key];
   const lighting = (
     key: keyof typeof DEFAULT_ROOM_LIGHTING,
     min = 0,
@@ -107,9 +109,9 @@ export function resolveRenderingSettings(
     shadowSoftness: Number.isFinite(settings.shadowSoftness)
       ? Math.min(4, Math.max(0, settings.shadowSoftness))
       : DEFAULT_RENDERING_SETTINGS.shadowSoftness,
-    exteriorLight: brightness(settings.exteriorLight),
-    roomLight: brightness(settings.roomLight),
-    ladderLight: brightness(settings.ladderLight),
+    exteriorLight: brightness('exteriorLight'),
+    roomLight: brightness('roomLight'),
+    ladderLight: brightness('ladderLight'),
     roomWarmth: lighting('roomWarmth'),
     roomKeyLight: lighting('roomKeyLight', 0, 5),
     roomSpread: lighting('roomSpread', 15, 85),

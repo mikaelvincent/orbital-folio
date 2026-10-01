@@ -219,6 +219,35 @@ test('explicit quality/filter invalidation retains dirty flags until the maps ac
   assert.deepEqual(f.frame(), []);
 });
 
+test('a beam projection refresh updates only its map and receiver bounds without geometry changes', () => {
+  const f = fixture();
+  f.lamp.angle = Math.PI / 6;
+  f.frame();
+  assert.deepEqual(f.moveDish(0.8), [f.sun]);
+  f.lamp.angle = T.MathUtils.degToRad(85);
+  f.cache.invalidate([f.lamp]);
+  f.cache.update();
+  f.cache.update();
+  assert.equal(f.renderer.shadowMap.needsUpdate, true);
+  assert.deepEqual(f.frame(), [f.lamp]);
+  assert.deepEqual(f.frame(), []);
+  // The wider projection's filter footprint now includes this blocker.
+  assert.deepEqual(f.moveDish(0.85), f.lights);
+  f.root.userData.geometryRevision++;
+  f.cache.invalidate([f.lamp]);
+  assert.deepEqual(f.frame(), f.lights, 'unknown geometry still wins');
+});
+
+test('a partial projection refresh preserves omitted dish history for untouched lights', () => {
+  const f = fixture();
+  f.frame(); // Lamp map still contains the dish at x=4.
+  f.moveDish(8);
+  f.cache.invalidate([f.sun]);
+  assert.deepEqual(f.frame(), [f.sun]);
+  f.moveDish(9);
+  assert.deepEqual(moveReceiver(f, 4), [f.lamp]);
+});
+
 test('the authored wide ship refreshes affected maps across light spreads, dish cycles and reduced-motion snaps', () => {
   const model = createSpacecraft(T, { layout: 'wide' });
   const scene = new T.Scene();
@@ -254,6 +283,19 @@ test('the authored wide ship refreshes affected maps across light spreads, dish 
     renderer.shadowMap.needsUpdate = false;
     return dirty;
   }
+  frame(0, true);
+  for (const beams of [['key'], ['fill'], ['key', 'fill']]) {
+    const affected = lights.filter(
+      (light) =>
+        light.userData.section !== 'walkway' &&
+        beams.includes(light.userData.cabinBeam),
+    );
+    assert.equal(affected.length, beams.length * 4);
+    for (const light of affected) light.angle *= 0.95;
+    cache.invalidate(affected);
+    assert.deepEqual(frame(0, true), affected);
+    assert.deepEqual(frame(0, true), []);
+  }
   for (const spreads of [
     { roomSpread: 15, roomFillSpread: 35 },
     DEFAULT_RENDERING_SETTINGS,
@@ -270,7 +312,7 @@ test('the authored wide ship refreshes affected maps across light spreads, dish 
     const affected = lights.filter(
       (light) =>
         light === sun ||
-        (light.angle >= T.MathUtils.degToRad(75) &&
+        (light.angle >= T.MathUtils.degToRad(74) &&
           ['experience', 'contact'].includes(light.userData.section)),
     );
     let sunFrames = 0;

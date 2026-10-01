@@ -27,6 +27,7 @@ export function createShadowUpdates({
   const dishHistory = new T.Box3();
   const lightPosition = new T.Vector3();
   const volumes = new Map<Three.SpotLight, Three.Box3>();
+  const changedProjections = new Set<ShadowLight>();
   let geometryRevision = -1,
     otherRevision = -1,
     nonCasterRevision = -1,
@@ -40,18 +41,23 @@ export function createShadowUpdates({
     renderer.shadowMap.needsUpdate = true;
   }
 
-  function invalidate() {
-    prepare = true;
-    lights.forEach(dirty);
+  function invalidate(affected?: ShadowLight[]) {
+    if (!affected) prepare = true;
+    for (const light of affected ?? lights) {
+      if (!lights.includes(light)) continue;
+      changedProjections.add(light);
+      dirty(light);
+    }
   }
 
-  function prepareVolumes() {
-    volumes.clear();
+  function prepareVolumes(affected: Iterable<ShadowLight> = lights) {
+    const selected = new Set(affected);
+    for (const light of selected) volumes.delete(light as Three.SpotLight);
     // These bounds match the installed PCF shader. Unknown projection/filter
     // paths remain live; positive depth bias can sample behind a receiver.
     if (renderer.shadowMap.type !== T.PCFShadowMap) return;
     for (const [light, meshes] of receivers()) {
-      if (!lights.includes(light) || light.shadow.bias > 0) continue;
+      if (!selected.has(light) || light.shadow.bias > 0) continue;
       light.shadow.updateMatrices(light);
       const { camera, mapSize, radius, normalBias } = light.shadow;
       const p = camera.projectionMatrix.elements;
@@ -85,7 +91,8 @@ export function createShadowUpdates({
       const dishVersion = root.userData.dishGeometryRevision;
       const nonCaster = root.userData.nonCasterGeometryRevision || 0;
       const other = revision - dishVersion - nonCaster;
-      if (!prepare && revision === geometryRevision) return false;
+      if (!prepare && !changedProjections.size && revision === geometryRevision)
+        return false;
       const receiversChanged = nonCaster !== nonCasterRevision;
       const dishChanged = dishVersion !== dishRevision;
       const rebuild =
@@ -103,7 +110,7 @@ export function createShadowUpdates({
         if (mesh.isMesh) localBounds(mesh);
       });
       if (dish) currentDish.setFromObject(dish);
-      let requested = false;
+      let requested = changedProjections.size > 0;
       if (rebuild) {
         lights.forEach(dirty);
         requested = true;
@@ -112,6 +119,7 @@ export function createShadowUpdates({
         prepare = false;
       } else {
         if (receiversChanged) prepareVolumes();
+        else if (changedProjections.size) prepareVolumes(changedProjections);
         // Both poses matter: a caster leaving a region must clear its old shadow.
         // This bounds only the small dish subtree, never the whole spacecraft.
         changedBounds.copy(previousDish).union(currentDish);
@@ -121,7 +129,7 @@ export function createShadowUpdates({
         // (even hidden) receivers cannot expose a previously irrelevant shadow.
         // It may over-refresh after a receiver moves, but never grows in memory.
         const relevantBounds = receiversChanged ? dishHistory : changedBounds;
-        for (const light of lights) {
+        for (const light of dishChanged || receiversChanged ? lights : []) {
           const volume = volumes.get(light as Three.SpotLight);
           // Directional rays are parallel; the finite-position proof above does
           // not apply to the sun. Its complete map needs only caster changes.
@@ -136,6 +144,8 @@ export function createShadowUpdates({
           }
         }
       }
+      // A partial refresh must retain history for lights whose maps were reused.
+      changedProjections.clear();
       previousDish.copy(currentDish);
       geometryRevision = revision;
       otherRevision = other;

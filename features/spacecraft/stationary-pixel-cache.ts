@@ -252,7 +252,10 @@ export function createStationaryPixelCache({
     }
     for (const light of lights) {
       colors.push(light.intensity, light.color.r, light.color.g, light.color.b);
-      values.push(
+      // Interior beam/shadow edits change illumination, not depth or contact AO.
+      // Sun inputs still rebuild its dish influence bounds and receiver split.
+      const appearance = light.isSpotLight ? colors : values;
+      appearance.push(
         light.groundColor?.r,
         light.groundColor?.g,
         light.groundColor?.b,
@@ -400,14 +403,17 @@ export function createStationaryPixelCache({
       !cameraMatrix.equals(camera.matrixWorld) ||
       !projection.equals(camera.projectionMatrix);
     partialAo = false;
+    const interiorShadowDirty = lights.some(
+      (light) => light !== key && light.castShadow && light.shadow?.needsUpdate,
+    );
     // A full view/scene change reconstructs all targets. Dish-only shadow repairs
     // happen separately, before any color-pass mesh masking.
     if (
       cameraChanged ||
       (renderer.shadowMap.needsUpdate &&
+        !interiorShadowDirty &&
         (!influence || !model.group.userData.shadowCasterChanged)) ||
       renderer.shadowMap.autoUpdate ||
-      model.group.userData.transitionActive ||
       renderer.toneMapping !== T.ACESFilmicToneMapping ||
       renderer.outputColorSpace !== T.SRGBColorSpace ||
       scene.fog ||
@@ -417,16 +423,12 @@ export function createStationaryPixelCache({
         (!influence.supported() ||
           // Only the sun has a regional receiver/caster bound. Other lights can
           // coexist while their maps are reused by the per-light controller.
-          // If one needs new shadows, render the complete scene before caching
-          // again: the sun's layer mask must never remove its static casters.
+          // Missing or automatically updating maps cannot be reused safely.
           lights.some(
             (l) =>
               l !== key &&
               l.castShadow &&
-              (!l.shadow ||
-                l.shadow.autoUpdate !== false ||
-                l.shadow.needsUpdate ||
-                !l.shadow.map),
+              (!l.shadow || l.shadow.autoUpdate !== false || !l.shadow.map),
           )))
     ) {
       cameraMatrix.copy(camera.matrixWorld);
@@ -451,7 +453,7 @@ export function createStationaryPixelCache({
     if (change) {
       valid = false;
       equalFrames = 0;
-      // Brightness and hover colors change the captured pixels, not depth/AO
+      // Lighting and hover colors change the captured pixels, not depth/AO
       // or the dish influence bounds. Simultaneous geometry changes still take
       // the full reconstruction path.
       if (change === 'geometry') {
@@ -464,6 +466,18 @@ export function createStationaryPixelCache({
           (influence?.contains(mesh) ? live : cached).push(mesh);
       }
     } else equalFrames++;
+    // AO reuse depends on geometry, independently of color capture readiness.
+    // This also retains regional dish repairs during live lighting adjustments.
+    partialAo = !!influence;
+    if (interiorShadowDirty || model.group.userData.transitionActive) {
+      valid = false;
+      equalFrames = 0;
+      fallbacks++;
+      // A dirty interior map needs every caster. Never apply the sun's regional
+      // mask or a color-cache exclusion to this complete scene draw.
+      render(scene, camera);
+      return;
+    }
     // Avoid paying for a capture when the next frame cannot reuse it.
     if (equalFrames < 2) {
       fallbacks++;
@@ -476,7 +490,6 @@ export function createStationaryPixelCache({
       return;
     }
     repairShadow = !!renderer.shadowMap.needsUpdate;
-    partialAo = !!influence;
     if (!valid) {
       const alpha = renderer.getClearAlpha();
       renderer.getClearColor(oldColor);

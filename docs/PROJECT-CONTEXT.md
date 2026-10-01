@@ -57,14 +57,15 @@ retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
 Lighting retains the current materials' realistic furniture shadows with a
-restrained warm-white tint. All four cabins share the same profile. Each visible
+warm tint. All four cabins share the same profile. Each visible
 swivel fixture combines a stronger, narrower main beam with a weaker, wider beam.
 The two sources occupy exactly the same position and share one target, so they
 read as a single lamp with one shadow direction. Each has its own shadow projection;
 never share a shadow object between different beam widths. Keep ambient fill low
 enough to preserve the furniture shadows. Bright cool exterior sunlight from
-above-left and in front shapes the hull; interior materials admit only 5% by
-default, keeping exterior brightness from washing out the rooms.
+above-left and in front shapes the hull, at 20% brightness by default. Interior
+materials admit only 5% by default, keeping exterior brightness from washing
+out the rooms.
 Each cabin has one offset swivel fixture aimed down and across its furnishings.
 Its ceiling shoe, stem, housing and luminous face must
 stay connected; preserve the assembly's proportions when changing room width and
@@ -92,19 +93,24 @@ AO and stationary pixels. Some of these surfaces receive shadows, including
 rebatched notebook parts. Rebuild lamp receiver-ray bounds and check the dish's
 accumulated motion since the last full refresh, so newly exposed receivers cannot
 sample an old, previously irrelevant dish shadow. Unknown/caster geometry edits,
-layout changes and explicit quality/filter invalidation still refresh every map;
-non-PCF filters retain the conservative policy. Immediate changes and final snaps
+layout changes and explicit quality/filter invalidation still refresh every map.
+Beam-width edits refresh only the four maps for that beam, rebuilding their
+receiver bounds while retaining dish history for untouched maps.
+Non-PCF filters retain the conservative policy. Immediate changes and final snaps
 follow the same revision contract as animated motion.
 
 The Shadows control must visibly change interiors. Default to **Low (512)**
 detail and **4×** softness; both controls apply to the sun and all interior lamps.
 Per-light shadow reuse works alongside the stationary pixel cache. Repair the
 sun's dish region while all interior maps are allocated, clean and independently
-cached. A dirty or automatically updating interior map requires a complete,
-unmasked scene draw and color-cache reconstruction before reuse resumes. Keep
+cached. A dirty interior map requires a complete, unmasked shadow draw and
+color-cache reconstruction before reuse resumes. Lighting-only edits retain
+contact AO, including regional dish repairs during slider changes and inactive
+brightness easing. Geometry and camera changes still refresh AO. Missing or
+automatically updating interior maps retain the conservative full-render path. Keep
 the existing phone/AO-disabled fallback. Historical area-light timings do not
 apply to this rig. Room hover/selection changes material brightness without a
-second light dimmer. Inactive cabin materials default to 85% instead of half
+second light dimmer. Inactive cabin materials default to 75% instead of half
 brightness, reducing the overview-to-room jump. The inactive-room control can
 raise this to 100% for steady brightness or lower it to 50% for stronger focus
 feedback. Ladder feedback remains 50–100%. Overview entry and direct room-to-room
@@ -510,20 +516,27 @@ density, contact shading, Earth/sky
 and stationary spacecraft caching. Brightness spans 0–500% in 5% steps, with 100%
 restoring the authored values: sun intensity 3.2, main cabin beam 13.75 and each
 ladder worklight 4.375. Both cabin beam strength controls use 13.75 as their 100%
-baseline; the main defaults to 100% and the wide beam to 25%. Room brightness is
-their common multiplier. Cabin and ladder diffuser emission is 1.375 and 2.125
-respectively, before room feedback dimming. These are the authored defaults on
+baseline; the main defaults to 75% and the wide beam to 25%. Room brightness is
+their common multiplier. Exterior light defaults to 20%; room and ladder
+brightness default to 100%. Cabin and ladder diffuser base emission is 1.375
+and 2.125 respectively, before room feedback dimming. Cabin emission scales by
+combined beam strength divided by a fixed 1.25 reference; changing the default
+preset must not renormalize a chosen appearance. These settings apply on
 first load and reset. Exterior controls sunlight; room and ladder sliders also dim their
 fixture faces while leaving screens and status indicators legible. Cabin diffuser
 emission also follows the combined beam strength; switching both off extinguishes
-the diffuser. Warmth spans neutral white to amber, with a 20% default shared by
+the diffuser. Warmth spans neutral white to amber, with a 60% default shared by
 the interior lamps, their diffusers and fill. Main beam width spans 30–170° in
-2° steps, defaulting to 108°; the wide beam spans 70–170°, defaulting to 150°.
+2° steps, defaulting to 90°; the wide beam spans 70–170°, defaulting to 148°.
 Ambient fill spans 0–100% in 5% steps, defaulting to 5%; inactive room brightness
-spans 50–100% in 5% steps, defaulting to 85%; sunlight spill spans 0–100%
-in 1% steps, defaulting to 5%. Brightness, warmth, fill and spill recapture color
-while reusing valid shadows and contact AO. Beam-width changes rebuild lamp shadow
-projections and receiver bounds before the next draw.
+spans 50–100% in 5% steps, defaulting to 75%; sunlight spill spans 0–100%
+in 1% steps, defaulting to 5%. Brightness, beam strengths, warmth, fill, spill and
+inactive brightness recapture color while reusing valid shadows and contact AO.
+Beam-width changes rebuild the affected beam's shadow projections and receiver
+bounds before the next draw, retaining other maps and geometry-dependent AO.
+Full stationary-pixel reuse remains limited to supported wide viewports with
+shadows and contact shading enabled; per-light shadow reuse also works on phones.
+Camera/geometry changes and animated Earth/sky still need fresh rendering.
 
 Shadow softness adjusts the existing shadow filter independently of map resolution,
 from 0–4× in 0.25 steps. The authored

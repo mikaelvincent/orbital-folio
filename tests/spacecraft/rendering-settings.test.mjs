@@ -16,21 +16,21 @@ const desktop = {
 };
 const phone = { ...desktop, width: 390, height: 844, nativePixelRatio: 3 };
 
-test('site defaults use low detail and 4× softness while retaining device density/contact profiles', () => {
+test('screenshot defaults retain the same lighting across device density/contact profiles', () => {
   assert.deepEqual(resolveRenderingSettings(defaults, desktop), {
     pixelDensity: 2,
     shadowSize: 512,
     shadowSoftness: 4,
-    exteriorLight: 1,
+    exteriorLight: 0.2,
     roomLight: 1,
     ladderLight: 1,
-    roomWarmth: 0.2,
-    roomKeyLight: 1,
-    roomSpread: 54,
+    roomWarmth: 0.6,
+    roomKeyLight: 0.75,
+    roomSpread: 45,
     roomFillLight: 0.25,
-    roomFillSpread: 75,
+    roomFillSpread: 74,
     roomFill: 0.05,
-    roomIdleLevel: 0.85,
+    roomIdleLevel: 0.75,
     exteriorSpill: 0.05,
     contactShading: true,
     cacheAvailable: true,
@@ -39,16 +39,16 @@ test('site defaults use low detail and 4× softness while retaining device densi
     pixelDensity: 1.75,
     shadowSize: 512,
     shadowSoftness: 4,
-    exteriorLight: 1,
+    exteriorLight: 0.2,
     roomLight: 1,
     ladderLight: 1,
-    roomWarmth: 0.2,
-    roomKeyLight: 1,
-    roomSpread: 54,
+    roomWarmth: 0.6,
+    roomKeyLight: 0.75,
+    roomSpread: 45,
     roomFillLight: 0.25,
-    roomFillSpread: 75,
+    roomFillSpread: 74,
     roomFill: 0.05,
-    roomIdleLevel: 0.85,
+    roomIdleLevel: 0.75,
     exteriorSpill: 0.05,
     contactShading: false,
     cacheAvailable: false,
@@ -227,16 +227,16 @@ test('independent light levels include off and clamp invalid or excessive inputs
       [3, 3],
       [5, 5],
       [10, 5],
-      [NaN, 1],
-      [Infinity, 1],
-      [undefined, 1],
+      [NaN, defaults[key]],
+      [Infinity, defaults[key]],
+      [undefined, defaults[key]],
     ]) {
       const actual = resolveRenderingSettings(
         { ...defaults, [key]: value },
         desktop,
       );
       for (const name of ['exteriorLight', 'roomLight', 'ladderLight'])
-        assert.equal(actual[name], name === key ? expected : 1);
+        assert.equal(actual[name], name === key ? expected : defaults[name]);
     }
   }
 });

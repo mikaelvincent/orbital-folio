@@ -74,7 +74,12 @@ for (const layout of ['wide', 'compact']) {
               section === target ? 1 / DEFAULT_ROOM_LIGHTING.roomIdleLevel : 1,
             );
           assert.ok(
-            faces[section].color.equals(expected),
+            // Scaling an observed idle color back to full brightness can round.
+            ['r', 'g', 'b'].every(
+              (channel) =>
+                Math.abs(faces[section].color[channel] - expected[channel]) <
+                1e-12,
+            ),
             `${target} ${mode} must ${section === target ? 'brighten' : 'leave unchanged'} ${section}'s wall`,
           );
         }

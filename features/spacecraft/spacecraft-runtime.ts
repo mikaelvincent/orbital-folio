@@ -226,10 +226,13 @@ export function mountSpacecraftScene({
         // Instantiated on request without rebuilding the ship or its camera.
         const gl = renderer.getContext();
         const shadowReasons = new Set<string>(['initial']);
-        const invalidateShadow = (reason: string) => {
+        const invalidateShadow = (
+          reason: string,
+          lights?: (Three.DirectionalLight | Three.SpotLight)[],
+        ) => {
           shadowReasons.add(reason);
           renderer.shadowMap.needsUpdate = true;
-          shadowUpdates.invalidate();
+          shadowUpdates.invalidate(lights);
         };
         let restoreShadowDiagnostics = () => {};
         let frozenBackgroundTime: number | undefined;
@@ -2827,7 +2830,16 @@ export function mountSpacecraftScene({
             rendering.roomSpread !== previousSpread ||
             rendering.roomFillSpread !== previousFillSpread
           )
-            invalidateShadow('room-light-spread');
+            invalidateShadow(
+              'room-light-spread',
+              cabinLighting.lights.filter(
+                (light) =>
+                  light.userData.section !== 'walkway' &&
+                  (light.userData.cabinBeam === 'fill'
+                    ? rendering.roomFillSpread !== previousFillSpread
+                    : rendering.roomSpread !== previousSpread),
+              ),
+            );
           if (renderer.shadowMap.enabled !== settings.shadows) {
             renderer.shadowMap.enabled = settings.shadows;
             // Shadow sampling is compiled into materials. Toggling the renderer

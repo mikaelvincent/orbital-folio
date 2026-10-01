@@ -3773,8 +3773,7 @@ export function createSpacecraft(
           ? 1
           : (roomLightingProfile.roomKeyLight +
               roomLightingProfile.roomFillLight) /
-            (DEFAULT_ROOM_LIGHTING.roomKeyLight +
-              DEFAULT_ROOM_LIGHTING.roomFillLight));
+            VESSEL_LIGHTING.cabinFixtureBeamReference);
       for (const material of roomMaterials[section]) {
         const exterior = !!material.userData.exterior;
         const linked = material.userData.linkedRooms as string[] | undefined;

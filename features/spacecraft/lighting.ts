@@ -10,6 +10,8 @@ import {
 export const VESSEL_LIGHTING = {
   sunIntensity: 3.2,
   cabinIntensity: 13.75,
+  // Fixed reference for the authored diffuser emission, independent of presets.
+  cabinFixtureBeamReference: 1.25,
   ladderIntensity: 4.375,
   environmentIntensity: 0.1,
   contactStrength: 0.5,

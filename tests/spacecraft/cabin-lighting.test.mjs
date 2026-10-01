@@ -238,6 +238,28 @@ test('room and ladder brightness stay independent through navigation and do not 
   );
 });
 
+test('screenshot defaults preserve the diffuser emission at those manually chosen values', () => {
+  model.setLighting(1, 1);
+  model.update(2, '', true, { activeRoom: 'home', reducedMotion: true });
+  const expectedColor = roomLightColor(THREE, 0.6);
+  for (const material of meshes.flatMap((mesh) => [mesh.material].flat())) {
+    if (
+      !material.userData.lightFixture ||
+      material.userData.section === 'walkway'
+    )
+      continue;
+    const expected = expectedColor
+      .clone()
+      .multiplyScalar(
+        material.userData.baseIntensity * 0.75 * ((0.75 + 0.25) / 1.25),
+      );
+    for (const channel of ['r', 'g', 'b'])
+      assert.ok(
+        Math.abs(material.emissive[channel] - expected[channel]) < 1e-12,
+      );
+  }
+});
+
 test('independent beam strengths survive animation, navigation and zero settings without changing geometry', () => {
   model.update(2, '', true, { activeRoom: 'home', reducedMotion: true });
   const revision = model.group.userData.geometryRevision;
