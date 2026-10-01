@@ -172,16 +172,6 @@ export function ContactView({
   );
   return (
     <div className="reading-contact-form">
-      <ContactForm
-        site={data.site}
-        initialSent={sent}
-        initialError={error}
-        draft={draft}
-        onDraftChange={onDraftChange}
-        onSent={onSent}
-        submission={submission}
-        onSubmissionChange={onSubmissionChange}
-      />
       {!!links.length && (
         <div className="social-links">
           {links.map((link) => (
@@ -206,6 +196,16 @@ export function ContactView({
           ))}
         </div>
       )}
+      <ContactForm
+        site={data.site}
+        initialSent={sent}
+        initialError={error}
+        draft={draft}
+        onDraftChange={onDraftChange}
+        onSent={onSent}
+        submission={submission}
+        onSubmissionChange={onSubmissionChange}
+      />
     </div>
   );
 }

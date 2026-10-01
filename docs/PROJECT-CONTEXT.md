@@ -216,15 +216,17 @@ ivory text and restrained bronze details from the spacecraft palette, including
 dark article and notebook surfaces. Its four-room overview, collection side
 indexes, bounded articles and profile/console layouts have their own composition;
 reading styles stay scoped to `.is-readable` and never alter Interactive view.
-It shares collection, story and contact renderers with the interactive applications
-and uses their existing editable headings and content. It adds no exclusive
-introductions, invitations, stories or social links. About uses the same notebook
-sections and opening biography, with each profile and section link on its own
-row; Contact uses the same form and two assigned links. Visitor-facing sample/demo
-badges and notices are intentionally absent, including private preview. Sample flags control search metadata only;
-seeded content uses the same presentation and visitor functionality as
-owner-authored content. Keep indexing protection and studio controls.
-Nonfunctional actions must still say nothing was sent/booked.
+The overview cards show the collection heading above the larger room/navigation
+name. It shares collection, story and contact renderers with the interactive
+applications and uses their existing editable headings and content. It adds no
+exclusive introductions, invitations, stories or social links. About uses the
+same notebook sections and opening biography, with each profile and section link
+on its own row; Contact places its two assigned links before the shared form.
+Visitor-facing sample/demo badges and notices are intentionally absent, including private
+preview. Sample flags control search metadata only; seeded content uses the same
+presentation and visitor functionality as owner-authored content. Keep indexing
+protection and studio controls. Nonfunctional actions must still say nothing was
+sent/booked.
 
 ## Content studio
 

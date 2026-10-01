@@ -75,8 +75,8 @@ export function HomeView({ data }: { data: Portfolio }) {
               aria-hidden="true"
             />
             <span className="reading-room-copy">
-              <small>{s[id + 'Label']}</small>
-              <span>{heading || s[id + 'Label']}</span>
+              <small>{heading || s[id + 'Label']}</small>
+              <span>{s[id + 'Label']}</span>
             </span>
             <ArrowUpRight
               className="reading-room-arrow"
