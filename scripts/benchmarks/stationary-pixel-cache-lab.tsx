@@ -12,6 +12,7 @@ import './camera-invalidation-lab.css';
 import {
   completeFrameGpuCoverage,
   sameKnownPower,
+  matchesRenderProfile,
 } from './comparison-coverage.mjs';
 
 const panel = document.getElementById('camera-lab-controls')!;
@@ -408,6 +409,9 @@ function qualitySignature(r: any) {
       'aoSamples',
       'denoiseSamples',
       'shadowMap',
+      'shadowSoftness',
+      'renderingSettings',
+      'lightingCalibration',
       'shadowsEnabled',
       'policy',
       'experiment',
@@ -456,13 +460,20 @@ function validCapture(r: any, metric = 'gpu', completeCycle = false) {
     !settings.reducedMotion &&
     settings.experiment === 'normal' &&
     settings.filter.mode === 'all' &&
-    settings.aoEnabled &&
     settings.shadowsEnabled &&
-    JSON.stringify(settings.viewport) === '[1280,720]' &&
-    JSON.stringify(settings.drawingBuffer) === '[2560,1440]'
+    matchesRenderProfile(
+      settings,
+      completeCycle
+        ? report.method.decision.renderProfile
+        : {
+            viewport: [1280, 720],
+            drawingBuffer: [2560, 1440],
+            aoEnabled: true,
+          },
+    )
   );
 }
-function stability(rows: any[]) {
+function stability(rows: any[], completeCycle = false) {
   const median = (a: number[]) => {
     const s = [...a].sort((a, b) => a - b);
     const m = Math.floor(s.length / 2);
@@ -491,7 +502,7 @@ function stability(rows: any[]) {
   const cpu = metric(rows.map((r) => r.snapshot.scene.cpuTotal.mean));
   const gpu = metric(rows.map((r) => r.snapshot.scene.gpu.phases.frame?.mean));
   const cadence = metric(rows.map((r) => r.snapshot.scene.frameInterval.mean));
-  const coverage = rows.every((r) => validCapture(r));
+  const coverage = rows.every((r) => validCapture(r, 'gpu', completeCycle));
   return {
     cpu,
     gpu,
@@ -503,10 +514,17 @@ function stability(rows: any[]) {
 /** The default decision schedule retains valid noisy samples. Historical strict
  * timing remains below for reproducibility, not as an implementation veto. */
 async function decisionComparison(room: string) {
+  await settle(room);
+  const settings = controller.snapshot().settings;
   const started = performance.now();
   let waitMs = 0;
   report.method.decision = {
-    profile: 'engineering-decision-v1',
+    profile: 'engineering-decision-v2',
+    renderProfile: {
+      viewport: settings.viewport,
+      drawingBuffer: settings.drawingBuffer,
+      aoEnabled: settings.aoEnabled,
+    },
     orders: ['ABBA', 'BAAB'],
     controls: 2,
     frames: 1080,
@@ -572,7 +590,7 @@ async function decisionComparison(room: string) {
       gpu: validCapture(r, 'gpu', true) && qualitySignature(r) === signature,
     }));
     const warnings: string[] = [];
-    const reference = stability(references);
+    const reference = stability(references, true);
     for (const metric of ['cpu', 'gpu', 'cadence'] as const)
       if (!reference[metric].pass)
         warnings.push(metric + '-reference-variation');

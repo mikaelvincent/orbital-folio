@@ -13,7 +13,7 @@ import { promisify } from 'node:util';
 import { promises as fs } from 'node:fs';
 import { createHash, randomUUID } from 'node:crypto';
 import { tmpdir } from 'node:os';
-import { dirname, extname, join, resolve, sep } from 'node:path';
+import { dirname, extname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bakeContactGeometry } from './contact-geometry-bake.mjs';
 import { fitDiffuseProbe } from './diffuse-probe-fit.mjs';
@@ -51,6 +51,20 @@ const result = await build({
   platform: 'browser',
   target: 'es2022',
   jsx: 'automatic',
+  loader: { '.woff2': 'dataurl' },
+  plugins: [{
+    name: 'inline-css',
+    setup(plugin) {
+      plugin.onResolve({ filter: /\.css\?inline$/ }, (args) => ({
+        path: resolve(args.resolveDir, args.path.slice(0, -7)),
+        namespace: 'inline-css',
+      }));
+      plugin.onLoad({ filter: /\.css$/, namespace: 'inline-css' }, async (args) => ({
+        contents: await fs.readFile(args.path, 'utf8'),
+        loader: 'text',
+      }));
+    },
+  }],
   metafile: true,
   define: { 'process.env.NODE_ENV': '"production"' },
 });
@@ -62,14 +76,16 @@ const appCss = await postcss([tailwind({ base: root })]).process(
 await fs.writeFile(join(bundle, 'portfolio.css'), appCss.css);
 await fs.cp(join(root, 'public'), join(snapshot, 'public'), { recursive: true });
 const sourcePaths = new Set([
-  ...Object.keys(result.metafile.inputs),
+  ...Object.keys(result.metafile.inputs).map((input) => relative(root,
+    resolve(root, input.replace(/^inline-css:/, '').replace(/\?inline$/, '')),
+  )),
   'app/globals.css',
   'scripts/benchmarks/camera-invalidation-lab.mjs',
   'scripts/benchmarks/contact-geometry-bake.mjs',
   'scripts/benchmarks/diffuse-probe-fit.mjs',
   'package-lock.json',
 ]);
-const sourceFiles = await Promise.all([...sourcePaths].sort().map(async (path) => {
+const sourceFiles = await Promise.all([...sourcePaths].sort((a, b) => a.localeCompare(b)).map(async (path) => {
   const data = await fs.readFile(resolve(root, path));
   return { path, bytes: data.byteLength, sha256: hash(data) };
 }));

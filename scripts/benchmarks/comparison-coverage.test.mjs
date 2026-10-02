@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   completeFrameGpuCoverage,
   sameKnownPower,
+  matchesRenderProfile,
 } from './comparison-coverage.mjs';
 
 function cycle() {
@@ -46,4 +47,24 @@ test('unknown telemetry permits a limited comparison but never masks a known pow
     true,
   );
   assert.equal(sameKnownPower([known('battery'), unknown, known('AC')]), false);
+});
+
+test('decision comparisons match the declared phone or desktop profile without assuming AO', () => {
+  for (const profile of [
+    { viewport: [390, 844], drawingBuffer: [682, 1477], aoEnabled: false },
+    { viewport: [1280, 720], drawingBuffer: [2560, 1440], aoEnabled: true },
+  ]) {
+    assert.equal(matchesRenderProfile(structuredClone(profile), profile), true);
+    for (const changes of [
+      { aoEnabled: !profile.aoEnabled },
+      { viewport: [844, 390] },
+      { drawingBuffer: [390, 844] },
+    ])
+      assert.equal(
+        matchesRenderProfile({ ...profile, ...changes }, profile),
+        false,
+      );
+  }
+  assert.equal(matchesRenderProfile({}, undefined), false);
+  assert.equal(matchesRenderProfile({}, {}), false);
 });

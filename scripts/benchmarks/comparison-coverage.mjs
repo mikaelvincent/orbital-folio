@@ -30,3 +30,23 @@ export function sameKnownPower(contexts) {
   const known = contexts.filter((c) => c.availability === 'available');
   return known.every((c) => c.power === known[0].power);
 }
+
+/** A decision comparison declares its actual viewport and AO path before timing. */
+export function matchesRenderProfile(settings, profile) {
+  return (
+    profile != null &&
+    typeof profile.aoEnabled === 'boolean' &&
+    settings.aoEnabled === profile.aoEnabled &&
+    ['viewport', 'drawingBuffer'].every(
+      (key) =>
+        Array.isArray(profile[key]) &&
+        profile[key].length === 2 &&
+        Array.isArray(settings[key]) &&
+        settings[key].length === 2 &&
+        profile[key].every(
+          (value, i) =>
+            Number.isFinite(value) && value > 0 && settings[key][i] === value,
+        ),
+    )
+  );
+}
