@@ -18,6 +18,138 @@ import {
   PRESSURE_FACE_FRONT,
 } from '../../features/spacecraft/geometry/spacecraft-wall-layout.ts';
 
+test('revisioned opening picks reuse a stationary ray while intent stays live', () => {
+  const group = new THREE.Group();
+  const picker = createRoomNavigationTargets(THREE, group);
+  picker.sync(1.4);
+  group.updateMatrixWorld(true);
+  const ray = new THREE.Raycaster(
+    new THREE.Vector3(-3, DECK_HALF_PITCH, 4),
+    new THREE.Vector3(0, 0, -1),
+  );
+  let queries = 0,
+    destination = 'projects';
+  const intersect = ray.intersectObjects.bind(ray);
+  ray.intersectObjects = (...args) => {
+    queries++;
+    return intersect(...args);
+  };
+  const options = {
+    active: 'home',
+    reading: false,
+    geometryRevision: 1,
+    portalTargets: [],
+    roomIntent: () => ({ section: destination }),
+    canUsePortal: () => true,
+  };
+  for (let i = 0; i < 60; i++)
+    assert.equal(picker.select(ray, options).section, destination);
+  assert.equal(queries, 1);
+  destination = 'about';
+  assert.equal(
+    picker.select(ray, options).section,
+    'about',
+    'intent is not cached',
+  );
+  assert.equal(queries, 1);
+  for (const change of [
+    () => {
+      ray.near = 0.01;
+    },
+    () => {
+      ray.far = 90;
+    },
+    () => {
+      ray.layers.set(1);
+    },
+    () => {
+      ray.layers.set(0);
+    },
+    () => {
+      ray.ray.origin.x += 0.01;
+    },
+    () => {
+      options.geometryRevision++;
+    },
+    () => {
+      group.position.x = 0.1;
+      group.updateMatrixWorld(true);
+    },
+    () => {
+      picker.sync(1);
+      group.updateMatrixWorld(true);
+    },
+  ]) {
+    const before = queries;
+    change();
+    picker.select(ray, options);
+    assert.equal(queries, before + 1);
+  }
+  const before = queries;
+  delete options.geometryRevision;
+  picker.select(ray, options);
+  picker.select(ray, options);
+  assert.equal(
+    queries,
+    before + 2,
+    'unversioned callers always get fresh geometry',
+  );
+});
+
+test('cached portal geometry rechecks live eligibility, replacement and revisions', () => {
+  const group = new THREE.Group();
+  const picker = createRoomNavigationTargets(THREE, group);
+  picker.sync(1.4);
+  const portal = new THREE.Mesh(
+    new THREE.PlaneGeometry(2, 2),
+    new THREE.MeshBasicMaterial(),
+  );
+  portal.position.z = -1;
+  portal.userData = { portalDestination: 'about', portalId: 'door' };
+  group.add(portal);
+  group.updateMatrixWorld(true);
+  const ray = new THREE.Raycaster(
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, -1),
+  );
+  let allowed = true,
+    queries = 0;
+  const intersect = ray.intersectObjects.bind(ray);
+  ray.intersectObjects = (...args) => {
+    queries++;
+    return intersect(...args);
+  };
+  const options = {
+    active: 'projects',
+    reading: false,
+    geometryRevision: 1,
+    portalTargets: [{ from: 'projects', id: 'door', object: portal }],
+    roomIntent: () => null,
+    canUsePortal: () => allowed,
+  };
+  assert.equal(picker.select(ray, options).portalId, 'door');
+  const before = queries;
+  for (let i = 0; i < 60; i++)
+    assert.equal(picker.select(ray, options).portalId, 'door');
+  assert.equal(queries, before);
+  allowed = false;
+  assert.equal(picker.select(ray, options).portalId, undefined);
+  allowed = true;
+  assert.equal(picker.select(ray, options).portalId, 'door');
+  const replacement = portal.clone();
+  replacement.position.x = 10;
+  group.add(replacement);
+  group.updateMatrixWorld(true);
+  options.portalTargets[0].object = replacement;
+  assert.equal(picker.select(ray, options).portalId, undefined);
+  replacement.position.x = 0;
+  group.updateMatrixWorld(true);
+  options.geometryRevision++;
+  assert.equal(picker.select(ray, options).portalId, 'door');
+  options.reading = true;
+  assert.equal(picker.select(ray, options).portalId, undefined);
+});
+
 const portals = [
   { id: 'p-e', from: 'projects', to: 'experience' },
   { id: 'e-p', from: 'experience', to: 'projects' },
@@ -56,12 +188,19 @@ void test('Ladder bay selection stays inert in overview, inside the bay and with
   for (const from of ['projects', 'about', 'experience', 'contact']) {
     assert.equal(roomNavigationIntent(portals, from, 'walkway', true), null);
     assert.equal(
-      roomNavigationIntent(portals.filter((p) => !p.via), from, 'walkway'),
+      roomNavigationIntent(
+        portals.filter((p) => !p.via),
+        from,
+        'walkway',
+      ),
       null,
     );
   }
   // The restriction is specific to the bay, not a blanket ban on cabin targets.
-  assert.equal(roomNavigationIntent(portals, 'contact', 'about', true).section, 'about');
+  assert.equal(
+    roomNavigationIntent(portals, 'contact', 'about', true).section,
+    'about',
+  );
 });
 
 void test('Ladder opening selections inherit travel preview and physical hatch restrictions', () => {
@@ -72,9 +211,13 @@ void test('Ladder opening selections inherit travel preview and physical hatch r
     assert(canUseDoorDuringTravel(portal, from, false, []));
     assert(!canUseDoorDuringTravel(portal, from, false, [opposite.id]));
     assert(!canUseDoorDuringTravel(portal, from, true, []));
-    assert.notEqual(sceneNavigationKey(intent), sceneNavigationKey({
-      section: intent.section, portalId: intent.portalId,
-    }));
+    assert.notEqual(
+      sceneNavigationKey(intent),
+      sceneNavigationKey({
+        section: intent.section,
+        portalId: intent.portalId,
+      }),
+    );
   }
 });
 

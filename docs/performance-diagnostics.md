@@ -51,6 +51,21 @@ claims warrant stronger repetition and device/workload coverage. Per-frame time
 does not establish power, energy or battery savings. Hidden/offscreen suspension
 submits no scene frames; visible scenes now animate continuously.
 
+## Unchanged input and exact rest
+
+Scene wake requests do not by themselves invalidate spacecraft pixels. Keep
+actual visual signatures and explicit quality/visibility releases authoritative,
+including late texture changes. Input springs opt into a tiny position/velocity
+settle threshold so exact camera-dependent caches can resume. Navigation picks
+reuse geometry only; live DOM feedback, room intent and door eligibility remain
+outside that cache. Earth controls continue readiness polling while held, then
+poll only advancing visible playback.
+
+The [input-work comparison](evidence/performance/input-work/README.md) records
+the boundaries, short opposing-order measurements, overhead and correctness
+checks. Its frozen scene isolates these mechanisms; do not extrapolate its
+percentages to continuous dish motion or energy savings.
+
 ## Portfolio request work
 
 Portfolio caching concerns request delivery, not continuous scene rendering.

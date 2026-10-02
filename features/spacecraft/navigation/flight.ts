@@ -139,9 +139,16 @@ export function moveCameraAxis(
   axis: MotionAxis,
   target: number,
   delta: number,
-  limits = { frequency: 10, speed: 12, acceleration: 40 },
+  limits: {
+    frequency: number;
+    speed: number;
+    acceleration: number;
+    /** Opt-in for input springs; travel/door sequencing keeps its own tolerances. */
+    settle?: number;
+  } = { frequency: 10, speed: 12, acceleration: 40 },
 ) {
   if (!Number.isFinite(target)) return axis.value;
+  if (axis.value === target && axis.velocity === 0) return axis.value;
   const duration = Number.isFinite(delta)
     ? Math.max(0, Math.min(0.05, delta))
     : 0;
@@ -160,6 +167,15 @@ export function moveCameraAxis(
       Math.min(limits.speed, axis.velocity + acceleration * dt),
     );
     axis.value += axis.velocity * dt;
+  }
+  if (
+    duration > 0 &&
+    limits.settle &&
+    Math.abs(target - axis.value) <= limits.settle &&
+    Math.abs(axis.velocity) <= limits.settle
+  ) {
+    axis.value = target;
+    axis.velocity = 0;
   }
   return axis.value;
 }

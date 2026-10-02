@@ -1957,7 +1957,13 @@ export function mountSpacecraftScene({
           }
           diagnostics?.mark('navigation');
           const motionDelta = stop ? 0 : delta;
-          const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
+          // End subpixel tails so exact camera-dependent caches can settle.
+          const pointerLimits = {
+            frequency: 8,
+            speed: 3,
+            acceleration: 12,
+            settle: 1e-6,
+          };
           const feedbackTarget = feedback.resolve(
             (reading && !applicationRoom()) ||
               !latest.current.enabled ||
@@ -2038,6 +2044,7 @@ export function mountSpacecraftScene({
             frequency: 7,
             speed: 0.35,
             acceleration: 1.2,
+            settle: 1e-6,
           };
           moveCameraAxis(
             hoverMotion[0],
@@ -2055,6 +2062,7 @@ export function mountSpacecraftScene({
             frequency: 7,
             speed: 1.6,
             acceleration: 6,
+            settle: 1e-6,
           });
           for (const [index, goal] of dragGoal.toArray().entries()) {
             if (stop)
@@ -2071,6 +2079,7 @@ export function mountSpacecraftScene({
                   frequency: 10,
                   speed: 4,
                   acceleration: 18,
+                  settle: 1e-6,
                 },
               );
           }
@@ -2092,6 +2101,7 @@ export function mountSpacecraftScene({
                 frequency: 8,
                 speed: 0.4,
                 acceleration: 1.5,
+                settle: 1e-6,
               });
           });
           const angles = boundedCameraAngles(
@@ -2771,7 +2781,9 @@ export function mountSpacecraftScene({
           keepAwake: () => travelling,
         });
         function kick() {
-          pixelCache.invalidate();
+          // Request a frame without discarding valid ship color/depth/AO.
+          // The cache observes actual visual inputs, including late textures;
+          // pointer, native UI and Earth-only events need no blanket invalidation.
           renderLoop.wake();
         }
         const setDrawingSize = () => {
@@ -3026,6 +3038,9 @@ export function mountSpacecraftScene({
           return roomNavigation.select(ray, {
             active,
             reading,
+            geometryRevision:
+              model.group.userData.geometryRevision -
+              model.group.userData.dishGeometryRevision,
             portalTargets: model.portalTargets,
             roomIntent,
             canUsePortal: (id) =>

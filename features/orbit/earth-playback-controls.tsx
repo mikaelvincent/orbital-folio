@@ -31,15 +31,43 @@ export function EarthPlaybackControls({
   useEffect(() => {
     if (!controller) return;
     controller.setEarthPlayback({ type: 'open' });
-    const sync = () => setState(controller.getEarthPlayback());
-    sync();
-    // Only the visible helper subscribes. Rendering keeps its existing clock.
-    const timer = window.setInterval(sync, 100);
+    setState(controller.getEarthPlayback());
     return () => {
-      window.clearInterval(timer);
       controller.setEarthPlayback({ type: 'close' });
     };
   }, [controller]);
+  useEffect(() => {
+    if (!controller) return;
+    let timer: number | undefined;
+    const sync = () => {
+      const next = controller.getEarthPlayback();
+      setState((previous) =>
+        previous &&
+        previous.time === next.time &&
+        previous.duration === next.duration &&
+        previous.speed === next.speed &&
+        previous.playing === next.playing &&
+        previous.ready === next.ready
+          ? previous
+          : next,
+      );
+    };
+    const watch = () => {
+      window.clearInterval(timer);
+      if (document.hidden) return;
+      sync();
+      // Readiness can advance while time is held. Once ready, commands update
+      // paused state directly; only advancing playback needs periodic reads.
+      if (!state?.ready || (state.playing && !motionPaused))
+        timer = window.setInterval(sync, 100);
+    };
+    watch();
+    document.addEventListener('visibilitychange', watch);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', watch);
+    };
+  }, [controller, motionPaused, state?.playing, state?.ready]);
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
     const escape = (event: KeyboardEvent) => {

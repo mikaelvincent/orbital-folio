@@ -62,6 +62,13 @@ observed 15–17% lower held/dish validation means (about 0.05 ms/check), with l
 bookkeeping means in changing/rebuild states. Short-window drift and the absence
 of browser timing limit the claim; no GPU, frame-rate or energy gain is established.
 
+Candidate **10** also includes [unchanged input and exact camera rest](evidence/performance/input-work/README.md).
+Wake requests retain valid pixels, input springs finish subpixel tails, navigation
+openings reuse unchanged rays and held Earth controls stop polling. Opposing frozen
+Chromium orders observed 43–47% lower CPU means during unchanged UI input and
+about 22% during release settling, with unchanged active-motion submissions.
+This separate baseline and its short-window/thermal limits establish no energy gain.
+
 ## Candidate selection
 
 After a change or investigation, briefly screen **only the information already
