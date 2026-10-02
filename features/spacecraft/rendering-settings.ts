@@ -121,9 +121,8 @@ export function resolveRenderingSettings(
     roomIdleLevel: lighting('roomIdleLevel', 0.5, 1),
     exteriorSpill: lighting('exteriorSpill'),
     contactShading,
-    // The live-receiver cache is validated only for this rendering path.
-    cacheAvailable:
-      stationaryCacheSupported && !small && contactShading && settings.shadows,
+    // Color/depth reuse and moving shadow receivers also work without contact AO.
+    cacheAvailable: stationaryCacheSupported && settings.shadows,
   };
 }
 

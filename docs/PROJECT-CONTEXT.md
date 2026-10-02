@@ -107,8 +107,8 @@ cached. A dirty interior map requires a complete, unmasked shadow draw and
 color-cache reconstruction before reuse resumes. Lighting-only edits retain
 contact AO, including regional dish repairs during slider changes and inactive
 brightness easing. Geometry and camera changes still refresh AO. Missing or
-automatically updating interior maps retain the conservative full-render path. Keep
-the existing phone/AO-disabled fallback. Historical area-light timings do not
+automatically updating interior maps retain the conservative full-render path.
+This reuse also supports the AO-free phone path. Historical area-light timings do not
 apply to this rig. Room hover/selection changes material brightness without a
 second light dimmer. Inactive cabin materials default to 75% instead of half
 brightness, reducing the overview-to-room jump. The inactive-room control can
@@ -461,8 +461,9 @@ brightness/color-only changes recapture color without discarding valid shadow
 maps, contact shading or the dish's influence bounds. Regional shadow repair
 must retain overlapping static casters as well as the dish; color-pass exclusions
 must be restored before any shadow generation.
-Hiding releases the extra attachments. The phone/AO-disabled quality paths
-use normal rendering, as do unsupported dish transforms. Small edge-coverage
+Hiding releases the extra attachments. Supported phone and AO-disabled paths can
+reuse pixels with shadows on; Automatic contact shading remains off on phones.
+Unsupported dish transforms retain normal rendering. Small edge-coverage
 differences are accepted; [candidate 10](performance-ledger.md) records the
 measured scope, memory cost and appearance comparisons.
 
@@ -541,8 +542,8 @@ in 1% steps, defaulting to 5%. Brightness, beam strengths, warmth, fill, spill a
 inactive brightness recapture color while reusing valid shadows and contact AO.
 Beam-width changes rebuild the affected beam's shadow projections and receiver
 bounds before the next draw, retaining other maps and geometry-dependent AO.
-Full stationary-pixel reuse remains limited to supported wide viewports with
-shadows and contact shading enabled; per-light shadow reuse also works on phones.
+Full stationary-pixel reuse supports all viewport widths with shadows enabled;
+contact shading is optional. Per-light shadow reuse also works on phones.
 Camera/geometry changes and animated Earth/sky still need fresh rendering.
 
 Shadow softness adjusts the existing shadow filter independently of map resolution,

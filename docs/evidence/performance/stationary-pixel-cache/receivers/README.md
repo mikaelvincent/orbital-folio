@@ -1,18 +1,77 @@
 # Stationary spacecraft pixels with live dish shading
 
-The current seven-light rig supports regional caching. The sun repairs its padded
-full-sweep dish region while six independently cached cabin/ladder shadow maps
+The current eleven-light rig supports regional caching. The sun repairs its padded
+full-sweep dish region while ten independently cached cabin/ladder shadow maps
 remain untouched. Any dirty, unallocated or automatically updating interior map
 forces a complete unmasked render and color reconstruction before reuse resumes.
 Brightness/color changes recapture color without discarding valid AO or shadow
 maps. Camera, other geometry and quality changes retain conservative invalidation.
 
 This is candidate **10**. It preserves continuous visible motion and introduces no
-pose quantization. Phone/AO-disabled paths still render normally; hiding releases
-attachments. The [first fallback prototype](../README.md) and historical
+pose quantization. Supported phone/AO-disabled paths can now reuse stationary
+pixels with shadows on; hiding releases attachments. The
+[first fallback prototype](../README.md) and historical
 single-source results below have separate sources and measurements.
 
-## Current seven-light comparison
+## Phone and AO-off adoption
+
+Retain caching at all supported viewport widths with shadows on. The former
+phone/AO-off restriction limited adoption to the measured path; it was not a
+demonstrated phone regression. Automatic phone contact shading remains off.
+
+Frozen snapshot `5bacf8de-b907-48d7-a8d8-bdb8c98bb1ca`, based on `3513a14` plus
+this change, used hidden Chromium 154 / ANGLE Metal on Apple M4: 390×844 CSS,
+682×1477 drawing pixels (explicit 1.75×, native DPR 1), AO off, 512-square shadows,
+4× softness and the calibrated authored lighting. This tests the phone rendering
+path on a computer, not phone hardware. No builds, tests or other agent rendering
+ran during timing; user-app load, power and thermal conditions remain unknown.
+
+The [Overview comparison](receivers-decision-1790900410054.json.gz) completed in
+4 minutes 20 seconds: two A controls, then ABBA/BAAB, 1,080 frames per capture
+(one complete 18-second dish cycle), 30 seconds initial rest and 51 seconds total
+inserted waits, without retries. Earth/sky time stayed at zero. A disables reuse
+in the same warmed runtime, retaining allocated targets and programs.
+
+| Overview order | CPU callback mean, A → B | Sampled whole-frame GPU mean, A → B |
+| --- | --- | --- |
+| ABBA | 5.664 → 4.857 ms (14.2% lower) | 11.243 → 8.530 ms (24.1% lower) |
+| BAAB | 5.673 → 5.009 ms (11.7% lower) | 11.097 → 8.633 ms (22.2% lower) |
+
+All captures matched quality and resolved 72 phase-matched GPU queries with no
+pending/discarded/skipped queries or GL errors. Final A-reference spread was 2.83%
+CPU and 3.04% GPU; the first block retains its monotonic CPU-drift warning.
+Every B capture was enabled and eligible, with 501 hits, four builds and 575
+fallbacks. Reuse covers 46.4% of the cycle under the current lighting: dirty
+interior maps still require full rendering. Spacecraft draws, including shadows,
+fell from 992.2 to 815.9 per frame (17.8%). CPU includes rebuilding; periodic GPU
+sampling misses its four frames. Both variants maintained roughly 60 rendered
+frames/second here, so reduced work is not an observed FPS gain.
+
+The [Projects comparison](receivers-decision-1790874723235.json.gz) also reduced
+draws, 840.3 → 703.0 (16.3%), with the same hit/build/fallback counts. Its apparent
+14–15% CPU/GPU reductions are not a controlled timing claim: wall-clock timestamps
+span almost two hours despite short browser durations, reference spread reached
+12–13%, and operating conditions were unknown. The browser-clock budget missed
+those gaps. Preserve this report separately; do not pool it with Overview.
+
+The [visual replay](receivers-verify-1790874316369.json.gz) completed 54 paired
+checks plus release/wake across all rooms, dish checkpoints, hover, doors and
+navigation, with no GL errors. Fallback checkpoints verify fresh rendering, not
+cached motion. Held rooms retain small edge-coverage differences: mean absolute
+RGB difference 0.152–0.264/255, with 0.45–0.81% of pixels differing by more than
+8 in a channel. Inspect the retained Projects [fresh](receivers-verify-1790874316369-verify-7-before.png)
+and [cached](receivers-verify-1790874316369-verify-7-after.png) pair; lighting and
+shadows remain consistent, but the images are not pixel-identical.
+
+Nominal cache color/depth attachments add **38.426 MiB** at this drawing size;
+physical GPU memory was not measured. Keep the change for the directional timing
+evidence, removed work and acceptable appearance, accepting this storage cost.
+The 728-test isolated suite, 57 benchmark tests, typecheck, affected lint,
+production build and independent review passed. Ordinary-app Chromium checks
+covered room entry, orientation changes, caching off/on, shadows off/on and
+contact shading off/on. No Safari, physical-phone, energy or battery claim is made.
+
+## Historical seven-light comparison
 
 Frozen snapshot `2e1b6c2f-5ae8-4e12-9758-e27e0861bd29` records source/asset hashes
 for this integration in the [raw timing report](receivers-decision-1790634001980.json.gz).
@@ -75,14 +134,14 @@ The implementation decision follows the revised diagnostics guide: valid statist
 reference variation, removed work and product costs are assessed together. The
 original excluded trial below remains excluded under its historical protocol.
 
-The current renderer is the restored B implementation plus two guards: phone and
+The renderer in that retest was the restored B implementation plus two guards: phone and
 AO-disabled draws use normal rendering and release cache attachments; nonuniform
 or sheared dish ancestry falls back to full rendering because its current pose
 cannot establish a conservative whole-sweep bound. Diagnostic interventions bypass
 reuse, although skipping the spacecraft draw can leave existing attachments resident.
 Normal desktop and portrait authored scenes are unchanged by these guards.
 
-Current main source: `163fc86` (runtime guards in `a881e8e`, restoration `69b860d`).
+Retest main source: `163fc86` (runtime guards in `a881e8e`, restoration `69b860d`).
 The disposable checkout used equivalent commits through `6e7a605`; its only local
 app configuration difference was a checkout-local Vite cache directory. Frozen
 snapshot `d4b13357-eaf3-4e0a-8010-d7945f281241` identifies the timing and portrait

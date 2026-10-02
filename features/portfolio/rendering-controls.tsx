@@ -359,7 +359,7 @@ export function RenderingControls({
                 ? 'Reuse stationary pixels while moving parts stay live.'
                 : !state.cacheLightingSupported
                   ? 'Unavailable with cabin shadow lights.'
-                  : 'Available on wider screens with shadows and contact shading on.'}
+                  : 'Available with shadows on.'}
             </small>
           </span>
           <input

@@ -391,8 +391,7 @@ export function createStationaryPixelCache({
       render(renderScene, renderCamera);
       return;
     }
-    // Limit adoption to the AO-enabled quality path measured in the browser.
-    // Resizing into the mobile path releases storage before its next ship draw.
+    // Unsupported lighting or an explicit opt-out releases the extra storage.
     if (!eligible()) {
       if (valid || target.width !== 1 || target.height !== 1) release();
       fallbacks++;

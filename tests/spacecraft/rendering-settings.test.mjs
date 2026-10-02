@@ -51,7 +51,7 @@ test('screenshot defaults retain the same lighting across device density/contact
     roomIdleLevel: 0.75,
     exteriorSpill: 0.05,
     contactShading: false,
-    cacheAvailable: false,
+    cacheAvailable: true,
   });
 });
 
@@ -128,7 +128,7 @@ test('explicit shadow detail survives a breakpoint while automatic detail remain
   );
 });
 
-test('receiver caching is unavailable when its shading prerequisites are absent', () => {
+test('receiver caching keeps its shadow prerequisite across screen sizes and AO settings', () => {
   assert.equal(
     resolveRenderingSettings({ ...defaults, shadows: false }, desktop)
       .cacheAvailable,
@@ -137,13 +137,30 @@ test('receiver caching is unavailable when its shading prerequisites are absent'
   assert.equal(
     resolveRenderingSettings({ ...defaults, contactShading: 'off' }, desktop)
       .cacheAvailable,
-    false,
+    true,
   );
   assert.equal(
     resolveRenderingSettings({ ...defaults, contactShading: 'on' }, phone)
       .cacheAvailable,
-    false,
+    true,
   );
+  for (const width of [320, 390, 699, 700, 844]) {
+    const profile = resolveRenderingSettings(defaults, {
+      ...phone,
+      width,
+      capableShading: false,
+      contactShadingSupported: false,
+    });
+    assert.equal(profile.cacheAvailable, true);
+    assert.equal(profile.contactShading, false);
+    assert.equal(
+      resolveRenderingSettings(
+        { ...defaults, shadows: false },
+        { ...phone, width },
+      ).cacheAvailable,
+      false,
+    );
+  }
 });
 
 test('additional cabin shadow lights make stationary caching unavailable without changing shading quality', () => {

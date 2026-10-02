@@ -501,7 +501,14 @@ retain their own replay methods; do not label them as this protocol without
 recording their changed schedule and controls.
 
 Use an AO-enabled portrait fixture (at least 700 CSS pixels wide and taller than
-wide) for roll/shadow checks; phone width disables AO under existing quality rules.
+wide) for AO/roll checks, and a phone fixture with Automatic contact shading off
+for the phone cache path. The stationary-pixel lab's **Decision comparison**
+declares the actual viewport, drawing buffer and AO mode before timing and requires
+them to remain fixed; its historical strict schedule still requires the original
+desktop profile. Confirm every B capture is enabled, eligible and records cache
+hits before interpreting a difference. Check wall-clock timestamps as well as
+browser durations: a suspended browser clock can miss long operating-condition
+gaps, invalidating a claim of a continuous, bounded comparison.
 Verify overview entry/return **inside recorded windows**, not only preparation.
 The labs' unranked surveys do not retroactively qualify failed timing gates;
 valid observations can still inform a clearly limited implementation decision. Comparison residency

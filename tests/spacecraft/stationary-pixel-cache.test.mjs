@@ -210,6 +210,33 @@ test('ten cached interior maps coexist with regional sun, color and AO reuse', (
   disposeDishFixture(f);
 });
 
+test('AO-off frames reuse color and repair moving shadows without drawing contact shading', () => {
+  const f = fixture(true, undefined, false, 10);
+  f.frames();
+  const before = f.cache.stats();
+  assert.equal(before.valid, true);
+  assert.equal(f.cache.requiresOcclusion(), true);
+  const shadowStart = f.shadowPasses.length;
+  for (let i = 0; i < 4; i++) moveDish(f);
+  const after = f.cache.stats();
+  assert.equal(after.builds, before.builds);
+  assert.equal(after.hits, before.hits + 4);
+  assert.equal(after.influence.aoRepairs, 0);
+  const repairs = f.shadowPasses.slice(shadowStart);
+  assert.equal(repairs.length, 4);
+  assert.ok(repairs.every((pass) => pass.source === f.light && pass.scissor));
+  assert.ok(repairs.every((pass) => pass.casters.includes(f.dish)));
+  let fullAo = 0;
+  f.cache.occlusion(() => fullAo++, true);
+  assert.equal(
+    fullAo,
+    1,
+    'enabling contact shading starts with a complete AO draw',
+  );
+  assert.equal(f.cache.requiresOcclusion(), false);
+  disposeDishFixture(f);
+});
+
 test('a dirty interior map restores all casters and recaptures color while retaining regional AO', () => {
   const f = fixture(true, undefined, false, 6);
   f.frames();
