@@ -412,7 +412,10 @@ test('reading Contact exposes only the same assigned social screens and shared f
     ...seedSite,
     contactHeading: 'Retired oversized heading',
     contactIntro: 'Metadata-only contact description',
-    interfaceText: { 'Send message': 'Discuss a project' },
+    interfaceText: {
+      'Send message': 'Discuss a project',
+      'Start a conversation': 'The owner’s monitor subtitle',
+    },
   };
   const links = ['Left profile', 'Right profile', 'Hidden overflow'].map(
     (title, index) => ({
@@ -440,10 +443,11 @@ test('reading Contact exposes only the same assigned social screens and shared f
   assert.match(markup, /Left profile/);
   assert.match(markup, /Right profile/);
   assert.match(markup, /Discuss a project/);
+  assert.match(markup, /The owner’s monitor subtitle/);
   assert.match(markup, /<h1>Let’s connect\.<\/h1>/);
   assert.doesNotMatch(
     markup,
-    /Hidden overflow|Retired oversized|Metadata-only contact/,
+    /Hidden overflow|Retired oversized|Metadata-only contact|OPEN A CONVERSATION/,
   );
 });
 

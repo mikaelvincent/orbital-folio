@@ -135,7 +135,9 @@ export function ContactForm({
     <div className="contact-app">
       <div className="contact-app-toolbar">
         <div>
-          <p className="contact-app-eyebrow">OPEN A CONVERSATION</p>
+          <p className="contact-app-eyebrow">
+            {copy(s, 'Start a conversation')}
+          </p>
           <h1>{copy(s, 'Let’s connect.')}</h1>
         </div>
         {!emailOpen && email && (

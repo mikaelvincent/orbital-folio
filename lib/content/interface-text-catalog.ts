@@ -50,6 +50,7 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Please write a message of at least 10 characters.",
     "Send message",
     "Sending…",
+    "Start a conversation",
     "Subject",
     "This form needs JavaScript and cannot submit without it.",
     "Too many messages were sent recently. Please try again later or use email.",
