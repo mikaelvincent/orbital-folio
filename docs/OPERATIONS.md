@@ -213,8 +213,10 @@ on the preceding page. Breaks in code or quoted examples remain literal.
 There are no page-fit save gates. Legacy standalone `<!-- notebook-page -->`
 separators still become paragraph breaks; code examples remain literal. The
 opening section includes the published biography. Sections share the story/media
-publication rules above; Reading view hides page-break directives and keeps
-continuous document flow.
+publication rules above. Reading view lists section titles and optional subtitles
+on its contents page, then displays the selected section in continuous document
+flow with page-break directives hidden. The biography appears on the contents
+page and in the first section; editing these fields updates both presentations.
 
 ## Authoring About photos and social cards
 

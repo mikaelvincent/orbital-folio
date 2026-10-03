@@ -1,7 +1,5 @@
-import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
 import { pathFor } from '@/lib/paths';
 import { resolveSocialScreens } from '@/lib/content/social-links';
-import { AboutPortrait, AboutSocialLinks } from './about-personal-content';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import type { CaseStudyFilter } from '@/lib/content/case-study-content';
@@ -11,7 +9,6 @@ import {
   ReadingCaseStudyLibrary,
 } from './case-study-library-window';
 import { ReadingProjectLibrary, ProjectStory } from './project-library-window';
-import { ProjectMarkdown } from './project-markdown';
 import {
   ContactForm,
   type ContactDraft,
@@ -85,69 +82,8 @@ export function CaseStudyView({
     </>
   );
 }
-export function AboutView({
-  data,
-  section,
-}: {
-  data: Portfolio;
-  section?: Record<string, any>;
-}) {
-  const s = data.site;
-  const entries = data.journal.length
-    ? data.journal
-    : [{ id: 'introduction', title: s.aboutHeading, body: s.emptyLabel }];
-  return (
-    <div className="journal">
-      <aside className="journal-cover">
-        <div>
-          <div className="reading-profile-identity">
-            <AboutPortrait data={data} />
-            <div>
-              <p className="eyebrow">{s.journalLabel}</p>
-              <h1>{s.name}</h1>
-            </div>
-          </div>
-          <AboutSocialLinks data={data} />
-          {!!data.journal.length && (
-            <nav aria-label={copy(s, 'Notebook sections')}>
-              {data.journal.map((j, i) => (
-                <a
-                  href={pathFor(`/about/${j.slug}?view=reading`, s)}
-                  aria-current={section?.id === j.id ? 'page' : undefined}
-                  key={j.id}
-                >
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  {j.title}
-                  <ArrowUpRight size={15} />
-                </a>
-              ))}
-            </nav>
-          )}
-        </div>
-      </aside>
-      <div className="journal-pages">
-        {entries.map(
-          (j, i) =>
-            (!section || section.id === j.id) && (
-              <article key={j.id} id={j.slug}>
-                <h2>{j.title}</h2>
-                {j.subtitle && <p className="journal-subtitle">{j.subtitle}</p>}
-                {i === 0 && s.biography && <p>{s.biography}</p>}
-                <ProjectMarkdown
-                  body={normalizeNotebookBody(j.body || '')}
-                  media={data.media}
-                  site={s}
-                  headingIdPrefix={`journal-${j.id}-`}
-                  notebookPageBreaks
-                  preserveSoftBreaks
-                />
-              </article>
-            ),
-        )}
-      </div>
-    </div>
-  );
-}
+export { AboutView } from './about-reading-view';
+
 export function ContactView({
   data,
   sent = false,

@@ -409,7 +409,7 @@
 }
 
 /* Stories stay in document flow, with the same media and Markdown renderer. */
-.is-readable .room-reader :is(.dossier-paper, .journal-pages) {
+.is-readable .room-reader .dossier-paper {
   --accent-text: var(--bronze-light);
   --focus-color: var(--bronze-light);
 }
@@ -510,131 +510,6 @@
 }
 .is-readable .room-reader .project-story-pending {
   color: var(--text-muted);
-}
-
-/* About: a carbon profile panel beside the unabridged notebook. */
-.is-readable .room-reader .journal {
-  display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(32px, 5vw, 72px);
-  overflow: visible;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-.is-readable .room-reader .journal-cover {
-  --focus-color: var(--bronze-light);
-  position: relative;
-  padding: 28px;
-  border: 1px solid var(--carbon-muted);
-  border-radius: 24px 24px 6px 6px;
-  background: var(--carbon);
-  color: var(--ivory);
-}
-.is-readable .room-reader .journal-cover > div {
-  position: static;
-}
-.is-readable .journal-cover .about-profile-photo {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  margin: 0 0 28px;
-  border: 1px solid var(--alloy);
-  border-radius: 12px;
-}
-.is-readable .journal-cover .eyebrow {
-  margin-block: 20px 12px;
-  color: var(--bronze-light);
-  font-size: 11px;
-}
-.is-readable .journal-cover h1 {
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 1.1;
-  overflow-wrap: anywhere;
-}
-.is-readable .journal-cover .about-social-links {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 8px;
-  margin: 24px 0;
-}
-.is-readable .journal-cover .about-social-links a {
-  gap: 6px;
-  min-height: 44px;
-  padding: 8px 10px;
-  border: 1px solid var(--ink-muted);
-  font-size: 12px;
-}
-.is-readable .journal-cover .about-social-links a svg:last-child {
-  margin-left: auto;
-}
-.is-readable .journal-cover nav:not(.about-social-links) {
-  margin: 28px 0 0;
-  padding-top: 12px;
-  border-top: 1px solid var(--carbon-muted);
-}
-.is-readable .journal-cover nav:not(.about-social-links) a {
-  min-width: 0;
-  min-height: 48px;
-  padding: 14px 0;
-  gap: 12px;
-  color: var(--ivory-shade);
-  border-bottom: 1px solid var(--carbon-muted);
-  border-top: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-.is-readable .journal-cover nav:not(.about-social-links) a[aria-current] {
-  color: var(--bronze-light);
-}
-.is-readable .journal-cover nav:not(.about-social-links) a span {
-  color: var(--alloy);
-  font-size: 11px;
-}
-.is-readable .room-reader .journal-pages {
-  min-width: 0;
-  padding: 4px 0 0;
-  color: var(--ivory);
-  background: transparent;
-}
-.is-readable .room-reader .journal-pages article {
-  padding: 0 0 44px;
-  margin: 0 0 44px;
-  border-bottom: 1px solid var(--reading-line);
-  scroll-margin-top: 32px;
-}
-.is-readable .room-reader .journal-pages article:last-child {
-  margin-bottom: 0;
-}
-.is-readable .room-reader .journal-pages h2 {
-  margin: 0 0 24px;
-  color: var(--ivory);
-  font-size: clamp(30px, 3.5vw, 48px);
-  font-weight: 400;
-  line-height: 1.15;
-  overflow-wrap: anywhere;
-}
-.is-readable .room-reader .journal-pages .project-markdown h2 {
-  margin-top: 1.8em;
-  font-size: 28px;
-  font-weight: 500;
-}
-.is-readable .journal-pages article > p {
-  max-width: var(--reading-measure);
-  color: var(--ivory-shade);
-  font-size: 17px;
-  line-height: 1.85;
-}
-.is-readable .room-reader .journal-subtitle {
-  margin: -8px 0 24px;
-  color: var(--text-muted);
-  font-size: 21px;
-  line-height: 1.6;
 }
 
 /* Contact keeps its shared stateful form, framed like an inset ship console. */
@@ -738,13 +613,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 10px 0;
-  }
-  .is-readable .room-reader .journal {
-    grid-template-columns: 240px minmax(0, 1fr);
-    gap: 32px;
-  }
-  .is-readable .room-reader .journal-cover {
-    padding: 24px;
   }
   .is-readable .reading-room-links a {
     gap: 16px;
@@ -867,41 +735,6 @@
   .is-readable .room-reader :is(.project-library-meta, .case-study-story-meta) {
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
-  }
-  .is-readable .room-reader .journal {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-  }
-  .is-readable .room-reader .journal-cover {
-    position: static;
-    padding: 28px;
-  }
-  .is-readable .journal-cover .about-profile-photo {
-    width: 80px;
-    margin: 0;
-  }
-  .is-readable .reading-profile-identity {
-    display: grid;
-    grid-template-columns: 80px minmax(0, 1fr);
-    align-items: center;
-    gap: 18px;
-  }
-  .is-readable .reading-profile-identity .eyebrow {
-    margin: 0 0 8px;
-  }
-  .is-readable .reading-profile-identity h1 {
-    font-size: 28px;
-  }
-  .is-readable .journal-cover nav:not(.about-social-links) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .is-readable .journal-cover nav:not(.about-social-links) a {
-    gap: 8px;
-    font-size: 13px;
-  }
-  .is-readable .journal-cover nav:not(.about-social-links) a span {
-    display: none;
   }
   .is-readable .reading-contact-form .contact-app {
     padding: 24px;

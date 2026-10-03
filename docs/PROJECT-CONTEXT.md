@@ -244,9 +244,16 @@ reading styles stay scoped to `.is-readable` and never alter Interactive view.
 The overview cards show the collection heading above the larger room/navigation
 name. It shares collection, story and contact renderers with the interactive
 applications and uses their existing editable headings and content. It adds no
-exclusive introductions, invitations, stories or social links. About uses the
-same notebook sections and opening biography, with each profile and section link
-on its own row; Contact places its two assigned links before the shared form.
+exclusive introductions, invitations, stories or social links. About opens with
+the existing biography and a numbered contents list of authored notebook titles
+and optional subtitles; section bodies appear only after selecting a section.
+The compact profile and section index stay sticky on desktop, with bounded
+overflow for short screens. Narrow screens use a sticky, collapsible section
+picker and give selected articles the full width. Articles retain the opening
+biography in the first section, a link back to About and adjacent-section links
+using their authored titles. All text, portraits and social links come from
+Content Studio; do not add reading-only copy or synthesized excerpts. Contact
+places its two assigned links before the shared form.
 Visitor-facing sample/demo badges and notices are intentionally absent, including private
 preview. Sample flags control search metadata only; seeded content uses the same
 presentation and visitor functionality as owner-authored content. Keep indexing
@@ -357,7 +364,7 @@ Page turns retain the spread with `?page=N`,
 using its first printed page number (1, 3, 5…). Back/Forward restores both section
 and spread. Reading view uses the same section URLs with `?view=reading`; private
 studio previews resolve draft sections by ID or slug without exposing them on
-public routes. `/about` remains the room/complete Reading view, and legacy
+public routes. `/about` remains the room/Reading contents view, and legacy
 `/about?open=1` links still open the notebook.
 
 Colored section markers sit behind their section's first page: current/earlier

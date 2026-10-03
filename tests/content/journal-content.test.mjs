@@ -563,7 +563,7 @@ test('mounted notebook shows page controls only for sections with multiple pages
   assert.doesNotMatch(several, /Back to About/);
 });
 
-test('About Reading view exposes complete Markdown chapters and media safely with distinct per-chapter heading anchors', async () => {
+test('About Reading view opens a contents index and renders only the selected complete Markdown section', async () => {
   const { AboutView } = await loadComponent(
     'features/portfolio/room-views.tsx',
   );
@@ -620,9 +620,16 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
       },
     ],
   };
-  const markup = render(AboutView, { data });
-  assert.match(markup, /href="\/about\/university-life\?view=reading"/);
-  assert.match(markup, /href="\/about\/career\?view=reading"/);
+  const overview = render(AboutView, { data });
+  assert.match(overview, /href="\/about\/university-life\?view=reading"/);
+  assert.match(overview, /href="\/about\/career\?view=reading"/);
+  assert.match(overview, /A brief introduction\./);
+  assert.match(overview, /Learning with others/);
+  assert.doesNotMatch(
+    overview,
+    /<article|Highlights|An experience worth remembering|<video/,
+  );
+  const markup = render(AboutView, { data, section: data.journal[0] });
   assert.match(markup, /<strong>Another<\/strong>/);
   assert.match(
     markup,
@@ -631,8 +638,10 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
   assert.match(markup, /<ul>/);
   assert.match(markup, /id="journal-university-project-highlights"/);
   assert.match(markup, /href="#journal-university-project-highlights"/);
-  assert.match(markup, /id="journal-career-project-highlights"/);
-  assert.match(markup, /href="#journal-career-project-highlights"/);
+  assert.doesNotMatch(markup, /id="journal-career-project-highlights"/);
+  assert.match(markup, /A brief introduction\./);
+  assert.match(markup, /href="\/about\/career\?view=reading" rel="next"/);
+  assert.doesNotMatch(markup, /rel="prev"/);
   assert.match(markup, /<img[^>]*src="\/media\/campus"/);
   assert.match(markup, /<video[^>]*controls=""[^>]*poster="\/media\/campus"/);
   assert.match(markup, /<track[^>]*src="\/media\/captions"/);
@@ -644,9 +653,18 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
     selected,
     /href="\/about\/career\?view=reading" aria-current="page"/,
   );
-  assert.match(selected, /<article id="career">/);
-  assert.doesNotMatch(selected, /<article id="university-life">/);
+  assert.match(selected, /<article[^>]*id="career">/);
+  assert.doesNotMatch(
+    selected,
+    /<article[^>]*id="university-life">|A brief introduction/,
+  );
+  assert.match(
+    selected,
+    /href="\/about\/university-life\?view=reading" rel="prev"/,
+  );
+  assert.doesNotMatch(selected, /rel="next"/);
   assert.match(selected, /id="journal-career-project-highlights"/);
+  assert.match(selected, /href="#journal-career-project-highlights"/);
   const preview = render(AboutView, {
     data: { ...data, site: { ...data.site, _preview: true } },
     section: data.journal[0],
@@ -655,4 +673,65 @@ test('About Reading view exposes complete Markdown chapters and media safely wit
     preview,
     /href="\/admin\/preview\?view=reading&amp;section=about&amp;slug=university-life" aria-current="page"/,
   );
+  assert.match(
+    preview,
+    /href="\/admin\/preview\?view=reading&amp;section=about"/,
+  );
+  assert.doesNotMatch(preview, /href="\/about/);
+});
+
+test('About contents and empty states use Studio fields without inventing section text', async () => {
+  const { AboutView } = await loadComponent(
+    'features/portfolio/room-views.tsx',
+  );
+  const data = {
+    site: {
+      name: 'Owner & collaborator',
+      aboutLabel: 'Meet the owner',
+      aboutHeading: 'Notes to come',
+      journalLabel: 'Owner notebook',
+      biography: 'An authored biography.',
+      emptyLabel: 'The owner’s empty message.',
+      interfaceText: { 'Notebook sections': 'Choose a chapter' },
+    },
+    journal: [],
+    projects: [],
+    experience: [],
+    links: [],
+    media: [],
+  };
+  const empty = render(AboutView, { data });
+  assert.match(empty, /<h1>Notes to come<\/h1>/);
+  assert.match(empty, /An authored biography\./);
+  assert.match(empty, /The owner’s empty message\./);
+  assert.doesNotMatch(empty, /<nav|<details|<ol|<article/);
+
+  data.journal.push({
+    id: 'only',
+    slug: 'only',
+    title: 'Owner <notes>',
+    body: 'Full body.',
+  });
+  const overview = render(AboutView, { data });
+  assert.match(overview, /<h1>Meet the owner<\/h1>/);
+  assert.match(overview, /<h2>Owner &lt;notes&gt;<\/h2>/);
+  assert.match(overview, /aria-label="Choose a chapter"/);
+  assert.doesNotMatch(
+    overview,
+    /Full body\.|The owner’s empty message|Notes to come/,
+  );
+
+  const selected = render(AboutView, { data, section: data.journal[0] });
+  assert.match(selected, /<h1>Owner &lt;notes&gt;<\/h1>/);
+  assert.match(selected, /<p>Full body\.<\/p>/);
+  assert.doesNotMatch(
+    selected,
+    /reading-about-subtitle|reading-about-pagination/,
+  );
+  const stale = render(AboutView, {
+    data,
+    section: { id: 'missing', body: 'Unlisted body.' },
+  });
+  assert.match(stale, /<h1>Meet the owner<\/h1>/);
+  assert.doesNotMatch(stale, /Unlisted body\.|Full body\./);
 });
