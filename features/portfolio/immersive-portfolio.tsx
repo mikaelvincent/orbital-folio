@@ -13,7 +13,7 @@ import {
   ProjectLibraryWindow,
   type ProjectFilter,
 } from './project-library-window';
-import { ArrowLeft, BookOpen, ChevronLeft, ChevronUp, Home } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { projectCategoryCount } from '@/lib/content/project-content';
 import { CaseStudyLibraryWindow } from './case-study-library-window';
@@ -871,7 +871,7 @@ export function ImmersivePortfolio({
               {backToOverview ? (
                 <Home size={18} aria-hidden="true" />
               ) : (
-                <ChevronLeft size={18} aria-hidden="true" />
+                <ArrowLeft size={18} aria-hidden="true" />
               )}
             </a>
             <button
