@@ -165,7 +165,7 @@ behavior.
 Visitor navigation lists Projects before Case studies in Interactive and Reading
 views. The Interactive navigation's leading button steps up one level: project or
 case-study detail → its collection → its room → overview. Notebook content returns
-to About; privacy returns to the Contact form. Use a back arrow for content and
+to About; privacy returns to the Contact form. Use a left chevron for content and
 room returns, and the home icon when the target is overview. Browser history and
 Escape retain their existing behavior.
 
