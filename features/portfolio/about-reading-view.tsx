@@ -15,6 +15,7 @@ import {
   List,
 } from 'lucide-react';
 import { interfaceText as copy } from '@/lib/content/interface-text';
+import { resolveAboutPhotos } from '@/lib/content/about-photos';
 import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
 import type { Portfolio } from '@/lib/content/types';
 import { pathFor } from '@/lib/paths';
@@ -107,6 +108,7 @@ export function AboutView({
   const selected = data.journal[selectedIndex];
   const previous = data.journal[selectedIndex - 1];
   const next = selected ? data.journal[selectedIndex + 1] : undefined;
+  const hasPortrait = !!resolveAboutPhotos(data).portrait;
   const overviewHref = pathFor('/about?view=reading', s);
   const sectionHref = (entry: Record<string, any>) =>
     pathFor(`/about/${entry.slug}?view=reading`, s);
@@ -198,56 +200,84 @@ export function AboutView({
           </>
         ) : (
           <>
-            <header className="reading-about-heading">
-              <div>
-                <p className="reading-eyebrow">{s.journalLabel}</p>
-                <h1>{data.journal.length ? s.aboutLabel : s.aboutHeading}</h1>
+            <header
+              className={`reading-about-introduction${hasPortrait ? ' has-portrait' : ''}`}
+            >
+              <div className="reading-about-introduction-copy">
+                <div className="reading-about-introduction-heading">
+                  <p className="reading-eyebrow">{s.aboutLabel}</p>
+                  <h1>{s.name}</h1>
+                </div>
+                {s.biography && (
+                  <p className="reading-about-biography">{s.biography}</p>
+                )}
+                <AboutSocialLinks data={data} />
               </div>
-              {!!data.journal.length && (
-                <span className="reading-about-total" aria-hidden="true">
-                  {String(data.journal.length).padStart(2, '0')}
-                </span>
+              {hasPortrait && (
+                <div className="reading-about-introduction-portrait">
+                  <AboutPortrait data={data} />
+                </div>
               )}
             </header>
-            {s.biography && (
-              <p className="reading-about-biography">{s.biography}</p>
-            )}
-            {data.journal.length ? (
-              <ol className="reading-about-entries">
-                {data.journal.map((entry, index) => (
-                  <li key={entry.id}>
-                    <a href={sectionHref(entry)}>
-                      <span className="reading-about-number" aria-hidden="true">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <div>
-                        <h2>{entry.title}</h2>
-                        {entry.subtitle && <p>{entry.subtitle}</p>}
-                      </div>
-                      <ArrowRight size={20} aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p className="reading-about-empty">{s.emptyLabel}</p>
-            )}
+            <section
+              className="reading-about-contents"
+              aria-labelledby="reading-about-contents-title"
+            >
+              <header className="reading-about-heading">
+                <h2 id="reading-about-contents-title">
+                  {data.journal.length ? s.journalLabel : s.aboutHeading}
+                </h2>
+                {!!data.journal.length && (
+                  <span className="reading-about-total" aria-hidden="true">
+                    {String(data.journal.length).padStart(2, '0')}
+                  </span>
+                )}
+              </header>
+              {data.journal.length ? (
+                <ol className="reading-about-entries">
+                  {data.journal.map((entry, index) => (
+                    <li key={entry.id}>
+                      <a href={sectionHref(entry)}>
+                        <span
+                          className="reading-about-number"
+                          aria-hidden="true"
+                        >
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                          <h3>{entry.title}</h3>
+                          {entry.subtitle && <p>{entry.subtitle}</p>}
+                        </div>
+                        <span
+                          className="reading-about-entry-arrow"
+                          aria-hidden="true"
+                        >
+                          <ArrowRight size={18} />
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="reading-about-empty">{s.emptyLabel}</p>
+              )}
+            </section>
           </>
         )}
       </div>
-      <aside className="reading-about-rail">
-        <div className="reading-about-profile">
-          <AboutPortrait data={data} />
-          <h2>{s.name}</h2>
-        </div>
-        <AboutSocialLinks data={data} />
-        {selected && (
+      {selected && (
+        <aside className="reading-about-rail">
+          <div className="reading-about-profile">
+            <AboutPortrait data={data} />
+            <h2>{s.name}</h2>
+          </div>
+          <AboutSocialLinks data={data} />
           <div className="reading-about-index">
             <p className="reading-eyebrow">{s.journalLabel}</p>
             {navigation}
           </div>
-        )}
-      </aside>
+        </aside>
+      )}
     </div>
   );
 }

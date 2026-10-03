@@ -634,7 +634,7 @@ test('About Reading view opens a contents index and renders only the selected co
   }
   assert.doesNotMatch(
     overview,
-    /<article|Highlights|An experience worth remembering|<video|reading-about-index|<details/,
+    /<article|Highlights|An experience worth remembering|<video|reading-about-index|reading-about-rail|<details/,
   );
   const markup = render(AboutView, { data, section: data.journal[0] });
   assert.match(markup, /class="reading-about-index"/);
@@ -710,7 +710,8 @@ test('About contents and empty states use Studio fields without inventing sectio
     media: [],
   };
   const empty = render(AboutView, { data });
-  assert.match(empty, /<h1>Notes to come<\/h1>/);
+  assert.match(empty, /<h1>Owner &amp; collaborator<\/h1>/);
+  assert.match(empty, /<h2[^>]*>Notes to come<\/h2>/);
   assert.match(empty, /An authored biography\./);
   assert.match(empty, /The owner’s empty message\./);
   assert.doesNotMatch(empty, /<nav|<details|<ol|<article/);
@@ -722,8 +723,14 @@ test('About contents and empty states use Studio fields without inventing sectio
     body: 'Full body.',
   });
   const overview = render(AboutView, { data });
-  assert.match(overview, /<h1>Meet the owner<\/h1>/);
-  assert.match(overview, /<h2>Owner &lt;notes&gt;<\/h2>/);
+  assert.match(overview, /<h1>Owner &amp; collaborator<\/h1>/);
+  assert.match(overview, /<h2[^>]*>Owner notebook<\/h2>/);
+  assert.match(overview, /<h3>Owner &lt;notes&gt;<\/h3>/);
+  assert.match(overview, /Meet the owner/);
+  assert.doesNotMatch(
+    overview,
+    /reading-about-introduction-portrait|has-portrait/,
+  );
   assert.doesNotMatch(
     overview,
     /Full body\.|The owner’s empty message|Notes to come/,
@@ -741,6 +748,29 @@ test('About contents and empty states use Studio fields without inventing sectio
     data,
     section: { id: 'missing', body: 'Unlisted body.' },
   });
-  assert.match(stale, /<h1>Meet the owner<\/h1>/);
+  assert.match(stale, /<h1>Owner &amp; collaborator<\/h1>/);
   assert.doesNotMatch(stale, /Unlisted body\.|Full body\./);
+
+  const portrait = render(AboutView, {
+    data: {
+      ...data,
+      site: {
+        ...data.site,
+        portraitMediaId: 'owner-photo',
+        portraitReadingCrop: { x: 0.2, y: 0.8, zoom: 1.5 },
+      },
+      media: [
+        {
+          id: 'owner-photo',
+          mime: 'image/png',
+          url: '/media/owner-photo',
+          alt: 'The owner’s chosen portrait',
+        },
+      ],
+    },
+  });
+  assert.match(portrait, /class="reading-about-introduction has-portrait"/);
+  assert.match(portrait, /src="\/media\/owner-photo"/);
+  assert.match(portrait, /object-position:20% 80%;transform:scale\(1\.5\)/);
+  assert.doesNotMatch(portrait, /reading-about-rail|<aside/);
 });

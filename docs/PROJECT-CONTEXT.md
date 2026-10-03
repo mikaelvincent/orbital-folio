@@ -245,11 +245,12 @@ The overview cards show the collection heading above the larger room/navigation
 name. It shares collection, story and contact renderers with the interactive
 applications and uses their existing editable headings and content. It adds no
 exclusive introductions, invitations, stories or social links. About opens with
-the existing biography and a numbered contents list of authored notebook titles
-and optional subtitles; section bodies appear only after selecting a section.
-The landing page shows the contents list only in the main column, alongside the
-compact profile. Selecting a section adds the sticky desktop index or, on narrow
-screens, a sticky collapsible picker above the full-width article. Desktop
+a full-width introduction grouping the Studio name, biography, assigned social
+links and portrait, followed by one numbered chapter grid using authored titles
+and optional subtitles. The grid becomes a single column on narrow screens;
+the overview has no separate sidebar or duplicate contents list. Section bodies
+appear only after selecting a section, which adds the sticky desktop index or,
+on narrow screens, a sticky collapsible picker above the full-width article. Desktop
 navigation has bounded overflow for short screens. Articles retain the opening
 biography in the first section, a link back to About and adjacent-section links
 using their authored titles. All text, portraits and social links come from
