@@ -268,9 +268,11 @@ test('Studio journal editing uses shared Markdown preview and managed media cont
   assert.match(markup, /Subtitle · optional/);
   assert.match(markup, /Display order/);
   assert.match(markup, /Sample content metadata/);
+  assert.match(markup, /Search \/ social title · optional/);
+  assert.match(markup, /Search \/ social description · optional/);
   assert.doesNotMatch(
     markup,
-    /<legend>Categories|Short description|Cover image|My role|Tools \/ technology|Live project URL|Source repository URL|Search \/ social/,
+    /<legend>Categories|Short description|Cover image|My role|Tools \/ technology|Live project URL|Source repository URL/,
   );
 });
 

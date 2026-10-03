@@ -14,6 +14,8 @@ import {
   type PhotoMediaActions,
 } from './about-photo-fields';
 import { fieldLabel, messageLabel, siteSections } from './studio-site-schema';
+import { SearchMetadataFields } from './search-metadata-fields';
+import { searchMetadata } from '@/lib/content/search-metadata';
 
 export function StudioSiteFields({
   data,
@@ -55,8 +57,14 @@ export function StudioSiteFields({
         const messages = (section.messages || []).filter((message) =>
           matches(messageLabel(message), interfaceText(data, message)),
         );
-        if (!keys.length && !messages.length) return null;
-        count += keys.length + messages.length;
+        const showMetadata =
+          section.metadata &&
+          matches(
+            'Search social title description metadata',
+            Object.values(searchMetadata(data, section.metadata)).join(' '),
+          );
+        if (!keys.length && !messages.length && !showMetadata) return null;
+        count += keys.length + messages.length + (showMetadata ? 2 : 0);
         return (
           <section
             className="studio-settings-section"
@@ -73,6 +81,13 @@ export function StudioSiteFields({
               <p>{section.description}</p>
             </header>
             <div className="studio-setting-grid">
+              {showMetadata && section.metadata && (
+                <SearchMetadataFields
+                  site={data}
+                  section={section.metadata}
+                  onChange={setData}
+                />
+              )}
               {keys.map((key) => {
                 const value =
                   data[key] ?? (seedSite as Record<string, any>)[key] ?? '';
@@ -177,15 +192,17 @@ export function StudioSiteFields({
                         type={key === 'accent' ? 'color' : 'text'}
                         value={value}
                         maxLength={
-                          key.endsWith('Label') &&
-                          [
-                            'projectsLabel',
-                            'experienceLabel',
-                            'aboutLabel',
-                            'contactLabel',
-                          ].includes(key)
-                            ? 40
-                            : 20000
+                          key === 'initials'
+                            ? 4
+                            : key.endsWith('Label') &&
+                                [
+                                  'projectsLabel',
+                                  'experienceLabel',
+                                  'aboutLabel',
+                                  'contactLabel',
+                                ].includes(key)
+                              ? 40
+                              : 20000
                         }
                         onChange={(event) =>
                           setData({ ...data, [key]: event.target.value })

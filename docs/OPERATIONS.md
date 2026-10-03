@@ -153,6 +153,15 @@ also contains portrait crops and its own social links; Contact contains its form
 screen headings and separate social links. Developer-tool text and decorative
 labels such as UPLINK, VOICE and keyboard legends are fixed, not content settings.
 
+**Search & sharing** in each room contains optional page title and description
+overrides. General has the overview defaults, shared image/language/indexing and
+privacy-page overrides; **Identity** includes favicon initials. Projects, case
+studies and notebook sections each have the same fields under **Display order and
+search settings**. Leave either field blank to use its stated content fallback;
+the text preview shows the effective result for the draft. Existing saved
+descriptions remain editable overrides. Metadata follows the same Save draft /
+Publish workflow as content, and both visitor views use the same result.
+
 Interface messages share the site record's Save draft, Preview draft and Publish
 workflow. Keep placeholders such as `{title}` and `{number}` when editing.
 **Reset text** removes an override. Both views share the same content; empty

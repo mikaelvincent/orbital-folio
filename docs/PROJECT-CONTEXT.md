@@ -287,7 +287,15 @@ remove unused field definitions and overrides rather than hiding their controls.
 Explicit saves and imports discard unsupported fields and overrides; existing
 stored snapshots are not rewritten. Legacy story headings remain supported for
 structured stories; Markdown entries own their headings in the body.
-About and Contact introductions serve page metadata. Keep template placeholders
+Every page and entry has optional search/social title and description overrides,
+with the same resolver used for public metadata and Studio's draft text preview.
+Blank fields follow editable page content: collection introductions, About's
+biography, Contact's monitor subtitle, the privacy policy or the shared description
+and role. Entries prefer their own summary or subtitle before the room description.
+Existing About/Contact introduction fields are the editable metadata overrides;
+keep saved values and draft/published snapshots intact. New portfolios start with
+blank site metadata overrides, and blank overview titles use the owner name and
+role. Favicon initials are editable under Identity. Keep template placeholders
 intact and regenerate
 `lib/content/interface-text-catalog.ts` with `node scripts/sync-interface-text.mjs`
 after changing editable render-site messages. Browser-owned media/date controls

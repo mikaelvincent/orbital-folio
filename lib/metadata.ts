@@ -1,4 +1,9 @@
 import type { Portfolio } from './content/types';
+import {
+  searchMetadata,
+  siteSearchFields,
+  type SearchSection,
+} from './content/search-metadata.ts';
 import { pathFor } from './paths.ts';
 export function socialImage(data: Portfolio, id?: string) {
   const media = data.media.find((m) => m.id === id);
@@ -16,16 +21,13 @@ export function pageMetadata(
     section === 'home'
       ? ''
       : pathFor('/' + section + (record ? '/' + record.slug : ''), s);
-  const title =
-    record?.seoTitle ||
-    (section === 'home'
-      ? s.seoTitle
-      : `${record?.title || s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
-  const description =
-    record?.seoDescription ||
-    record?.summary ||
-    s[section + 'Intro'] ||
-    s.seoDescription;
+  const { title, description } = searchMetadata(
+    s,
+    Object.hasOwn(siteSearchFields, section)
+      ? (section as SearchSection)
+      : 'privacy',
+    record,
+  );
   const images = socialImage(data, record ? record.mediaId : s.seoImageId);
   return {
     title,

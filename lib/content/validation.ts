@@ -4,10 +4,14 @@ import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
 import { aboutSlots, socialPlatforms, socialScreens } from './social-links.ts';
 import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
+import { siteSearchFields } from './search-metadata.ts';
 import { HttpError } from '../http-error.ts';
 const fields: Record<Kind, string[]> = {
   site: [
-    ...Object.keys(seedSite),
+    ...new Set([
+      ...Object.keys(seedSite),
+      ...Object.values(siteSearchFields).flat(),
+    ]),
     'interfaceText',
     'portraitCrop',
     'portraitReadingCrop',
@@ -55,7 +59,16 @@ const fields: Record<Kind, string[]> = {
     'order',
     'sample',
   ],
-  journal: ['slug', 'title', 'subtitle', 'body', 'order', 'sample'],
+  journal: [
+    'slug',
+    'title',
+    'subtitle',
+    'body',
+    'order',
+    'sample',
+    'seoTitle',
+    'seoDescription',
+  ],
   link: [
     'room',
     'legacyLinkId',
@@ -204,8 +217,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       if (!(key in clean))
         throw new HttpError(400, `Missing site field: ${key}`);
     }
-    if (!clean.name || !clean.seoTitle)
-      throw new HttpError(400, 'Name and SEO title are required.');
+    if (!clean.name) throw new HttpError(400, 'Name is required.');
     if (!/^#[0-9a-f]{6}$/i.test(clean.accent))
       throw new HttpError(400, 'Use a six-digit hex accent color.');
     const luminance = (hex: string) => {

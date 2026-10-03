@@ -1,11 +1,13 @@
 import { DevAudit } from '@/features/diagnostics/dev-audit';
 import { getPortfolio } from '@/lib/content/repository';
+import { searchMetadata } from '@/lib/content/search-metadata';
 import './globals.css';
 export async function generateMetadata() {
   const { site } = await getPortfolio();
+  const { title, description } = searchMetadata(site, 'home');
   return {
-    title: site.seoTitle,
-    description: site.seoDescription,
+    title,
+    description,
     icons: { icon: '/icon.svg' },
     metadataBase: new URL(site.domain),
   };

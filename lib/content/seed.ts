@@ -16,9 +16,8 @@ export const seedSite = {
     'Sample biography — ready for the owner to rewrite. I enjoy turning complicated problems into products that feel simple. My interests sit where thoughtful interfaces meet dependable backend services.',
   email: 'hello@example.com',
   accent: '#AA8054',
-  seoTitle: 'Mikael Vincent — Developer portfolio · Sample content',
-  seoDescription:
-    'Explore editable concept projects and sample case studies in an interactive spacecraft portfolio. Career and project details are demonstration content.',
+  seoTitle: '',
+  seoDescription: '',
   language: 'en',
   sampleMode: true,
   homeLabel: 'Overview',
@@ -40,10 +39,8 @@ export const seedSite = {
   experienceIntro:
     'A record of responsibilities, decisions, and lessons. These entries show the shape of a story; the real chapters are still to come.',
   aboutHeading: 'A little more human',
-  aboutIntro:
-    'Behind every system is a person asking questions. A few pages about how I think, work, and spend my time.',
-  contactIntro:
-    'Have a role in mind or something worth building? Leave a message at the communications station.',
+  aboutIntro: '',
+  contactIntro: '',
   allProjectsLabel: 'All projects',
   problemLabel: 'The problem',
   approachLabel: 'The approach',

@@ -1,5 +1,6 @@
 import { interfaceTextSiteFields } from '@/lib/content/interface-text';
 import { interfaceTextCatalog } from '@/lib/content/interface-text-catalog';
+import type { SearchSection } from '@/lib/content/search-metadata';
 
 export type StudioArea =
   | 'general'
@@ -16,6 +17,7 @@ export type SiteSection = {
   description: string;
   keys: string[];
   messages?: string[];
+  metadata?: SearchSection;
 };
 const messages = (...groups: string[]) => [
   ...new Set(
@@ -32,7 +34,7 @@ export const siteSections: SiteSection[] = [
     area: 'general',
     title: 'Identity',
     description: 'Your name, role and website identity.',
-    keys: ['name', 'title', 'domain', 'accent'],
+    keys: ['name', 'title', 'initials', 'domain', 'accent'],
   },
   {
     id: 'navigation',
@@ -59,14 +61,17 @@ export const siteSections: SiteSection[] = [
     area: 'general',
     title: 'Search & sharing',
     description:
-      'Page metadata, language and the image shown when someone shares your portfolio. Search indexing does not change visible content.',
-    keys: [
-      'seoTitle',
-      'seoDescription',
-      'seoImageId',
-      'language',
-      'sampleMode',
-    ],
+      'Optional overview metadata, shared image and language. Search indexing does not change visible content.',
+    metadata: 'home',
+    keys: ['seoImageId', 'language', 'sampleMode'],
+  },
+  {
+    id: 'privacy-search',
+    area: 'general',
+    title: 'Privacy search & sharing',
+    description: 'Optional metadata for the privacy page.',
+    metadata: 'privacy',
+    keys: [],
   },
   {
     id: 'privacy',
@@ -117,6 +122,15 @@ export const siteSections: SiteSection[] = [
     ],
   },
   {
+    id: 'projects-search',
+    area: 'projects',
+    title: 'Search & sharing',
+    description:
+      'Optional metadata for the collection. Each project has its own search settings in its editor.',
+    metadata: 'projects',
+    keys: [],
+  },
+  {
     id: 'experience',
     area: 'experience',
     title: 'Page & interface',
@@ -124,6 +138,15 @@ export const siteSections: SiteSection[] = [
       'The room name, collection text, category names, cartridge labels and case study application.',
     keys: ['experienceLabel', 'experienceHeading', 'experienceIntro'],
     messages: messages('experience'),
+  },
+  {
+    id: 'experience-search',
+    area: 'experience',
+    title: 'Search & sharing',
+    description:
+      'Optional metadata for the collection. Each case study has its own search settings in its editor.',
+    metadata: 'experience',
+    keys: [],
   },
   {
     id: 'about',
@@ -142,6 +165,15 @@ export const siteSections: SiteSection[] = [
     messages: messages('about'),
   },
   {
+    id: 'about-search',
+    area: 'about',
+    title: 'Search & sharing',
+    description:
+      'Optional metadata for the About overview. Each notebook section has its own search settings in its editor.',
+    metadata: 'about',
+    keys: [],
+  },
+  {
     id: 'portrait',
     area: 'about',
     title: 'Portrait',
@@ -158,6 +190,14 @@ export const siteSections: SiteSection[] = [
     messages: messages('contact'),
   },
   {
+    id: 'contact-search',
+    area: 'contact',
+    title: 'Search & sharing',
+    description: 'Optional metadata for the contact page.',
+    metadata: 'contact',
+    keys: [],
+  },
+  {
     id: 'contact-form',
     area: 'contact',
     title: 'Form & messages',
@@ -171,6 +211,7 @@ export const siteSections: SiteSection[] = [
 export const siteFieldLabels: Record<string, string> = {
   name: 'Owner name',
   title: 'Role / subtitle',
+  initials: 'Favicon initials',
   domain: 'Website address (HTTPS)',
   accent: 'Accent color',
   homeLabel: 'Overview name',

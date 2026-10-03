@@ -31,6 +31,7 @@ import {
 import { entryMedia } from './entry-media';
 import { LocalMediaEditor, type MediaAction } from './local-media-editor';
 import { JournalPagePreview } from './journal-page-preview';
+import { SearchMetadataFields } from './search-metadata-fields';
 import {
   ProjectMarkdown,
   ProjectMedia,
@@ -659,11 +660,7 @@ export function ProjectEditor({
         )}
       </section>
       <details className="project-editor-advanced">
-        <summary>
-          {isJournal
-            ? 'Display order and sample metadata'
-            : 'Display order and search settings'}
-        </summary>
+        <summary>Display order and search settings</summary>
         <div className="project-editor-grid">
           <label className="studio-field">
             Display order
@@ -682,15 +679,14 @@ export function ProjectEditor({
             />
             Sample content metadata
           </label>
-          {!isJournal && (
-            <>
-              {textField('seoTitle', 'Search / social title · optional')}
-              {textField(
-                'seoDescription',
-                'Search / social description · optional',
-              )}
-            </>
-          )}
+          <SearchMetadataFields
+            site={site}
+            section={
+              isJournal ? 'about' : isCaseStudy ? 'experience' : 'projects'
+            }
+            record={data}
+            onChange={onChange}
+          />
         </div>
       </details>
     </fieldset>

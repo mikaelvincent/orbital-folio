@@ -500,6 +500,8 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
           seoImageId: '',
           portraitMediaId: '',
           seoTitle: 'Rowan Aster — Sample portfolio',
+          projectsSeoTitle: 'Aster projects',
+          projectsSeoDescription: 'Aster collection description',
           sampleMode: true,
           interfaceText: { 'Send message': 'Start a discussion' },
         });
@@ -553,6 +555,107 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
           assert.ok(!html.includes('Mikael Vincent'));
         }
         await restore(original);
+      },
+    );
+    await t.test(
+      'metadata overrides stay private until published and clearing them restores content fallbacks',
+      async () => {
+        const original = await record('site');
+        const chapter = (await records()).find(
+          (r) => r.kind === 'journal' && r.published,
+        );
+        assert.ok(chapter);
+        const contactTitle = 'Private contact search title';
+        const contactDescription = 'Private contact search description';
+        const chapterTitle = 'Private chapter search title';
+        const chapterDescription = 'Private chapter search description';
+        const chapterPath = '/about/' + chapter.published.slug;
+        try {
+          await save(original, {
+            ...original.draft,
+            contactSeoTitle: contactTitle,
+            contactIntro: contactDescription,
+          });
+          await save(chapter, {
+            ...chapter.draft,
+            seoTitle: chapterTitle,
+            seoDescription: chapterDescription,
+          });
+          assert.equal(
+            (await record('site')).draft.contactSeoTitle,
+            contactTitle,
+          );
+          assert.equal(
+            (await record(chapter.id)).draft.seoDescription,
+            chapterDescription,
+          );
+          assert.ok(
+            !(await (await req('/contact')).text()).includes(contactTitle),
+          );
+          assert.ok(
+            !(await (await req(chapterPath)).text()).includes(
+              chapterDescription,
+            ),
+          );
+          await publish('site');
+          await publish(chapter.id);
+          for (const view of ['reading', 'interactive']) {
+            for (const [path, title, description] of [
+              ['/contact', contactTitle, contactDescription],
+              [chapterPath, chapterTitle, chapterDescription],
+            ]) {
+              const html = await (await req(path + '?view=' + view)).text();
+              assert.ok(html.includes(`<title>${title}</title>`));
+              assert.ok(
+                html.includes(`name="description" content="${description}"`),
+              );
+              assert.ok(
+                html.includes(
+                  `property="og:description" content="${description}"`,
+                ),
+              );
+              assert.ok(
+                html.includes(`name="twitter:title" content="${title}"`),
+              );
+            }
+          }
+          const savedSite = await record('site');
+          await save(savedSite, {
+            ...savedSite.draft,
+            contactSeoTitle: '',
+            contactIntro: '',
+            interfaceText: {
+              ...savedSite.draft.interfaceText,
+              'Start a conversation': 'Editable contact subtitle',
+            },
+          });
+          const savedChapter = await record(chapter.id);
+          await save(savedChapter, {
+            ...savedChapter.draft,
+            seoTitle: '',
+            seoDescription: '',
+            subtitle: 'Editable chapter subtitle',
+          });
+          await publish('site');
+          await publish(chapter.id);
+          const contact = await (await req('/contact')).text();
+          const about = await (await req(chapterPath)).text();
+          assert.ok(
+            contact.includes(
+              'name="description" content="Editable contact subtitle"',
+            ),
+          );
+          assert.ok(
+            about.includes(
+              'name="description" content="Editable chapter subtitle"',
+            ),
+          );
+          assert.ok(!contact.includes(contactTitle));
+          assert.ok(!about.includes(chapterTitle));
+        } finally {
+          await restore(chapter);
+          await restore(original);
+        }
       },
     );
     await t.test(

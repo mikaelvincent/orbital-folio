@@ -54,6 +54,8 @@ export const templates: Record<string, Record<string, any>> = {
     body: '',
     order: 0,
     sample: true,
+    seoTitle: '',
+    seoDescription: '',
   },
   link: {
     title: '',
