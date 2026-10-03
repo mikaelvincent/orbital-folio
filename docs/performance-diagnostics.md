@@ -324,10 +324,15 @@ HTML/effects. Any authored appearance change needs visual judgment, not just cou
 
 ### Legacy scene metadata
 
-The scene host's data attributes remain available with diagnostics closed. The
-legacy metrics block runs about every 200 ms during active animation and on each
-drawn reduced-motion frame. Its values also support ad hoc browser checks; the
-panel and local audit adapter call the environment's `getDiagnostics()` directly.
+Detailed scene-host attributes are collected only with Scene diagnostics open,
+the explicit local audit adapter, or development `?audit=1`. While enabled, the
+metrics block runs about every 200 ms during active animation and on each drawn
+reduced-motion frame. Closing diagnostics stops interval sampling, sorting,
+serialization, reader-bound projections and descriptive model lighting snapshots.
+Previously published attributes may remain but are no longer live. Reopening
+clears interval history and callback averages, then publishes current state on
+the next requested frame. The panel and local audit adapter also call the
+environment's `getDiagnostics()` directly.
 
 | Values                                                                        | Freshness contract                                                                                                                                                                                                                     |
 | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -336,9 +341,12 @@ panel and local audit adapter call the environment's `getDiagnostics()` directly
 | Reader corners, portals, routes, lighting, camera/motion and frame statistics | Continue through the existing live metrics path. Door and lighting metadata can change without a layout revision.                                                                                                                      |
 | Environment report                                                            | Remains a fresh snapshot, including asset readiness/failure, camera/composition, playback, Earth texture offset and meteor streams. Constant descriptors share this report; retaining the whole object would stale its live fields.    |
 
-Visibility and rendered-frame counters retain their publication cadence and
-visibility-change flush. Reusing metadata does not suppress animation, change
-rendering quality or gate observability on the diagnostics panel.
+The table describes enabled inspection. Normal visits retain visibility,
+rendered-frame, active-time and motion-mode metadata, including the 200 ms counter
+cadence and visibility-change flush. Navigation and interaction attributes used
+by the interface remain live. Standalone model consumers retain lighting metadata
+by default; the visitor runtime explicitly opts out when inspection is closed.
+Collection never controls animation, lighting or rendering quality.
 
 ## Markdown interaction comparisons
 

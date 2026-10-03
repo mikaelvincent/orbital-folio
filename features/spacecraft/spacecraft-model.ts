@@ -117,6 +117,8 @@ export type SpacecraftState = {
   delta?: number;
   /** Keep ambient equipment at its resting pose when motion is reduced. */
   reducedMotion?: boolean;
+  /** The visitor runtime opts out of descriptive metadata unless inspecting. */
+  collectDiagnostics?: boolean;
   /** Use the fixed side collar plaques for a +PI/2 portrait overview. */
   labelPortrait?: boolean;
   layout?: 'wide' | 'compact';
@@ -3732,7 +3734,8 @@ export function createSpacecraft(
     if (Math.abs(contactWallHover - wallHoverGoal) < 0.002)
       contactWallHover = wallHoverGoal;
     if (contactWallHover !== wallHoverGoal) group.userData.motionActive = true;
-    const targetLevels: Record<string, number> = {};
+    const targetLevels: Record<string, number> | null =
+      currentState.collectDiagnostics === false ? null : {};
     for (const section of Object.keys(roomMaterials)) {
       // Direct travel retains the clicked room's highlight. Longer routes keep
       // lighting each crossed cabin in turn, including the eventual destination.
@@ -3757,7 +3760,7 @@ export function createSpacecraft(
             : preview
               ? 1
               : roomLightingProfile.roomIdleLevel;
-      targetLevels[section] = targetLevel;
+      if (targetLevels) targetLevels[section] = targetLevel;
       roomDimmers[section] += (targetLevel - roomDimmers[section]) * blend;
       if (Math.abs(roomDimmers[section] - targetLevel) < 0.002)
         roomDimmers[section] = targetLevel;
@@ -3823,36 +3826,39 @@ export function createSpacecraft(
               (light.userData.cabinBeam === 'fill'
                 ? roomLightingProfile.roomFillLight * LIGHTING_BASELINE.fill
                 : roomLightingProfile.roomKeyLight * LIGHTING_BASELINE.key);
-      group.userData.lightingState ||= {};
-      group.userData.lightingState[section] = {
-        targetLevel: targetLevels[section],
-        level,
-        dimmer: level,
-        interiorColor: level,
-        exteriorColor: 1,
-        screenEmission: level,
-        fixtureEmission: level * fixtureLevel,
-        labels: level,
-        exteriorLabels: 0,
-        selected:
-          section !== 'walkway' &&
-          (!currentState.travelling || !!currentState.directRoomTravel) &&
-          currentState.activeRoom === section,
-        transit:
-          section === 'walkway'
-            ? !!currentState.transitWalkway
-            : !!currentState.travelling && currentState.transitRoom === section,
-        hoveredWalkway:
-          section === 'walkway' &&
-          !!currentState.hoveredWalkway &&
-          !!rooms[currentState.activeRoom || ''] &&
-          !currentState.travelling,
-        spotIntensities: (roomLights[section] || []).map(
-          (light: any) => light.intensity,
-        ),
-        emitterPolicy:
-          'concentric main and wide beams per cabin fixture; two existing ladder worklights; room-linked light with subtle material focus feedback',
-      };
+      if (targetLevels) {
+        group.userData.lightingState ||= {};
+        group.userData.lightingState[section] = {
+          targetLevel: targetLevels[section],
+          level,
+          dimmer: level,
+          interiorColor: level,
+          exteriorColor: 1,
+          screenEmission: level,
+          fixtureEmission: level * fixtureLevel,
+          labels: level,
+          exteriorLabels: 0,
+          selected:
+            section !== 'walkway' &&
+            (!currentState.travelling || !!currentState.directRoomTravel) &&
+            currentState.activeRoom === section,
+          transit:
+            section === 'walkway'
+              ? !!currentState.transitWalkway
+              : !!currentState.travelling &&
+                currentState.transitRoom === section,
+          hoveredWalkway:
+            section === 'walkway' &&
+            !!currentState.hoveredWalkway &&
+            !!rooms[currentState.activeRoom || ''] &&
+            !currentState.travelling,
+          spotIntensities: (roomLights[section] || []).map(
+            (light: any) => light.intensity,
+          ),
+          emitterPolicy:
+            'concentric main and wide beams per cabin fixture; two existing ladder worklights; room-linked light with subtle material focus feedback',
+        };
+      }
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);
     contactComputer.updateIdleSignal?.(ambientTime);

@@ -1754,7 +1754,8 @@ export function mountSpacecraftScene({
           if (destroyed) return;
           renderedFrames++;
           const wasTravelling = travelling;
-          const started = performance.now();
+          const collectDiagnostics = !!diagnostics || auditMotion;
+          const started = collectDiagnostics ? performance.now() : 0;
           diagnostics?.beginFrame(now, {
             room: active,
             activity: travelling
@@ -1783,7 +1784,7 @@ export function mountSpacecraftScene({
           });
           if (!stop) {
             elapsed += delta;
-            if (rawDelta > 0) {
+            if (collectDiagnostics && rawDelta > 0) {
               frameIntervals.push(rawDelta * 1000);
               if (frameIntervals.length > 360) frameIntervals.shift();
             }
@@ -2186,6 +2187,7 @@ export function mountSpacecraftScene({
               notebookChapter: latest.current.notebookChapter || 0,
               delta,
               reducedMotion: stop,
+              collectDiagnostics,
             },
             true,
           );
@@ -2646,113 +2648,125 @@ export function mountSpacecraftScene({
             setState('ready');
           }
           diagnostics?.mark('audit-trace');
-          renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
+          if (collectDiagnostics)
+            renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
           if (now - lastMetrics > 200 || stop) {
-            publishSceneMetadata();
-            Object.assign(el.dataset, {
-              cameraFar: String(camera.far),
-              cameraAspect: String(camera.aspect),
-              cameraPosition: camera.position
-                .toArray()
-                .map((n) => n.toFixed(4))
-                .join(','),
-              cameraQuaternion: camera.quaternion
-                .toArray()
-                .map((n) => n.toFixed(6))
-                .join(','),
-              shipRotation: model.group.rotation
-                .toArray()
-                .slice(0, 3)
-                .join(','),
-              pixelRatio: String(renderer.getPixelRatio()),
-              drawingBuffer: `${renderer.domElement.width},${renderer.domElement.height}`,
-              renderCalls: String(renderer.info.render.calls),
-              triangles: String(renderer.info.render.triangles),
-              renderCpuMs: renderCost.toFixed(2),
-              hoverRoom: effectiveHover,
-              hoverObject: effectiveObject,
-              transitRoom,
-              transitWalkway: String(transitWalkway),
-              hoveredWalkway: String(hoveredWalkway),
-              labelPortrait: String(
-                active === 'home' && Math.abs(roll) > Math.PI / 4,
-              ),
-              hoverOffset: hoverMotion.map((s) => s.value.toFixed(5)).join(','),
-              hoverVelocity: hoverMotion
-                .map((s) => s.velocity.toFixed(5))
-                .join(','),
-              flightVelocity: targetMotion
-                .map((s) => s.velocity.toFixed(5))
-                .join(','),
-              travelling: String(travelling),
-              motion: stop ? 'reduced' : 'active',
-              activeTime: elapsed.toFixed(3),
-              renderedFrames: String(renderedFrames),
-              readerAttached: String(
-                surface.visible || (isNotebook && reading),
-              ),
-              notebookAttached: 'true',
-              projectPage: String(latest.current.projectPage),
-              pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
-              dragResponse: dragMotion.map((s) => s.value.toFixed(5)).join(','),
-              cameraAngles: angles.map((v) => v.toFixed(5)).join(','),
-              cameraAngleLimits: rangeMotion
-                .slice(0, 2)
-                .map((s) => s.value.toFixed(5))
-                .join(','),
-              cameraAngleMinimums: rangeMotion
-                .slice(2)
-                .map((s) => s.value.toFixed(5))
-                .join(','),
-              vesselName,
-              portals: JSON.stringify(model.group.userData.portals),
-              activeRoute: JSON.stringify(model.group.userData.activeRoute),
-              travelledRoute: JSON.stringify(travelledRoute),
-              itineraryRemaining: String(itinerary.length),
-              itineraryPlan: JSON.stringify(itineraryPlan),
-              lightingState: JSON.stringify(model.group.userData.lightingState),
-            });
-            const sorted = [...frameIntervals].sort((a, b) => a - b);
-            el.dataset.frameP50 = (
-              sorted[Math.floor(sorted.length * 0.5)] || 0
-            ).toFixed(2);
-            el.dataset.frameP95 = (
-              sorted[Math.floor(sorted.length * 0.95)] || 0
-            ).toFixed(2);
-            el.dataset.frameP99 = (
-              sorted[Math.floor(sorted.length * 0.99)] || 0
-            ).toFixed(2);
-            el.dataset.frameOver50 = String(
-              sorted.filter((n) => n > 50).length,
-            );
-            el.dataset.shadowsEnabled = String(renderer.shadowMap.enabled);
-            el.dataset.quality = mobile()
-              ? 'procedural-mobile'
-              : 'procedural-desktop';
-            el.dataset.contactShading = String(usesContactShading());
-            el.dataset.frameSamples = String(sorted.length);
-            if (auditMotion)
-              el.dataset.cameraTrace = JSON.stringify(cameraTrace);
-            el.dataset.environment = JSON.stringify(
-              background.getDiagnostics(),
-            );
-            if (reading && model.readerSurfaces[active]) {
-              const layout = active === 'about' ? notebook : computerLayout();
-              const points = [
-                [-layout.width / 2, layout.height / 2],
-                [layout.width / 2, layout.height / 2],
-                [layout.width / 2, -layout.height / 2],
-                [-layout.width / 2, -layout.height / 2],
-              ].map(([x, y]) => {
-                const p = model.readerSurfaces[active]
-                  .localToWorld(new THREE.Vector3(x, y, 0))
-                  .project(camera);
-                return [
-                  ((p.x + 1) * el.clientWidth) / 2,
-                  ((1 - p.y) * el.clientHeight) / 2,
-                ];
+            // Keep the small scheduling/visibility contract available on normal
+            // visits. Detailed inspection must not serialize the scene, sort
+            // frame history or project reader bounds with the tools closed.
+            el.dataset.renderedFrames = String(renderedFrames);
+            el.dataset.activeTime = elapsed.toFixed(3);
+            el.dataset.motion = stop ? 'reduced' : 'active';
+            if (collectDiagnostics) {
+              publishSceneMetadata();
+              Object.assign(el.dataset, {
+                cameraFar: String(camera.far),
+                cameraAspect: String(camera.aspect),
+                cameraPosition: camera.position
+                  .toArray()
+                  .map((n) => n.toFixed(4))
+                  .join(','),
+                cameraQuaternion: camera.quaternion
+                  .toArray()
+                  .map((n) => n.toFixed(6))
+                  .join(','),
+                shipRotation: model.group.rotation
+                  .toArray()
+                  .slice(0, 3)
+                  .join(','),
+                pixelRatio: String(renderer.getPixelRatio()),
+                drawingBuffer: `${renderer.domElement.width},${renderer.domElement.height}`,
+                renderCalls: String(renderer.info.render.calls),
+                triangles: String(renderer.info.render.triangles),
+                renderCpuMs: renderCost.toFixed(2),
+                hoverRoom: effectiveHover,
+                hoverObject: effectiveObject,
+                transitRoom,
+                transitWalkway: String(transitWalkway),
+                hoveredWalkway: String(hoveredWalkway),
+                labelPortrait: String(
+                  active === 'home' && Math.abs(roll) > Math.PI / 4,
+                ),
+                hoverOffset: hoverMotion
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                hoverVelocity: hoverMotion
+                  .map((s) => s.velocity.toFixed(5))
+                  .join(','),
+                flightVelocity: targetMotion
+                  .map((s) => s.velocity.toFixed(5))
+                  .join(','),
+                travelling: String(travelling),
+                readerAttached: String(
+                  surface.visible || (isNotebook && reading),
+                ),
+                notebookAttached: 'true',
+                projectPage: String(latest.current.projectPage),
+                pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
+                dragResponse: dragMotion
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                cameraAngles: angles.map((v) => v.toFixed(5)).join(','),
+                cameraAngleLimits: rangeMotion
+                  .slice(0, 2)
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                cameraAngleMinimums: rangeMotion
+                  .slice(2)
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                vesselName,
+                portals: JSON.stringify(model.group.userData.portals),
+                activeRoute: JSON.stringify(model.group.userData.activeRoute),
+                travelledRoute: JSON.stringify(travelledRoute),
+                itineraryRemaining: String(itinerary.length),
+                itineraryPlan: JSON.stringify(itineraryPlan),
+                lightingState: JSON.stringify(
+                  model.group.userData.lightingState,
+                ),
               });
-              el.dataset.readerCorners = JSON.stringify(points);
+              const sorted = [...frameIntervals].sort((a, b) => a - b);
+              el.dataset.frameP50 = (
+                sorted[Math.floor(sorted.length * 0.5)] || 0
+              ).toFixed(2);
+              el.dataset.frameP95 = (
+                sorted[Math.floor(sorted.length * 0.95)] || 0
+              ).toFixed(2);
+              el.dataset.frameP99 = (
+                sorted[Math.floor(sorted.length * 0.99)] || 0
+              ).toFixed(2);
+              el.dataset.frameOver50 = String(
+                sorted.filter((n) => n > 50).length,
+              );
+              el.dataset.shadowsEnabled = String(renderer.shadowMap.enabled);
+              el.dataset.quality = mobile()
+                ? 'procedural-mobile'
+                : 'procedural-desktop';
+              el.dataset.contactShading = String(usesContactShading());
+              el.dataset.frameSamples = String(sorted.length);
+              if (auditMotion)
+                el.dataset.cameraTrace = JSON.stringify(cameraTrace);
+              el.dataset.environment = JSON.stringify(
+                background.getDiagnostics(),
+              );
+              if (reading && model.readerSurfaces[active]) {
+                const layout = active === 'about' ? notebook : computerLayout();
+                const points = [
+                  [-layout.width / 2, layout.height / 2],
+                  [layout.width / 2, layout.height / 2],
+                  [layout.width / 2, -layout.height / 2],
+                  [-layout.width / 2, -layout.height / 2],
+                ].map(([x, y]) => {
+                  const p = model.readerSurfaces[active]
+                    .localToWorld(new THREE.Vector3(x, y, 0))
+                    .project(camera);
+                  return [
+                    ((p.x + 1) * el.clientWidth) / 2,
+                    ((1 - p.y) * el.clientHeight) / 2,
+                  ];
+                });
+                el.dataset.readerCorners = JSON.stringify(points);
+              }
             }
             lastMetrics = now;
           }
@@ -3558,6 +3572,11 @@ export function mountSpacecraftScene({
         function setDiagnosticsEnabled(enabled: boolean) {
           if (audit && !enabled && !destroyed) return;
           if (enabled === !!diagnostics) return;
+          // A new inspection starts with new samples, never the previous
+          // panel session's frame intervals or smoothed callback cost.
+          frameIntervals.length = 0;
+          renderCost = 0;
+          lastMetrics = -Infinity;
           if (!enabled) {
             unmountPerformancePanel();
             unmountPerformancePanel = () => {};
