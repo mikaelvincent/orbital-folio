@@ -251,10 +251,12 @@ test('Archive artwork clears empty cartridges and uses Studio count labels', () 
     });
     const archive = buildCaseStudyArchive(THREE, helpers, root, {
       site: {
-        interfaceText: { study: 'case study', studies: 'case studies' },
+        interfaceText: { case: 'case study', cases: 'case studies' },
       },
     });
-    const terminal = archive.screens.find((screen) => screen.category === 'all');
+    const terminal = archive.screens.find(
+      (screen) => screen.category === 'all',
+    );
     const terminalCanvas = terminal.hitTarget.material.map.image;
     for (const count of [0, 1, 2, 0]) {
       archive.setCaseCount(count);
@@ -265,8 +267,7 @@ test('Archive artwork clears empty cartridges and uses Studio count labels', () 
       assert.deepEqual(labels, [
         'All case studies',
         ...(count ? [] : ['STANDBY']),
-        count === 1 ? 'CASE STUDY' : 'CASE STUDIES',
-        String(count).padStart(2, '0'),
+        `${String(count).padStart(2, '0')} ${count === 1 ? 'CASE STUDY' : 'CASE STUDIES'}`,
       ]);
     }
     for (const screen of archive.screens.filter(

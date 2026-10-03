@@ -396,8 +396,8 @@ export function CaseStudyCollection({
           {String(entries.length).padStart(2, '0')}
           <small>
             {entries.length === 1
-              ? copy(data.site, 'study')
-              : copy(data.site, 'studies')}
+              ? copy(data.site, 'case')
+              : copy(data.site, 'cases')}
           </small>
         </span>
       </div>

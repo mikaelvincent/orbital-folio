@@ -200,9 +200,10 @@ categories pack above blank disabled cartridges in canonical order; their target
 move with them. Labels appear only on populated cartridges. An empty terminal is
 STANDBY and inert. Reading view also hides empty categories; an unavailable
 category selection falls back to All. Availability follows published content or
-authenticated drafts. The terminal footer shares the Studio `study` / `studies`
-count labels with both collection views. These labels display in uppercase while
-their editable values retain their original casing. The populated terminal has
+authenticated drafts. The terminal footer shares the Studio `case` / `cases`
+count labels with both collection views. Its number and noun form one centered
+group, with uppercase applied only to this physical screen. Studio values and
+the collection labels retain their authored casing. The populated terminal has
 no tagline.
 
 Collection→detail and Back stay within the same window, preserving category and

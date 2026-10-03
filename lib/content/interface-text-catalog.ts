@@ -62,9 +62,11 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
   "experience": [
     "All case studies",
     "Back to case studies",
+    "case",
     "Case studies application",
     "Case study",
     "Case study categories",
+    "cases",
     "Close Case studies application",
     "Context",
     "Design & interfaces",
@@ -78,8 +80,6 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Product engineering",
     "Read case study: {title}",
     "Research & experiments",
-    "studies",
-    "study",
     "Systems & reliability",
     "THE DECISIONS BEHIND THE WORK"
   ],

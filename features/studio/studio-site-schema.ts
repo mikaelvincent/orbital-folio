@@ -222,8 +222,8 @@ export const siteFieldLabels: Record<string, string> = {
 export const messageLabels: Record<string, string> = {
   project: 'Count label: one project',
   projects: 'Count label: multiple projects',
-  study: 'Count label: one study',
-  studies: 'Count label: multiple studies',
+  case: 'Count label: one case',
+  cases: 'Count label: multiple cases',
   PROJECT: 'Uncategorized project caption',
   'Projects application': 'Project window name (accessibility)',
   'Close Projects application': 'Close project window (accessibility)',

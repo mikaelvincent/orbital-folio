@@ -849,21 +849,20 @@ export function buildCaseStudyArchive(
       ctx.moveTo(85, ch * 0.76);
       ctx.lineTo(cw - 85, ch * 0.76);
       ctx.stroke();
-      ctx.textAlign = 'left';
+      ctx.textAlign = 'center';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
-      ctx.font = '500 26px monospace';
+      ctx.font = '500 32px monospace';
+      const countLabel = (
+        caseCount === 1
+          ? copy(options.site, 'case')
+          : copy(options.site, 'cases')
+      ).toUpperCase();
       ctx.fillText(
-        (caseCount === 1
-          ? copy(options.site, 'study')
-          : copy(options.site, 'studies')).toUpperCase(),
-        85,
+        `${String(caseCount).padStart(2, '0')} ${countLabel}`,
+        cw / 2,
         ch * 0.88,
-        cw - 280,
+        cw - 170,
       );
-      ctx.textAlign = 'right';
-      ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.bronzeLight;
-      ctx.font = '500 38px Arial, sans-serif';
-      ctx.fillText(String(caseCount).padStart(2, '0'), cw - 85, ch * 0.88);
     },
     true,
   );

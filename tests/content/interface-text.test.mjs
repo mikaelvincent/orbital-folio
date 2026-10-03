@@ -94,8 +94,8 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'Send message',
     'Let’s connect.',
     'Systems',
-    'study',
-    'studies',
+    'case',
+    'cases',
   ])
     assert.ok(keys.has(message), message);
   for (const message of [
@@ -113,6 +113,8 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'Send a message',
     'story',
     'stories',
+    'study',
+    'studies',
   ])
     assert.ok(!keys.has(message), message);
   assert.equal(
@@ -215,6 +217,8 @@ test('old and unknown overrides are discarded without mutating the original reco
       "Schedule a call": "Saved legacy call label",
       "story": "story",
       "stories": "stories",
+      "study": "study",
+      "studies": "studies",
       "Unknown message": 42,
       "__proto__": {"polluted": true},
       "constructor": "Unsupported",
