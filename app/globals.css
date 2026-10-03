@@ -3489,9 +3489,10 @@ body:has(.orbital-experience.is-immersive)
   box-shadow: inset 0 -1px color-mix(in srgb, var(--bronze) 39.6%, transparent);
 }
 .scene-loader {
-  position: absolute;
+  /* Both startup phases cover the identity, navigation, tools and preview UI. */
+  position: fixed;
   inset: 0;
-  z-index: 18;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -3503,11 +3504,6 @@ body:has(.orbital-experience.is-immersive)
     var(--carbon),
     var(--carbon-deep) 70%
   );
-}
-.boot-loader {
-  position: fixed;
-  /* Cover the reading header until hydration selects the visitor's view. */
-  z-index: 30;
 }
 body:has(#room-reader:target) .boot-loader {
   display: none;

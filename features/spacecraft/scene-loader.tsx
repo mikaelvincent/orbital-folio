@@ -24,12 +24,10 @@ export function SceneLoader({
       <div className="loader-track" aria-hidden="true">
         <span />
       </div>
-      {boot && (
-        <a href="#room-reader">
-          {site.readLabel}
-          <ArrowUpRight size={16} />
-        </a>
-      )}
+      <a href="#room-reader">
+        {site.readLabel}
+        <ArrowUpRight size={16} />
+      </a>
     </div>
   );
 }
