@@ -34,6 +34,7 @@ export function NotebookSpread({
         {...content}
         page={page * 2}
         spread
+        measurementOnly={measuring}
         onPageSelect={
           onPageSelect
             ? (column) => onPageSelect(Math.floor(column / 2))

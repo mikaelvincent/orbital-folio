@@ -22,6 +22,8 @@ export type NotebookSectionPagesProps = {
   footer?: ReactNode;
   page: number;
   spread?: boolean;
+  /** Hidden turn-ink sources keep their DOM, but can release settled observers. */
+  measurementOnly?: boolean;
   onPageCount?: (total: number) => void;
   headingIdPrefix?: string;
   onPageSelect?: (page: number) => void;
@@ -38,11 +40,12 @@ export function NotebookSectionPages({
   footer,
   page,
   spread = false,
+  measurementOnly = false,
   onPageCount,
   onPageSelect,
   headingIdPrefix = 'notebook-',
 }: NotebookSectionPagesProps) {
-  const markdown = normalizeNotebookBody(body);
+  const markdown = useMemo(() => normalizeNotebookBody(body), [body]);
   const headingLinks = useMemo(() => {
     const headings = parseProjectMarkdown(markdown, {
       preserveSoftBreaks: true,
@@ -60,13 +63,10 @@ export function NotebookSectionPages({
   const callback = useRef(onPageCount);
   callback.current = onPageCount;
   const [count, setCount] = useState(1);
-  const signature = JSON.stringify([
-    title,
-    subtitle,
-    markdown,
-    biography,
-    media,
-  ]);
+  const signature = useMemo(
+    () => JSON.stringify([title, subtitle, markdown, biography, media]),
+    [title, subtitle, markdown, biography, media],
+  );
   useEffect(() => {
     const host = root.current;
     const columns = host?.querySelector<HTMLElement>('.notebook-columns');
@@ -95,6 +95,7 @@ export function NotebookSectionPages({
       );
       setCount(total);
       callback.current?.(total);
+      if (measurementOnly) observer.disconnect();
     };
     const schedule = () => {
       cancelAnimationFrame(frame);
@@ -110,6 +111,7 @@ export function NotebookSectionPages({
     host.addEventListener('load', schedule, true);
     host.addEventListener('loadedmetadata', schedule, true);
     host.addEventListener('error', schedule, true);
+    document.fonts.addEventListener('loadingdone', schedule);
     void document.fonts.ready.then(() => {
       fontsReady = true;
       schedule();
@@ -122,13 +124,14 @@ export function NotebookSectionPages({
       host.removeEventListener('load', schedule, true);
       host.removeEventListener('loadedmetadata', schedule, true);
       host.removeEventListener('error', schedule, true);
+      document.fonts.removeEventListener('loadingdone', schedule);
     };
-  }, [signature]);
+  }, [signature, measurementOnly]);
   const selected = Math.max(0, Math.min(page, count - 1));
   const first = spread ? Math.floor(selected / 2) * 2 : selected;
   useEffect(() => {
     const host = root.current;
-    if (!host) return;
+    if (!host || measurementOnly) return;
     const bounds = host.getBoundingClientRect();
     host.querySelectorAll<HTMLElement>('a, video, input').forEach((element) => {
       const rect = element.getBoundingClientRect();
@@ -139,7 +142,7 @@ export function NotebookSectionPages({
           ? 0
           : -1;
     });
-  }, [first, spread, signature, count]);
+  }, [first, spread, signature, count, measurementOnly]);
   return (
     <div
       className="notebook-section-pages notebook-ink"

@@ -1,6 +1,6 @@
 'use client';
 import './studio-presentation.css';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   Orbit,
   ArrowUpRight,
@@ -104,7 +104,10 @@ export function AdminStudio({
     observer.observe(bar);
     return () => observer.disconnect();
   }, [tab]);
-  const current = records.find((r) => r.id === selected);
+  const current = useMemo(
+    () => records.find((r) => r.id === selected),
+    [records, selected],
+  );
   const storyNoun =
     kind === 'journal'
       ? 'section'
@@ -137,13 +140,43 @@ export function AdminStudio({
           (record.draft.aboutSlot && record.draft.aboutSlot !== 'off'))),
     [area],
   );
-  const dirty =
-    mediaDirty ||
-    JSON.stringify(data) !==
-      JSON.stringify(current?.draft ?? entryTemplate(kind));
-  const visible = records
-    .filter((r) => r.kind === kind && inArea(r))
-    .sort((a, b) => (a.draft.order || 0) - (b.draft.order || 0));
+  const visible = useMemo(
+    () =>
+      records
+        .filter((r) => r.kind === kind && inArea(r))
+        .sort((a, b) => (a.draft.order || 0) - (b.draft.order || 0)),
+    [records, kind, inArea],
+  );
+  const savedRecords = useMemo(
+    () =>
+      new Map(
+        (current && !visible.includes(current)
+          ? [...visible, current]
+          : visible
+        ).map((record) => {
+          const draft = JSON.stringify(record.draft);
+          return [
+            record.id,
+            {
+              draft,
+              status: record.published
+                ? draft === JSON.stringify(record.published)
+                  ? 'Published'
+                  : 'Unpublished changes'
+                : 'Draft',
+            },
+          ];
+        }),
+      ),
+    [visible, current],
+  );
+  const serializedData = useMemo(() => JSON.stringify(data), [data]);
+  const savedDraft = useMemo(
+    () =>
+      savedRecords.get(selected)?.draft ?? JSON.stringify(entryTemplate(kind)),
+    [savedRecords, selected, entryTemplate, kind],
+  );
+  const dirty = mediaDirty || serializedData !== savedDraft;
   useEffect(() => {
     const warn = (e: BeforeUnloadEvent) => {
       if (dirty) {
@@ -469,7 +502,7 @@ export function AdminStudio({
   const draftState = dirty
     ? 'Unsaved changes'
     : current?.published
-      ? JSON.stringify(current.draft) === JSON.stringify(current.published)
+      ? savedRecords.get(current.id)?.status === 'Published'
         ? 'Draft matches published'
         : 'Saved draft · unpublished changes'
       : 'Private draft';
@@ -595,13 +628,7 @@ export function AdminStudio({
                         {record.kind === 'site'
                           ? record.draft.name
                           : record.draft.title}{' '}
-                        ·{' '}
-                        {record.published
-                          ? JSON.stringify(record.draft) ===
-                            JSON.stringify(record.published)
-                            ? 'Published'
-                            : 'Unpublished changes'
-                          : 'Draft'}
+                        · {savedRecords.get(record.id)?.status}
                       </NativeSelectOption>
                     ))}
                   </NativeSelect>
@@ -619,12 +646,7 @@ export function AdminStudio({
                       </span>
                       <small>
                         <i className={r.published ? 'published' : ''} />
-                        {r.published
-                          ? JSON.stringify(r.draft) ===
-                            JSON.stringify(r.published)
-                            ? 'Published'
-                            : 'Unpublished changes'
-                          : 'Draft'}
+                        {savedRecords.get(r.id)?.status}
                       </small>
                     </button>
                   ))}

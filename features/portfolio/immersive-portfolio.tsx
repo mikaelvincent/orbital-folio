@@ -97,20 +97,29 @@ export function ImmersivePortfolio({
   const [measuredNotebookCounts, setNotebookCounts] = useState<
     Record<string, number>
   >({});
-  const notebookKey = useCallback(
-    (index: number) =>
-      JSON.stringify([
-        data.journal[index]?.id || index,
-        data.journal[index]?.title,
-        data.journal[index]?.subtitle,
-        data.journal[index]?.body,
-        index === 0 ? data.site.biography : '',
-        data.media,
-      ]),
-    [data.journal, data.site.biography, data.media],
+  const notebookKeys = useMemo(
+    () =>
+      (data.journal.length ? data.journal : [undefined]).map((entry, index) =>
+        JSON.stringify([
+          entry?.id || index,
+          entry?.title ||
+            data.site.aboutHeading ||
+            copy(data.site, 'A little about me'),
+          entry?.subtitle,
+          entry?.body || (!entry ? data.site.emptyLabel || '' : ''),
+          index === 0 ? data.site.biography : '',
+          data.media,
+        ]),
+      ),
+    [data.journal, data.site, data.media],
   );
-  const notebookCounts = data.journal.map(
-    (_entry, index) => measuredNotebookCounts[notebookKey(index)] || 1,
+  const notebookKey = useCallback(
+    (index: number) => notebookKeys[index],
+    [notebookKeys],
+  );
+  const notebookCounts = useMemo(
+    () => notebookKeys.map((key) => measuredNotebookCounts[key] || 1),
+    [notebookKeys, measuredNotebookCounts],
   );
   // Content counts printed pages; the physical scene advances one facing spread per leaf.
   const notebookSpreads = notebookCounts.map(notebookSpreadCount);

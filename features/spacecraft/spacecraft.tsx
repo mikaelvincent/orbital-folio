@@ -1,11 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { SceneLoader } from './scene-loader';
-import {
-  mountSpacecraftScene,
-  type SpacecraftProps,
-  type SpacecraftSceneAPI,
-} from './spacecraft-runtime';
+import type { SpacecraftProps, SpacecraftSceneAPI } from './spacecraft-runtime';
 
 export function Spacecraft(props: SpacecraftProps) {
   const host = useRef<HTMLDivElement>(null),
@@ -44,14 +40,31 @@ export function Spacecraft(props: SpacecraftProps) {
   }, [props.renderingSettings]);
   useEffect(() => {
     if (!props.enabled) return;
-    return mountSpacecraftScene({
-      host,
-      latest,
-      api,
-      setState,
-      site: s,
-      audit: props.audit,
-    });
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
+    setState('loading');
+    void import('./spacecraft-runtime')
+      .then(({ mountSpacecraftScene }) => {
+        if (cancelled) return;
+        cleanup = mountSpacecraftScene({
+          host,
+          latest,
+          api,
+          setState,
+          site: s,
+          audit: props.audit,
+        });
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        console.error('Interactive renderer could not load', error);
+        setState('fallback');
+        latest.current.onUnavailable();
+      });
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, [props.enabled, s, props.links, props.media, props.audit]);
   return (
     <div id="ship" className="ship-stage immersive-ship" ref={host}>

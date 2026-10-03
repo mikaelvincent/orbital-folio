@@ -46,7 +46,7 @@ function fixture() {
     exports: loaded.exports,
     mountScene({ latest, api }) {
       synchronized = latest.current.projects;
-      events.push({ type: 'mount' });
+      events.push({ type: 'mount', projects: synchronized });
       api.current = {
         projects() {
           synchronized = latest.current.projects;
@@ -102,11 +102,12 @@ function fixture() {
   });
   return {
     events,
-    render(props) {
+    async render(props) {
       cursor = 0;
       effects = [];
       loaded.exports.Spacecraft(props);
       for (const effect of effects) effect();
+      await new Promise((resolve) => setImmediate(resolve));
     },
     unmount() {
       for (const slot of slots) slot.cleanup?.();
@@ -114,7 +115,7 @@ function fixture() {
   };
 }
 
-await test('project prop changes refresh the existing scene before framing, without remounting or unnecessary camera travel', () => {
+await test('project prop changes refresh the existing scene before framing, without remounting or unnecessary camera travel', async () => {
   const scene = fixture();
   let props = {
     site: {},
@@ -128,7 +129,7 @@ await test('project prop changes refresh the existing scene before framing, with
     paused: false,
     diagnosticsEnabled: false,
   };
-  scene.render(props);
+  await scene.render(props);
   assert.deepEqual(
     scene.events.map(({ type }) => type),
     ['mount'],
@@ -136,7 +137,7 @@ await test('project prop changes refresh the existing scene before framing, with
   scene.events.length = 0;
 
   props = { ...props, projects: [] };
-  scene.render(props);
+  await scene.render(props);
   assert.deepEqual(
     scene.events.map(({ type }) => type),
     ['projects'],
@@ -154,7 +155,7 @@ await test('project prop changes refresh the existing scene before framing, with
     projectScreen: 'interfaces',
     readingSurface: true,
   };
-  scene.render(props);
+  await scene.render(props);
   assert.deepEqual(
     scene.events.map(({ type }) => type),
     ['projects', 'go'],
@@ -167,7 +168,7 @@ await test('project prop changes refresh the existing scene before framing, with
   assert.equal(scene.events[1].screen, 'interfaces');
   scene.events.length = 0;
 
-  scene.render({ ...props });
+  await scene.render({ ...props });
   assert.deepEqual(
     scene.events,
     [],
@@ -180,7 +181,7 @@ await test('project prop changes refresh the existing scene before framing, with
   );
 });
 
-await test('Case study updates refresh availability without remounting; category and detail changes keep the same terminal camera', () => {
+await test('Case study updates refresh availability without remounting; category and detail changes keep the same terminal camera', async () => {
   const scene = fixture();
   let props = {
     site: {},
@@ -195,7 +196,7 @@ await test('Case study updates refresh availability without remounting; category
     paused: false,
     diagnosticsEnabled: false,
   };
-  scene.render(props);
+  await scene.render(props);
   scene.events.length = 0;
   props = {
     ...props,
@@ -203,7 +204,7 @@ await test('Case study updates refresh availability without remounting; category
     readingSurface: true,
     caseStudyScreen: 'product',
   };
-  scene.render(props);
+  await scene.render(props);
   assert.deepEqual(
     scene.events.map((event) => event.type),
     ['caseStudies', 'go'],
@@ -211,18 +212,46 @@ await test('Case study updates refresh availability without remounting; category
   assert.equal(scene.events[0].caseStudies, props.caseStudies);
   scene.events.length = 0;
   props = { ...props, slug: 'study' };
-  scene.render(props);
-  scene.render({ ...props, slug: undefined, caseStudyScreen: 'all' });
+  await scene.render(props);
+  await scene.render({ ...props, slug: undefined, caseStudyScreen: 'all' });
   assert.deepEqual(
     scene.events,
     [],
     'One terminal does not travel between its collection and stories',
   );
   props = { ...props, caseStudies: [], readingSurface: false };
-  scene.render(props);
+  await scene.render(props);
   assert.deepEqual(
     scene.events.map((event) => event.type),
     ['caseStudies', 'go'],
   );
+  scene.unmount();
+});
+
+await test('unmount during a pending runtime import allocates no scene', async () => {
+  const scene = fixture();
+  const pending = scene.render({
+    site: {},
+    links: [],
+    projects: [],
+    enabled: true,
+  });
+  scene.unmount();
+  await pending;
+  assert.deepEqual(scene.events, []);
+});
+
+await test('a deferred scene mounts with the latest props after loading', async () => {
+  const scene = fixture();
+  const props = { site: {}, links: [], projects: [], enabled: true };
+  const first = scene.render(props);
+  const projects = [{ slug: 'latest' }];
+  const second = scene.render({ ...props, projects });
+  await Promise.all([first, second]);
+  assert.deepEqual(
+    scene.events.map(({ type }) => type),
+    ['mount'],
+  );
+  assert.equal(scene.events[0].projects, projects);
   scene.unmount();
 });

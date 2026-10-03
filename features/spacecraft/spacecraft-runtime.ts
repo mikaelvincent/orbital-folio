@@ -20,7 +20,7 @@ import {
   roomNavigationIntent,
   sceneNavigationKey,
 } from '@/features/spacecraft/navigation/room-navigation';
-import { createScenePerformance } from '@/features/diagnostics/scene-performance';
+import type { createScenePerformance } from '@/features/diagnostics/scene-performance';
 import { createSceneMetadataPublisher } from '@/features/diagnostics/scene-metadata';
 import { updateRenderSceneMatrices } from '@/features/spacecraft/scene-matrices';
 import { createVesselCameraFrame } from '@/features/spacecraft/navigation/vessel-camera';
@@ -30,11 +30,10 @@ import {
   type OverviewFlight,
   type OverviewFlightPose,
 } from './navigation/overview-flight';
-import {
+import type {
   createSpacecraftPerformance,
-  type SpacecraftPerformanceFilter,
+  SpacecraftPerformanceFilter,
 } from '@/features/diagnostics/spacecraft-performance';
-import { mountPerformancePanel } from '../diagnostics/performance-panel';
 import {
   createSceneFeedback,
   EMPTY_SCENE_FEEDBACK,
@@ -53,6 +52,7 @@ import {
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
 import { createSceneRenderLoop } from './scene-render-loop';
+import { createSceneLifetime } from './scene-lifetime';
 import {
   DEFAULT_RENDERING_SETTINGS,
   resolveRenderingSettings,
@@ -62,7 +62,6 @@ import {
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
-import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
 import { createShadowUpdates } from './shadow-updates';
 import {
   applyCabinLighting,
@@ -166,10 +165,13 @@ export function mountSpacecraftScene({
   site: SpacecraftProps['site'];
   audit?: SceneAudit;
 }) {
-  let destroyed = false,
-    cleanup = () => {};
+  let destroyed = false;
+  const lifetime = createSceneLifetime();
+  const cleanup = () => lifetime.dispose();
   const unavailable = () => {
     if (!destroyed) {
+      destroyed = true;
+      cleanup();
       setState('fallback');
       latest.current.onUnavailable();
     }
@@ -199,6 +201,7 @@ export function mountSpacecraftScene({
         import('three/addons/postprocessing/GTAOPass.js'),
         import('three/addons/postprocessing/Pass.js'),
         import('./stationary-pixel-cache'),
+        audit ? import('../diagnostics/scene-diagnostics') : undefined,
       ]),
     )
     .then(
@@ -211,6 +214,7 @@ export function mountSpacecraftScene({
         { GTAOPass },
         { FullScreenQuad },
         { createStationaryPixelCache },
+        initialDiagnostics,
       ]) => {
         if (destroyed || !host.current) return;
         let renderer: Three.WebGLRenderer;
@@ -224,6 +228,21 @@ export function mountSpacecraftScene({
           unavailable();
           return;
         }
+        lifetime.defer(() => renderer.domElement.remove());
+        lifetime.defer(() => renderer.dispose());
+        const events = new AbortController();
+        lifetime.defer(() => events.abort());
+        const listen = (
+          target: EventTarget | null,
+          type: string,
+          listener: (event: any) => void,
+          options: boolean | AddEventListenerOptions = {},
+        ) => {
+          target?.addEventListener(type, listener, {
+            ...(typeof options === 'boolean' ? { capture: options } : options),
+            signal: events.signal,
+          });
+        };
         const el = host.current;
         // Instantiated on request without rebuilding the ship or its camera.
         const gl = renderer.getContext();
@@ -273,6 +292,7 @@ export function mountSpacecraftScene({
         let renderingSettings =
           latest.current.renderingSettings || DEFAULT_RENDERING_SETTINGS;
         const renderingListeners = new Set<() => void>();
+        lifetime.defer(() => renderingListeners.clear());
         let cacheLightingSupported = true;
         const resolveRendering = () =>
           resolveRenderingSettings(renderingSettings, {
@@ -309,17 +329,44 @@ export function mountSpacecraftScene({
         const scene = new THREE.Scene(),
           cssScene = new THREE.Scene(),
           cssGroup = new THREE.Group();
+        lifetime.defer(() => {
+          const materials = new Set<Three.Material>(),
+            geometries = new Set<Three.BufferGeometry>(),
+            textures = new Set<Three.Texture>();
+          scene.traverse((object) => {
+            if (
+              object instanceof THREE.Mesh ||
+              object instanceof THREE.InstancedMesh
+            ) {
+              geometries.add(object.geometry);
+              (Array.isArray(object.material)
+                ? object.material
+                : [object.material]
+              ).forEach((m) => {
+                materials.add(m);
+                for (const value of Object.values(m))
+                  if (value instanceof THREE.Texture) textures.add(value);
+              });
+            }
+          });
+          materials.forEach((m) => m.dispose());
+          geometries.forEach((g) => g.dispose());
+          textures.forEach((t) => t.dispose());
+        });
         cssScene.add(cssGroup);
         const cssRenderer = new CSS3DRenderer();
+        lifetime.defer(() => cssRenderer.domElement.remove());
         cssRenderer.domElement.className = 'world-css-renderer';
         el.appendChild(cssRenderer.domElement);
         // Native application content uses one viewport-relative projection.
         // Keep its origin independent of CSS3D's nested camera wrappers and
         // percentage centering; scene hotspots continue to use CSS3DRenderer.
         const surfaceLayer = document.createElement('div');
+        lifetime.defer(() => surfaceLayer.remove());
         surfaceLayer.className = 'world-surface-layer';
         el.appendChild(surfaceLayer);
         const contactReturnHint = document.createElement('span');
+        lifetime.defer(() => contactReturnHint.remove());
         contactReturnHint.className = 'contact-room-return-hint';
         contactReturnHint.textContent = copy(s, 'Click wall to return');
         contactReturnHint.setAttribute('aria-hidden', 'true');
@@ -331,6 +378,7 @@ export function mountSpacecraftScene({
         surfaceLayer.appendChild(surfaceElement);
         const projectedSurface = createProjectedSurface(THREE, surfaceElement);
         const projectedViewport = new THREE.Vector2();
+        lifetime.defer(() => latest.current.onSurfaceReady(null));
         latest.current.onSurfaceReady(surfaceElement);
         // The notebook belongs to the scene, independently of the selected room's
         // application host. Its native Markdown stays mounted throughout travel.
@@ -346,17 +394,23 @@ export function mountSpacecraftScene({
           THREE,
           notebookElement,
         );
+        lifetime.defer(() => latest.current.onNotebookSurfaceReady?.(null));
         latest.current.onNotebookSurfaceReady?.(notebookElement);
         const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 80);
         const cameraFrame = createVesselCameraFrame(THREE);
         const backgroundReference = createOrbitalWorldReference(THREE);
-        const pmrem = new THREE.PMREMGenerator(renderer),
-          roomEnvironment = new RoomEnvironment();
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        const disposePmrem = lifetime.defer(() => pmrem.dispose());
+        const roomEnvironment = new RoomEnvironment();
+        const disposeRoomEnvironment = lifetime.defer(() =>
+          roomEnvironment.dispose(),
+        );
         const environment = pmrem.fromScene(roomEnvironment, 0.035);
+        lifetime.defer(() => environment.dispose());
         scene.environment = environment.texture;
         scene.environmentIntensity = VESSEL_LIGHTING.environmentIntensity;
-        roomEnvironment.dispose();
-        pmrem.dispose();
+        disposeRoomEnvironment();
+        disposePmrem();
         let vesselName = String(s.name || '');
         try {
           vesselName = new URL(s.domain).hostname;
@@ -413,6 +467,8 @@ export function mountSpacecraftScene({
         };
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
+        lifetime.defer(() => model.group.userData.aboutPhotoPrints.dispose());
+        scene.add(model.group);
         const cabinLighting = applyCabinLighting(THREE, model.group);
         audit?.modelReady?.(
           model,
@@ -420,7 +476,6 @@ export function mountSpacecraftScene({
           THREE,
           performance.now() - modelStart,
         );
-        scene.add(model.group);
         cameraFrame.projectionModel.userData = model.group.userData;
         // This loop synchronizes the scene after animation/reader transforms.
         // Reuse those exact matrices for shadows, color, and AO instead of
@@ -429,6 +484,7 @@ export function mountSpacecraftScene({
         const annotations = createOverviewAnnotations(THREE, el, s, {
           navigate: (section) => latest.current.onNavigate(section),
         });
+        lifetime.defer(() => annotations.dispose());
         const lightRig = new THREE.Group();
         lightRig.name = 'vessel-lighting-frame';
         scene.add(lightRig);
@@ -448,6 +504,9 @@ export function mountSpacecraftScene({
         }
         applyLightLevels();
         const shadowLights = [key, ...cabinLighting.lights];
+        lifetime.defer(() => {
+          for (const light of shadowLights) light.shadow.dispose();
+        });
         for (const light of shadowLights) {
           light.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
           light.shadow.radius = rendering.shadowSoftness;
@@ -469,6 +528,7 @@ export function mountSpacecraftScene({
         // Tight contact shading grounds fittings between the pools of fixture light.
         // It multiplies only the WebGL scene; HTML stays sharp and native.
         const ao = new GTAOPass(scene, camera, 512, 512);
+        lifetime.defer(() => ao.dispose());
         ao.updateGtaoMaterial({
           radius: 0.22,
           thickness: 0.12,
@@ -495,7 +555,9 @@ export function mountSpacecraftScene({
           depthWrite: false,
           toneMapped: false,
         });
+        lifetime.defer(() => aoMaterial.dispose());
         const aoQuad = new FullScreenQuad(aoMaterial);
+        lifetime.defer(() => aoQuad.dispose());
         let aoDirty = true,
           previousGeometryMotion = false;
         const aoCameraPosition = new THREE.Vector3(),
@@ -651,6 +713,7 @@ export function mountSpacecraftScene({
             }
           },
         );
+        lifetime.defer(() => notebookPageCache.dispose());
         let logicalWidth = notebook.pixelsWidth,
           logicalHeight = notebook.pixelsHeight;
         const notebookMasks = new Map<
@@ -660,6 +723,10 @@ export function mountSpacecraftScene({
             mask: ReturnType<typeof createNotebookOcclusionMask>;
           }
         >();
+        lifetime.defer(() => {
+          notebookMasks.forEach(({ mask }) => mask.dispose());
+          notebookMasks.clear();
+        });
         const occludeNotebookInk = (
           element: HTMLElement,
           anchor: Three.Object3D,
@@ -709,6 +776,7 @@ export function mountSpacecraftScene({
           occludeNotebookInk,
           s,
         );
+        lifetime.defer(() => notebookTurnInk.dispose());
         const notebookButton = document.createElement('button');
         notebookButton.type = 'button';
         notebookButton.className = 'world-object-target world-notebook-target';
@@ -1023,6 +1091,9 @@ export function mountSpacecraftScene({
         const interactionScope = el.closest<HTMLElement>(
           '.orbital-experience',
         )!;
+        lifetime.defer(() => {
+          delete interactionScope.dataset.sceneInput;
+        });
         let suppressClickUntil = 0;
         const frameIntervals: number[] = [];
         const auditMotion =
@@ -1059,6 +1130,7 @@ export function mountSpacecraftScene({
             cameraFov: camera.fov,
           },
         );
+        lifetime.defer(() => background.dispose());
         let backgroundSettled = false;
         void background.ready.then(() => {
           backgroundSettled = true;
@@ -2787,6 +2859,7 @@ export function mountSpacecraftScene({
             rendering.cacheAvailable &&
             experiment === 'normal',
         });
+        lifetime.defer(() => pixelCache.dispose());
         const renderLoop = createSceneRenderLoop({
           draw,
           canRender: () => visible && !destroyed && !audit?.manual,
@@ -2794,6 +2867,7 @@ export function mountSpacecraftScene({
           renderOnce: () => experiment === 'render-once',
           keepAwake: () => travelling,
         });
+        lifetime.defer(() => renderLoop.dispose());
         function kick() {
           // Request a frame without discarding valid ship color/depth/AO.
           // The cache observes actual visual inputs, including late textures;
@@ -2963,6 +3037,7 @@ export function mountSpacecraftScene({
           } else go(true, travelling);
         };
         const observer = new ResizeObserver(resize);
+        lifetime.defer(() => observer.disconnect());
         observer.observe(el);
         if (identity) observer.observe(identity);
         resize();
@@ -3340,21 +3415,21 @@ export function mountSpacecraftScene({
           feedback.reset();
           leave();
         };
-        el.addEventListener('pointerdown', pointerDown, true);
-        el.addEventListener('pointerup', pointerUp, true);
-        el.addEventListener('pointermove', move, true);
-        el.addEventListener('pointerleave', leave);
-        el.addEventListener('pointercancel', cancelPointer);
-        el.addEventListener('lostpointercapture', cancelPointer);
-        el.addEventListener('click', suppressDraggedClick, true);
-        window.addEventListener('blur', cancelPointer);
-        document.addEventListener('pointermove', trackPointer, true);
-        document.addEventListener('pointerdown', trackPress, true);
-        document.addEventListener('keydown', trackKeyboard, true);
-        document.addEventListener('pointerup', kick, true);
-        document.addEventListener('wheel', kick, { passive: true });
-        document.addEventListener('scroll', kick, true);
-        document.addEventListener('input', kick, true);
+        listen(el, 'pointerdown', pointerDown, true);
+        listen(el, 'pointerup', pointerUp, true);
+        listen(el, 'pointermove', move, true);
+        listen(el, 'pointerleave', leave);
+        listen(el, 'pointercancel', cancelPointer);
+        listen(el, 'lostpointercapture', cancelPointer);
+        listen(el, 'click', suppressDraggedClick, true);
+        listen(window, 'blur', cancelPointer);
+        listen(document, 'pointermove', trackPointer, true);
+        listen(document, 'pointerdown', trackPress, true);
+        listen(document, 'keydown', trackKeyboard, true);
+        listen(document, 'pointerup', kick, true);
+        listen(document, 'wheel', kick, { passive: true });
+        listen(document, 'scroll', kick, true);
+        listen(document, 'input', kick, true);
         const unbindContactKeyboard = bindContactKeyboard({
           document,
           window,
@@ -3368,9 +3443,11 @@ export function mountSpacecraftScene({
             target instanceof Node && surfaceElement.contains(target),
           wake: kick,
         });
+        lifetime.defer(unbindContactKeyboard);
         // A phone keyboard may resize only visualViewport. Reduce the app's
         // scroll area, retaining the physical camera and outer screen plane.
         let contactViewportFrame = 0;
+        lifetime.defer(() => cancelAnimationFrame(contactViewportFrame));
         const resizeContactViewport = () => {
           cancelAnimationFrame(contactViewportFrame);
           contactViewportFrame = requestAnimationFrame(() => {
@@ -3400,21 +3477,12 @@ export function mountSpacecraftScene({
               surfaceElement.style.removeProperty('--contact-visible-height');
           });
         };
-        window.visualViewport?.addEventListener(
-          'resize',
-          resizeContactViewport,
-        );
-        window.visualViewport?.addEventListener(
-          'scroll',
-          resizeContactViewport,
-        );
-        surfaceElement.addEventListener('focusin', resizeContactViewport);
-        document.addEventListener('focusin', feedbackChanged);
-        document.addEventListener('focusout', feedbackChanged);
-        document.documentElement.addEventListener(
-          'pointerleave',
-          cancelPointer,
-        );
+        listen(window.visualViewport, 'resize', resizeContactViewport);
+        listen(window.visualViewport, 'scroll', resizeContactViewport);
+        listen(surfaceElement, 'focusin', resizeContactViewport);
+        listen(document, 'focusin', feedbackChanged);
+        listen(document, 'focusout', feedbackChanged);
+        listen(document.documentElement, 'pointerleave', cancelPointer);
         const syncVisibility = () => {
           // Visibility, not keyboard focus: an unfocused window may stay onscreen.
           const nextVisible = inViewport && !document.hidden;
@@ -3436,15 +3504,14 @@ export function mountSpacecraftScene({
           inViewport = entry.isIntersecting;
           syncVisibility();
         });
+        lifetime.defer(() => intersection.disconnect());
         intersection.observe(el);
-        document.addEventListener('visibilitychange', syncVisibility);
+        listen(document, 'visibilitychange', syncVisibility);
         const lost = (event: Event) => {
           event.preventDefault();
-          renderLoop.dispose();
-          diagnostics?.dispose();
           unavailable();
         };
-        renderer.domElement.addEventListener('webglcontextlost', lost);
+        listen(renderer.domElement, 'webglcontextlost', lost);
         const shadowDiagnostic = () => {
           setRenderingSettings({
             ...renderingSettings,
@@ -3453,14 +3520,8 @@ export function mountSpacecraftScene({
         };
         const motionDiagnostic = () => api.current?.pause(!stop);
         if (process.env.NODE_ENV === 'development') {
-          window.addEventListener(
-            'orbital:shadow-diagnostic',
-            shadowDiagnostic,
-          );
-          window.addEventListener(
-            'orbital:motion-diagnostic',
-            motionDiagnostic,
-          );
+          listen(window, 'orbital:shadow-diagnostic', shadowDiagnostic);
+          listen(window, 'orbital:motion-diagnostic', motionDiagnostic);
         }
         let notebookEntries = latest.current.journal;
         function syncNotebookContent() {
@@ -3480,6 +3541,9 @@ export function mountSpacecraftScene({
           htmlUpdateGate.invalidate();
           invalidateAo('notebook-content');
         }
+        lifetime.defer(() => {
+          api.current = null;
+        });
         api.current = {
           notebook: () => {
             htmlUpdateGate.invalidate();
@@ -3516,6 +3580,7 @@ export function mountSpacecraftScene({
             kick();
           },
         };
+        lifetime.defer(() => latest.current.onNavigationReady(null));
         latest.current.onNavigationReady((section) => {
           if (
             !travelling ||
@@ -3528,6 +3593,7 @@ export function mountSpacecraftScene({
           el.dataset.queuedRoom = doorQueue.destination;
           return true;
         });
+        lifetime.defer(() => latest.current.onEarthPlaybackReady?.(null));
         latest.current.onEarthPlaybackReady?.({
           getEarthPlayback: () => background.getEarthPlayback(),
           setEarthPlayback(command) {
@@ -3536,6 +3602,7 @@ export function mountSpacecraftScene({
             kick();
           },
         });
+        lifetime.defer(() => latest.current.onRenderingReady?.(null));
         latest.current.onRenderingReady?.({
           getState: () => ({
             pixelDensity: renderer.getPixelRatio(),
@@ -3569,8 +3636,37 @@ export function mountSpacecraftScene({
           },
         });
         let unmountPerformancePanel = () => {};
+        lifetime.defer(() => spacecraftPerformance?.dispose());
+        lifetime.defer(() => diagnostics?.dispose());
+        lifetime.defer(() => restoreShadowDiagnostics());
+        lifetime.defer(() => unmountPerformancePanel());
+        let diagnosticModule = initialDiagnostics;
+        let diagnosticsRequested = false;
+        let diagnosticsLoading = false;
         function setDiagnosticsEnabled(enabled: boolean) {
           if (audit && !enabled && !destroyed) return;
+          diagnosticsRequested = enabled;
+          if (destroyed) return;
+          if (enabled && !diagnosticModule) {
+            if (!diagnosticsLoading) {
+              diagnosticsLoading = true;
+              void import('../diagnostics/scene-diagnostics')
+                .then((module) => {
+                  diagnosticsLoading = false;
+                  diagnosticModule = module;
+                  if (!destroyed && diagnosticsRequested)
+                    setDiagnosticsEnabled(true);
+                })
+                .catch((error) => {
+                  diagnosticsLoading = false;
+                  if (!destroyed && diagnosticsRequested) {
+                    console.error('Scene diagnostics could not load', error);
+                    latest.current.onDiagnosticsClose?.();
+                  }
+                });
+            }
+            return;
+          }
           if (enabled === !!diagnostics) return;
           // A new inspection starts with new samples, never the previous
           // panel session's frame intervals or smoothed callback cost.
@@ -3596,6 +3692,12 @@ export function mountSpacecraftScene({
             kick();
             return;
           }
+          const {
+            createScenePerformance,
+            createSpacecraftPerformance,
+            instrumentShadowUpdates,
+            mountPerformancePanel,
+          } = diagnosticModule!;
           diagnostics = createScenePerformance('beginQuery' in gl ? gl : null, {
             maxFrames: 1800,
           });
@@ -3721,6 +3823,7 @@ export function mountSpacecraftScene({
           camera,
           light: key,
         });
+        if (disposeShadowAudit) lifetime.defer(disposeShadowAudit);
         const disposeShadingAudit = (
           audit?.shadingReady ?? audit?.contactReady
         )?.({
@@ -3734,7 +3837,9 @@ export function mountSpacecraftScene({
           invalidate: () => invalidateAo('shading-lab-variant'),
           enabled: usesContactShading,
         });
+        if (disposeShadingAudit) lifetime.defer(disposeShadingAudit);
         let auditBackup: Three.WebGLRenderTarget | undefined;
+        lifetime.defer(() => auditBackup?.dispose());
         if (audit) {
           let manualPrevious = 0;
           const state = () => ({
@@ -4005,111 +4110,10 @@ export function mountSpacecraftScene({
             },
           });
         }
-        cleanup = () => {
-          unmountPerformancePanel();
-          restoreShadowDiagnostics();
-          diagnostics?.dispose();
-          spacecraftPerformance?.dispose();
-          latest.current.onNavigationReady(null);
-          latest.current.onEarthPlaybackReady?.(null);
-          latest.current.onRenderingReady?.(null);
-          renderingListeners.clear();
-          renderLoop.dispose();
-          annotations.dispose();
-          notebookTurnInk.dispose();
-          notebookPageCache.dispose();
-          notebookMasks.forEach(({ mask }) => mask.dispose());
-          notebookMasks.clear();
-          observer.disconnect();
-          intersection.disconnect();
-          document.removeEventListener('visibilitychange', syncVisibility);
-          el.removeEventListener('pointerdown', pointerDown, true);
-          el.removeEventListener('pointerup', pointerUp, true);
-          el.removeEventListener('pointermove', move, true);
-          el.removeEventListener('pointerleave', leave);
-          el.removeEventListener('pointercancel', cancelPointer);
-          el.removeEventListener('lostpointercapture', cancelPointer);
-          el.removeEventListener('click', suppressDraggedClick, true);
-          window.removeEventListener('blur', cancelPointer);
-          document.removeEventListener('pointermove', trackPointer, true);
-          document.removeEventListener('pointerdown', trackPress, true);
-          document.removeEventListener('keydown', trackKeyboard, true);
-          document.removeEventListener('pointerup', kick, true);
-          document.removeEventListener('wheel', kick);
-          document.removeEventListener('scroll', kick, true);
-          document.removeEventListener('input', kick, true);
-          unbindContactKeyboard();
-          cancelAnimationFrame(contactViewportFrame);
-          window.visualViewport?.removeEventListener(
-            'resize',
-            resizeContactViewport,
-          );
-          window.visualViewport?.removeEventListener(
-            'scroll',
-            resizeContactViewport,
-          );
-          surfaceElement.removeEventListener('focusin', resizeContactViewport);
-          document.removeEventListener('focusin', feedbackChanged);
-          document.removeEventListener('focusout', feedbackChanged);
-          document.documentElement.removeEventListener(
-            'pointerleave',
-            cancelPointer,
-          );
-          delete interactionScope.dataset.sceneInput;
-          renderer.domElement.removeEventListener('webglcontextlost', lost);
-          window.removeEventListener(
-            'orbital:shadow-diagnostic',
-            shadowDiagnostic,
-          );
-          window.removeEventListener(
-            'orbital:motion-diagnostic',
-            motionDiagnostic,
-          );
-          latest.current.onSurfaceReady(null);
-          latest.current.onNotebookSurfaceReady?.(null);
-          model.group.userData.aboutPhotoPrints.dispose();
-          disposeShadingAudit?.();
-          const materials = new Set<Three.Material>(),
-            geometries = new Set<Three.BufferGeometry>(),
-            textures = new Set<Three.Texture>();
-          scene.traverse((object) => {
-            if (
-              object instanceof THREE.Mesh ||
-              object instanceof THREE.InstancedMesh
-            ) {
-              geometries.add(object.geometry);
-              (Array.isArray(object.material)
-                ? object.material
-                : [object.material]
-              ).forEach((m) => {
-                materials.add(m);
-                for (const value of Object.values(m))
-                  if (value instanceof THREE.Texture) textures.add(value);
-              });
-            }
-          });
-          materials.forEach((m) => m.dispose());
-          geometries.forEach((g) => g.dispose());
-          textures.forEach((t) => t.dispose());
-          pixelCache.dispose();
-          ao.dispose();
-          aoQuad.dispose();
-          aoMaterial.dispose();
-          background.dispose();
-          environment.dispose();
-          disposeShadowAudit?.();
-          auditBackup?.dispose();
-          for (const light of shadowLights) light.shadow.dispose();
-          renderer.dispose();
-          renderer.domElement.remove();
-          cssRenderer.domElement.remove();
-          surfaceLayer.remove();
-          contactReturnHint.remove();
-          api.current = null;
-        };
       },
     )
     .catch((error) => {
+      if (destroyed) return;
       if (process.env.NODE_ENV === 'development' && host.current)
         host.current.dataset.sceneError = String(error);
       console.error('Interactive renderer initialization failed', error);

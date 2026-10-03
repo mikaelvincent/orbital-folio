@@ -66,6 +66,50 @@ the boundaries, short opposing-order measurements, overhead and correctness
 checks. Its frozen scene isolates these mechanisms; do not extrapolate its
 percentages to continuous dish motion or energy savings.
 
+## Loading and repeated input work
+
+Load the spacecraft runtime only when the interactive view is enabled; load the
+diagnostics implementation only when requested (or by an explicit audit lab).
+Register cleanup as each scene resource is acquired, so a failed initialization
+releases earlier resources as well as a completed scene. Keep pending-import
+cancellation and fallback behavior covered by the spacecraft lifecycle tests.
+
+Studio caches saved JSON/status for the visible entries and current selection;
+portfolio notebook keys follow content identity. These retain strings between
+renders but avoid rebuilding them on unrelated input. Hidden notebook sections
+must remain mounted: they supply native HTML for page-turn ink. Release their
+settled measurement observers, while retaining font/media remeasurement events;
+removing those source trees was rejected because it broke cross-section turns.
+
+Against `34cf4ee`, the production portfolio chunk changed from 210,090 to 49,814
+raw bytes (70,881 to 15,378 gzip). Interactive use additionally loads a 114,496-byte
+runtime; diagnostics adds 47,869 bytes only on demand. Splitting adds about 2.1 KB
+across these chunks and another import dependency. These are chunk sizes, not
+whole-page transfer or process-memory measurements.
+
+Node 26 render-function fixtures used the actual old/new component code with
+persistent hook slots and stubbed children, without React DOM/commit work. Each
+variant received ten warmup edits, then ABBA and BAAB captures of 250 edits:
+
+| Workload | JSON serializations per edit, before → after | Baseline capture ms | Candidate capture ms |
+| --- | --- | --- | --- |
+| Studio: 24 projects, 24,000 body characters each | 98 → 1 | 173.2–179.5 | 9.6–12.0 |
+| Contact input: 20 notebook sections of the same size | 21 → 0 | 140.1–141.7 | 1.57–1.70 |
+
+An earlier timing pass overlapped a build and was excluded; the table uses the
+declared repeat without competing agent builds, tests or rendering tabs. These
+isolate removed serialization work, not full browser interaction latency.
+
+Production startup used fresh isolated D1/R2, loopback and Chromium 154 on the
+M4/macOS 27.0.1, at 1280×720 CSS / 2560×1440 buffer with normal scene quality.
+After two alternating warmups per variant, navigation-to-first-ready-frame
+samples were ABBA `[1310.8, 1160.9, 1137.2, 1115.4]` and BAAB
+`[1204.8, 1184.5, 1111.9, 1123.0]` ms. Opposite block directions and 17% baseline
+spread prevent a startup speed claim. Retain the loading boundary for avoided
+reading-view/diagnostics work, with no consistent startup penalty in this small
+warm-cache comparison. No hosted, cold-network, GPU or energy gain was measured.
+All measurement instrumentation and disposable environments were removed.
+
 ## Portfolio request work
 
 Portfolio caching concerns request delivery, not continuous scene rendering.
@@ -111,6 +155,21 @@ request/data workload and an explicit freshness/invalidation design. For future
 checks, count actual repository executions on the relevant built routes in a
 disposable checkout; keep instrumentation out of deployed routes. The repository
 tests cover the installed request cache, request isolation and content lifecycle.
+
+Standalone icon/robots handlers now query only the published site record by
+primary key. Conditional media requests preserve authorization/publication checks
+and skip R2 body reads on matching ETags; ranged HEAD requests reuse metadata.
+Inbox cursors use `(created_at, id) < (?, ?)` with the existing composite index.
+The rate-limit expiry index bounds probabilistic cleanup without changing limits.
+Local D1 query plans verify index searches for all three database paths; route
+tests cover cursor ties and media validators, ranges and private access.
+
+The expiry index adds storage and new-key insertion work. A Node SQLite fixture
+included those writes: 10,000 unexpired initial keys, 5,000 new-key upserts and one
+expiry deletion per 50 inserts. After warmup, ABBA/BAAB capture totals fell from
+29.37–29.76 to 12.35–12.49 ms; the index used 172 KiB more database pages at the
+final 15,000 keys. Runs starting at 100 and 1,000 keys also improved. Retain it
+for bounded cleanup, without extrapolating these synthetic times to hosted D1.
 
 ## Thermal-aware comparison procedure
 
