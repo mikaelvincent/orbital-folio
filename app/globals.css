@@ -2859,7 +2859,10 @@ body:has(.orbital-experience.is-immersive)
   width: 100%;
   height: 100%;
   display: block;
-  touch-action: pinch-zoom;
+  touch-action: none;
+}
+.immersive-ship .overview-callout {
+  touch-action: none;
 }
 .orbital-render[hidden],
 .reader-stage[hidden],
@@ -3461,10 +3464,11 @@ body:has(#room-reader:target) .boot-loader {
 .world-surface {
   pointer-events: auto;
   contain: layout style;
+  touch-action: pan-x pan-y;
 }
 .world-hotspot {
   pointer-events: auto;
-  touch-action: pinch-zoom;
+  touch-action: none;
   font: 500 20px/1.3 var(--font-body, sans-serif);
   background: linear-gradient(var(--ivory-soft), var(--ivory-shade));
   color: var(--carbon);
@@ -3813,7 +3817,7 @@ body:has(#room-reader:target) .boot-loader {
 .world-object-target {
   display: block;
   pointer-events: auto;
-  touch-action: pinch-zoom;
+  touch-action: none;
   cursor: pointer;
   border: 3px solid transparent;
   border-radius: 22px;

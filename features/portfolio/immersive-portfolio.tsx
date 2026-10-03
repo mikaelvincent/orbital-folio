@@ -337,26 +337,14 @@ export function ImmersivePortfolio({
     setReading(
       new URLSearchParams(location.search).get('view') === 'reading' ||
         location.hash === '#room-reader' ||
-        innerHeight < 480,
+        (url.searchParams.get('view') !== 'interactive' && innerHeight < 480),
     );
-    const viewportChange = () => {
-      if (
-        document.activeElement?.matches('input,textarea,[contenteditable=true]')
-      )
-        return;
-      if (innerHeight < 480 || (window.visualViewport?.scale || 1) > 1.15)
-        setReading(true);
-    };
-    window.addEventListener('resize', viewportChange);
-    window.visualViewport?.addEventListener('resize', viewportChange);
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(media.matches);
     const change = () => setReduced(media.matches);
     media.addEventListener('change', change);
     return () => {
       media.removeEventListener('change', change);
-      window.removeEventListener('resize', viewportChange);
-      window.visualViewport?.removeEventListener('resize', viewportChange);
     };
   }, [initialSection, initialSlug, parseURL]);
 
@@ -370,8 +358,7 @@ export function ImmersivePortfolio({
       go(next, false);
       const nextReading =
         url.searchParams.get('view') === 'reading' ||
-        url.hash === '#room-reader' ||
-        innerHeight < 480;
+        url.hash === '#room-reader';
       if (nextReading !== reading) {
         setReading(nextReading);
         setArrived(false);

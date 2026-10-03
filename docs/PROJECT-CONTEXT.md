@@ -12,7 +12,8 @@ Projects / Case studies sit above About / Contact, joined by side doors and the
 tall left ladder bay. Keep the ship stationary and fit cameras to the shared
 architectural reference. Furniture changes must not independently change room
 scale or camera fit. Very short screens default to Reading view; explicit
-Interactive opt-in must still work at the available dimensions.
+Interactive opt-in must still work at the available dimensions. Resizing or
+zooming an active Interactive view must never switch it to Reading view.
 
 Aim for an artistic, futuristic, believable spacecraft. Fixtures need a purpose
 and convincing attachment to the actual curved lining. Favor justified spacing
@@ -139,6 +140,15 @@ checks. Overview→room travel moves directly inward while rolling; hull croppin
 is intentional. Do not restore the rejected pullback/whole-hull clearance detour.
 Fold displayed hover/drag/dolly into departure and preserve momentum when history
 interrupts a flight.
+
+Interactive zoom moves the physical camera forward with the existing lens.
+Wheel over the scene, trackpad/touch pinch, and Ctrl/Cmd +/− change camera distance;
+Ctrl/Cmd 0 restores the normal framing. Zooming out stops at that view's authored
+camera position. Bound inward movement before cabin furniture and content planes.
+Navigation departs from the zoomed position and arrives at the new view's normal
+framing; resizing preserves zoom. Ordinary wheel and one-finger content scrolling
+remain native, as do browser shortcuts in editable fields, tools and Reading view.
+Reduced motion applies requested zoom immediately.
 
 Direct room URLs start at overview and use normal room entry. Drag release springs
 back to hover without discarding velocity; preserve re-grab continuity and click

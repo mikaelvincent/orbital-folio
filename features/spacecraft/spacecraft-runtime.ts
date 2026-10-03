@@ -24,6 +24,7 @@ import type { createScenePerformance } from '@/features/diagnostics/scene-perfor
 import { createSceneMetadataPublisher } from '@/features/diagnostics/scene-metadata';
 import { updateRenderSceneMatrices } from '@/features/spacecraft/scene-matrices';
 import { createVesselCameraFrame } from '@/features/spacecraft/navigation/vessel-camera';
+import { bindCameraZoom, createCameraZoom } from './navigation/camera-zoom';
 import {
   createOverviewFlight,
   sampleOverviewFlight,
@@ -1006,6 +1007,7 @@ export function mountSpacecraftScene({
           ],
           hoverMotion = [axis(), axis()],
           dollyMotion = axis();
+        const zoom = createCameraZoom();
         const resetAxis = (state: MotionAxis, value: number) => {
           state.value = value;
           state.velocity = 0;
@@ -1597,8 +1599,20 @@ export function mountSpacecraftScene({
           nextDistance = desired.distance;
           nextRoll = desired.roll;
         };
-        const go = (immediate = false, notify = true) => {
+        const go = (immediate = false, notify = true, preserveZoom = false) => {
           cancelInput();
+          if (!preserveZoom) {
+            // Every flight starts at the displayed eye, including landscape
+            // and cabin routes. The destination receives its own normal fit.
+            const factor = zoom.factor();
+            distanceMotion.velocity =
+              factor *
+              (distanceMotion.velocity -
+                distanceMotion.value * zoom.motion.velocity);
+            distanceMotion.value *= factor;
+            distance = distanceMotion.value;
+            zoom.clear();
+          }
           dragGoal.set(0, 0);
           // A pointer position from the previous room must not tilt the arrival.
           // Preserve spring velocity so the view returns to center smoothly.
@@ -1632,6 +1646,12 @@ export function mountSpacecraftScene({
             model.group,
           );
           const desired = active === 'home' ? overview : pose(active, reading);
+          // Stay in front of the cabin opening/furniture, or the close-up
+          // content plane. Overview can approach for inspection without entry.
+          zoom.limit(
+            desired.distance,
+            active === 'home' ? 4 : reading ? 0.35 : 1.6,
+          );
           const desiredFraming = el.dataset.framing;
           itinerary = [];
           overviewFlight = null;
@@ -2041,6 +2061,7 @@ export function mountSpacecraftScene({
             (reading && !applicationRoom()) ||
               !latest.current.enabled ||
               !!down?.gesture.dragging ||
+              !!zoomInput?.pinching ||
               document.hidden,
             pointerFeedback,
             () => targetFeedback(document.activeElement),
@@ -2193,11 +2214,12 @@ export function mountSpacecraftScene({
           const cameraTarget = currentTarget.clone();
           cameraTarget.x += hoverMotion[0].value;
           cameraTarget.y += hoverMotion[1].value;
+          const zoomFactor = zoom.update(delta, stop);
           cameraFrame.apply(
             camera,
             cameraTarget,
             direction,
-            distance * (1 - 0.025 * dollyMotion.value),
+            distance * (1 - 0.025 * dollyMotion.value) * zoomFactor,
             roll,
           );
           // Illumination stays in the vessel/world frame while the camera rolls.
@@ -2269,6 +2291,7 @@ export function mountSpacecraftScene({
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
           const near =
+            zoom.motion.value > 0 ||
             (reading &&
               (active === 'projects' ||
                 active === 'experience' ||
@@ -2688,6 +2711,8 @@ export function mountSpacecraftScene({
               transitWalkway,
               hoveredWalkway,
               roll,
+              zoom: Math.exp(zoom.motion.value),
+              cameraFov: camera.fov,
               cameraFar: camera.far,
               roomLevels: Object.fromEntries(
                 Object.entries(model.group.userData.lightingState || {}).map(
@@ -2732,6 +2757,7 @@ export function mountSpacecraftScene({
             if (collectDiagnostics) {
               publishSceneMetadata();
               Object.assign(el.dataset, {
+                cameraZoom: String(Math.exp(zoom.motion.value)),
                 cameraFar: String(camera.far),
                 cameraAspect: String(camera.aspect),
                 cameraPosition: camera.position
@@ -3034,7 +3060,7 @@ export function mountSpacecraftScene({
               true,
             );
             initializedCamera = true;
-          } else go(true, travelling);
+          } else go(true, travelling, true);
         };
         const observer = new ResizeObserver(resize);
         lifetime.defer(() => observer.disconnect());
@@ -3187,7 +3213,7 @@ export function mountSpacecraftScene({
           return true;
         };
         const trackPointer = (event: PointerEvent) => {
-          if (!event.isPrimary) return;
+          if (!event.isPrimary || zoomInput?.pinching) return;
           if (
             sceneToolInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
@@ -3197,7 +3223,7 @@ export function mountSpacecraftScene({
           feedbackChanged();
         };
         const trackPress = (event: PointerEvent) => {
-          if (!event.isPrimary) return;
+          if (!event.isPrimary || zoomInput?.pinching) return;
           if (
             sceneToolInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
@@ -3224,6 +3250,7 @@ export function mountSpacecraftScene({
           feedbackChanged();
         };
         const move = (event: PointerEvent) => {
+          if (zoomInput?.pinching) return;
           if (
             !down &&
             (event.target as Element).closest('.world-surface') &&
@@ -3271,6 +3298,7 @@ export function mountSpacecraftScene({
         const pointerDown = (event: PointerEvent) => {
           if (
             down ||
+            zoomInput?.pinching ||
             !event.isPrimary ||
             event.button !== 0 ||
             (reading && (!applicationRoom() || travelling)) ||
@@ -3415,6 +3443,26 @@ export function mountSpacecraftScene({
           feedback.reset();
           leave();
         };
+        const zoomInput = bindCameraZoom(el, {
+          enabled: () => latest.current.enabled,
+          available: () => !travelling,
+          change: (delta) => {
+            zoom.change(delta);
+            kick();
+          },
+          reset: () => {
+            zoom.reset();
+            kick();
+          },
+          interrupt: () => {
+            cancelInput();
+            suppressClickUntil = performance.now() + 450;
+            pointerGoal.set(0, 0);
+            feedback.reset();
+            kick();
+          },
+        });
+        lifetime.defer(() => zoomInput?.dispose());
         listen(el, 'pointerdown', pointerDown, true);
         listen(el, 'pointerup', pointerUp, true);
         listen(el, 'pointermove', move, true);
