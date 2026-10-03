@@ -4,12 +4,54 @@ import {
   applicationDestination,
   destinationFromURL,
   destinationHref,
+  parentDestination,
   flightEase,
   cursorTranslation,
   cursorRotation,
   damping,
 } from '../../features/spacecraft/navigation/flight.ts';
 import { pageMetadata } from '../../lib/metadata.ts';
+
+test('Interactive Back steps through each application to its room and overview', () => {
+  const routes = [
+    ['/projects/relay', '/projects?open=1', '/projects', '/'],
+    [
+      '/case-studies/recovery?category=systems',
+      '/case-studies?open=1&category=systems',
+      '/case-studies',
+      '/',
+    ],
+    ['/case-studies/recovery', '/case-studies?open=1', '/case-studies', '/'],
+    ['/about/story?page=5', '/about', '/'],
+    ['/about?open=1', '/about', '/'],
+    ['/privacy', '/contact?open=1', '/contact', '/'],
+    ['/contact?sent=1', '/contact', '/'],
+    ['/contact?error=1', '/contact', '/'],
+  ];
+  for (const route of routes) {
+    for (const preview of [false, true]) {
+      const site = { _preview: preview };
+      for (let index = 0; index < route.length - 1; index++) {
+        const current = destinationFromURL(
+          new URL(route[index], 'https://portfolio.example'),
+        );
+        const expected = destinationFromURL(
+          new URL(route[index + 1], 'https://portfolio.example'),
+        );
+        const entry = destinationFromURL(
+          new URL(destinationHref(current, site), 'https://portfolio.example'),
+          preview,
+        );
+        assert.equal(
+          destinationHref(parentDestination(entry), site),
+          destinationHref(expected, site),
+          `Back from ${route[index]}${preview ? ' in private preview' : ''}`,
+        );
+      }
+    }
+  }
+  assert.deepEqual(parentDestination({ section: 'home' }), { section: 'home' });
+});
 
 test('Privacy URLs keep their identity while targeting the open Contact monitor', () => {
   for (const preview of [false, true]) {

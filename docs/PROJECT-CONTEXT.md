@@ -146,6 +146,13 @@ suppression. Touch/outside release returns to neutral. Navigation clears stale
 pointer goals. Keep reading view, reduced motion, keyboard/focus and history
 behavior.
 
+Visitor navigation lists Projects before Case studies in Interactive and Reading
+views. The Interactive navigation's leading button steps up one level: project or
+case-study detail → its collection → its room → overview. Notebook content returns
+to About; privacy returns to the Contact form. Use a back arrow for content and
+room returns, and the home icon when the target is overview. Browser history and
+Escape retain their existing behavior.
+
 Visible neighboring rooms are navigation targets. Preview the first connecting
 door but retain the chosen final room, including nonadjacent routes. Solid chassis,
 rounded corners and sky stay inert. Current-room walls around doors retain normal

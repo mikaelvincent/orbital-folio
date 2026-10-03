@@ -102,6 +102,7 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
   "shared": [
     "{application} content",
     "{name} (opens in a new tab)",
+    "Back to {section}",
     "Back to case studies",
     "Back to form",
     "Captions",

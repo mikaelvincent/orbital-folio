@@ -22,6 +22,7 @@ import {
   applicationDestination,
   destinationFromURL,
   destinationHref,
+  parentDestination,
   rooms,
   type Destination,
 } from '@/features/spacecraft/navigation/flight';
@@ -191,6 +192,13 @@ export function ImmersivePortfolio({
   latest.current = destination;
   const immersive = enhanced && !reading;
   const sceneDestination = applicationDestination(destination);
+  const backDestination = parentDestination(destination);
+  const backToOverview = backDestination.section === 'home';
+  const backLabel = backToOverview
+    ? s.homeLabel
+    : copy(s, 'Back to {section}', {
+        section: s[backDestination.section + 'Label'],
+      });
   const readingSurface =
     !!(sceneDestination.slug || sceneDestination.open) &&
     (destination.section !== 'projects' || data.projects.length > 0);
@@ -868,12 +876,16 @@ export function ImmersivePortfolio({
           <div className="flight-navigation" ref={navigation}>
             <a
               className="flight-home"
-              href={hrefFor({ section: 'home' })}
-              aria-label={s.homeLabel}
-              title={s.homeLabel}
+              href={hrefFor(backDestination)}
+              aria-label={backLabel}
+              title={backLabel}
               aria-current={destination.section === 'home' ? 'page' : undefined}
             >
-              <Home size={18} aria-hidden="true" />
+              {backToOverview ? (
+                <Home size={18} aria-hidden="true" />
+              ) : (
+                <ArrowLeft size={18} aria-hidden="true" />
+              )}
             </a>
             <button
               className="flight-navigation-toggle"

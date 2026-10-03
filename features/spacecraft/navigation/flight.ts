@@ -5,7 +5,7 @@ import {
 import { pathFor } from '../../../lib/paths.ts';
 
 // Keep the persisted experience key while its rendered room is Case studies.
-export const rooms = ['experience', 'projects', 'about', 'contact'] as const;
+export const rooms = ['projects', 'experience', 'about', 'contact'] as const;
 export type Room = (typeof rooms)[number];
 export type Destination = {
   section: string;
@@ -23,6 +23,20 @@ export function applicationDestination(destination: Destination): Destination {
   return destination.section === 'privacy'
     ? { section: 'contact', open: true }
     : destination;
+}
+
+/** Step out through the current application's hierarchy, even on a deep link. */
+export function parentDestination(destination: Destination): Destination {
+  const { section, slug, category, open, sent, error } = destination;
+  if (section === 'privacy') return { section: 'contact', open: true };
+  if (slug && (section === 'projects' || section === 'experience'))
+    return {
+      section,
+      open: true,
+      ...(section === 'experience' && category ? { category } : {}),
+    };
+  if (slug || open || sent || error) return { section };
+  return { section: 'home' };
 }
 
 export function destinationFromURL(
