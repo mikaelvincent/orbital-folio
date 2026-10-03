@@ -29,6 +29,7 @@
   line-height: 1;
 }
 .case-study-collection-count small {
+  text-transform: uppercase;
   display: block;
   margin-top: 6px;
   color: var(--text-muted);

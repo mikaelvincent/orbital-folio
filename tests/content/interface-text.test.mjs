@@ -94,6 +94,8 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'Send message',
     'Let’s connect.',
     'Systems',
+    'study',
+    'studies',
   ])
     assert.ok(keys.has(message), message);
   for (const message of [
@@ -109,6 +111,8 @@ test('generated catalog covers content messages and excludes fixed tools and dec
     'Unassigned',
     'Schedule a call',
     'Send a message',
+    'story',
+    'stories',
   ])
     assert.ok(!keys.has(message), message);
   assert.equal(
@@ -209,6 +213,8 @@ test('old and unknown overrides are discarded without mutating the original reco
     interfaceText: JSON.parse(`{
       "Unassigned": "Saved legacy screen text",
       "Schedule a call": "Saved legacy call label",
+      "story": "story",
+      "stories": "stories",
       "Unknown message": 42,
       "__proto__": {"polluted": true},
       "constructor": "Unsupported",

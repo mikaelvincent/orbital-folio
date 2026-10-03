@@ -212,7 +212,7 @@ test('Archive categories pack above blank bottom cartridges after live content c
   );
 });
 
-test('Empty cartridge artwork contains no category title, icon or identifier', () => {
+test('Archive artwork clears empty cartridges and uses Studio count labels', () => {
   const previous = globalThis.document;
   const canvases = [];
   const canvasDocument = {
@@ -249,7 +249,26 @@ test('Empty cartridge artwork contains no category title, icon or identifier', (
     const helpers = createModelPrimitives(THREE, root, undefined, {
       experience: [],
     });
-    const archive = buildCaseStudyArchive(THREE, helpers, root);
+    const archive = buildCaseStudyArchive(THREE, helpers, root, {
+      site: {
+        interfaceText: { study: 'case study', studies: 'case studies' },
+      },
+    });
+    const terminal = archive.screens.find((screen) => screen.category === 'all');
+    const terminalCanvas = terminal.hitTarget.material.map.image;
+    for (const count of [0, 1, 2, 0]) {
+      archive.setCaseCount(count);
+      terminal.setAvailable(count > 0);
+      const labels = terminalCanvas.ink
+        .filter(([kind]) => kind === 'fillText')
+        .map(([, text]) => text);
+      assert.deepEqual(labels, [
+        'All case studies',
+        ...(count ? [] : ['STANDBY']),
+        count === 1 ? 'CASE STUDY' : 'CASE STUDIES',
+        String(count).padStart(2, '0'),
+      ]);
+    }
     for (const screen of archive.screens.filter(
       (screen) => screen.category !== 'all',
     )) {

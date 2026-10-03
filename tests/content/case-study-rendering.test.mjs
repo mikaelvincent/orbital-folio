@@ -89,6 +89,7 @@ test('physical category collections show assigned studies, accessible native lin
   assert.match(markup, /aria-label="Case studies application content"/);
   assert.match(markup, /aria-label="Close Case studies application"/);
   assert.match(markup, /<ol class="case-study-archive-list">/);
+  assert.match(markup, /01<small>study<\/small>/);
   assert.match(markup, /<span>Studio<\/span>/);
   assert.match(markup, /<span>2026<\/span>/);
   assert.doesNotMatch(
@@ -101,6 +102,30 @@ test('physical category collections show assigned studies, accessible native lin
   });
   assert.match(all, /href="\/case-studies\/older-story"/);
   assert.match(all, /href="\/case-studies\/recovery"/);
+  assert.match(all, /02<small>studies<\/small>/);
+
+  const authored = {
+    ...data,
+    site: {
+      ...data.site,
+      interfaceText: { study: 'case study', studies: 'case studies' },
+    },
+  };
+  for (const [category, label] of [
+    ['systems', 'case study'],
+    ['all', 'case studies'],
+  ]) {
+    for (const [Component, props] of [
+      [CaseStudyLibraryWindow, windowProps],
+      [ReadingCaseStudyLibrary, {}],
+    ])
+      assert.ok(
+        render(Component, { ...props, data: authored, category }).includes(
+          `<small>${label}</small>`,
+        ),
+        'both collection views use the Studio count labels',
+      );
+  }
 });
 
 test('reading controls hide empty categories and stale selections return to All', () => {
@@ -131,6 +156,7 @@ test('reading controls hide empty categories and stale selections return to All'
     category: 'product',
   });
   assert.match(empty, /No case studies are available yet/);
+  assert.match(empty, /00<small>studies<\/small>/);
   assert.doesNotMatch(empty, /<button|<a /);
   // A stale direct monitor selection remains an explicit empty collection;
   // no physical target or reading control can newly select it.

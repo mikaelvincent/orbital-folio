@@ -78,8 +78,8 @@ export const interfaceTextCatalog: Record<string, readonly string[]> = {
     "Product engineering",
     "Read case study: {title}",
     "Research & experiments",
-    "stories",
-    "story",
+    "studies",
+    "study",
     "Systems & reliability",
     "THE DECISIONS BEHIND THE WORK"
   ],

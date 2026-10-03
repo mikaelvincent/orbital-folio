@@ -838,14 +838,11 @@ export function buildCaseStudyArchive(
         ch * 0.48,
         cw - 150,
       );
-      ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
-      ctx.font = '400 39px Arial, sans-serif';
-      ctx.fillText(
-        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
-        cw / 2,
-        ch * 0.62,
-        cw - 150,
-      );
+      if (!terminalAvailable) {
+        ctx.fillStyle = PALETTE.textMuted;
+        ctx.font = '400 39px Arial, sans-serif';
+        ctx.fillText('STANDBY', cw / 2, ch * 0.62, cw - 150);
+      }
       ctx.strokeStyle = PALETTE.bronze;
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -855,7 +852,14 @@ export function buildCaseStudyArchive(
       ctx.textAlign = 'left';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '500 26px monospace';
-      ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88, cw - 280);
+      ctx.fillText(
+        (caseCount === 1
+          ? copy(options.site, 'study')
+          : copy(options.site, 'studies')).toUpperCase(),
+        85,
+        ch * 0.88,
+        cw - 280,
+      );
       ctx.textAlign = 'right';
       ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.bronzeLight;
       ctx.font = '500 38px Arial, sans-serif';
