@@ -492,12 +492,6 @@
   .is-readable .reading-about-introduction h1 {
     font-size: clamp(30px, 8vw, 40px);
   }
-  .is-readable .reading-about-introduction .reading-about-biography {
-    grid-column: 1 / -1;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.75;
-  }
   .is-readable .reading-about-introduction .about-social-links {
     grid-column: 1 / -1;
     margin: 0;

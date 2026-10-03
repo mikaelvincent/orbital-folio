@@ -208,9 +208,6 @@ export function AboutView({
                   <p className="reading-eyebrow">{s.aboutLabel}</p>
                   <h1>{s.name}</h1>
                 </div>
-                {s.biography && (
-                  <p className="reading-about-biography">{s.biography}</p>
-                )}
                 <AboutSocialLinks data={data} />
               </div>
               {hasPortrait && (

@@ -623,7 +623,7 @@ test('About Reading view opens a contents index and renders only the selected co
   const overview = render(AboutView, { data });
   assert.match(overview, /href="\/about\/university-life\?view=reading"/);
   assert.match(overview, /href="\/about\/career\?view=reading"/);
-  assert.match(overview, /A brief introduction\./);
+  assert.doesNotMatch(overview, /A brief introduction\./);
   assert.match(overview, /Learning with others/);
   for (const slug of ['university-life', 'career']) {
     assert.equal(
@@ -712,7 +712,7 @@ test('About contents and empty states use Studio fields without inventing sectio
   const empty = render(AboutView, { data });
   assert.match(empty, /<h1>Owner &amp; collaborator<\/h1>/);
   assert.match(empty, /<h2[^>]*>Notes to come<\/h2>/);
-  assert.match(empty, /An authored biography\./);
+  assert.doesNotMatch(empty, /An authored biography\./);
   assert.match(empty, /The owner’s empty message\./);
   assert.doesNotMatch(empty, /<nav|<details|<ol|<article/);
 
@@ -733,7 +733,7 @@ test('About contents and empty states use Studio fields without inventing sectio
   );
   assert.doesNotMatch(
     overview,
-    /Full body\.|The owner’s empty message|Notes to come/,
+    /Full body\.|An authored biography\.|The owner’s empty message|Notes to come/,
   );
 
   const selected = render(AboutView, { data, section: data.journal[0] });
