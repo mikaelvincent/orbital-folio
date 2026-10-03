@@ -1008,6 +1008,25 @@ export function mountSpacecraftScene({
           hoverMotion = [axis(), axis()],
           dollyMotion = axis();
         const zoom = createCameraZoom();
+        const inputAngles = (dt = 0) => {
+          const at = (axis: MotionAxis) => axis.value + axis.velocity * dt;
+          return boundedCameraAngles(
+            [at(pointerMotion[0]), at(pointerMotion[1])],
+            [at(dragMotion[0]), at(dragMotion[1])],
+            {
+              pitch: at(rangeMotion[0]),
+              yaw: at(rangeMotion[1]),
+              minPitch: at(rangeMotion[2]),
+              minYaw: at(rangeMotion[3]),
+            },
+          );
+        };
+        const inputDirection = (dt = 0, angles = inputAngles(dt)) => {
+          const at = (axis: MotionAxis) => axis.value + axis.velocity * dt;
+          return new THREE.Vector3(...directionMotion.map(at))
+            .normalize()
+            .applyEuler(new THREE.Euler(angles[0], angles[1], 0));
+        };
         const resetAxis = (state: MotionAxis, value: number) => {
           state.value = value;
           state.velocity = 0;
@@ -1604,6 +1623,22 @@ export function mountSpacecraftScene({
           if (!preserveZoom) {
             // Every flight starts at the displayed eye, including landscape
             // and cabin routes. The destination receives its own normal fit.
+            const offsetAt = (dt: number) =>
+              zoom.offset(
+                (distanceMotion.value + distanceMotion.velocity * dt) *
+                  (1 - 0.025 * (dollyMotion.value + dollyMotion.velocity * dt)),
+                inputDirection(dt).toArray(),
+                camera.fov,
+                camera.aspect,
+                dt,
+              );
+            const offset = offsetAt(0);
+            const previousOffset = offsetAt(-0.0001);
+            offset.forEach((value, i) => {
+              targetMotion[i].value += value;
+              targetMotion[i].velocity += (value - previousOffset[i]) / 0.0001;
+            });
+            currentTarget.add(new THREE.Vector3(...offset));
             const factor = zoom.factor();
             distanceMotion.velocity =
               factor *
@@ -1747,25 +1782,13 @@ export function mountSpacecraftScene({
             // and create an unwanted retreat even on a strictly inward path.
             const departure = (dt = 0): FlightPose => {
               const at = (axis: MotionAxis) => axis.value + axis.velocity * dt;
-              const angles = boundedCameraAngles(
-                [at(pointerMotion[0]), at(pointerMotion[1])],
-                [at(dragMotion[0]), at(dragMotion[1])],
-                {
-                  pitch: at(rangeMotion[0]),
-                  yaw: at(rangeMotion[1]),
-                  minPitch: at(rangeMotion[2]),
-                  minYaw: at(rangeMotion[3]),
-                },
-              );
               return {
                 target: new THREE.Vector3(
                   at(targetMotion[0]) + at(hoverMotion[0]),
                   at(targetMotion[1]) + at(hoverMotion[1]),
                   at(targetMotion[2]),
                 ),
-                direction: new THREE.Vector3(...directionMotion.map(at))
-                  .normalize()
-                  .applyEuler(new THREE.Euler(angles[0], angles[1], 0)),
+                direction: inputDirection(dt),
                 distance: at(distanceMotion) * (1 - 0.025 * at(dollyMotion)),
                 roll: at(rollMotion),
               };
@@ -2198,28 +2221,25 @@ export function mountSpacecraftScene({
                 settle: 1e-6,
               });
           });
-          const angles = boundedCameraAngles(
-            [pointerCurrent.x, pointerCurrent.y],
-            [dragMotion[0].value, dragMotion[1].value],
-            {
-              pitch: rangeMotion[0].value,
-              yaw: rangeMotion[1].value,
-              minPitch: rangeMotion[2].value,
-              minYaw: rangeMotion[3].value,
-            },
-          );
-          const direction = viewDirection
-            .clone()
-            .applyEuler(new THREE.Euler(angles[0], angles[1], 0));
+          const angles = inputAngles();
+          const direction = inputDirection(0, angles);
           const cameraTarget = currentTarget.clone();
           cameraTarget.x += hoverMotion[0].value;
           cameraTarget.y += hoverMotion[1].value;
           const zoomFactor = zoom.update(delta, stop);
+          const cameraDistance = distance * (1 - 0.025 * dollyMotion.value);
+          const zoomOffset = zoom.offset(
+            cameraDistance,
+            direction.toArray(),
+            camera.fov,
+            camera.aspect,
+          );
+          cameraTarget.add(new THREE.Vector3(...zoomOffset));
           cameraFrame.apply(
             camera,
             cameraTarget,
             direction,
-            distance * (1 - 0.025 * dollyMotion.value) * zoomFactor,
+            cameraDistance * zoomFactor,
             roll,
           );
           // Illumination stays in the vessel/world frame while the camera rolls.
@@ -2712,6 +2732,7 @@ export function mountSpacecraftScene({
               hoveredWalkway,
               roll,
               zoom: Math.exp(zoom.motion.value),
+              zoomOffset,
               cameraFov: camera.fov,
               cameraFar: camera.far,
               roomLevels: Object.fromEntries(
@@ -3446,8 +3467,8 @@ export function mountSpacecraftScene({
         const zoomInput = bindCameraZoom(el, {
           enabled: () => latest.current.enabled,
           available: () => !travelling,
-          change: (delta) => {
-            zoom.change(delta);
+          change: (delta, point) => {
+            zoom.change(delta, point);
             kick();
           },
           reset: () => {

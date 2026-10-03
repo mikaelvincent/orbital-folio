@@ -61,6 +61,249 @@ test('rapid reversals, inward limits, and reduced motion retain hard camera boun
   }
 });
 
+test('cursor dolly follows the selected ray and holds its focus-plane point in landscape, portrait and tilted views', () => {
+  for (const [aspect, roll, fov] of [
+    [16 / 9, 0, 38],
+    [390 / 844, Math.PI / 2, 74],
+  ]) {
+    for (const view of [
+      [-0.28, 0.2, 1],
+      [0, 0.54, 0.84],
+    ]) {
+      for (const point of [
+        [-0.7, 0.6],
+        [0.65, -0.5],
+      ]) {
+        const zoom = createCameraZoom();
+        const camera = new THREE.PerspectiveCamera(fov, aspect, 0.08, 80);
+        const frame = createVesselCameraFrame(THREE);
+        const target = new THREE.Vector3(-2, 1, 0.16);
+        const direction = new THREE.Vector3(...view).normalize();
+        const apply = () =>
+          frame.apply(
+            camera,
+            target
+              .clone()
+              .add(
+                new THREE.Vector3(
+                  ...zoom.offset(12, direction.toArray(), fov, aspect),
+                ),
+              ),
+            direction,
+            12 * zoom.factor(),
+            roll,
+          );
+        apply();
+        const original = camera.position.clone();
+        const rotation = camera.quaternion.clone();
+        const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(
+          camera.getWorldDirection(new THREE.Vector3()),
+          target.clone().applyAxisAngle(new THREE.Vector3(0, 0, 1), -roll),
+        );
+        const ray = new THREE.Raycaster();
+        ray.setFromCamera(new THREE.Vector2(...point), camera);
+        const landmark = ray.ray.intersectPlane(plane, new THREE.Vector3());
+        assert.ok(landmark);
+        zoom.change(Math.log(2.5), point);
+        for (let i = 0; i < 240; i++) {
+          zoom.update(1 / 60);
+          apply();
+          const projected = landmark.clone().project(camera);
+          assert.ok(
+            Math.hypot(projected.x - point[0], projected.y - point[1]) < 1e-9,
+          );
+          assert.ok(
+            camera.position
+              .clone()
+              .sub(original)
+              .cross(ray.ray.direction)
+              .length() < 1e-9,
+          );
+          assert.ok(camera.quaternion.angleTo(rotation) < 1e-7);
+        }
+        zoom.change(-100, [-point[0], -point[1]]);
+        zoom.update(0, true);
+        apply();
+        assert.deepEqual(
+          camera.position,
+          original,
+          'outward zoom restores the entire original eye position',
+        );
+      }
+    }
+  }
+});
+
+test('changing aim only redirects new travel, stays smooth mid-gesture and cannot pan at the inward limit', () => {
+  const zoom = createCameraZoom();
+  const offset = () =>
+    new THREE.Vector3(...zoom.offset(12, [0, 0, 1], 38, 16 / 9));
+  const slope = Math.tan((38 * Math.PI) / 360);
+  zoom.change(Math.log(1.5), [-0.8, 0.4]);
+  zoom.update(0, true);
+  const first = offset();
+  zoom.change(Math.log(2 / 1.5), [0.6, -0.5]);
+  assert.deepEqual(
+    offset(),
+    first,
+    'receiving a new aim does not jump the displayed camera',
+  );
+  for (let i = 0; i < 240; i++) {
+    zoom.update(1 / 60);
+    const addedTravel = 12 * (1 / 1.5 - zoom.factor()) * slope;
+    const movement = offset().sub(first);
+    assert.ok(
+      movement.x >= 0,
+      'new rightward aim must not initially continue left',
+    );
+    assert.ok(Math.abs(movement.x - ((addedTravel * 16) / 9) * 0.6) < 1e-10);
+    assert.ok(Math.abs(movement.y - addedTravel * -0.5) < 1e-10);
+  }
+  const increment = offset().sub(first);
+  assert.ok(
+    Math.abs(increment.x - ((12 * (1 / 1.5 - 1 / 2) * slope * 16) / 9) * 0.6) <
+      1e-10,
+  );
+  assert.ok(
+    Math.abs(increment.y - 12 * (1 / 1.5 - 1 / 2) * slope * -0.5) < 1e-10,
+  );
+  zoom.change(100, [0.4, 0.6]);
+  zoom.update(0, true);
+  const maximum = offset();
+  zoom.change(10, [-1, -1]);
+  zoom.update(0, true);
+  assert.deepEqual(
+    offset(),
+    maximum,
+    'a clamped zoom increment cannot move sideways',
+  );
+  zoom.limit(1, 1.6);
+  assert.equal(
+    offset().length(),
+    0,
+    'a resized view with no forward room cannot retain a side offset',
+  );
+  zoom.clear();
+  zoom.limit(12, 4);
+  zoom.change(Math.log(2), [1, 0]);
+  for (let i = 0; i < 8; i++) zoom.update(1 / 60);
+  const moving = offset();
+  zoom.change(0.1, [-1, 1]);
+  assert.deepEqual(
+    offset(),
+    moving,
+    're-aiming during the spring also retains continuity',
+  );
+  let previous = offset();
+  let previousFactor = zoom.factor();
+  for (let i = 0; i < 240; i++) {
+    zoom.update(1 / 60);
+    const travel = 12 * (previousFactor - zoom.factor()) * slope;
+    const next = offset();
+    assert.ok(
+      Math.abs(next.x - previous.x + (travel * 16) / 9) < 1e-10,
+      'unfinished inward travel immediately follows the new leftward aim',
+    );
+    assert.ok(Math.abs(next.y - previous.y - travel) < 1e-10);
+    previous = next;
+    previousFactor = zoom.factor();
+  }
+  zoom.reset();
+  for (let i = 0; i < 300; i++) zoom.update(1 / 60);
+  assert.equal(offset().length(), 0);
+});
+
+test('partial outward reversals restore the displayed offset after changing aim', () => {
+  for (const frames of [6, 7]) {
+    const zoom = createCameraZoom();
+    const offset = () => zoom.offset(12, [0, 0, 1], 38, 16 / 9);
+    zoom.change(Math.log(1.1), [-1, 0]);
+    zoom.update(0, true);
+    zoom.change(Math.log(2 / 1.1), [1, -0.6]);
+    for (let i = 0; i < frames; i++) zoom.update(1 / 60);
+    const displayed = offset();
+    const depth = 1 - zoom.factor();
+    zoom.change(-Math.log(0.95) - zoom.goal);
+    assert.deepEqual(offset(), displayed);
+    for (let i = 0; i < 240; i++) {
+      zoom.update(1 / 60);
+      const scale = (1 - zoom.factor()) / depth;
+      offset().forEach((value, j) => {
+        assert.ok(
+          Math.abs(value - displayed[j] * scale) < 1e-10,
+          'outward travel cannot move farther sideways or cross the origin',
+        );
+      });
+    }
+  }
+});
+
+test('shortening pending inward travel keeps its current cursor ray', () => {
+  const zoom = createCameraZoom();
+  const offset = () => zoom.offset(12, [0, 0, 1], 38, 16 / 9);
+  zoom.change(Math.log(1.1), [-1, 0]);
+  zoom.update(0, true);
+  zoom.change(Math.log(2 / 1.1), [1, -0.6]);
+  for (let i = 0; i < 6; i++) zoom.update(1 / 60);
+  const displayed = offset();
+  const factor = zoom.factor();
+  zoom.change(-0.1, [-1, 1]);
+  assert.deepEqual(offset(), displayed);
+  for (let i = 0; i < 240; i++) {
+    zoom.update(1 / 60);
+    const travel =
+      12 * (factor - zoom.factor()) * Math.tan((38 * Math.PI) / 360);
+    const next = offset();
+    assert.ok(Math.abs(next[0] - displayed[0] - (travel * 16) / 9) < 1e-10);
+    assert.ok(Math.abs(next[1] - displayed[1] + travel * 0.6) < 1e-10);
+  }
+});
+
+test('a reversal that cancels pending depth cannot jump sideways or create nonfinite motion', () => {
+  const zoom = createCameraZoom();
+  const offset = () => zoom.offset(12, [0, 0, 1], 38, 16 / 9);
+  zoom.change(Math.log(1.1), [-1, 0]);
+  zoom.update(0, true);
+  zoom.change(Math.log(2 / 1.1), [1, 0.5]);
+  for (let i = 0; i < 6; i++) zoom.update(1 / 60);
+  const before = offset();
+  const requested = zoom.motion.value;
+  zoom.change(requested - zoom.goal);
+  assert.deepEqual(offset(), before);
+  for (let i = 0; i < 240; i++) {
+    zoom.update(1 / 60);
+    assert.ok(offset().every(Number.isFinite));
+  }
+  offset().forEach((value, i) =>
+    assert.ok(Math.abs(value - before[i]) < 1e-10),
+  );
+  zoom.reset();
+  zoom.update(0, true);
+  assert.equal(Math.hypot(...offset()), 0);
+});
+
+test('nearly cancelled pending zoom cannot amplify lateral travel', () => {
+  const zoom = createCameraZoom();
+  zoom.change(Math.log(1.1), [-1, 0]);
+  zoom.update(0, true);
+  zoom.change(Math.log(2 / 1.1), [1, 0]);
+  for (let i = 0; i < 6; i++) zoom.update(1 / 60);
+  zoom.change(zoom.motion.value + 1e-10 - zoom.goal);
+  const unit = (12 * Math.tan((38 * Math.PI) / 360) * 16) / 9;
+  let previousFactor = zoom.factor();
+  let previousX = zoom.offset(12, [0, 0, 1], 38, 16 / 9)[0];
+  for (let i = 0; i < 240; i++) {
+    zoom.update(1 / 60);
+    const x = zoom.offset(12, [0, 0, 1], 38, 16 / 9)[0];
+    assert.ok(
+      Math.abs(x - previousX) <=
+        Math.abs(previousFactor - zoom.factor()) * unit + 1e-10,
+    );
+    previousFactor = zoom.factor();
+    previousX = x;
+  }
+});
+
 test('wheel pixels, lines, pages and trackpad pinch use consistent direction and units', () => {
   const wheel = (deltaY, deltaMode = 0, ctrlKey = false) =>
     wheelZoomDelta({ deltaY, deltaMode, ctrlKey }, 800);
@@ -78,6 +321,9 @@ class ElementFixture extends EventTarget {
   }
   closest(selector) {
     return this.selector && selector.includes(this.selector) ? this : null;
+  }
+  getBoundingClientRect() {
+    return { left: 100, top: 50, width: 400, height: 800 };
   }
 }
 function inputFixture(t) {
@@ -97,13 +343,17 @@ function inputFixture(t) {
     enabled: true,
     available: true,
     changes: [],
+    aims: [],
     interrupts: 0,
     resets: 0,
   };
   const binding = bindCameraZoom(el, {
     enabled: () => state.enabled,
     available: () => state.available,
-    change: (delta) => state.changes.push(delta),
+    change: (delta, point) => {
+      state.changes.push(delta);
+      state.aims.push(point);
+    },
     reset: () => state.resets++,
     interrupt: () => state.interrupts++,
   });
@@ -217,4 +467,56 @@ test('WebKit gestures avoid duplicate wheel/touch zoom and keyboard shortcuts re
   send('gesturestart', { scale: 1 });
   send('blur');
   assert.equal(binding.pinching, false);
+});
+
+test('wheel, moving pinch midpoints and keyboard/WebKit cursor fallbacks carry viewport-relative aim', (t) => {
+  const { state, send } = inputFixture(t);
+  send('wheel', { deltaY: -20, deltaMode: 0, clientX: 400, clientY: 250 });
+  assert.deepEqual(state.aims.at(-1), [0.5, 0.5]);
+  send('touchstart', {
+    touches: [
+      { clientX: 120, clientY: 600 },
+      { clientX: 220, clientY: 600 },
+    ],
+  });
+  send('touchmove', {
+    touches: [
+      { clientX: 110, clientY: 650 },
+      { clientX: 310, clientY: 650 },
+    ],
+  });
+  assert.ok(Math.abs(state.aims.at(-1)[0] + 0.45) < 1e-12);
+  assert.equal(state.aims.at(-1)[1], -0.5);
+  send('touchmove', {
+    touches: [
+      { clientX: 120, clientY: 450 },
+      { clientX: 420, clientY: 450 },
+    ],
+  });
+  assert.ok(Math.abs(state.aims.at(-1)[0] + 0.15) < 1e-12);
+  assert.equal(state.aims.at(-1)[1], 0);
+  send('touchend', { touches: [] });
+  send('pointermove', { pointerType: 'mouse', clientX: 180, clientY: 450 });
+  send('gesturestart', { scale: 1 });
+  send('gesturechange', { scale: 1.2 });
+  assert.deepEqual(state.aims.at(-1), [-0.6, 0]);
+  send('gesturechange', { scale: 1.4, clientX: 400, clientY: 650 });
+  assert.deepEqual(state.aims.at(-1), [0.5, -0.5]);
+  send('gestureend');
+  send('keydown', { key: '+', ctrlKey: true });
+  assert.deepEqual(state.aims.at(-1), [-0.6, 0]);
+  send('pointerleave', {}, new ElementFixture());
+  send('keydown', { key: '+', ctrlKey: true });
+  assert.deepEqual(
+    state.aims.at(-1),
+    [-0.6, 0],
+    'leaving a child hotspot keeps the cursor aim inside the scene',
+  );
+  send('pointerleave');
+  send('keydown', { key: '+', ctrlKey: true });
+  assert.equal(
+    state.aims.at(-1),
+    undefined,
+    'keyboard zoom without a scene cursor defaults to the center',
+  );
 });

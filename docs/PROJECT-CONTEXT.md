@@ -141,10 +141,16 @@ is intentional. Do not restore the rejected pullback/whole-hull clearance detour
 Fold displayed hover/drag/dolly into departure and preserve momentum when history
 interrupts a flight.
 
-Interactive zoom moves the physical camera forward with the existing lens.
+Interactive zoom moves the physical camera toward the cursor or the midpoint
+between the two touching fingers, with the existing lens and view orientation.
+Each inward input aims the remaining forward movement from the displayed pose;
+moving the cursor alone or continuing a gesture at the inward limit must not
+re-aim completed zoom. Keyboard zoom uses the latest scene cursor position,
+falling back to the center.
 Wheel over the scene, trackpad/touch pinch, and Ctrl/Cmd +/− change camera distance;
 Ctrl/Cmd 0 restores the normal framing. Zooming out stops at that view's authored
-camera position. Bound inward movement before cabin furniture and content planes.
+camera position, undoing both forward and sideways movement even after changing
+aim. Bound inward movement before cabin furniture and content planes.
 Navigation departs from the zoomed position and arrives at the new view's normal
 framing; resizing preserves zoom. Ordinary wheel and one-finger content scrolling
 remain native, as do browser shortcuts in editable fields, tools and Reading view.
