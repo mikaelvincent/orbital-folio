@@ -3506,6 +3506,8 @@ body:has(.orbital-experience.is-immersive)
 }
 .boot-loader {
   position: fixed;
+  /* Cover the reading header until hydration selects the visitor's view. */
+  z-index: 30;
 }
 body:has(#room-reader:target) .boot-loader {
   display: none;
