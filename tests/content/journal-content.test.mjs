@@ -625,11 +625,20 @@ test('About Reading view opens a contents index and renders only the selected co
   assert.match(overview, /href="\/about\/career\?view=reading"/);
   assert.match(overview, /A brief introduction\./);
   assert.match(overview, /Learning with others/);
+  for (const slug of ['university-life', 'career']) {
+    assert.equal(
+      overview.split(`href="/about/${slug}?view=reading"`).length - 1,
+      1,
+      'the overview presents each section once, in its main contents list',
+    );
+  }
   assert.doesNotMatch(
     overview,
-    /<article|Highlights|An experience worth remembering|<video/,
+    /<article|Highlights|An experience worth remembering|<video|reading-about-index|<details/,
   );
   const markup = render(AboutView, { data, section: data.journal[0] });
+  assert.match(markup, /class="reading-about-index"/);
+  assert.match(markup, /<details class="reading-about-picker">/);
   assert.match(markup, /<strong>Another<\/strong>/);
   assert.match(
     markup,
@@ -715,13 +724,13 @@ test('About contents and empty states use Studio fields without inventing sectio
   const overview = render(AboutView, { data });
   assert.match(overview, /<h1>Meet the owner<\/h1>/);
   assert.match(overview, /<h2>Owner &lt;notes&gt;<\/h2>/);
-  assert.match(overview, /aria-label="Choose a chapter"/);
   assert.doesNotMatch(
     overview,
     /Full body\.|The owner’s empty message|Notes to come/,
   );
 
   const selected = render(AboutView, { data, section: data.journal[0] });
+  assert.match(selected, /aria-label="Choose a chapter"/);
   assert.match(selected, /<h1>Owner &lt;notes&gt;<\/h1>/);
   assert.match(selected, /<p>Full body\.<\/p>/);
   assert.doesNotMatch(

@@ -118,7 +118,6 @@ export function AboutView({
     <nav aria-label={copy(s, 'Notebook sections')}>
       <a
         href={overviewHref}
-        aria-current={!selected ? 'page' : undefined}
         onClick={(event) => closePicker(event.currentTarget)}
         onKeyDown={dismissPicker}
       >
@@ -144,11 +143,8 @@ export function AboutView({
 
   return (
     <div className={`reading-about${selected ? ' has-section' : ''}`}>
-      {!!data.journal.length && (
-        <AboutSectionPicker
-          key={selected?.id || 'contents'}
-          label={selected?.title || copy(s, 'Notebook sections')}
-        >
+      {selected && (
+        <AboutSectionPicker key={selected.id} label={selected.title}>
           {navigation}
         </AboutSectionPicker>
       )}
@@ -245,7 +241,7 @@ export function AboutView({
           <h2>{s.name}</h2>
         </div>
         <AboutSocialLinks data={data} />
-        {!!data.journal.length && (
+        {selected && (
           <div className="reading-about-index">
             <p className="reading-eyebrow">{s.journalLabel}</p>
             {navigation}

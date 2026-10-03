@@ -247,9 +247,10 @@ applications and uses their existing editable headings and content. It adds no
 exclusive introductions, invitations, stories or social links. About opens with
 the existing biography and a numbered contents list of authored notebook titles
 and optional subtitles; section bodies appear only after selecting a section.
-The compact profile and section index stay sticky on desktop, with bounded
-overflow for short screens. Narrow screens use a sticky, collapsible section
-picker and give selected articles the full width. Articles retain the opening
+The landing page shows the contents list only in the main column, alongside the
+compact profile. Selecting a section adds the sticky desktop index or, on narrow
+screens, a sticky collapsible picker above the full-width article. Desktop
+navigation has bounded overflow for short screens. Articles retain the opening
 biography in the first section, a link back to About and adjacent-section links
 using their authored titles. All text, portraits and social links come from
 Content Studio; do not add reading-only copy or synthesized excerpts. Contact
