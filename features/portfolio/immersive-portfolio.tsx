@@ -53,6 +53,7 @@ export function ImmersivePortfolio({
   data,
   initialSection,
   initialSlug,
+  initialReading = false,
   preview,
   children,
   sceneAudit,
@@ -60,6 +61,7 @@ export function ImmersivePortfolio({
   data: Portfolio;
   initialSection: string;
   initialSlug?: string;
+  initialReading?: boolean;
   preview: boolean;
   children: React.ReactNode;
   /** Explicit local performance fixtures only; absent in normal routes. */
@@ -81,7 +83,8 @@ export function ImmersivePortfolio({
     useState<RenderingObserver | null>(null);
   const [earthPlayback, setEarthPlayback] =
     useState<EarthPlaybackController | null>(null);
-  const [reading, setReading] = useState(false);
+  // The server and hydration must agree before either can paint a boot loader.
+  const [reading, setReading] = useState(initialReading);
   const [selectedChapter, setNotebookChapter] = useState(0);
   const notebookSection =
     destination.section === 'about'
@@ -457,6 +460,12 @@ export function ImmersivePortfolio({
     }
     reader.current?.scrollTo({ top: 0, behavior: 'instant' });
     if (reading) {
+      // Escape links and automatic fallbacks must also survive a server refresh.
+      const url = new URL(location.href);
+      if (url.searchParams.get('view') !== 'reading') {
+        url.searchParams.set('view', 'reading');
+        window.history.replaceState(window.history.state, '', url);
+      }
       setTravel(false);
       setArrived(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -591,7 +600,7 @@ export function ImmersivePortfolio({
       style={{ '--accent': paletteAccent(s.accent) } as React.CSSProperties}
       onClickCapture={capture}
     >
-      {!enhanced && <SceneLoader site={s} boot />}
+      {!enhanced && !reading && <SceneLoader site={s} boot />}
       <noscript>
         <style>{`.boot-loader { display: none !important; }`}</style>
       </noscript>

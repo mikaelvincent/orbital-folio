@@ -229,9 +229,12 @@ floating tools. Keep native selection inside editable fields and throughout
 Reading view and the studio. Do not show a floating availability message or
 status dot.
 
-Loading covers the entire viewport, including identity, navigation, tools and
-preview banner, from the initial page render until the scene is ready. Keep the
-Reading view escape inside the loader during both startup phases.
+Interactive loading covers the entire viewport, including identity, navigation,
+tools and preview banner, from the initial page render until the scene is ready.
+Keep the Reading view escape inside the loader during both startup phases.
+Reading view requests render directly without a spacecraft loader, including
+before hydration on a refresh or direct entry. The loader escape and automatic
+reading fallbacks persist `view=reading` so refresh retains that choice.
 
 Semantic Reading view is predominantly dark: a deep carbon canvas, carbon panels,
 ivory text and restrained bronze details from the spacecraft palette, including
