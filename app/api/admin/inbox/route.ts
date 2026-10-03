@@ -28,11 +28,11 @@ export async function GET(req: Request) {
       throw new HttpError(400, 'Invalid inbox cursor.');
     const query = database().prepare(
       cursor
-        ? 'SELECT * FROM inquiries WHERE created_at < ? OR (created_at = ? AND id < ?) ORDER BY created_at DESC, id DESC LIMIT 100'
+        ? 'SELECT * FROM inquiries WHERE (created_at, id) < (?, ?) ORDER BY created_at DESC, id DESC LIMIT 100'
         : 'SELECT * FROM inquiries ORDER BY created_at DESC, id DESC LIMIT 100 OFFSET ?',
     );
     const { results } = await (
-      cursor ? query.bind(date, date, id) : query.bind(offset)
+      cursor ? query.bind(date, id) : query.bind(offset)
     ).all();
     return json({ inquiries: results, hasMore: results.length === 100 });
   } catch (e) {

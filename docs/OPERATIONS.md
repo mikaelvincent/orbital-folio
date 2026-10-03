@@ -25,6 +25,10 @@ only published snapshots; missing site settings trigger the existing guarded
 seed procedure. An existing site record, even unpublished after a trusted
 restore, must never be replaced with sample identity.
 
+Standalone icon and robots handlers use `getPublishedSite()` to read only the
+site's published JSON by primary key. It has the same request lifetime and
+guarded seed behavior; normal pages still share the full portfolio loader.
+
 Every new request rereads D1. There is no cross-request portfolio cache or
 invalidation service. Successful publication, unpublication and deletion are
 visible on the next origin request; an already-running request or an open scene
@@ -38,6 +42,11 @@ record and owner access. Public media, icon, robots and sitemap responses retain
 their existing `max-age=300` HTTP contract, so previously cached responses can
 outlive withdrawal at the origin for that interval. Private previews/media and
 admin responses remain private and uncached by HTTP clients.
+
+Media checks publication and owner access before evaluating `If-None-Match`.
+A matching GET or HEAD returns metadata without an R2 body, including weak,
+list and wildcard validators. HEAD and range handling share one metadata read;
+conditional responses do not bypass withdrawal or preview authorization.
 
 See the [request-work comparison](performance-diagnostics.md#portfolio-request-work)
 before adding shared caching or changing this freshness contract.

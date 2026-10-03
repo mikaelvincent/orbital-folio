@@ -1,7 +1,7 @@
 import { PALETTE, paletteAccent } from '@/lib/palette';
-import { getPortfolio } from '@/lib/content/repository';
+import { getPublishedSite } from '@/lib/content/repository';
 export async function GET() {
-  const { site: s } = await getPortfolio();
+  const s = await getPublishedSite();
   const initials = String(s.initials)
     .slice(0, 4)
     .replace(/[<>&"']/g, '');

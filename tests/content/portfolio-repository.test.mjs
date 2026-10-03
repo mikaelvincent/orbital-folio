@@ -307,3 +307,49 @@ await test('empty and JSON-null published fields retain the previous conversion 
     .run('empty', 'project', '{}', '', 'fixture');
   assert.deepEqual((await request(() => f.getPortfolio())).projects, []);
 });
+
+await test('identity routes read only published site JSON and refresh on every request', async (t) => {
+  const f = fixture(t, [
+    site(),
+    record('project', 'project', { title: 'Live' }),
+  ]);
+  // Neither unrelated collection JSON nor private drafts may be parsed.
+  f.sql.exec(
+    "UPDATE content SET published='invalid collection JSON' WHERE id='project'",
+  );
+  f.sql.exec("UPDATE content SET draft='invalid private JSON'");
+  const first = await request(async () => {
+    const a = await f.getPublishedSite();
+    assert.equal(await f.getPublishedSite(), a);
+    return a;
+  });
+  assert.deepEqual(first, { name: 'Live owner', id: 'site' });
+  assert.deepEqual(f.calls, [
+    "SELECT published FROM content WHERE id = ? AND kind = 'site'",
+  ]);
+  f.sql
+    .prepare("UPDATE content SET published=? WHERE id='site'")
+    .run(JSON.stringify({ name: 'Changed owner', sampleMode: true }));
+  assert.equal(
+    (await request(() => f.getPublishedSite())).name,
+    'Changed owner',
+  );
+  f.sql.exec("UPDATE content SET published=NULL WHERE id='site'");
+  assert.deepEqual(await request(() => f.getPublishedSite()), {});
+  assert.equal(f.calls.length, 3);
+  assert.ok(f.calls.every((query) => !query.startsWith('INSERT')));
+});
+
+await test('identity-only reads seed an empty database but preserve a withdrawn identity', async (t) => {
+  const f = fixture(t, []);
+  assert.equal(
+    (await request(() => f.getPublishedSite())).name,
+    seeds.find((r) => r.id === 'site').data.name,
+  );
+  for (const value of [null, '', 'null']) {
+    f.sql.prepare("UPDATE content SET published=? WHERE id='site'").run(value);
+    f.calls.length = 0;
+    assert.deepEqual(await request(() => f.getPublishedSite()), {});
+    assert.equal(f.calls.length, 1);
+  }
+});

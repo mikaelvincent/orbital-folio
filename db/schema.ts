@@ -48,11 +48,15 @@ export const inquiries = sqliteTable(
   },
   (table) => [index('idx_inquiries_received').on(table.createdAt, table.id)],
 );
-export const rateLimits = sqliteTable('rate_limits', {
-  key: text('key').primaryKey(),
-  count: integer('count').notNull(),
-  expires: integer('expires').notNull(),
-});
+export const rateLimits = sqliteTable(
+  'rate_limits',
+  {
+    key: text('key').primaryKey(),
+    count: integer('count').notNull(),
+    expires: integer('expires').notNull(),
+  },
+  (table) => [index('idx_rate_limits_expires').on(table.expires)],
+);
 export const sessions = sqliteTable('sessions', {
   hash: text('hash').primaryKey(),
   expires: integer('expires').notNull(),

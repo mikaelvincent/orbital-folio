@@ -1,6 +1,16 @@
 import { bindings, database } from '@/lib/content/repository';
 import { adminIdentity } from '@/lib/security';
 
+// GET/HEAD use weak comparison, including validator lists and wildcard matches.
+function matchesEtag(condition: string | null, etag: string) {
+  return (
+    condition === '*' ||
+    (condition?.match(/(?:W\/)?"[^"]*"/g) || []).some(
+      (value) => value.replace(/^W\//, '') === etag,
+    )
+  );
+}
+
 async function serve(
   req: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -24,9 +34,17 @@ async function serve(
     // A private preview response must never seed a shared cache.
     Vary: 'Cookie',
   });
+  const condition = req.headers.get('If-None-Match');
+  const hasRange = req.headers.has('range');
+  const info = head || hasRange ? await bucket.head(id) : undefined;
+  if (info === null) return new Response('Not found', { status: 404 });
+  if (info && matchesEtag(condition, info.httpEtag)) {
+    info.writeHttpMetadata(headers);
+    headers.set('ETag', info.httpEtag);
+    return new Response(null, { status: 304, headers });
+  }
   let range: { offset: number; length: number } | undefined;
-  if (req.headers.has('range')) {
-    const info = await bucket.head(id);
+  if (hasRange) {
     if (!info) return new Response('Not found', { status: 404 });
     const match = /^bytes=(\d*)-(\d*)$/.exec(req.headers.get('range') || '');
     if (match && (match[1] || match[2])) {
@@ -56,12 +74,22 @@ async function serve(
     );
   }
   const object = head
-    ? await bucket.head(id)
-    : await bucket.get(id, range ? { range } : undefined);
+    ? info
+    : await bucket.get(id, {
+        ...(range ? { range } : {}),
+        // Pass only the condition whose failed precondition means 304.
+        ...(condition
+          ? { onlyIf: new Headers({ 'If-None-Match': condition }) }
+          : {}),
+      });
   if (!object) return new Response('Not found', { status: 404 });
   object.writeHttpMetadata(headers);
-  headers.set('Content-Length', String(range?.length ?? object.size));
   headers.set('ETag', object.httpEtag);
+  if (!head && !('body' in object)) {
+    headers.delete('Content-Range');
+    return new Response(null, { status: 304, headers });
+  }
+  headers.set('Content-Length', String(range?.length ?? object.size));
   return new Response('body' in object ? (object as R2ObjectBody).body : null, {
     status: range ? 206 : 200,
     headers,

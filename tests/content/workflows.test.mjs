@@ -622,6 +622,39 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         assert.equal(image.status, 200);
         assert.equal(image.headers.get('content-type'), 'image/png');
         assert.ok((await image.arrayBuffer()).byteLength > 50);
+        const etag = image.headers.get('etag');
+        assert.ok(etag);
+        for (const method of ['GET', 'HEAD']) {
+          for (const validator of [etag, `W/${etag}`, `"old", ${etag}`, '*']) {
+            const cached = await req('/media/' + id, {
+              method,
+              headers: { 'If-None-Match': validator },
+            });
+            assert.equal(cached.status, 304);
+            assert.equal(await cached.text(), '');
+            assert.equal(cached.headers.get('etag'), etag);
+          }
+          const ranged = await req('/media/' + id, {
+            method,
+            headers: { Range: 'bytes=0-15' },
+          });
+          assert.equal(ranged.status, 206);
+          // The dev streaming bridge can omit Content-Length; verify the range
+          // and actual bytes here. The handler fixture checks its length header.
+          assert.match(
+            ranged.headers.get('content-range'),
+            /^bytes 0-15\/\d+$/,
+          );
+          assert.equal(
+            (await ranged.arrayBuffer()).byteLength,
+            method === 'HEAD' ? 0 : 16,
+          );
+        }
+        const changed = await req('/media/' + id, {
+          headers: { 'If-None-Match': '"old"' },
+        });
+        assert.equal(changed.status, 200);
+        assert.ok((await changed.arrayBuffer()).byteLength > 50);
         const p = await record(
           baseline.find((r) => r.kind === 'project' && r.published).id,
         );

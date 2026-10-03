@@ -1,0 +1,1 @@
+CREATE INDEX `idx_rate_limits_expires` ON `rate_limits` (`expires`);

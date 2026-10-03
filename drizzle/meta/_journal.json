@@ -43,6 +43,13 @@
       "when": 1790726400000,
       "tag": "0005_studio_rooms_and_inbox",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1790995753080,
+      "tag": "0006_rate_limit_expiry",
+      "breakpoints": true
     }
   ]
 }

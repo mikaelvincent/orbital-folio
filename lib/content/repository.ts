@@ -82,6 +82,21 @@ const getPreviewPortfolio = cacheForRequest(async () => {
   data.site._preview = true;
   return data;
 });
+// Standalone identity routes need neither collection JSON nor preview drafts.
+export const getPublishedSite = cacheForRequest(async () => {
+  const read = () =>
+    database()
+      .prepare("SELECT published FROM content WHERE id = ? AND kind = 'site'")
+      .bind('site')
+      .first<{ published: string | null }>();
+  let record = await read();
+  if (!record) {
+    await ensureSeed();
+    record = await read();
+  }
+  const site = record?.published ? JSON.parse(record.published) : null;
+  return site ? { ...site, id: 'site' } : {};
+});
 export function getPortfolio(preview = false) {
   // Separate factories: cacheForRequest is keyed by factory, not arguments.
   // Callers must authorize previews before loading them; auth is never cached.

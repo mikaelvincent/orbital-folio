@@ -1,6 +1,6 @@
-import { getPortfolio } from '@/lib/content/repository';
+import { getPublishedSite } from '@/lib/content/repository';
 export async function GET() {
-  const { site } = await getPortfolio();
+  const site = await getPublishedSite();
   return new Response(
     `User-agent: *\n${site.sampleMode ? 'Disallow: /' : 'Allow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /signin-with-chatgpt\nDisallow: /signout-with-chatgpt'}\nSitemap: ${site.domain}/sitemap.xml\n`,
     {
