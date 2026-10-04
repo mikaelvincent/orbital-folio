@@ -41,7 +41,11 @@ tools populate only exact known untouched samples. Relay remains the browsable
 reference for supported project presentation/media features. See the relevant
 [authoring and operations sections](docs/OPERATIONS.md).
 
-Visitors can enter through rooms, doorways or navigation, or use `?view=reading`.
+Roomy homepage visits start Interactive; compact screens, reduced motion,
+reported data saving and direct content links start Reading. Visitors can switch
+views at any time or use `?view=interactive` / `?view=reading`; the selected view
+survives navigation and refresh. See the [entry-view policy](docs/PROJECT-CONTEXT.md#entry-views).
+In Interactive view, visitors enter through rooms, doorways or navigation.
 The bottom-right **Tools** menu opens **Rendering**, **Scene diagnostics**,
 **Earth playback** and **Content studio**. Rendering changes exterior, room and
 ladder brightness, shared room warmth, main/wide beam strengths and widths,

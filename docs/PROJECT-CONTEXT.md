@@ -11,9 +11,8 @@ security and compatibility formats are in [operations](OPERATIONS.md).
 Projects / Case studies sit above About / Contact, joined by side doors and the
 tall left ladder bay. Keep the ship stationary and fit cameras to the shared
 architectural reference. Furniture changes must not independently change room
-scale or camera fit. Very short screens default to Reading view; explicit
-Interactive opt-in must still work at the available dimensions. Resizing or
-zooming an active Interactive view must never switch it to Reading view.
+scale or camera fit. Explicit Interactive opt-in must work at the available
+dimensions, including compact screens; see the entry-view policy below.
 
 Aim for an artistic, futuristic, believable spacecraft. Fixtures need a purpose
 and convincing attachment to the actual curved lining. Favor justified spacing
@@ -156,7 +155,7 @@ framing; resizing preserves zoom. Ordinary wheel and one-finger content scrollin
 remain native, as do browser shortcuts in editable fields, tools and Reading view.
 Reduced motion applies requested zoom immediately.
 
-Direct room URLs start at overview and use normal room entry. Drag release springs
+Explicit Interactive room URLs start at overview and use normal room entry. Drag release springs
 back to hover without discarding velocity; preserve re-grab continuity and click
 suppression. Touch/outside release returns to neutral. Navigation clears stale
 pointer goals. Keep reading view, reduced motion, keyboard/focus and history
@@ -256,12 +255,35 @@ floating tools. Keep native selection inside editable fields and throughout
 Reading view and the studio. Do not show a floating availability message or
 status dot.
 
+### Entry views
+
+An unqualified homepage starts Interactive when the viewport is at least
+768 CSS pixels wide and 480 tall. Compact viewports, reduced-motion preferences
+and browser-reported Save-Data start Reading. Direct non-home links, including
+collections, stories, Contact, Privacy and equivalent private previews, start
+Reading so their content is immediately available. Do not infer capability from
+user agents, touch input, CPU counts or memory estimates.
+
+An explicit `view=interactive` or `view=reading` wins over these defaults;
+the loader's `#room-reader` escape always wins in favor of Reading. Both resolved
+views persist in the URL and scene navigation links, including Interactive
+opt-in on compact screens. This needs no cookie or browser storage. Fresh URLs
+without a view use the defaults again. Never reselect a view because of resize,
+rotation, zoom, virtual keyboards or changing preferences during a visit.
+Reduced-motion changes still pause an active Interactive scene immediately.
+Save-Data is an entry preference, not a renderer prohibition after opt-in.
+Graphics initialization failures or context loss still fall back to Reading.
+
 Interactive loading covers the entire viewport, including identity, navigation,
-tools and preview banner, from the initial page render until the scene is ready.
-Keep the Reading view escape inside the loader during both startup phases.
-Reading view requests render directly without a spacecraft loader, including
-before hydration on a refresh or direct entry. The loader escape and automatic
-reading fallbacks persist `view=reading` so refresh retains that choice.
+tools and preview banner, until the scene is ready. Keep the Reading view escape
+inside the loader during both startup phases. Server-known Reading requests and
+direct content entries render without a spacecraft loader. Automatic home entry
+uses the same compact/reduced-motion media rules to hide its boot loader before
+hydration; explicit Interactive requests keep the loader. Browser-only Save-Data
+is resolved on hydration before importing the 3D runtime. No-JavaScript entries
+retain their server-rendered semantic content. View switches preserve the current
+destination and in-memory contact draft; view parameters never enter canonical
+metadata.
 
 Semantic Reading view is predominantly dark: a deep carbon canvas, carbon panels,
 ivory text and restrained bronze details from the spacecraft palette, including

@@ -12,7 +12,7 @@ import {
 } from '../../features/spacecraft/navigation/flight.ts';
 import { pageMetadata } from '../../lib/metadata.ts';
 
-test('Interactive Back steps through each application to its room and overview', () => {
+await test('Interactive Back steps through each application to its room and overview', () => {
   const routes = [
     ['/projects/relay', '/projects?open=1', '/projects', '/'],
     [
@@ -53,7 +53,7 @@ test('Interactive Back steps through each application to its room and overview',
   assert.deepEqual(parentDestination({ section: 'home' }), { section: 'home' });
 });
 
-test('Privacy URLs keep their identity while targeting the open Contact monitor', () => {
+await test('Privacy URLs keep their identity while targeting the open Contact monitor', () => {
   for (const preview of [false, true]) {
     for (const reading of [false, true]) {
       const site = { _preview: preview };
@@ -91,7 +91,7 @@ test('Privacy URLs keep their identity while targeting the open Contact monitor'
     assert.equal(applicationDestination(destination), destination);
 });
 
-test('Flight destinations preserve public and private readable URLs', () => {
+await test('Flight destinations preserve public and private readable URLs', () => {
   const url = (path) => new URL(path, 'https://portfolio.example');
   assert.equal(destinationFromURL(url('/')).section, 'home');
   assert.equal(destinationFromURL(url('/projects/relay')).slug, 'relay');
@@ -126,7 +126,29 @@ test('Flight destinations preserve public and private readable URLs', () => {
   );
 });
 
-test('notebook section URLs round-trip printed pages, reading mode and private previews', () => {
+await test('both view choices survive destination navigation and refresh without losing application state', () => {
+  for (const preview of [false, true])
+    for (const view of ['interactive', 'reading'])
+      for (const destination of [
+        { section: 'home' },
+        { section: 'projects', slug: 'relay' },
+        { section: 'experience', slug: 'recovery', category: 'systems' },
+        { section: 'about', slug: 'story', page: 2 },
+        { section: 'contact', open: true },
+        { section: 'privacy' },
+      ]) {
+        const url = new URL(
+          destinationHref(destination, { _preview: preview }, view),
+          'https://portfolio.example',
+        );
+        assert.equal(url.searchParams.get('view'), view);
+        const restored = destinationFromURL(url, preview);
+        for (const [key, value] of Object.entries(destination))
+          assert.equal(restored[key], value, `${url}: ${key}`);
+      }
+});
+
+await test('notebook section URLs round-trip printed pages, reading mode and private previews', () => {
   const url = (path) => new URL(path, 'https://portfolio.example');
   const section = { section: 'about', slug: 'university-life', page: 2 };
   for (const preview of [false, true]) {
@@ -178,7 +200,7 @@ test('notebook section URLs round-trip printed pages, reading mode and private p
   );
 });
 
-test('Fixed flights ease continuously and pointer translations stay bounded', () => {
+await test('Fixed flights ease continuously and pointer translations stay bounded', () => {
   let previous = 0;
   for (let step = 0; step <= 100; step++) {
     const value = flightEase(step / 100);
@@ -192,7 +214,7 @@ test('Fixed flights ease continuously and pointer translations stay bounded', ()
   assert.deepEqual(cursorTranslation(1, 1, true), [0, 0]);
 });
 
-test('In-place navigation and server rendering share editable metadata', () => {
+await test('In-place navigation and server rendering share editable metadata', () => {
   const data = {
     site: {
       name: 'Sample Owner',
@@ -220,7 +242,7 @@ test('In-place navigation and server rendering share editable metadata', () => {
 });
 
 // Refresh rates must produce the same damped pose over the same real duration.
-test('Cursor rotation stays bounded and damping is independent of refresh rate', () => {
+await test('Cursor rotation stays bounded and damping is independent of refresh rate', () => {
   assert.deepEqual(cursorRotation(999, -999, false), [-0.025, 0.045]);
   assert.deepEqual(cursorRotation(1, 1, true), [0, 0]);
   const simulate = (hz) => {
@@ -236,7 +258,7 @@ test('Cursor rotation stays bounded and damping is independent of refresh rate',
   );
 });
 
-test('Case study routes retain category and resolve preview IDs only in the selected collection', () => {
+await test('Case study routes retain category and resolve preview IDs only in the selected collection', () => {
   const url = (path) => new URL(path, 'https://portfolio.example');
   const projects = [{ id: 'shared', slug: 'project-story' }];
   const studies = [{ id: 'shared', slug: 'case-story' }];

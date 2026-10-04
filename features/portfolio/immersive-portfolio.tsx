@@ -13,7 +13,14 @@ import {
   ProjectLibraryWindow,
   type ProjectFilter,
 } from './project-library-window';
-import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronUp, Home, Orbit } from 'lucide-react';
+import {
+  COMPACT_VIEW_QUERY,
+  REDUCED_MOTION_QUERY,
+  requestedPortfolioView,
+  resolvePortfolioView,
+  type PortfolioView,
+} from './view-policy';
 import type { Portfolio } from '@/lib/content/types';
 import { projectCategoryCount } from '@/lib/content/project-content';
 import { CaseStudyLibraryWindow } from './case-study-library-window';
@@ -55,6 +62,7 @@ export function ImmersivePortfolio({
   initialSection,
   initialSlug,
   initialReading = false,
+  automaticView = false,
   preview,
   children,
   sceneAudit,
@@ -63,6 +71,7 @@ export function ImmersivePortfolio({
   initialSection: string;
   initialSlug?: string;
   initialReading?: boolean;
+  automaticView?: boolean;
   preview: boolean;
   children: React.ReactNode;
   /** Explicit local performance fixtures only; absent in normal routes. */
@@ -86,6 +95,7 @@ export function ImmersivePortfolio({
     useState<EarthPlaybackController | null>(null);
   // The server and hydration must agree before either can paint a boot loader.
   const [reading, setReading] = useState(initialReading);
+  const viewInitialized = useRef(false);
   const [selectedChapter, setNotebookChapter] = useState(0);
   const notebookSection =
     destination.section === 'about'
@@ -211,8 +221,17 @@ export function ImmersivePortfolio({
       ? data.experience.find((entry) => entry.slug === destination.slug)
       : undefined;
   const hrefFor = useCallback(
-    (d: Destination) => destinationHref(d, s, reading),
-    [s, reading],
+    (d: Destination) =>
+      destinationHref(
+        d,
+        s,
+        !enhanced && automaticView && !reading
+          ? false
+          : reading
+            ? 'reading'
+            : 'interactive',
+      ),
+    [s, reading, enhanced, automaticView],
   );
   const parseURL = useCallback(
     (url: URL) =>
@@ -327,19 +346,26 @@ export function ImmersivePortfolio({
   ]);
 
   useEffect(() => {
-    setEnhanced(true);
-    setDiagnosticsEnabled(
-      new URLSearchParams(location.search).get('perf') === '1',
-    );
-    const url = new URL(location.href);
-    const parsed = parseURL(url);
-    setDestination(parsed || { section: initialSection, slug: initialSlug });
-    setReading(
-      new URLSearchParams(location.search).get('view') === 'reading' ||
-        location.hash === '#room-reader' ||
-        (url.searchParams.get('view') !== 'interactive' && innerHeight < 480),
-    );
-    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const media = matchMedia(REDUCED_MOTION_QUERY);
+    if (!viewInitialized.current) {
+      viewInitialized.current = true;
+      const url = new URL(location.href);
+      const parsed = parseURL(url);
+      setDestination(parsed || { section: initialSection, slug: initialSlug });
+      setReading(
+        resolvePortfolioView({
+          requested: requestedPortfolioView(url.searchParams, url.hash),
+          section: parsed?.section || initialSection,
+          compact: matchMedia(COMPACT_VIEW_QUERY).matches,
+          reducedMotion: media.matches,
+          saveData: (
+            navigator as Navigator & { connection?: { saveData?: boolean } }
+          ).connection?.saveData,
+        }) === 'reading',
+      );
+      setDiagnosticsEnabled(url.searchParams.get('perf') === '1');
+      setEnhanced(true);
+    }
     setReduced(media.matches);
     const change = () => setReduced(media.matches);
     media.addEventListener('change', change);
@@ -356,9 +382,10 @@ export function ImmersivePortfolio({
       // The browser already changed the URL. Keep this scene alive rather than fetching another page tree.
       event.stopImmediatePropagation();
       go(next, false);
-      const nextReading =
-        url.searchParams.get('view') === 'reading' ||
-        url.hash === '#room-reader';
+      // App history carries the selected view. An older unqualified entry keeps
+      // the active view instead of re-running device defaults mid-visit.
+      const requested = requestedPortfolioView(url.searchParams, url.hash);
+      const nextReading = requested ? requested === 'reading' : reading;
       if (nextReading !== reading) {
         setReading(nextReading);
         setArrived(false);
@@ -397,6 +424,17 @@ export function ImmersivePortfolio({
     };
   }, [go, parseURL, navigationOpen, immersive, reading]);
 
+  const selectView = (view: PortfolioView) => {
+    const url = new URL(location.href);
+    url.searchParams.set('view', view);
+    if (url.hash === '#room-reader') url.hash = '';
+    window.history.replaceState(window.history.state, '', url);
+    setReading(view === 'reading');
+    setNavigationOpen(false);
+    setArrived(false);
+    setTravel(false);
+  };
+
   useEffect(() => {
     if (!navigationOpen) return;
     const outside = (event: Event) => {
@@ -414,6 +452,13 @@ export function ImmersivePortfolio({
 
   useEffect(() => {
     if (!enhanced) return;
+    // Both modes survive refresh, sharing and browser history without storage.
+    const url = new URL(location.href);
+    const view = reading ? 'reading' : 'interactive';
+    if (url.searchParams.get('view') !== view) {
+      url.searchParams.set('view', view);
+      window.history.replaceState(window.history.state, '', url);
+    }
     const meta = pageMetadata(
       data,
       destination.section,
@@ -455,12 +500,6 @@ export function ImmersivePortfolio({
     }
     reader.current?.scrollTo({ top: 0, behavior: 'instant' });
     if (reading) {
-      // Escape links and automatic fallbacks must also survive a server refresh.
-      const url = new URL(location.href);
-      if (url.searchParams.get('view') !== 'reading') {
-        url.searchParams.set('view', 'reading');
-        window.history.replaceState(window.history.state, '', url);
-      }
       setTravel(false);
       setArrived(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -535,6 +574,11 @@ export function ImmersivePortfolio({
     if (anchor.closest('[data-project-interface], [data-case-study-interface]'))
       return;
     const raw = anchor.getAttribute('href') || '';
+    if (raw === '#room-reader') {
+      event.preventDefault();
+      selectView('reading');
+      return;
+    }
     if (raw.startsWith('#')) return;
     const url = new URL(anchor.href, location.href);
     if (url.origin !== location.origin) return;
@@ -595,7 +639,9 @@ export function ImmersivePortfolio({
       style={{ '--accent': paletteAccent(s.accent) } as React.CSSProperties}
       onClickCapture={capture}
     >
-      {!enhanced && !reading && <SceneLoader site={s} boot />}
+      {!enhanced && !reading && (
+        <SceneLoader site={s} boot automatic={automaticView} />
+      )}
       <noscript>
         <style>{`.boot-loader { display: none !important; }`}</style>
       </noscript>
@@ -941,22 +987,15 @@ export function ImmersivePortfolio({
           <button
             className="flight-view-toggle"
             type="button"
-            onClick={() => {
-              const url = new URL(location.href);
-              if (reading) {
-                url.searchParams.delete('view');
-                if (url.hash === '#room-reader') url.hash = '';
-              } else url.searchParams.set('view', 'reading');
-              window.history.replaceState(window.history.state, '', url);
-              setReading(!reading);
-              setNavigationOpen(false);
-              setArrived(false);
-            }}
-            aria-pressed={reading}
+            onClick={() => selectView(reading ? 'interactive' : 'reading')}
             aria-label={reading ? s.sceneLabel : s.readLabel}
             title={reading ? s.sceneLabel : s.readLabel}
           >
-            <BookOpen size={16} />
+            {reading ? (
+              <Orbit size={16} aria-hidden="true" />
+            ) : (
+              <BookOpen size={16} aria-hidden="true" />
+            )}
             <span>{reading ? s.sceneLabel : s.readLabel}</span>
           </button>
         </div>

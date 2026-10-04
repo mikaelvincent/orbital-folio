@@ -3,6 +3,7 @@ import {
   type CaseStudyFilter,
 } from '../../../lib/content/case-study-content.ts';
 import { pathFor } from '../../../lib/paths.ts';
+import type { PortfolioView } from '../../portfolio/view-policy.ts';
 
 // Keep the persisted experience key while its rendered room is Case studies.
 export const rooms = ['projects', 'experience', 'about', 'contact'] as const;
@@ -105,7 +106,7 @@ export function destinationFromURL(
 export function destinationHref(
   destination: Destination,
   site: Record<string, any>,
-  reading = false,
+  view: boolean | PortfolioView = false,
 ) {
   const { section, slug, page, open, category } = destination;
   const path = pathFor(
@@ -118,7 +119,7 @@ export function destinationHref(
     query.set('page', String(page * 2 + 1));
   if (section === 'experience' && category && category !== 'all')
     query.set('category', category);
-  if (reading) query.set('view', 'reading');
+  if (view) query.set('view', view === true ? 'reading' : view);
   return path + (query.size ? (path.includes('?') ? '&' : '?') + query : '');
 }
 export function flightEase(t: number) {

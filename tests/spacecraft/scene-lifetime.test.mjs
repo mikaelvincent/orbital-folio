@@ -127,7 +127,8 @@ for (const failAt of ['context', 'pmrem', 'room', 'environment', 'model']) {
     runInNewContext(source, {
       module: loaded,
       console: { error() {} },
-      navigator: { hardwareConcurrency: 8 },
+      // Once enabled by the visitor, Save-Data must not veto the renderer.
+      navigator: { hardwareConcurrency: 8, connection: { saveData: true } },
       devicePixelRatio: 1,
       crypto,
       document: { createElement: () => new Element() },
@@ -188,6 +189,10 @@ for (const failAt of ['context', 'pmrem', 'room', 'environment', 'model']) {
     });
     await failed;
     unmount();
+    assert.ok(
+      made.includes('renderer'),
+      'explicit opt-in reaches renderer initialization even with Save-Data',
+    );
     assert.deepEqual(
       [...disposed].sort((a, b) => a.localeCompare(b)),
       [...made].sort((a, b) => a.localeCompare(b)),

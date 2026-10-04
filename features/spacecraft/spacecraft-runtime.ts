@@ -177,13 +177,6 @@ export function mountSpacecraftScene({
       latest.current.onUnavailable();
     }
   };
-  if (
-    (navigator as Navigator & { connection?: { saveData?: boolean } })
-      .connection?.saveData
-  ) {
-    unavailable();
-    return;
-  }
   setState('loading');
   // Development-only delayed-chunk gate for verifying the real loading/escape UI.
   const loadGate =

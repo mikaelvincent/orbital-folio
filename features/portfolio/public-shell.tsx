@@ -2,6 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 import type { Portfolio } from '@/lib/content/types';
 import { ImmersivePortfolio } from './immersive-portfolio';
+import { requestedPortfolioView, resolvePortfolioView } from './view-policy';
 export function PublicShell({
   data,
   active,
@@ -20,12 +21,17 @@ export function PublicShell({
   notebookSlug?: string;
 }) {
   const searchParams = useSearchParams();
+  const requestedView = requestedPortfolioView(searchParams);
   return (
     <ImmersivePortfolio
       data={data}
       initialSection={active}
       initialSlug={notebookSlug || caseStudySlug || projectSlug}
-      initialReading={searchParams.get('view') === 'reading'}
+      initialReading={
+        resolvePortfolioView({ requested: requestedView, section: active }) ===
+        'reading'
+      }
+      automaticView={!requestedView}
       preview={preview}
     >
       {children}
